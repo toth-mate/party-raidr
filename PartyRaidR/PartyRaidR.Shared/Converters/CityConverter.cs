@@ -1,10 +1,11 @@
 ﻿using PartyRaidR.Shared.Dtos;
+using PartyRaidR.Shared.Models;
 
 namespace PartyRaidR.Shared.Converters
 {
     public static class CityConverter
     {
-        public static CityDto ConvertToCityDto(this CityDto city) =>
+        public static CityDto ConvertToCityDto(this City city) =>
             new CityDto()
             {
                 Id = city.Id,
@@ -14,8 +15,8 @@ namespace PartyRaidR.Shared.Converters
                 Country = city.Country
             };
 
-        public static CityDto ConvertToCity(this CityDto cityDto) =>
-            new CityDto()
+        public static City ConvertToCity(this CityDto cityDto) =>
+            new City()
             {
                 Id = cityDto.Id,
                 Name = cityDto.Name,

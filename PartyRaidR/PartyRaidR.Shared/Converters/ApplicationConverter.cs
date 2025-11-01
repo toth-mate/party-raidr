@@ -15,7 +15,7 @@ namespace PartyRaidR.Shared.Converters
                 Status = application.Status
             };
 
-        public static Application ConvertToApplication(ApplicationDto applicationDto) =>
+        public static Application ConvertToApplication(this ApplicationDto applicationDto) =>
             new Application()
             {
                 Id = applicationDto.Id,
