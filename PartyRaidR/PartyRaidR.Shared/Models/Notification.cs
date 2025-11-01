@@ -17,5 +17,8 @@
         public NotificationType Type { get; set; }
         public DateTime DateCreated { get; set; }
         public bool IsRead { get; set; }
+
+        public override string ToString() =>
+            $"{Title} | {Text}";
     }
 }

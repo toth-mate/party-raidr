@@ -42,5 +42,8 @@
         public string GpsLattitude { get; set; }
         public string GpsLongitude { get; set; }
         public string Description { get; set; }
+
+        public override string ToString() =>
+            $"{Name} | {Category}";
     }
 }

@@ -40,5 +40,8 @@
         public DateTime RegisterDate { get; set; }
         public UserRole Role { get; set; }
         public string CityId { get; set; }
+
+        public override string ToString() =>
+            $"{Username}";
     }
 }

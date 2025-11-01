@@ -53,5 +53,8 @@
         public int Room { get; set; }
         public decimal TicketPrice { get; set; }
         public DateTime DateCreated { get; set; }
+
+        public override string ToString() =>
+            $"{Title}, {Room}";
     }
 }
