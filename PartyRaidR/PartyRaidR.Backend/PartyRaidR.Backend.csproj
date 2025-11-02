@@ -27,4 +27,8 @@
     <Folder Include="Repos\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PartyRaidR.Shared\PartyRaidR.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
