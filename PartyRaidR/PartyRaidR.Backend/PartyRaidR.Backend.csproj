@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Extensions\" />
     <Folder Include="Context\" />
     <Folder Include="Services\" />
     <Folder Include="Repos\" />
