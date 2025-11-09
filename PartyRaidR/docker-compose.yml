@@ -16,7 +16,7 @@ services:
             - ConnectionStrings__DefaultConnection=Server=db;Port=3306;Database=partyraidrdb;Uid=partyuser;Pwd=password;
         depends_on:
             db:
-                condition: service_healthy
+                condition: service_started
     db:
         image: mysql:8.0
         volumes:
