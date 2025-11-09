@@ -1,0 +1,36 @@
+services:
+    backend:
+        build:
+            context: .
+            dockerfile: PartyRaidR.Backend/Dockerfile
+        ports:
+            - "8080:8080"
+        volumes:
+            - ./PartyRaidR.Backend:/app
+            - ./PartyRaidR.Shared:/PartyRaidR.Shared
+            - ~nuget/packages:/root/.nuget/packages
+        user: root
+        command: dotnet watch run --urls http://0.0.0.0:8080
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ConnectionStrings__DefaultConnection=Server=db;Port=3306;Database=partyraidrdb;Uid=partyuser;Pwd=password;
+        depends_on:
+            db:
+                condition: service_healthy
+    db:
+        image: mysql:8.0
+        volumes:
+            - db-data:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=password
+            - MYSQL_DATABASE=partyraidrdb
+            - MYSQL_USER=partyuser
+            - MYSQL_PASSWORD=password
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p", "password"]
+            timeout: 20s
+            retries: 10
+volumes:
+    db-data:
