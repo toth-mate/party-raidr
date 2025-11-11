@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PartyRaidR.Backend.Context;
+using PartyRaidR.Backend.Repos;
+using PartyRaidR.Backend.Repos.Promises;
 
 namespace PartyRaidR.Backend.Extensions
 {
@@ -10,6 +12,7 @@ namespace PartyRaidR.Backend.Extensions
             services.ConfigureOpenApi();
             services.ConfigureCors();
             services.AddAppDbContext(connectionString);
+            services.ConfigureRepositories();
         }
 
         private static void ConfigureCors(this IServiceCollection services)
@@ -40,6 +43,16 @@ namespace PartyRaidR.Backend.Extensions
                     mySqlOptions => mySqlOptions.EnableRetryOnFailure()
                 )
             );
+        }
+
+        private static void ConfigureRepositories(this IServiceCollection services)
+        {
+            services.AddScoped<IApplicationRepo, ApplicationRepo>();
+            services.AddScoped<ICityRepo, CityRepo>();
+            services.AddScoped<IEventRepo, EventRepo>();
+            services.AddScoped<INotificationRepo, NotificationRepo>();
+            services.AddScoped<IPlaceRepo, PlaceRepo>();
+            services.AddScoped<IUserRepo, UserRepo>();
         }
     }
 }
