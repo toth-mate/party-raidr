@@ -1,16 +1,16 @@
 ﻿using PartyRaidR.Shared.Models;
 using Microsoft.EntityFrameworkCore;
+using PartyRaidR.Backend.Context;
 
 namespace PartyRaidR.Backend.Repos.Base
 {
-    public class RepositoryBase<TDbContext, TEntity> : IRepositoryBase<TEntity>
-        where TDbContext : DbContext
+    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
         where TEntity : class, IDbEntity<TEntity>, new()
     {
-        private readonly TDbContext _context;
+        private readonly AppDbContext _context;
         protected readonly DbSet<TEntity>? _dbSet;
 
-        public RepositoryBase(TDbContext? context)
+        public RepositoryBase(AppDbContext? context)
         {
             ArgumentNullException.ThrowIfNull(context, $"Table '{nameof(context)}' cannot be accessed.");
             _context = context;
