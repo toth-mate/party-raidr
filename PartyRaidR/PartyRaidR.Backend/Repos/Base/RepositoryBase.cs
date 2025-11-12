@@ -1,6 +1,7 @@
 ﻿using PartyRaidR.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 using PartyRaidR.Backend.Context;
+using System.Linq.Expressions;
 
 namespace PartyRaidR.Backend.Repos.Base
 {
@@ -36,5 +37,10 @@ namespace PartyRaidR.Backend.Repos.Base
 
         public async Task<int> SaveChangesAsync() =>
             await _context.SaveChangesAsync();
+
+        public async Task<IEnumerable<TEntity>> FindByConditionAsync(Expression<Func<TEntity, bool>> condition) =>
+            await _dbSet!
+            .Where(condition)
+            .ToListAsync();
     }
 }
