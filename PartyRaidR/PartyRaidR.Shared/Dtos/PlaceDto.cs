@@ -1,4 +1,5 @@
-﻿using PartyRaidR.Shared.Models;
+﻿using NetTopologySuite.Geometries;
+using PartyRaidR.Shared.Models;
 
 namespace PartyRaidR.Shared.Dtos
 {
@@ -9,8 +10,7 @@ namespace PartyRaidR.Shared.Dtos
         public string Address { get; set; } = string.Empty;
         public string CityId { get; set; } = string.Empty;
         public PlaceCategory Category { get; set; } = PlaceCategory.None;
-        public string GpsLattitude { get; set; } = string.Empty;
-        public string GpsLongitude { get; set; } = string.Empty;
+        public Point Location { get; set; } = new Point(new Coordinate());
         public string Description { get; set; } = string.Empty;
     }
 }

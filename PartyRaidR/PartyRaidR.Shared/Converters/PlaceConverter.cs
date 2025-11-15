@@ -13,8 +13,7 @@ namespace PartyRaidR.Shared.Converters
                 Address = place.Address,
                 CityId = place.CityId,
                 Category = place.Category,
-                GpsLattitude = place.GpsLattitude,
-                GpsLongitude = place.GpsLongitude,
+                Location = place.Location,
                 Description = place.Description
             };
 
@@ -26,8 +25,7 @@ namespace PartyRaidR.Shared.Converters
                 Address = placeDto.Address,
                 CityId = placeDto.CityId,
                 Category = placeDto.Category,
-                GpsLattitude = placeDto.GpsLattitude,
-                GpsLongitude= placeDto.GpsLongitude,
+                Location = placeDto.Location,
                 Description = placeDto.Description
             };
     }
