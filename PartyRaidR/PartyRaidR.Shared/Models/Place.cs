@@ -1,4 +1,6 @@
-﻿namespace PartyRaidR.Shared.Models
+﻿using NetTopologySuite.Geometries;
+
+namespace PartyRaidR.Shared.Models
 {
     public enum PlaceCategory
     {
@@ -17,20 +19,18 @@
             Address = string.Empty;
             CityId = string.Empty;
             Category = PlaceCategory.None;
-            GpsLattitude = string.Empty;
-            GpsLongitude = string.Empty;
+            Location = new Point(0, 0);
             Description = string.Empty;
         }
 
-        public Place(Guid id, string name, string address, string cityId, PlaceCategory category, string gpsLattitude, string gpsLongitude, string description)
+        public Place(Guid id, string name, string address, string cityId, PlaceCategory category, Point location, string description)
         {
             Id = id.ToString();
             Name = name;
             Address = address;
             CityId = cityId;
             Category = category;
-            GpsLattitude = gpsLattitude;
-            GpsLongitude = gpsLongitude;
+            Location = location;
             Description = description;
         }
 
@@ -39,8 +39,7 @@
         public string Address { get; set; }
         public string CityId { get; set; }
         public PlaceCategory Category { get; set; }
-        public string GpsLattitude { get; set; }
-        public string GpsLongitude { get; set; }
+        public Point Location { get; set; }
         public string Description { get; set; }
 
         public override string ToString() =>

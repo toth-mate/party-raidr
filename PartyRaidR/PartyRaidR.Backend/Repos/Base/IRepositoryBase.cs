@@ -1,4 +1,5 @@
 ﻿using PartyRaidR.Shared.Models;
+using System.Linq.Expressions;
 
 namespace PartyRaidR.Backend.Repos.Base
 {
@@ -6,6 +7,7 @@ namespace PartyRaidR.Backend.Repos.Base
     {
         Task<TEntity> GetByIdAsync(string id);
         Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<IEnumerable<TEntity>> FindByConditionAsync(Expression<Func<TEntity, bool>> condition);
         Task InsertAsync(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
