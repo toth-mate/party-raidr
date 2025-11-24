@@ -34,7 +34,7 @@ namespace PartyRaidR.Backend.Services
             TModel entity = _assembler.ConvertToModel(dto);
 
             if (entity.HasId)
-                throw new Exception($"There is already a(n) {nameof(dto)} with the given ID.");
+                throw new Exception($"There is already a(n) {nameof(TModel)} with the given ID.");
 
             // Generate a new ID for new entities
             entity.Id = Guid.CreateVersion7().ToString();
