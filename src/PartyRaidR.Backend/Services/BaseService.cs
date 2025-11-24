@@ -19,63 +19,104 @@ namespace PartyRaidR.Backend.Services
 
         public virtual async Task<TDto> GetByIdAsync(string id)
         {
-            TModel model = await _repo.GetByIdAsync(id);
-            return _assembler.ConvertToDto(model);
+            try
+            {
+                TModel model = await _repo.GetByIdAsync(id);
+                return _assembler.ConvertToDto(model);
+            }
+            catch(Exception e)
+            {
+            }
+
+            return new TDto();
         }
 
         public virtual async Task<IEnumerable<TDto>> GetAllAsync()
         {
-            IEnumerable<TModel> models = await _repo.GetAllAsync();
-            return models.Select(_assembler.ConvertToDto);
+            try
+            {
+                IEnumerable<TModel> models = await _repo.GetAllAsync();
+                return models.Select(_assembler.ConvertToDto);
+            }
+            catch(Exception e)
+            {
+            }
+
+            return [];
         }
 
         public virtual async Task<TDto> AddAsync(TDto dto)
         {
             TModel entity = _assembler.ConvertToModel(dto);
 
-            if (entity.HasId)
-                throw new Exception($"There is already a(n) {nameof(TModel)} with the given ID.");
+            try
+            {
+                if (entity.HasId)
+                    throw new Exception($"There is already a(n) {nameof(TModel)} with the given ID.");
 
-            // Generate a new ID for new entities
-            entity.Id = Guid.CreateVersion7().ToString();
+                // Generate a new ID for new entities
+                entity.Id = Guid.CreateVersion7().ToString();
 
-            await _repo.InsertAsync(entity);
+                await _repo.InsertAsync(entity);
 
-            await _repo.SaveChangesAsync();
+                await _repo.SaveChangesAsync();
 
-            return _assembler.ConvertToDto(entity);
+                return _assembler.ConvertToDto(entity);
+            }
+            catch(Exception e)
+            {
+            }
+
+            return new TDto();
+            
         }
 
         public virtual async Task<TDto> UpdateAsync(TDto dto)
         {
             TModel model = _assembler.ConvertToModel(dto);
 
-            TModel entity = await _repo.GetByIdAsync(model.Id);
+            try
+            {
+                TModel entity = await _repo.GetByIdAsync(model.Id);
 
-            if (entity == default)
-                throw new KeyNotFoundException($"Could not found a(n) {nameof(TModel)} with the given ID.");
+                if (entity == default)
+                    throw new KeyNotFoundException($"Could not found a(n) {nameof(TModel)} with the given ID.");
 
-            _repo.UpdateAsync(entity);
+                _repo.UpdateAsync(entity);
 
-            await _repo.SaveChangesAsync();
+                await _repo.SaveChangesAsync();
 
-            return _assembler.ConvertToDto(entity);
+                return _assembler.ConvertToDto(entity);
+            }
+            catch(Exception e)
+            {
+            }
+
+            return new TDto();
         }
 
         public virtual async Task<TDto> DeleteAsync(TDto dto)
         {
             TModel model = _assembler.ConvertToModel(dto);
 
-            TModel entity = await _repo.GetByIdAsync(model.Id);
+            try
+            {
+                TModel entity = await _repo.GetByIdAsync(model.Id);
 
-            if (entity == default)
-                throw new KeyNotFoundException($"Could not found a(n) {nameof(TModel)} with the given ID.");
+                if (entity == default)
+                    throw new KeyNotFoundException($"Could not found a(n) {nameof(TModel)} with the given ID.");
 
-            _repo.DeleteAsync(entity);
+                _repo.DeleteAsync(entity);
 
-            await _repo.SaveChangesAsync();
+                await _repo.SaveChangesAsync();
 
-            return _assembler.ConvertToDto(entity);
+                return _assembler.ConvertToDto(entity);
+            }
+            catch(Exception e)
+            {
+            }
+
+            return new TDto();
         }
     }
 }
