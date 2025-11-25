@@ -24,7 +24,7 @@ namespace PartyRaidR.Backend.Services
                 TModel model = await _repo.GetByIdAsync(id);
                 return _assembler.ConvertToDto(model);
             }
-            catch(Exception e)
+            catch(Exception)
             {
             }
 
@@ -38,7 +38,7 @@ namespace PartyRaidR.Backend.Services
                 IEnumerable<TModel> models = await _repo.GetAllAsync();
                 return models.Select(_assembler.ConvertToDto);
             }
-            catch(Exception e)
+            catch(Exception)
             {
             }
 
@@ -63,7 +63,7 @@ namespace PartyRaidR.Backend.Services
 
                 return _assembler.ConvertToDto(entity);
             }
-            catch(Exception e)
+            catch(Exception)
             {
             }
 
@@ -88,7 +88,7 @@ namespace PartyRaidR.Backend.Services
 
                 return _assembler.ConvertToDto(entity);
             }
-            catch(Exception e)
+            catch (Exception)
             {
             }
 
@@ -110,7 +110,7 @@ namespace PartyRaidR.Backend.Services
 
                 return _assembler.ConvertToDto(entity);
             }
-            catch(Exception e)
+            catch (Exception)
             {
             }
 
