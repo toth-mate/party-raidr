@@ -4,7 +4,7 @@ using PartyRaidR.Shared.Models;
 
 namespace PartyRaidR.Backend.Services
 {
-    public class BaseService<TModel, TDto>
+    public class BaseService<TModel, TDto> : IBaseService<TModel, TDto>
         where TModel : class, IDbEntity<TModel>, new()
         where TDto: class, new()
     {
@@ -95,13 +95,11 @@ namespace PartyRaidR.Backend.Services
             return new TDto();
         }
 
-        public virtual async Task<TDto> DeleteAsync(TDto dto)
+        public virtual async Task<TDto> DeleteAsync(string id)
         {
-            TModel model = _assembler.ConvertToModel(dto);
-
             try
             {
-                TModel entity = await _repo.GetByIdAsync(model.Id);
+                TModel entity = await _repo.GetByIdAsync(id);
 
                 if (entity == default)
                     throw new KeyNotFoundException($"Could not found a(n) {nameof(TModel)} with the given ID.");
