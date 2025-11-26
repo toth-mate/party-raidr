@@ -1,4 +1,5 @@
-﻿using PartyRaidR.Backend.Repos.Base;
+﻿using PartyRaidR.Backend.Exceptions;
+using PartyRaidR.Backend.Repos.Base;
 using PartyRaidR.Shared.Assemblers;
 using PartyRaidR.Shared.Models;
 
