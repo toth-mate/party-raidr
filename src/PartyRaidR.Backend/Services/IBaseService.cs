@@ -1,4 +1,5 @@
 ﻿using PartyRaidR.Shared.Models;
+using PartyRaidR.Shared.Models.Responses;
 
 namespace PartyRaidR.Backend.Services
 {
@@ -6,10 +7,10 @@ namespace PartyRaidR.Backend.Services
         where TModel : class, IDbEntity<TModel>, new()
         where TDto: class
     {
-        Task<TDto> GetByIdAsync(string id);
-        Task<IEnumerable<TDto>> GetAllAsync();
-        Task<TDto> AddAsync(TDto dto);
-        Task<TDto> UpdateAsync(TDto dto);
-        Task DeleteAsync(string id);
+        Task<ServiceResponse<TDto>> GetByIdAsync(string id);
+        Task<ServiceResponse<IEnumerable<TDto>>> GetAllAsync();
+        Task<ServiceResponse<TDto>> AddAsync(TDto dto);
+        Task<ServiceResponse<TDto>> UpdateAsync(TDto dto);
+        Task<ServiceResponse<TDto>> DeleteAsync(string id);
     }
 }
