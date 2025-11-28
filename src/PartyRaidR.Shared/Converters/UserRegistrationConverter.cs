@@ -15,7 +15,7 @@ namespace PartyRaidR.Shared.Converters
                 RegisterDate = user.RegisterDate,
                 Role = user.Role,
                 CityId = user.CityId,
-                PasswordHash = user.PasswordHash
+                Password = user.PasswordHash
             };
 
         public static User ConvertToUser(this UserRegistrationDto userRegistrationDto) =>
@@ -28,7 +28,7 @@ namespace PartyRaidR.Shared.Converters
                 RegisterDate = userRegistrationDto.RegisterDate,
                 Role = userRegistrationDto.Role,
                 CityId = userRegistrationDto.CityId,
-                PasswordHash = userRegistrationDto.PasswordHash
+                PasswordHash = userRegistrationDto.Password
             };
     }
 }
