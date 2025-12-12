@@ -1,5 +1,4 @@
-﻿using PartyRaidR.Backend.Repos;
-using PartyRaidR.Backend.Repos.Promises;
+﻿using PartyRaidR.Backend.Repos.Promises;
 using PartyRaidR.Backend.Services.Promises;
 using PartyRaidR.Shared.Assemblers;
 using PartyRaidR.Shared.Dtos;
@@ -8,6 +7,7 @@ using PartyRaidR.Shared.Models;
 using PartyRaidR.Shared.Models.Responses;
 using PartyRaidR.Backend.Exceptions;
 using System.Text.RegularExpressions;
+using BCrypt.Net;
 
 namespace PartyRaidR.Backend.Services
 {
@@ -38,7 +38,9 @@ namespace PartyRaidR.Backend.Services
                 if (isUserValid)
                 {
                     User newUser = _userRegistrationAssembler.ConvertToModel(userRequest);
-                    // Create password hash
+
+                    string passwordHash = BCrypt.Net.BCrypt.HashPassword(userRequest.Password);
+                    newUser.PasswordHash = passwordHash;
 
                     await _userRepo.InsertAsync(newUser);
 
