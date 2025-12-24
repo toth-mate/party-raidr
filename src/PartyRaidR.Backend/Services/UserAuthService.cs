@@ -24,9 +24,26 @@ namespace PartyRaidR.Backend.Services
             _userRegistrationAssembler = new UserRegistrationAssembler();
         }
 
-        public async Task<ServiceResponse<string>> LoginAsync(UserLoginDto user)
+        public async Task<ServiceResponse<string>> LoginAsync(UserLoginDto request)
         {
-            throw new NotImplementedException();
+            User? user = await _userRepo.GetByEmailAsync(request.Email);
+
+            if(user is null)
+            {
+                return new ServiceResponse<string>
+                {
+                    Success = false,
+                    Message = "Login failed: No user found with the provided email address.",
+                    StatusCode = 404
+                };
+            }
+            else
+            {
+                if(BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+                {
+
+                }
+            }
         }
 
         public async Task<ServiceResponse<UserDto>> RegisterAsync(UserRegistrationDto userRequest)
@@ -41,6 +58,7 @@ namespace PartyRaidR.Backend.Services
 
                     string passwordHash = BCrypt.Net.BCrypt.HashPassword(userRequest.Password);
                     newUser.PasswordHash = passwordHash;
+                    newUser.Id = Guid.CreateVersion7().ToString();
 
                     await _userRepo.InsertAsync(newUser);
 
