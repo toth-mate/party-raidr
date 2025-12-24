@@ -80,6 +80,7 @@ namespace PartyRaidR.Backend.Services
                     newUser.Id = Guid.CreateVersion7().ToString();
 
                     await _userRepo.InsertAsync(newUser);
+                    await _userRepo.SaveChangesAsync();
 
                     return new ServiceResponse<UserDto>
                     {
