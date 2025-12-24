@@ -9,6 +9,7 @@ namespace PartyRaidR.Shared.Dtos
         public string Email { get; set; } = string.Empty;
         public string ProfilePictureUrl { get; set; } = string.Empty;
         public DateTime RegisterDate { get; set; } = DateTime.Now;
+        public DateOnly BirthDate { get; set; } = new DateOnly(2000, 1, 1);
         public UserRole Role { get; set; } = UserRole.User;
         public string CityId { get; set; } = string.Empty;
     }

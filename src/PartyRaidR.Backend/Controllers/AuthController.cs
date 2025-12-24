@@ -16,6 +16,13 @@ namespace PartyRaidR.Backend.Controllers
             _service = authService;
         }
 
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync(UserLoginDto userLogin)
+        {
+            var result = await _service.LoginAsync(userLogin);
+            return StatusCode(result.StatusCode, result);
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync(UserRegistrationDto newUser)
         {

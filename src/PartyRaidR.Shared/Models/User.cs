@@ -16,12 +16,12 @@
             PasswordHash = string.Empty;
             ProfilePictureUrl = string.Empty;
             RegisterDate = DateTime.Now;
-            BirthDate = DateTime.Now;
+            BirthDate = new DateOnly(RegisterDate.Year, RegisterDate.Month, RegisterDate.Day);
             Role = UserRole.User;
             CityId = string.Empty;
         }
 
-        public User(Guid id, string username, string email, string passwordHash, string profilePictureUrl, DateTime registerDate, DateTime birthDate, UserRole role, string cityId)
+        public User(Guid id, string username, string email, string passwordHash, string profilePictureUrl, DateTime registerDate, DateOnly birthDate, UserRole role, string cityId)
         {
             Id = id.ToString();
             Username = username;
@@ -40,7 +40,7 @@
         public string PasswordHash { get; set; }
         public string ProfilePictureUrl { get; set; }
         public DateTime RegisterDate { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateOnly BirthDate { get; set; }
         public UserRole Role { get; set; }
         public string CityId { get; set; }
 
