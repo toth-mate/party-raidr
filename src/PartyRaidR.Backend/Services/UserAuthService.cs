@@ -15,14 +15,12 @@ namespace PartyRaidR.Backend.Services
     {
         private readonly IUserRepo _userRepo;
         private readonly ITokenService _tokenService;
-        private readonly UserAssembler _userAssembler;
         private readonly UserRegistrationAssembler _userRegistrationAssembler;
 
         public UserAuthService(IUserRepo userRepo, ITokenService tokenService)
         {
             _userRepo = userRepo;
             _tokenService = tokenService;
-            _userAssembler = new UserAssembler();
             _userRegistrationAssembler = new UserRegistrationAssembler();
         }
 
