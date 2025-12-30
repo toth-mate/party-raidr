@@ -107,22 +107,27 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
-        private async Task<bool> IsUserValid(UserRegistrationDto userRequest)
+        private async Task<bool> IsUserValid(UserRegistrationDto request)
         {
-            bool emailExists = await _userRepo.EmailExistsAsync(userRequest.Email),
-                 usernameExists = await _userRepo.GetByUsernameAsync(userRequest.Username) is not null;
+            bool emailExists = await _userRepo.EmailExistsAsync(request.Email),
+                 usernameExists = await _userRepo.GetByUsernameAsync(request.Username) is not null;
 
             if (emailExists)
-                throw new RegistrationWithTakenEmailAddressException($"Email address {userRequest.Email} is already in use.");
+                throw new RegistrationWithTakenEmailAddressException($"Email address {request.Email} is already in use.");
 
             if (usernameExists)
                 throw new RegistrationWithTakenUsernameException("The given username is already in use.");
 
-            if (!IsEmailValid(userRequest.Email))
+            if (!IsEmailValid(request.Email))
                 throw new InvalidEmailAddressException("Invalid email address.");
 
-            if (!IsPasswordValid(userRequest.Password))
+            if (!IsPasswordValid(request.Password))
                 throw new InvalidPasswordException("Invalid password.");
+
+            // Check if user is at least 16 years old
+            // Temporary solution
+            if (request.BirthDate > DateOnly.FromDateTime(DateTime.UtcNow.AddYears(-16)))
+                throw new UserDoesNotMeetRequiredAgeException("User must be at least 16 years old to register.");
 
             return true;
         }
