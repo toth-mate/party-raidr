@@ -17,6 +17,9 @@ namespace PartyRaidR.Backend.Extensions
             services.AddAppDbContext(connectionString);
             services.ConfigureRepositories();
             services.ConfigureServices();
+
+            // Service can access the HTTP request
+            services.AddHttpContextAccessor();
         }
 
         private static void ConfigureCors(this IServiceCollection services)
