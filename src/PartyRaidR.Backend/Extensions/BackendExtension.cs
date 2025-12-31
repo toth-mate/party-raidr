@@ -92,6 +92,7 @@ namespace PartyRaidR.Backend.Extensions
         {
             services.AddScoped<IUserAuthService, UserAuthService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserContext, UserContext>();
         }
     }
 }
