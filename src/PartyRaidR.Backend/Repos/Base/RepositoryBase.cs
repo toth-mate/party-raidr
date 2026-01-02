@@ -41,5 +41,8 @@ namespace PartyRaidR.Backend.Repos.Base
             await _dbSet!
             .Where(condition)
             .ToListAsync();
+
+        public IQueryable<TEntity> GetAllAsQueryable() =>
+            _dbSet!.AsQueryable();
     }
 }
