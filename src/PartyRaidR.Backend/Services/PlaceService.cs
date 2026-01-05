@@ -1,49 +1,53 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PartyRaidR.Backend.Repos;
 using PartyRaidR.Backend.Repos.Base;
+using PartyRaidR.Backend.Repos.Promises;
 using PartyRaidR.Backend.Services.Base;
 using PartyRaidR.Backend.Services.Promises;
 using PartyRaidR.Shared.Assemblers;
 using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Models;
 using PartyRaidR.Shared.Models.Responses;
-using System.Runtime.CompilerServices;
 
 namespace PartyRaidR.Backend.Services
 {
     public class PlaceService : BaseService<Place, PlaceDto>, IPlaceService
     {
-        private IQueryable<Place> _query;
+        private readonly IPlaceRepo _placeRepo;
 
-        public PlaceService(Assembler<Place, PlaceDto>? assembler, IRepositoryBase<Place>? repo) : base(assembler, repo)
+        public PlaceService(Assembler<Place, PlaceDto>? assembler, IPlaceRepo? repo) : base(assembler, repo)
         {
-            _query = _repo.GetAllAsQueryable();
+            _placeRepo = repo!;
         }
 
         public async Task<ServiceResponse<IEnumerable<PlaceDto>>> FilterPlacesAsync(PlaceFilterDto filter)
         {
+            IQueryable<Place> query = _repo.GetAllAsQueryable();
+
             try
             {
                 if (filter.Name is not null)
                 {
-                    _query = FilterByName(filter.Name);
+                    FilterByName(filter.Name, ref query);
                 }
 
                 if (filter.CityId is not null)
                 {
-                    _query = FilterByCity(filter.CityId);
+                    FilterByCity(filter.CityId, ref query);
                 }
 
                 if (filter.Category is not null)
                 {
-                    _query = FilterByCategory(filter.Category);
+                    FilterByCategory(filter.Category, ref query);
                 }
 
                 if (filter.MaxDistanceKm is not null)
                 {
-                    _query = FilterByDistance(filter.Latitude, filter.Longitude, filter.MaxDistanceKm.Value);
+                    double distanceKm = double.Parse(filter.MaxDistanceKm.ToString()!);
+                    query = _placeRepo.GetNearbyQueryable(filter.Latitude, filter.Longitude, distanceKm);
                 }
 
-                List<Place> places = await _query.ToListAsync();
+                List<Place> places = await query.ToListAsync();
                 List<PlaceDto> result = places.Select(_assembler.ConvertToDto).ToList();
 
                 return new ServiceResponse<IEnumerable<PlaceDto>>
@@ -66,24 +70,19 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
-        private static IQueryable<Place> FilterByName(string name)
+        private static void FilterByName(string name, ref IQueryable<Place> query)
         {
-            
+            query = query.Where(p => p.Name.Contains(name));
         }
 
-        private static IQueryable<Place> FilterByCity(string cityId)
+        private static void FilterByCity(string cityId, ref IQueryable<Place> query)
         {
-
+            query = query.Where(p => p.CityId == cityId);
         }
 
-        private static IQueryable<Place> FilterByCategory(PlaceCategory? category)
+        private static void FilterByCategory(PlaceCategory? category, ref IQueryable<Place> query)
         {
-            
-        }
-
-        private static IQueryable<Place> FilterByDistance(double latitude, double longitude, double maxDistance)
-        {
-
+            query = query.Where(p => p.Category! == category);
         }
     }
 }
