@@ -14,5 +14,40 @@ namespace PartyRaidR.Backend.Controllers
         {
             _service = service;
         }
+
+        [HttpGet()]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var result = await _service.GetAllAsync();
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(string id)
+        {
+            var result = await _service.GetByIdAsync(id);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPost()]
+        public async Task<IActionResult> CreateAsync([FromBody] TDto dto)
+        {
+            var result = await _service.AddAsync(dto);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync([FromBody] TDto dto)
+        {
+            var result = await _service.UpdateAsync(dto);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(string id)
+        {
+            var result = await _service.DeleteAsync(id);
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }
