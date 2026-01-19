@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PartyRaidR.Backend.Services.Base;
+using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Models;
 
 namespace PartyRaidR.Backend.Controllers
 {
     public abstract class BaseController<TModel, TDto> : ControllerBase
         where TModel : class, IDbEntity<TModel>, new()
-        where TDto : class
+        where TDto : class, IHasId
     {
         protected readonly IBaseService<TModel, TDto> _service;
 
