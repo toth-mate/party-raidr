@@ -122,9 +122,8 @@ namespace PartyRaidR.Backend.Services.Base
                 return new ServiceResponse<TDto>
                 {
                     Success = true,
-                    StatusCode = 204,
-                    Message = $"{nameof(TModel)} entity updated successfully.",
-                    Data = null
+                    StatusCode = 200,
+                    Message = $"{nameof(TModel)} entity updated successfully."
                 };
             }
             catch (EntityNotFoundException e)
@@ -163,7 +162,7 @@ namespace PartyRaidR.Backend.Services.Base
                 return new ServiceResponse<TDto>
                 {
                     Success = true,
-                    StatusCode = 204
+                    StatusCode = 200
                 };
             }
             catch(EntityNotFoundException e)
