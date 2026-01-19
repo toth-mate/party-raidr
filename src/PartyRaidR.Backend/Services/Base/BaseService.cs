@@ -1,6 +1,7 @@
 ﻿using PartyRaidR.Backend.Exceptions;
 using PartyRaidR.Backend.Repos.Base;
 using PartyRaidR.Shared.Assemblers;
+using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Models;
 using PartyRaidR.Shared.Models.Responses;
 
@@ -8,7 +9,7 @@ namespace PartyRaidR.Backend.Services.Base
 {
     public class BaseService<TModel, TDto> : IBaseService<TModel, TDto>
         where TModel : class, IDbEntity<TModel>, new()
-        where TDto: class, new()
+        where TDto: class, IHasId, new()
     {
         protected Assembler<TModel, TDto> _assembler;
         protected IRepositoryBase<TModel> _repo;
@@ -110,14 +111,9 @@ namespace PartyRaidR.Backend.Services.Base
 
         public virtual async Task<ServiceResponse<TDto>> UpdateAsync(TDto dto)
         {
-            TModel model = _assembler.ConvertToModel(dto);
-
             try
             {
-                TModel? entity = await _repo.GetByIdAsync(model.Id);
-
-                if (entity is null)
-                    throw new EntityNotFoundException($"Could not found a(n) {nameof(TModel)} with the given ID.");
+                TModel entity = _assembler.ConvertToModel(dto);
 
                 _repo.UpdateAsync(entity);
 
@@ -126,7 +122,9 @@ namespace PartyRaidR.Backend.Services.Base
                 return new ServiceResponse<TDto>
                 {
                     Success = true,
-                    StatusCode = 204
+                    StatusCode = 204,
+                    Message = $"{nameof(TModel)} entity updated successfully.",
+                    Data = null
                 };
             }
             catch (EntityNotFoundException e)
@@ -138,12 +136,12 @@ namespace PartyRaidR.Backend.Services.Base
                     StatusCode = 404
                 };
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return new ServiceResponse<TDto>
                 {
                     Success = false,
-                    Message = $"Could not update the {nameof(TModel)} entity.",
+                    Message = $"Could not update the {nameof(TModel)} entity.\n{e.Message}",
                     StatusCode = 500
                 };
             }

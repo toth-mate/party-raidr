@@ -15,7 +15,7 @@ namespace PartyRaidR.Backend.Controllers
             _service = service;
         }
 
-        [HttpGet()]
+        [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
             var result = await _service.GetAllAsync();
@@ -29,14 +29,14 @@ namespace PartyRaidR.Backend.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpPost()]
+        [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] TDto dto)
         {
             var result = await _service.AddAsync(dto);
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> UpdateAsync([FromBody] TDto dto)
         {
             var result = await _service.UpdateAsync(dto);
