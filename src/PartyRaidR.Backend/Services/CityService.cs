@@ -1,4 +1,5 @@
 ﻿using PartyRaidR.Backend.Repos.Base;
+using PartyRaidR.Backend.Repos.Promises;
 using PartyRaidR.Backend.Services.Base;
 using PartyRaidR.Backend.Services.Promises;
 using PartyRaidR.Shared.Assemblers;
@@ -9,7 +10,7 @@ namespace PartyRaidR.Backend.Services
 {
     public class CityService : BaseService<City, CityDto>, ICityService
     {
-        public CityService(Assembler<City, CityDto>? assembler, IRepositoryBase<City>? repo) : base(assembler, repo)
+        public CityService(CityAssembler assembler, ICityRepo? repo) : base(assembler, repo)
         {
         }
     }
