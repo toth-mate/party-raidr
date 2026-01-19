@@ -102,6 +102,7 @@ namespace PartyRaidR.Backend.Extensions
 
             // Model related services
             services.AddScoped<IPlaceService, PlaceService>();
+            services.AddScoped<ICityService, CityService>();
         }
 
         private static void ConfigureAssemblers(this IServiceCollection services)
