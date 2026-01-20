@@ -21,9 +21,10 @@ namespace PartyRaidR.Shared.Models
             Category = PlaceCategory.None;
             Location = new Point(0, 0);
             Description = string.Empty;
+            UserId = string.Empty;
         }
 
-        public Place(Guid id, string name, string address, string cityId, PlaceCategory category, Point location, string description)
+        public Place(Guid id, string name, string address, string cityId, PlaceCategory category, Point location, string description, string userId)
         {
             Id = id.ToString();
             Name = name;
@@ -32,6 +33,7 @@ namespace PartyRaidR.Shared.Models
             Category = category;
             Location = location;
             Description = description;
+            UserId = userId;
         }
 
         public string Id { get; set; }
@@ -41,6 +43,7 @@ namespace PartyRaidR.Shared.Models
         public PlaceCategory Category { get; set; }
         public Point Location { get; set; }
         public string Description { get; set; }
+        public string UserId { get; set; }
 
         public override string ToString() =>
             $"{Name} | {Category}";
