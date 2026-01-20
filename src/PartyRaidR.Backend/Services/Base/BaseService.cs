@@ -12,8 +12,8 @@ namespace PartyRaidR.Backend.Services.Base
         where TModel : class, IDbEntity<TModel>, new()
         where TDto: class, IHasId, new()
     {
-        protected Assembler<TModel, TDto> _assembler;
-        protected IRepositoryBase<TModel> _repo;
+        protected readonly Assembler<TModel, TDto> _assembler;
+        protected readonly IRepositoryBase<TModel> _repo;
         protected readonly IUserContext _userContext;
 
         public BaseService(Assembler<TModel, TDto>? assembler, IRepositoryBase<TModel>? repo, IUserContext userContext)
