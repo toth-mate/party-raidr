@@ -10,7 +10,7 @@ namespace PartyRaidR.Backend.Services
 {
     public class CityService : BaseService<City, CityDto>, ICityService
     {
-        public CityService(CityAssembler assembler, ICityRepo? repo) : base(assembler, repo)
+        public CityService(CityAssembler assembler, ICityRepo? repo, IUserContext userContext) : base(assembler, repo, userContext)
         {
         }
     }

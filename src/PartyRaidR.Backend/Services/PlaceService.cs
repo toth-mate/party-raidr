@@ -15,7 +15,7 @@ namespace PartyRaidR.Backend.Services
     {
         private readonly IPlaceRepo _placeRepo;
 
-        public PlaceService(PlaceAssembler? assembler, IPlaceRepo? repo) : base(assembler, repo)
+        public PlaceService(PlaceAssembler? assembler, IPlaceRepo? repo, IUserContext userContext) : base(assembler, repo, userContext)
         {
             _placeRepo = repo!;
         }

@@ -1,5 +1,6 @@
 ﻿using PartyRaidR.Backend.Exceptions;
 using PartyRaidR.Backend.Repos.Base;
+using PartyRaidR.Backend.Services.Promises;
 using PartyRaidR.Shared.Assemblers;
 using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Models;
@@ -13,11 +14,13 @@ namespace PartyRaidR.Backend.Services.Base
     {
         protected Assembler<TModel, TDto> _assembler;
         protected IRepositoryBase<TModel> _repo;
+        protected readonly IUserContext _userContext;
 
-        public BaseService(Assembler<TModel, TDto>? assembler, IRepositoryBase<TModel>? repo)
+        public BaseService(Assembler<TModel, TDto>? assembler, IRepositoryBase<TModel>? repo, IUserContext userContext)
         {
             _assembler = assembler ?? throw new ArgumentNullException($"{nameof(assembler)} was null.");
             _repo = repo ?? throw new ArgumentNullException($"{nameof(repo)} was null.");
+            _userContext = userContext;
         }
 
         public virtual async Task<ServiceResponse<TDto>> GetByIdAsync(string id)
