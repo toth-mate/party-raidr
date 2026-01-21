@@ -20,7 +20,7 @@ namespace PartyRaidR.Backend.Repos.Base
 
         // CRUD Operations
         public async Task<TEntity?> GetByIdAsync(string id) =>
-            await _dbSet!.FindAsync(id);
+            await _dbSet!.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<IEnumerable<TEntity>> GetAllAsync() =>
             await _dbSet!.ToListAsync();
