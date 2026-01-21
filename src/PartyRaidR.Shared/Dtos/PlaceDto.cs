@@ -12,5 +12,6 @@ namespace PartyRaidR.Shared.Dtos
         public double Latitude { get; set; } = 0f;
         public double Longitude { get; set; } = 0f;
         public string Description { get; set; } = string.Empty;
+        public string UserId { get; set; } = string.Empty;
     }
 }
