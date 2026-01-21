@@ -77,6 +77,8 @@ namespace PartyRaidR.Backend.Services
                     newUser.PasswordHash = passwordHash;
                     newUser.Id = Guid.CreateVersion7().ToString();
 
+                    Console.WriteLine(newUser.Id);
+
                     await _userRepo.InsertAsync(newUser);
                     await _userRepo.SaveChangesAsync();
 

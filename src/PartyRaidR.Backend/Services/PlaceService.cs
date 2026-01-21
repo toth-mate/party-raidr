@@ -22,6 +22,13 @@ namespace PartyRaidR.Backend.Services
             _userService = userService;
         }
 
+        public override async Task<ServiceResponse<PlaceDto>> AddAsync(PlaceDto dto)
+        {
+            // Set the UserId to the current user's ID
+            dto.UserId = _userContext.UserId;
+            return await base.AddAsync(dto);
+        }
+
         public override async Task<ServiceResponse<PlaceDto>> UpdateAsync(PlaceDto dto)
         {
             string userId = _userContext.UserId;
@@ -34,7 +41,7 @@ namespace PartyRaidR.Backend.Services
             {
                 if (userResult.Success && userResult.Data is not null)
                 {
-                    if (userResult.Data.Role != UserRole.Admin || dto.UserId != userId)
+                    if (userResult.Data.Role != UserRole.Admin && place.UserId != userId)
                     {
                         return new ServiceResponse<PlaceDto>
                         {
@@ -85,7 +92,7 @@ namespace PartyRaidR.Backend.Services
 
                     if (userResult.Success && userResult.Data is not null)
                     {
-                        if (userResult.Data.Role != UserRole.Admin || place.UserId != userId)
+                        if (userResult.Data.Role != UserRole.Admin && place.UserId != userId)
                         {
                             return new ServiceResponse<PlaceDto>
                             {

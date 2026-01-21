@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PartyRaidR.Backend.Services.Base;
 using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Models;
@@ -30,6 +31,7 @@ namespace PartyRaidR.Backend.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] TDto dto)
         {
@@ -37,6 +39,7 @@ namespace PartyRaidR.Backend.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateAsync([FromBody] TDto dto)
         {
@@ -44,6 +47,7 @@ namespace PartyRaidR.Backend.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(string id)
         {
