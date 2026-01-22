@@ -8,5 +8,6 @@ namespace PartyRaidR.Backend.Services.Promises
     public interface IPlaceService : IBaseService<Place, PlaceDto>
     {
         Task<ServiceResponse<IEnumerable<PlaceDto>>> FilterPlacesAsync(PlaceFilterDto filter);
+        Task<ServiceResponse<IEnumerable<PlaceDto>>> GetMyPlacesAsync();
     }
 }

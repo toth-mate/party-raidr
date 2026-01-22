@@ -23,5 +23,13 @@ namespace PartyRaidR.Backend.Controllers
             var result = await _placeService.FilterPlacesAsync(filter);
             return StatusCode(result.StatusCode, result);
         }
+
+        [Authorize]
+        [HttpGet("my-places")]
+        public async Task<IActionResult> GetMyPlacesAsync()
+        {
+            var result = await _placeService.GetMyPlacesAsync();
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }

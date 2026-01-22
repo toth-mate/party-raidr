@@ -170,6 +170,37 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
+        public async Task<ServiceResponse<IEnumerable<PlaceDto>>> GetMyPlacesAsync()
+        {
+            try
+            {
+                var places = await _placeRepo.FindByConditionAsync(p => p.UserId == _userContext.UserId);
+
+                var result = places.Select(_assembler.ConvertToDto).ToList();
+
+                return new ServiceResponse<IEnumerable<PlaceDto>>
+                {
+                    Success = true,
+                    Data = result,
+                    StatusCode = 200,
+                    Message = (places is null || places.Count() == 0)
+                                ? "This user have no places yet."
+                                : string.Empty
+                };
+            }
+            catch(Exception e)
+            {
+                return new ServiceResponse<IEnumerable<PlaceDto>>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = $"An error occurred while retrieving your places: {e.Message}",
+                    StatusCode = 500
+                };
+
+            }
+        }
+
         private static void FilterByName(string name, ref IQueryable<Place> query)
         {
             query = query.Where(p => p.Name.Contains(name));
