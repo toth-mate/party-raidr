@@ -12,8 +12,11 @@ namespace PartyRaidR.Backend.Services
 {
     public class CityService : BaseService<City, CityDto>, ICityService
     {
-        public CityService(CityAssembler assembler, ICityRepo? repo, IUserContext userContext) : base(assembler, repo, userContext)
+        private readonly IPlaceRepo _placeRepo;
+
+        public CityService(CityAssembler assembler, ICityRepo? repo, IUserContext userContext, IPlaceRepo placeRepo) : base(assembler, repo, userContext)
         {
+            _placeRepo = placeRepo;
         }
 
         public async Task<ServiceResponse<IEnumerable<CityDto>>> GetByCounty(string county)
@@ -46,7 +49,26 @@ namespace PartyRaidR.Backend.Services
 
         public async Task<ServiceResponse<int>> GetNumberOfPlaces(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                int count = _placeRepo.GetAllAsQueryable().Count(p => p.CityId == id);
+
+                return new ServiceResponse<int>
+                {
+                    Success = true,
+                    StatusCode = 200,
+                    Data = count
+                };
+            }
+            catch(Exception ex)
+            {
+                return new ServiceResponse<int>
+                {
+                    Success = false,
+                    StatusCode = 500,
+                    Message = $"An error occurred while retrieving the number of places for this city: {ex.Message}."
+                };
+            }
         }
 
         public async Task<ServiceResponse<List<CityDto>>> GetPopularCities()

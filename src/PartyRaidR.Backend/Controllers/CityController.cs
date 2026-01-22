@@ -18,9 +18,16 @@ namespace PartyRaidR.Backend.Controllers
         }
 
         [HttpGet("county/{county}")]
-        public async Task<IActionResult> GetByCounty(string county)
+        public async Task<IActionResult> GetByCountyAsync(string county)
         {
             var response = await _cityService.GetByCounty(county);
+            return StatusCode(response.StatusCode, response);
+        }
+
+        [HttpGet("{id}/places/count")]
+        public async Task<IActionResult> GetNumberOfPlacesAsync(string id)
+        {
+            var response = await _cityService.GetNumberOfPlaces(id);
             return StatusCode(response.StatusCode, response);
         }
     }
