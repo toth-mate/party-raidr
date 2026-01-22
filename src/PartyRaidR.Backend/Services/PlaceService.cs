@@ -50,7 +50,9 @@ namespace PartyRaidR.Backend.Services
                         };
                     }
 
-                    return await base.UpdateAsync(dto);
+                    PlaceDto updated = _assembler.ConvertToDto(place);
+
+                    return await base.UpdateAsync(updated);
                 }
 
                 return new ServiceResponse<PlaceDto>
