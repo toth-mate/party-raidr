@@ -10,8 +10,18 @@ namespace PartyRaidR.Backend.Controllers
     [Route("api/[controller]")]
     public class CityController : BaseController<City, CityDto>
     {
+        private readonly ICityService _cityService;
+
         public CityController(ICityService service) : base(service)
         {
+            _cityService = service;
+        }
+
+        [HttpGet("county/{county}")]
+        public async Task<IActionResult> GetByCounty(string county)
+        {
+            var response = await _cityService.GetByCounty(county);
+            return StatusCode(response.StatusCode, response);
         }
     }
 }
