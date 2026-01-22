@@ -50,7 +50,9 @@ namespace PartyRaidR.Backend.Services
                         };
                     }
 
-                    PlaceDto updated = _assembler.ConvertToDto(place);
+                    // Ensure the UserId is not changed
+                    PlaceDto updated = dto;
+                    updated.UserId = place.UserId;
 
                     return await base.UpdateAsync(updated);
                 }
