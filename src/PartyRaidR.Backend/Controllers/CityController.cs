@@ -30,5 +30,12 @@ namespace PartyRaidR.Backend.Controllers
             var response = await _cityService.GetNumberOfPlaces(id);
             return StatusCode(response.StatusCode, response);
         }
+
+        [HttpGet("trending")]
+        public async Task<IActionResult> GetTrendingCitiesAsync()
+        {
+            var response = await _cityService.GetTrendingCitiesAsync();
+            return StatusCode(response.StatusCode, response);
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace PartyRaidR.Backend.Repos.Base
     public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
         where TEntity : class, IDbEntity<TEntity>, new()
     {
-        private readonly AppDbContext _context;
+        protected readonly AppDbContext _context;
         protected readonly DbSet<TEntity>? _dbSet;
 
         public RepositoryBase(AppDbContext? context)

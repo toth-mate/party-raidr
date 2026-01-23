@@ -12,10 +12,12 @@ namespace PartyRaidR.Backend.Services
 {
     public class CityService : BaseService<City, CityDto>, ICityService
     {
+        private readonly ICityRepo _cityRepo;
         private readonly IPlaceRepo _placeRepo;
 
         public CityService(CityAssembler assembler, ICityRepo? repo, IUserContext userContext, IPlaceRepo placeRepo) : base(assembler, repo, userContext)
         {
+            _cityRepo = repo!;
             _placeRepo = placeRepo;
         }
 
@@ -71,9 +73,29 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
-        public async Task<ServiceResponse<List<CityDto>>> GetPopularCities()
+        public async Task<ServiceResponse<List<CityDto>>> GetTrendingCitiesAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var trendingCities = await _cityRepo.GetTrendingCitiesAsync();
+                List<CityDto> result = trendingCities.Select(_assembler.ConvertToDto).ToList();
+
+                return new ServiceResponse<List<CityDto>>
+                {
+                    Data = result,
+                    StatusCode = 200,
+                    Success = true
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<List<CityDto>>
+                {
+                    Success = false,
+                    StatusCode = 500,
+                    Message = $"An error occurred while retrieving trending cities: {ex.Message}."
+                };
+            }
         }
     }
 }

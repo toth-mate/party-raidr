@@ -9,6 +9,6 @@ namespace PartyRaidR.Backend.Services.Promises
     {
         Task<ServiceResponse<int>> GetNumberOfPlaces(string id);
         Task<ServiceResponse<IEnumerable<CityDto>>> GetByCounty(string county);
-        Task<ServiceResponse<List<CityDto>>> GetPopularCities();
+        Task<ServiceResponse<List<CityDto>>> GetTrendingCitiesAsync();
     }
 }
