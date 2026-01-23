@@ -2,7 +2,6 @@
 using PartyRaidR.Backend.Context;
 using PartyRaidR.Backend.Repos.Base;
 using PartyRaidR.Backend.Repos.Promises;
-using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Models;
 
 namespace PartyRaidR.Backend.Repos

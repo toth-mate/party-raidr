@@ -1,5 +1,5 @@
-﻿using PartyRaidR.Shared.Dtos;
-using PartyRaidR.Shared.Models;
+﻿using PartyRaidR.Shared.Models;
+using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Models.Responses;
 
 namespace PartyRaidR.Backend.Services.Base

@@ -7,7 +7,6 @@ using PartyRaidR.Shared.Models;
 using PartyRaidR.Shared.Models.Responses;
 using PartyRaidR.Backend.Exceptions;
 using System.Text.RegularExpressions;
-using BCrypt.Net;
 
 namespace PartyRaidR.Backend.Services
 {

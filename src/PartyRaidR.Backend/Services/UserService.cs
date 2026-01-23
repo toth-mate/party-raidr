@@ -1,5 +1,4 @@
-﻿using PartyRaidR.Backend.Repos.Base;
-using PartyRaidR.Backend.Repos.Promises;
+﻿using PartyRaidR.Backend.Repos.Promises;
 using PartyRaidR.Backend.Services.Base;
 using PartyRaidR.Backend.Services.Promises;
 using PartyRaidR.Shared.Assemblers;
