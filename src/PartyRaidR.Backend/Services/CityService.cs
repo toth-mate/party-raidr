@@ -13,10 +13,13 @@ namespace PartyRaidR.Backend.Services
         private readonly ICityRepo _cityRepo;
         private readonly IPlaceRepo _placeRepo;
 
-        public CityService(CityAssembler assembler, ICityRepo? repo, IUserContext userContext, IPlaceRepo placeRepo) : base(assembler, repo, userContext)
+        private readonly IUserService _userService;
+
+        public CityService(CityAssembler assembler, ICityRepo? repo, IUserContext userContext, IPlaceRepo placeRepo, IUserService userService) : base(assembler, repo, userContext)
         {
             _cityRepo = repo!;
             _placeRepo = placeRepo;
+            _userService = userService;
         }
 
         public async Task<ServiceResponse<IEnumerable<CityDto>>> GetByCounty(string county)
@@ -36,7 +39,7 @@ namespace PartyRaidR.Backend.Services
                             : string.Empty
                 };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new ServiceResponse<IEnumerable<CityDto>>
                 {
@@ -60,7 +63,7 @@ namespace PartyRaidR.Backend.Services
                     Data = count
                 };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new ServiceResponse<int>
                 {
@@ -94,6 +97,63 @@ namespace PartyRaidR.Backend.Services
                     Message = $"An error occurred while retrieving trending cities: {ex.Message}."
                 };
             }
+        }
+
+        public async override Task<ServiceResponse<CityDto>> AddAsync(CityDto dto)
+        {
+            bool isUserAdmin = await IsUserAdmin();
+
+            if (!isUserAdmin)
+            {
+                return new ServiceResponse<CityDto>
+                {
+                    Success = false,
+                    StatusCode = 403,
+                    Message = "Your account lacks permission to complete this action."
+                };
+            }
+
+            return await base.AddAsync(dto);
+        }
+
+        public async override Task<ServiceResponse<CityDto>> DeleteAsync(string id)
+        {
+            bool isUserAdmin = await IsUserAdmin();
+
+            if (!isUserAdmin)
+            {
+                return new ServiceResponse<CityDto>
+                {
+                    Success = false,
+                    StatusCode = 403,
+                    Message = "Your account lacks permission to complete this action."
+                };
+            }
+
+            return await base.DeleteAsync(id);
+        }
+
+        public async override Task<ServiceResponse<CityDto>> UpdateAsync(CityDto dto)
+        {
+            bool isUserAdmin = await IsUserAdmin();
+
+            if (!isUserAdmin)
+            {
+                return new ServiceResponse<CityDto>
+                {
+                    Success = false,
+                    StatusCode = 403,
+                    Message = "Your account lacks permission to complete this action."
+                };
+            }
+
+            return await base.UpdateAsync(dto);
+        }
+
+        private async Task<bool> IsUserAdmin()
+        {
+            var userResult = await _userService.GetByIdAsync(_userContext.UserId);
+            return userResult.Success && userResult.Data is not null && userResult.Data.Role == UserRole.Admin;
         }
     }
 }
