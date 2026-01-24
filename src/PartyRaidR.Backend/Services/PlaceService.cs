@@ -35,40 +35,35 @@ namespace PartyRaidR.Backend.Services
 
             Place? place = await _repo.GetByIdAsync(dto.Id);
 
-            if (place is not null)
+            if (place is null)
             {
-                if (userResult.Success && userResult.Data is not null)
-                {
-                    if (userResult.Data.Role != UserRole.Admin && place.UserId != userId)
-                    {
-                        return new ServiceResponse<PlaceDto>
-                        {
-                            Success = false,
-                            StatusCode = 403
-                        };
-                    }
-
-                    // Ensure the UserId is not changed
-                    PlaceDto updated = dto;
-                    updated.UserId = place.UserId;
-
-                    return await base.UpdateAsync(updated);
-                }
-
                 return new ServiceResponse<PlaceDto>
                 {
                     Success = false,
-                    Message = "User not found.",
+                    Message = "Place not found.",
                     StatusCode = 404
                 };
             }
-
-            return new ServiceResponse<PlaceDto>
+            else
             {
-                Success = false,
-                Message = "Place not found.",
-                StatusCode = 404
-            };
+                bool isUserAuthor = await IsUserAuthor(place);
+
+                if (!isUserAuthor)
+                {
+                    return new ServiceResponse<PlaceDto>
+                    {
+                        Success = false,
+                        Message = "You do not have permission to update this place.",
+                        StatusCode = 403
+                    };
+                }
+
+                // Ensure the UserId is not changed
+                PlaceDto updated = dto;
+                updated.UserId = place.UserId;
+
+                return await base.UpdateAsync(updated);
+            }
         }
 
         public override async Task<ServiceResponse<PlaceDto>> DeleteAsync(string id)
@@ -79,7 +74,7 @@ namespace PartyRaidR.Backend.Services
             {
                 Place? place = await _repo.GetByIdAsync(id);
 
-                if(place is null)
+                if (place is null)
                 {
                     return new ServiceResponse<PlaceDto>
                     {
@@ -90,19 +85,19 @@ namespace PartyRaidR.Backend.Services
                 }
                 else
                 {
-                    var userResult = await _userService.GetByIdAsync(userId);
+                    bool isUserAuthor = await IsUserAuthor(place);
 
-                    if (userResult.Success && userResult.Data is not null)
+                    if (!isUserAuthor)
                     {
-                        if (userResult.Data.Role != UserRole.Admin && place.UserId != userId)
+                        return new ServiceResponse<PlaceDto>
                         {
-                            return new ServiceResponse<PlaceDto>
-                            {
-                                Success = false,
-                                StatusCode = 403
-                            };
-                        }
-                    }  
+                            Success = false,
+                            Message = "You do not have permission to delete this place.",
+                            StatusCode = 403
+                        };
+                    }
+
+                    return await base.DeleteAsync(id);
                 }
             }
             catch (Exception e)
@@ -114,8 +109,6 @@ namespace PartyRaidR.Backend.Services
                     StatusCode = 500
                 };
             }
-
-            return await base.DeleteAsync(id);
         }
 
         public async Task<ServiceResponse<IEnumerable<PlaceDto>>> FilterPlacesAsync(PlaceFilterDto filter)
@@ -212,6 +205,14 @@ namespace PartyRaidR.Backend.Services
         private static void FilterByCategory(PlaceCategory? category, ref IQueryable<Place> query)
         {
             query = query.Where(p => p.Category! == category);
+        }
+
+        private async Task<bool> IsUserAuthor(Place place)
+        {
+            string userId = _userContext.UserId;
+            var userResult = await _userService.GetByIdAsync(userId);
+
+            return (userResult.Success && userResult.Data is not null) && (userResult.Data.Role != UserRole.Admin && place.UserId == userId);
         }
     }
 }
