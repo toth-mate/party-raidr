@@ -5,5 +5,6 @@ namespace PartyRaidR.Backend.Repos.Promises
 {
     public interface ICityRepo : IRepositoryBase<City>
     {
+        Task<IEnumerable<City>> GetTrendingCitiesAsync();
     }
 }

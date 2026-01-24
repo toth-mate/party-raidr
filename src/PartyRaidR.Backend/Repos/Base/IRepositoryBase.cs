@@ -12,5 +12,6 @@ namespace PartyRaidR.Backend.Repos.Base
         void UpdateAsync(TEntity entity);
         void DeleteAsync(TEntity entity);
         Task<int> SaveChangesAsync();
+        IQueryable<TEntity> GetAllAsQueryable();
     }
 }

@@ -1,11 +1,12 @@
 ﻿using PartyRaidR.Shared.Models;
+using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Models.Responses;
 
 namespace PartyRaidR.Backend.Services.Base
 {
     public interface IBaseService<TModel, TDto>
         where TModel : class, IDbEntity<TModel>, new()
-        where TDto: class
+        where TDto: class, IHasId
     {
         Task<ServiceResponse<TDto>> GetByIdAsync(string id);
         Task<ServiceResponse<IEnumerable<TDto>>> GetAllAsync();

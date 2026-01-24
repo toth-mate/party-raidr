@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PartyRaidR.Backend.Services;
 using PartyRaidR.Backend.Services.Promises;
 using PartyRaidR.Shared.Dtos.AuthenticationRequests;
 

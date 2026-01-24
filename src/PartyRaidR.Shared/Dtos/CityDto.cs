@@ -1,6 +1,6 @@
 ﻿namespace PartyRaidR.Shared.Dtos
 {
-    public class CityDto
+    public class CityDto : IHasId
     {
         public string Id { get; set; } = Guid.Empty.ToString();
         public string Name { get; set; } = string.Empty;

@@ -1,4 +1,5 @@
-﻿using PartyRaidR.Shared.Dtos;
+﻿using NetTopologySuite.Geometries;
+using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Models;
 
 namespace PartyRaidR.Shared.Converters
@@ -13,8 +14,10 @@ namespace PartyRaidR.Shared.Converters
                 Address = place.Address,
                 CityId = place.CityId,
                 Category = place.Category,
-                Location = place.Location,
-                Description = place.Description
+                Longitude = place.Location.X,
+                Latitude = place.Location.Y,
+                Description = place.Description,
+                UserId = place.UserId
             };
 
         public static Place ConvertToPlace(this PlaceDto placeDto) =>
@@ -25,8 +28,9 @@ namespace PartyRaidR.Shared.Converters
                 Address = placeDto.Address,
                 CityId = placeDto.CityId,
                 Category = placeDto.Category,
-                Location = placeDto.Location,
-                Description = placeDto.Description
+                Location = new Point(placeDto.Longitude, placeDto.Latitude),
+                Description = placeDto.Description,
+                UserId = placeDto.UserId
             };
     }
 }

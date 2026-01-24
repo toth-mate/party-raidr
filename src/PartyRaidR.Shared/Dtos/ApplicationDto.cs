@@ -2,7 +2,7 @@
 
 namespace PartyRaidR.Shared.Dtos
 {
-    public class ApplicationDto
+    public class ApplicationDto : IHasId
     {
         public string Id { get; set; } = Guid.Empty.ToString();
         public string UserId { get; set; } = string.Empty;

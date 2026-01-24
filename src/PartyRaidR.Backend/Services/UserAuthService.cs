@@ -7,7 +7,6 @@ using PartyRaidR.Shared.Models;
 using PartyRaidR.Shared.Models.Responses;
 using PartyRaidR.Backend.Exceptions;
 using System.Text.RegularExpressions;
-using BCrypt.Net;
 
 namespace PartyRaidR.Backend.Services
 {
@@ -76,6 +75,8 @@ namespace PartyRaidR.Backend.Services
                     string passwordHash = BCrypt.Net.BCrypt.HashPassword(userRequest.Password);
                     newUser.PasswordHash = passwordHash;
                     newUser.Id = Guid.CreateVersion7().ToString();
+
+                    Console.WriteLine(newUser.Id);
 
                     await _userRepo.InsertAsync(newUser);
                     await _userRepo.SaveChangesAsync();

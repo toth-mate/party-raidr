@@ -8,7 +8,7 @@ namespace PartyRaidR.Backend.Repos.Base
     public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
         where TEntity : class, IDbEntity<TEntity>, new()
     {
-        private readonly AppDbContext _context;
+        protected readonly AppDbContext _context;
         protected readonly DbSet<TEntity>? _dbSet;
 
         public RepositoryBase(AppDbContext? context)
@@ -20,7 +20,7 @@ namespace PartyRaidR.Backend.Repos.Base
 
         // CRUD Operations
         public async Task<TEntity?> GetByIdAsync(string id) =>
-            await _dbSet!.FindAsync(id);
+            await _dbSet!.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<IEnumerable<TEntity>> GetAllAsync() =>
             await _dbSet!.ToListAsync();
@@ -41,5 +41,8 @@ namespace PartyRaidR.Backend.Repos.Base
             await _dbSet!
             .Where(condition)
             .ToListAsync();
+
+        public IQueryable<TEntity> GetAllAsQueryable() =>
+            _dbSet!.AsQueryable();
     }
 }
