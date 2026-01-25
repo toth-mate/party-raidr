@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PartyRaidR.Backend.Services.Promises;
 using PartyRaidR.Shared.Dtos.AuthenticationRequests;
+using PartyRaidR.Shared.Models.Responses;
 
 namespace PartyRaidR.Backend.Controllers
 {
@@ -15,22 +16,20 @@ namespace PartyRaidR.Backend.Controllers
             _service = authService;
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync(UserLoginDto userLogin)
+        private IActionResult HandleResponse<T>(ServiceResponse<T> response)
         {
-            var result = await _service.LoginAsync(userLogin);
-            return StatusCode(result.StatusCode, result);
+            if (response.Success)
+                return response.Data is null ? NoContent() : StatusCode(response.StatusCode, response.Data);
+
+            return StatusCode(response.StatusCode, response.Message);
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync(UserLoginDto userLogin) =>
+            HandleResponse(await _service.LoginAsync(userLogin));
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync(UserRegistrationDto newUser)
-        {
-            var result = await _service.RegisterAsync(newUser);
-
-            if (result.Success)
-                return Ok(result);
-
-            return StatusCode(result.StatusCode, result);
-        }
+        public async Task<IActionResult> RegisterAsync(UserRegistrationDto newUser) =>
+            HandleResponse(await _service.RegisterAsync(newUser));
     }
 }
