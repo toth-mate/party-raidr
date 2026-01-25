@@ -22,7 +22,7 @@ namespace PartyRaidR.Backend.Services
             _userService = userService;
         }
 
-        public async Task<ServiceResponse<IEnumerable<CityDto>>> GetByCounty(string county)
+        public async Task<ServiceResponse<IEnumerable<CityDto>>> GetByCountyAsync(string county)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
-        public async Task<ServiceResponse<int>> GetNumberOfPlaces(string id)
+        public async Task<ServiceResponse<int>> GetNumberOfPlacesAsync(string id)
         {
             try
             {

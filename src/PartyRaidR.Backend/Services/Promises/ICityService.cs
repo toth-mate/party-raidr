@@ -7,8 +7,8 @@ namespace PartyRaidR.Backend.Services.Promises
 {
     public interface ICityService : IBaseService<City, CityDto>
     {
-        Task<ServiceResponse<int>> GetNumberOfPlaces(string id);
-        Task<ServiceResponse<IEnumerable<CityDto>>> GetByCounty(string county);
+        Task<ServiceResponse<int>> GetNumberOfPlacesAsync(string id);
+        Task<ServiceResponse<IEnumerable<CityDto>>> GetByCountyAsync(string county);
         Task<ServiceResponse<List<CityDto>>> GetTrendingCitiesAsync();
     }
 }
