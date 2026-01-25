@@ -17,18 +17,12 @@ namespace PartyRaidR.Backend.Controllers
         }
 
         [HttpGet("filter")]
-        public async Task<IActionResult> FilterAsync([FromQuery] PlaceFilterDto filter)
-        {
-            var result = await _placeService.FilterPlacesAsync(filter);
-            return StatusCode(result.StatusCode, result);
-        }
+        public async Task<IActionResult> FilterAsync([FromQuery] PlaceFilterDto filter) =>
+            HandleResponse(await _placeService.FilterPlacesAsync(filter));
 
         [Authorize]
         [HttpGet("my-places")]
-        public async Task<IActionResult> GetMyPlacesAsync()
-        {
-            var result = await _placeService.GetMyPlacesAsync();
-            return StatusCode(result.StatusCode, result);
-        }
+        public async Task<IActionResult> GetMyPlacesAsync() =>
+            HandleResponse(await _placeService.GetMyPlacesAsync());
     }
 }
