@@ -11,24 +11,19 @@ namespace PartyRaidR.Backend.Controllers
     public class PlaceController : BaseController<Place, PlaceDto>
     {
         private readonly IPlaceService _placeService;
+
         public PlaceController(IPlaceService service) : base(service)
         {
             _placeService = service;
         }
 
         [HttpGet("filter")]
-        public async Task<IActionResult> FilterAsync([FromQuery] PlaceFilterDto filter)
-        {
-            var result = await _placeService.FilterPlacesAsync(filter);
-            return StatusCode(result.StatusCode, result);
-        }
+        public async Task<IActionResult> Filter([FromQuery] PlaceFilterDto filter) =>
+            HandleResponse(await _placeService.FilterPlacesAsync(filter));
 
         [Authorize]
         [HttpGet("my-places")]
-        public async Task<IActionResult> GetMyPlacesAsync()
-        {
-            var result = await _placeService.GetMyPlacesAsync();
-            return StatusCode(result.StatusCode, result);
-        }
+        public async Task<IActionResult> GetMyPlaces() =>
+            HandleResponse(await _placeService.GetMyPlacesAsync());
     }
 }

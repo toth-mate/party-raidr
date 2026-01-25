@@ -32,10 +32,8 @@ namespace PartyRaidR.Backend.Services
                         Console.WriteLine($"Claim Type: {claim.Type}, Claim Value: {claim.Value}");
                     }
                 }
-
                 return id;
             }
         }
-            
     }
 }

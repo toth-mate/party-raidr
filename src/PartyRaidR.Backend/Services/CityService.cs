@@ -12,7 +12,6 @@ namespace PartyRaidR.Backend.Services
     {
         private readonly ICityRepo _cityRepo;
         private readonly IPlaceRepo _placeRepo;
-
         private readonly IUserService _userService;
 
         public CityService(CityAssembler assembler, ICityRepo? repo, IUserContext userContext, IPlaceRepo placeRepo, IUserService userService) : base(assembler, repo, userContext)
@@ -22,7 +21,7 @@ namespace PartyRaidR.Backend.Services
             _userService = userService;
         }
 
-        public async Task<ServiceResponse<IEnumerable<CityDto>>> GetByCounty(string county)
+        public async Task<ServiceResponse<IEnumerable<CityDto>>> GetByCountyAsync(string county)
         {
             try
             {
@@ -50,7 +49,7 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
-        public async Task<ServiceResponse<int>> GetNumberOfPlaces(string id)
+        public async Task<ServiceResponse<int>> GetNumberOfPlacesAsync(string id)
         {
             try
             {
