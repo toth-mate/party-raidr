@@ -12,7 +12,6 @@ namespace PartyRaidR.Backend.Services
     {
         private readonly ICityRepo _cityRepo;
         private readonly IPlaceRepo _placeRepo;
-
         private readonly IUserService _userService;
 
         public CityService(CityAssembler assembler, ICityRepo? repo, IUserContext userContext, IPlaceRepo placeRepo, IUserService userService) : base(assembler, repo, userContext)

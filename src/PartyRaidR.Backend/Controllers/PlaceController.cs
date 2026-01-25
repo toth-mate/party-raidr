@@ -11,6 +11,7 @@ namespace PartyRaidR.Backend.Controllers
     public class PlaceController : BaseController<Place, PlaceDto>
     {
         private readonly IPlaceService _placeService;
+
         public PlaceController(IPlaceService service) : base(service)
         {
             _placeService = service;

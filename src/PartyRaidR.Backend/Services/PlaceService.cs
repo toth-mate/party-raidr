@@ -188,7 +188,6 @@ namespace PartyRaidR.Backend.Services
                     Message = $"An error occurred while retrieving your places: {e.Message}",
                     StatusCode = 500
                 };
-
             }
         }
 
