@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PartyRaidR.Backend.Services.Base;
 using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Models;
+using PartyRaidR.Shared.Models.Responses;
 
 namespace PartyRaidR.Backend.Controllers
 {
@@ -17,42 +18,35 @@ namespace PartyRaidR.Backend.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        protected IActionResult HandleResponse<T> (ServiceResponse<T> response)
         {
-            var result = await _service.GetAllAsync();
-            return StatusCode(result.StatusCode, result);
+            if (response.Success)
+                return response.Data is null ? NoContent() : StatusCode(response.StatusCode, response.Data);
+
+            return StatusCode(response.StatusCode, response.Message);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync() =>
+            HandleResponse(await _service.GetAllAsync());
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetByIdAsync(string id)
-        {
-            var result = await _service.GetByIdAsync(id);
-            return StatusCode(result.StatusCode, result);
-        }
+        public async Task<IActionResult> GetByIdAsync(string id) =>
+            HandleResponse(await _service.GetByIdAsync(id));
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] TDto dto)
-        {
-            var result = await _service.AddAsync(dto);
-            return StatusCode(result.StatusCode, result);
-        }
+        public async Task<IActionResult> CreateAsync([FromBody] TDto dto) =>
+            HandleResponse(await _service.AddAsync(dto));
 
         [Authorize]
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync([FromBody] TDto dto)
-        {
-            var result = await _service.UpdateAsync(dto);
-            return StatusCode(result.StatusCode, result);
-        }
+        public async Task<IActionResult> UpdateAsync([FromBody] TDto dto) =>
+            HandleResponse(await _service.UpdateAsync(dto));
 
         [Authorize]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(string id)
-        {
-            var result = await _service.DeleteAsync(id);
-            return StatusCode(result.StatusCode, result);
-        }
+        public async Task<IActionResult> DeleteAsync(string id) =>
+            HandleResponse(await _service.DeleteAsync(id));
     }
 }
