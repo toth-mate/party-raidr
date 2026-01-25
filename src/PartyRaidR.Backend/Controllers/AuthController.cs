@@ -25,11 +25,11 @@ namespace PartyRaidR.Backend.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync(UserLoginDto userLogin) =>
+        public async Task<IActionResult> Login(UserLoginDto userLogin) =>
             HandleResponse(await _service.LoginAsync(userLogin));
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync(UserRegistrationDto newUser) =>
+        public async Task<IActionResult> Register(UserRegistrationDto newUser) =>
             HandleResponse(await _service.RegisterAsync(newUser));
     }
 }
