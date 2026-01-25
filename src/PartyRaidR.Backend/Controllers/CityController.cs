@@ -17,24 +17,15 @@ namespace PartyRaidR.Backend.Controllers
         }
 
         [HttpGet("county/{county}")]
-        public async Task<IActionResult> GetByCountyAsync(string county)
-        {
-            var response = await _cityService.GetByCounty(county);
-            return StatusCode(response.StatusCode, response);
-        }
+        public async Task<IActionResult> GetByCountyAsync(string county) =>
+            HandleResponse(await _cityService.GetByCounty(county));
 
         [HttpGet("{id}/places/count")]
-        public async Task<IActionResult> GetNumberOfPlacesAsync(string id)
-        {
-            var response = await _cityService.GetNumberOfPlaces(id);
-            return StatusCode(response.StatusCode, response);
-        }
+        public async Task<IActionResult> GetNumberOfPlacesAsync(string id) =>
+            HandleResponse(await _cityService.GetNumberOfPlaces(id));
 
         [HttpGet("trending")]
-        public async Task<IActionResult> GetTrendingCitiesAsync()
-        {
-            var response = await _cityService.GetTrendingCitiesAsync();
-            return StatusCode(response.StatusCode, response);
-        }
+        public async Task<IActionResult> GetTrendingCitiesAsync() =>
+            HandleResponse(await _cityService.GetTrendingCitiesAsync());
     }
 }
