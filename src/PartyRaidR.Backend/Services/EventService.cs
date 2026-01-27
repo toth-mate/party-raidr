@@ -21,33 +21,8 @@ namespace PartyRaidR.Backend.Services
         {
             try
             {
-                if (dto.Title.Trim() == string.Empty)
-                    throw new ArgumentException("Title cannot be empty.");
-
-                if (dto.Description.Trim() == string.Empty)
-                    throw new ArgumentException("Description cannot be empty.");
-
-                if (dto.StartingDate >= dto.EndingDate)
-                    throw new ArgumentException("Starting date must be before ending date.");
-
-                if (dto.StartingDate <= DateTime.UtcNow)
-                    throw new ArgumentException("Starting date must be in the future.");
-
-                if (dto.TicketPrice < 0)
-                    throw new ArgumentException("Ticket price cannot be negative.");
-
-                Place? place = await _placeRepo.GetByIdAsync(dto.PlaceId);
-
-                if (dto.PlaceId is null || dto.PlaceId == string.Empty || place is null)
-                    throw new ArgumentException("Invalid place.");
-
-                if(dto.Room < 0 || dto.Room == 1)
-                    throw new ArgumentException("Room must be greater than 1.");
-
-                dto.DateCreated = DateTime.UtcNow;
-                dto.AuthorId = _userContext.UserId;
-
-                return await base.AddAsync(dto);
+                // Check if the new event is valid
+                await ValidateNewEvent(dto);
             }
             catch (Exception ex)
             {
@@ -59,6 +34,37 @@ namespace PartyRaidR.Backend.Services
                     StatusCode = 400
                 };
             }
+
+            return await base.AddAsync(dto);
+        }
+
+        private async Task ValidateNewEvent(EventDto dto)
+        {
+            if (dto.Title.Trim() == string.Empty)
+                throw new ArgumentException("Title cannot be empty.");
+
+            if (dto.Description.Trim() == string.Empty)
+                throw new ArgumentException("Description cannot be empty.");
+
+            if (dto.StartingDate >= dto.EndingDate)
+                throw new ArgumentException("Starting date must be before ending date.");
+
+            if (dto.StartingDate <= DateTime.UtcNow)
+                throw new ArgumentException("Starting date must be in the future.");
+
+            if (dto.TicketPrice < 0)
+                throw new ArgumentException("Ticket price cannot be negative.");
+
+            Place? place = await _placeRepo.GetByIdAsync(dto.PlaceId);
+
+            if (dto.PlaceId is null || dto.PlaceId == string.Empty || place is null)
+                throw new ArgumentException("Invalid place.");
+
+            if (dto.Room < 0 || dto.Room == 1)
+                throw new ArgumentException("Room must be greater than 1.");
+
+            dto.DateCreated = DateTime.UtcNow;
+            dto.AuthorId = _userContext.UserId;
         }
     }
 }
