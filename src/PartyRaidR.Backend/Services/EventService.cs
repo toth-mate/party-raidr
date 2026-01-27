@@ -86,6 +86,49 @@ namespace PartyRaidR.Backend.Services
             return await base.UpdateAsync(dto);
         }
 
+        public override async Task<ServiceResponse<EventDto>> DeleteAsync(string id)
+        {
+            try
+            {
+                Event? eventToDelete = await _repo.GetByIdAsync(id);
+
+                if (eventToDelete is null)
+                {
+                    return new ServiceResponse<EventDto>
+                    {
+                        Success = false,
+                        StatusCode = 404,
+                        Message = "Event not found."
+                    };
+                }
+                else
+                {
+                    bool isUserAuthor = await IsUserAuthor(eventToDelete);
+
+                    if (!isUserAuthor)
+                    {
+                        return new ServiceResponse<EventDto>
+                        {
+                            Success = false,
+                            StatusCode = 403,
+                            Message = "You do not have permission to delete this event."
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<EventDto>
+                {
+                    Success = false,
+                    Message = $"An error occured while verifying user permissions: {ex.Message}",
+                    StatusCode = 500
+                };
+            }
+
+            return await base.DeleteAsync(id);
+        }
+
         private async Task ValidateNewEvent(EventDto dto)
         {
             if (dto.Title.Trim() == string.Empty)
