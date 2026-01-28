@@ -9,8 +9,15 @@ namespace PartyRaidR.Backend.Controllers
     [Route("api/[controller]")]
     public class EventController : BaseController<Event, EventDto>
     {
+        private readonly IEventService _eventService;
+
         public EventController(IEventService service) : base(service)
         {
+            _eventService = service;
         }
+
+        [HttpGet("upcoming-events")]
+        public async Task<IActionResult> GetUpcomingEvents() =>
+            HandleResponse(await _eventService.GetUpcomingEventsAsync());
     }
 }

@@ -1,4 +1,5 @@
-﻿using PartyRaidR.Backend.Repos.Promises;
+﻿using Microsoft.EntityFrameworkCore;
+using PartyRaidR.Backend.Repos.Promises;
 using PartyRaidR.Backend.Services.Base;
 using PartyRaidR.Backend.Services.Promises;
 using PartyRaidR.Shared.Assemblers;
@@ -10,13 +11,17 @@ namespace PartyRaidR.Backend.Services
 {
     public class EventService : BaseService<Event, EventDto>, IEventService
     {
+        private readonly IEventRepo _eventRepo;
         private readonly IPlaceRepo _placeRepo;
+        private readonly ICityRepo _cityRepo;
         private readonly IUserService _userService;
 
-        public EventService(EventAssembler assembler, IEventRepo? repo, IUserContext userContext, IPlaceRepo? placeRepo, IUserService? userService) : base(assembler, repo, userContext)
+        public EventService(EventAssembler assembler, IEventRepo? repo, IUserContext userContext, IPlaceRepo? placeRepo, IUserService? userService, ICityRepo? cityRepo) : base(assembler, repo, userContext)
         {
+            _eventRepo = repo ?? throw new ArgumentNullException(nameof(IEventRepo));
             _placeRepo = placeRepo ?? throw new ArgumentNullException(nameof(IPlaceRepo));
             _userService = userService ?? throw new ArgumentNullException(nameof(IUserService));
+            _cityRepo = cityRepo ?? throw new ArgumentNullException(nameof(ICityRepo));
         }
 
         public override async Task<ServiceResponse<EventDto>> AddAsync(EventDto dto)
@@ -127,6 +132,48 @@ namespace PartyRaidR.Backend.Services
             }
 
             return await base.DeleteAsync(id);
+        }
+
+        public async Task<ServiceResponse<List<UpcomingEventDto>>> GetUpcomingEventsAsync()
+        {
+            try
+            {
+                DateTime now = DateTime.UtcNow;
+
+                var query = from e in _eventRepo.GetAllAsQueryable()
+                            join p in _placeRepo.GetAllAsQueryable() on e.PlaceId equals p.Id
+                            join c in _cityRepo.GetAllAsQueryable() on p.CityId equals c.Id
+                            where e.StartingDate > now
+                            orderby e.StartingDate
+                            select new UpcomingEventDto
+                            {
+                                Id = e.Id,
+                                Title = e.Title,
+                                CityName = c.Name,
+                                PlaceName = p.Name,
+                                StartTime = e.StartingDate
+                            };
+
+                List<UpcomingEventDto> result = await query.Take(10).ToListAsync();
+
+                return new ServiceResponse<List<UpcomingEventDto>>
+                {
+                    Data = result,
+                    Success = true,
+                    Message = result.Count == 0 ? "No upcoming events found." : string.Empty,
+                    StatusCode = 200
+                };
+            }
+            catch(Exception ex)
+            {
+                return new ServiceResponse<List<UpcomingEventDto>>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = $"An error occured while retrieving upcoming events: {ex.Message}",
+                    StatusCode = 500
+                };
+            }
         }
 
         private async Task ValidateNewEvent(EventDto dto)
