@@ -44,6 +44,12 @@
         public UserRole Role { get; set; }
         public string CityId { get; set; }
 
+        public City City { get; set; }
+        public List<Place> Places { get; set; } = new();
+        public List<Notification> Notifications { get; set; } = new();
+        public List<Event> Events { get; set; } = new();
+        public List<Application> Applications { get; set; } = new();
+
         public override string ToString() =>
             $"{Username}";
     }

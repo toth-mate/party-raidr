@@ -1,4 +1,6 @@
-﻿namespace PartyRaidR.Shared.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PartyRaidR.Shared.Models
 {
     public enum EventCategory
     {
@@ -53,6 +55,12 @@
         public int Room { get; set; }
         public decimal TicketPrice { get; set; }
         public DateTime DateCreated { get; set; }
+
+        public Place Place { get; set; }
+
+        [ForeignKey("AuthorId")]
+        public User User { get; set; }
+        public List<Application> Applications { get; set; }
 
         public override string ToString() =>
             $"{Title}, {Room}";

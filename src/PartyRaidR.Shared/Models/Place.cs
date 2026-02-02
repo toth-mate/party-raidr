@@ -45,6 +45,10 @@ namespace PartyRaidR.Shared.Models
         public string Description { get; set; }
         public string UserId { get; set; }
 
+        public City City { get; set; }
+        public User User { get; set; }
+        public List<Event> Events { get; set; }
+
         public override string ToString() =>
             $"{Name} | {Category}";
     }

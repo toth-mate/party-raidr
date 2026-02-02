@@ -34,5 +34,8 @@
         public string EventId { get; set; }
         public DateTime TimeOfApplication { get; set; }
         public StatusType Status { get; set; }
+
+        public User User { get; set; }
+        public Event Event { get; set; }
     }
 }

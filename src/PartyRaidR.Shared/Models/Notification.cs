@@ -42,6 +42,9 @@
         public DateTime DateCreated { get; set; }
         public bool IsRead { get; set; }
 
+        public User User { get; set; }
+        public Event Event { get; set; }
+
         public override string ToString() =>
             $"{Title} | {Text}";
     }
