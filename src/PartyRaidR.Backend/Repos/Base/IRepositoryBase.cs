@@ -9,8 +9,8 @@ namespace PartyRaidR.Backend.Repos.Base
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<IEnumerable<TEntity>> FindByConditionAsync(Expression<Func<TEntity, bool>> condition);
         Task InsertAsync(TEntity entity);
-        void UpdateAsync(TEntity entity);
-        void DeleteAsync(TEntity entity);
+        void Update(TEntity entity);
+        void Delete(TEntity entity);
         Task<int> SaveChangesAsync();
         IQueryable<TEntity> GetAllAsQueryable();
     }

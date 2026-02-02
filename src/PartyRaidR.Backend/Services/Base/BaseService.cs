@@ -118,7 +118,7 @@ namespace PartyRaidR.Backend.Services.Base
             {
                 TModel entity = _assembler.ConvertToModel(dto);
 
-                _repo.UpdateAsync(entity);
+                _repo.Update(entity);
 
                 await _repo.SaveChangesAsync();
 
@@ -158,7 +158,7 @@ namespace PartyRaidR.Backend.Services.Base
                 if (entity is null)
                     throw new EntityNotFoundException($"Could not found a(n) {nameof(TModel)} with the given ID.");
                 else
-                    _repo.DeleteAsync(entity);
+                    _repo.Delete(entity);
 
                 await _repo.SaveChangesAsync();
 
