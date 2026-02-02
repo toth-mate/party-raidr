@@ -60,7 +60,7 @@ namespace PartyRaidR.Shared.Models
 
         [ForeignKey("AuthorId")]
         public User User { get; set; }
-        public List<Application> Applications { get; set; }
+        public List<Application> Applications { get; set; } = new();
 
         public override string ToString() =>
             $"{Title}, {Room}";

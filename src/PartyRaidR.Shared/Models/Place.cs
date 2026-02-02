@@ -47,7 +47,7 @@ namespace PartyRaidR.Shared.Models
 
         public City City { get; set; }
         public User User { get; set; }
-        public List<Event> Events { get; set; }
+        public List<Event> Events { get; set; } = new();
 
         public override string ToString() =>
             $"{Name} | {Category}";
