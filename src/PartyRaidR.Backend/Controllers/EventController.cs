@@ -19,5 +19,9 @@ namespace PartyRaidR.Backend.Controllers
         [HttpGet("upcoming-events")]
         public async Task<IActionResult> GetUpcomingEvents() =>
             HandleResponse(await _eventService.GetUpcomingEventsAsync());
+
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetEventsByUserId(string userId) =>
+            HandleResponse(await _eventService.GetEventsByUserIdAsync(userId));
     }
 }

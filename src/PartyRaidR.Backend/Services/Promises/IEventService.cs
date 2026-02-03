@@ -8,5 +8,6 @@ namespace PartyRaidR.Backend.Services.Promises
     public interface IEventService : IBaseService<Event, EventDto>
     {
         Task<ServiceResponse<List<UpcomingEventDto>>> GetUpcomingEventsAsync();
+        Task<ServiceResponse<List<EventDto>>> GetEventsByUserIdAsync(string userId);
     }
 }

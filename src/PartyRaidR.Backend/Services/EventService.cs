@@ -212,5 +212,32 @@ namespace PartyRaidR.Backend.Services
 
             return (userResult.Success && userResult.Data is not null) && (userResult.Data.Role != UserRole.Admin && eventToEdit.AuthorId == userId);
         }
+
+        public async Task<ServiceResponse<List<EventDto>>> GetEventsByUserIdAsync(string userId)
+        {
+            try
+            {
+                List<Event> events = await _eventRepo.GetEventsByUserIdAsync(userId);
+                List<EventDto> result = events.Select(_assembler.ConvertToDto).ToList();
+
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = result,
+                    Success = true,
+                    Message = result.Count == 0 ? "No events found for the specified user." : string.Empty,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = $"An error occured while retrieving events: {ex.Message}",
+                    StatusCode = 500
+                };
+            }
+        }
     }
 }
