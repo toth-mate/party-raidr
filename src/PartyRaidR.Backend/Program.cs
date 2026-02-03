@@ -35,6 +35,6 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-app.ConfigureWebApp();
+await app.ConfigureWebApp();
 
 app.Run();

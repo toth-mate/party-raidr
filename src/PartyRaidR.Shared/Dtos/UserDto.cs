@@ -11,6 +11,5 @@ namespace PartyRaidR.Shared.Dtos
         public DateTime RegisterDate { get; set; } = DateTime.Now;
         public DateOnly BirthDate { get; set; } = new DateOnly(2000, 1, 1);
         public UserRole Role { get; set; } = UserRole.User;
-        public string CityId { get; set; } = string.Empty;
     }
 }

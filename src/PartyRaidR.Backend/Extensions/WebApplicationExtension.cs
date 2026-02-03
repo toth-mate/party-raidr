@@ -5,9 +5,9 @@ namespace PartyRaidR.Backend.Extensions
 {
     public static class WebApplicationExtension
     {
-        public static void ConfigureWebApp(this WebApplication app)
+        public static async Task ConfigureWebApp(this WebApplication app)
         {
-            app.ConfigureDatabase();
+            await app.ConfigureDatabase();
 
             if (app.Environment.IsDevelopment())
                 app.ConfigureOpenApi();
@@ -34,13 +34,14 @@ namespace PartyRaidR.Backend.Extensions
             app.UseSwaggerUI();
         }
 
-        private static void ConfigureDatabase(this WebApplication app)
+        private static async Task ConfigureDatabase(this WebApplication app)
         {
             // Migration upon start
             using (var scope = app.Services.CreateScope())
             {
                 AppDbContext context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                context.Database.Migrate();
+                await context.Database.MigrateAsync();
+                await DbSeeder.SeedAsync(context);
             }
         }
     }

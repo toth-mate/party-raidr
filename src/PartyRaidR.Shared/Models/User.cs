@@ -18,7 +18,6 @@
             RegisterDate = DateTime.Now;
             BirthDate = new DateOnly(RegisterDate.Year, RegisterDate.Month, RegisterDate.Day);
             Role = UserRole.User;
-            CityId = string.Empty;
         }
 
         public User(Guid id, string username, string email, string passwordHash, string profilePictureUrl, DateTime registerDate, DateOnly birthDate, UserRole role, string cityId)
@@ -31,7 +30,6 @@
             RegisterDate = registerDate;
             BirthDate = birthDate;
             Role = role;
-            CityId = cityId;
         }
 
         public string Id { get; set; }
@@ -42,9 +40,7 @@
         public DateTime RegisterDate { get; set; }
         public DateOnly BirthDate { get; set; }
         public UserRole Role { get; set; }
-        public string CityId { get; set; }
 
-        public City City { get; set; }
         public List<Place> Places { get; set; } = new();
         public List<Notification> Notifications { get; set; } = new();
         public List<Event> Events { get; set; } = new();

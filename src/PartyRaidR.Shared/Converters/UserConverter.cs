@@ -13,8 +13,7 @@ namespace PartyRaidR.Shared.Converters
                 Email = user.Email,
                 ProfilePictureUrl = user.ProfilePictureUrl,
                 RegisterDate = user.RegisterDate,
-                Role = user.Role,
-                CityId = user.CityId
+                Role = user.Role
             };
 
         public static User ConvertToUser(this UserDto userDto) =>
@@ -25,8 +24,7 @@ namespace PartyRaidR.Shared.Converters
                 Email = userDto.Email,
                 ProfilePictureUrl = userDto.ProfilePictureUrl,
                 RegisterDate = userDto.RegisterDate,
-                Role = userDto.Role,
-                CityId = userDto.CityId
+                Role = userDto.Role
             };
     }
 }
