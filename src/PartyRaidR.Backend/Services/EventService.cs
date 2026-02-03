@@ -239,5 +239,11 @@ namespace PartyRaidR.Backend.Services
                 };
             }
         }
+
+        public async Task<ServiceResponse<List<EventDto>>> GetMyEventsAsync()
+        {
+            string userId = _userContext.UserId;
+            return await GetEventsByUserIdAsync(userId);
+        }
     }
 }
