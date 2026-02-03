@@ -245,5 +245,40 @@ namespace PartyRaidR.Backend.Services
             string userId = _userContext.UserId;
             return await GetEventsByUserIdAsync(userId);
         }
+
+        public async Task<ServiceResponse<List<EventDto>>> FilterEventsAsync(EventFilterDto filter)
+        {
+            try
+            {
+                List<Event> events = await _eventRepo.FilterEventsAsync(filter.Title,
+                                                                        filter.Description,
+                                                                        filter.StartingDate,
+                                                                        filter.EndingDate,
+                                                                        filter.PlaceId,
+                                                                        filter.CityId,
+                                                                        filter.Category,
+                                                                        filter.TicketPriceMin,
+                                                                        filter.TicketPriceMax);
+                List<EventDto> result = events.Select(_assembler.ConvertToDto).ToList();
+
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = result,
+                    Success = true,
+                    Message = result.Count == 0 ? "No events found matching the specified criteria." : string.Empty,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = $"An error occured while filtering events: {ex.Message}",
+                    StatusCode = 500
+                };
+            }
+        }
     }
 }

@@ -29,5 +29,9 @@ namespace PartyRaidR.Backend.Controllers
         [HttpGet("my-events")]
         public async Task<IActionResult> GetMyEvents() =>
             HandleResponse(await _eventService.GetMyEventsAsync());
+
+        [HttpPost("filter")]
+        public async Task<IActionResult> FilterEvents([FromBody] EventFilterDto filter) =>
+            HandleResponse(await _eventService.FilterEventsAsync(filter));
     }
 }
