@@ -1,4 +1,4 @@
-﻿namespace PartyRaidR.Shared.Models
+﻿namespace PartyRaidR.Backend.Models
 {
     public interface IDbEntity<TEntity> where TEntity : class, new()
     {

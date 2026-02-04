@@ -1,10 +1,10 @@
-﻿using PartyRaidR.Backend.Exceptions;
+﻿using PartyRaidR.Backend.Assemblers;
+using PartyRaidR.Backend.Exceptions;
+using PartyRaidR.Backend.Models;
+using PartyRaidR.Backend.Models.Responses;
 using PartyRaidR.Backend.Repos.Base;
 using PartyRaidR.Backend.Services.Promises;
-using PartyRaidR.Shared.Assemblers;
 using PartyRaidR.Shared.Dtos;
-using PartyRaidR.Shared.Models;
-using PartyRaidR.Shared.Models.Responses;
 
 namespace PartyRaidR.Backend.Services.Base
 {

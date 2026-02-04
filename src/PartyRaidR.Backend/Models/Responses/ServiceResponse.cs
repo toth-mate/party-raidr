@@ -1,4 +1,4 @@
-﻿namespace PartyRaidR.Shared.Models.Responses
+﻿namespace PartyRaidR.Backend.Models.Responses
 {
     public class ServiceResponse<T>
     {

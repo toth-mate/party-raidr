@@ -1,4 +1,4 @@
-﻿using PartyRaidR.Shared.Models;
+﻿using PartyRaidR.Backend.Models;
 using System.Linq.Expressions;
 
 namespace PartyRaidR.Backend.Repos.Base

@@ -1,11 +1,7 @@
-﻿namespace PartyRaidR.Shared.Models
-{
-    public enum UserRole
-    {
-        User = 0,
-        Admin = 1
-    }
+﻿using PartyRaidR.Shared.Enums;
 
+namespace PartyRaidR.Backend.Models
+{
     public class User : IDbEntity<User>
     {
         public User()

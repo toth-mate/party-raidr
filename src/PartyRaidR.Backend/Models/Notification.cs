@@ -1,12 +1,7 @@
-﻿namespace PartyRaidR.Shared.Models
-{
-    public enum NotificationType
-    {
-        General = 0,
-        Info = 1,
-        Warning = 2
-    }
+﻿using PartyRaidR.Shared.Enums;
 
+namespace PartyRaidR.Backend.Models
+{
     public class Notification : IDbEntity<Notification>
     {
         public Notification()

@@ -1,4 +1,4 @@
-﻿namespace PartyRaidR.Shared.Converters
+﻿namespace PartyRaidR.Backend.Converters
 {
     public static class ConverterHelper
     {

@@ -1,5 +1,6 @@
-﻿using PartyRaidR.Shared.Dtos;
-using PartyRaidR.Shared.Models;
+﻿using PartyRaidR.Backend.Models;
+using PartyRaidR.Shared.Dtos;
+using PartyRaidR.Shared.Enums;
 
 namespace PartyRaidR.Backend.Services
 {

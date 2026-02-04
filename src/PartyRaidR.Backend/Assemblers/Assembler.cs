@@ -1,4 +1,4 @@
-﻿namespace PartyRaidR.Shared.Assemblers
+﻿namespace PartyRaidR.Backend.Assemblers
 {
     public abstract class Assembler<TModel, TDto>
     {

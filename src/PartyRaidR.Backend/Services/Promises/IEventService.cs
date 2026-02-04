@@ -1,7 +1,7 @@
-﻿using PartyRaidR.Backend.Services.Base;
+﻿using PartyRaidR.Backend.Models;
+using PartyRaidR.Backend.Models.Responses;
+using PartyRaidR.Backend.Services.Base;
 using PartyRaidR.Shared.Dtos;
-using PartyRaidR.Shared.Models;
-using PartyRaidR.Shared.Models.Responses;
 
 namespace PartyRaidR.Backend.Services.Promises
 {

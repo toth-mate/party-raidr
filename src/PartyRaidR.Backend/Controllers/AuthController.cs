@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PartyRaidR.Backend.Models.Responses;
 using PartyRaidR.Backend.Services.Promises;
 using PartyRaidR.Shared.Dtos.AuthenticationRequests;
-using PartyRaidR.Shared.Models.Responses;
 
 namespace PartyRaidR.Backend.Controllers
 {

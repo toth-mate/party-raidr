@@ -1,15 +1,8 @@
 ﻿using NetTopologySuite.Geometries;
+using PartyRaidR.Shared.Enums;
 
-namespace PartyRaidR.Shared.Models
+namespace PartyRaidR.Backend.Models
 {
-    public enum PlaceCategory
-    {
-        None = 0,
-        House = 1,
-        Club = 2,
-        PublicSpace = 3
-    }
-
     public class Place : IDbEntity<Place>
     {
         public Place()

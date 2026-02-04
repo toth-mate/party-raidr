@@ -1,7 +1,7 @@
-﻿using PartyRaidR.Shared.Models;
-using PartyRaidR.Shared.Dtos.AuthenticationRequests;
+﻿using PartyRaidR.Shared.Dtos.AuthenticationRequests;
+using PartyRaidR.Backend.Models;
 
-namespace PartyRaidR.Shared.Converters
+namespace PartyRaidR.Backend.Converters
 {
     public static class UserRegistrationConverter
     {

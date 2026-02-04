@@ -1,17 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using PartyRaidR.Shared.Enums;
 
-namespace PartyRaidR.Shared.Models
+namespace PartyRaidR.Backend.Models
 {
-    public enum EventCategory
-    {
-        None = 0,
-        OutdoorsActivity = 1,
-        IndoorsActivity = 2,
-        Concert = 3,
-        Festival = 4,
-        Party = 5
-    }
-
     public class Event : IDbEntity<Event>
     {
         public Event()

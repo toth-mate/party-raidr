@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using PartyRaidR.Backend.Assemblers;
 using PartyRaidR.Backend.Context;
 using PartyRaidR.Backend.Repos;
 using PartyRaidR.Backend.Repos.Promises;
 using PartyRaidR.Backend.Services;
 using PartyRaidR.Backend.Services.Promises;
-using PartyRaidR.Shared.Assemblers;
 
 namespace PartyRaidR.Backend.Extensions
 {

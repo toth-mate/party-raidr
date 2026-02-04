@@ -1,14 +1,7 @@
-﻿namespace PartyRaidR.Shared.Models
-{
-    public enum StatusType
-    {
-        NoApplicationNeeded = 0,
-        Pending = 1,
-        Accepted = 2,
-        Rejected = 3,
-        WaitList = 4
-    }
+﻿using PartyRaidR.Shared.Enums;
 
+namespace PartyRaidR.Backend.Models
+{
     public class Application : IDbEntity<Application>
     {
         public Application()

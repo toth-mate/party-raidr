@@ -1,7 +1,7 @@
-﻿using PartyRaidR.Shared.Dtos;
-using PartyRaidR.Shared.Models;
+﻿using PartyRaidR.Backend.Models;
+using PartyRaidR.Shared.Dtos;
 
-namespace PartyRaidR.Shared.Converters
+namespace PartyRaidR.Backend.Converters
 {
     public static class NotificationConverter
     {

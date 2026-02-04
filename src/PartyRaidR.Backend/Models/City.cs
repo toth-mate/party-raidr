@@ -1,4 +1,4 @@
-﻿namespace PartyRaidR.Shared.Models
+﻿namespace PartyRaidR.Backend.Models
 {
     public class City : IDbEntity<City>
     {

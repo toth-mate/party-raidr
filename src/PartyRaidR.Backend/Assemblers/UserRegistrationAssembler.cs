@@ -1,8 +1,8 @@
-﻿using PartyRaidR.Shared.Models;
-using PartyRaidR.Shared.Converters;
+﻿using PartyRaidR.Backend.Converters;
+using PartyRaidR.Backend.Models;
 using PartyRaidR.Shared.Dtos.AuthenticationRequests;
 
-namespace PartyRaidR.Shared.Assemblers
+namespace PartyRaidR.Backend.Assemblers
 {
     public class UserRegistrationAssembler : Assembler<User, UserRegistrationDto>
     {

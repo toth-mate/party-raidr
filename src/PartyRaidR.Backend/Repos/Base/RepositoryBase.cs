@@ -1,7 +1,7 @@
-﻿using PartyRaidR.Shared.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PartyRaidR.Backend.Context;
 using System.Linq.Expressions;
+using PartyRaidR.Backend.Models;
 
 namespace PartyRaidR.Backend.Repos.Base
 {

@@ -1,12 +1,12 @@
 ﻿using PartyRaidR.Backend.Repos.Promises;
 using PartyRaidR.Backend.Services.Promises;
-using PartyRaidR.Shared.Assemblers;
 using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Dtos.AuthenticationRequests;
-using PartyRaidR.Shared.Models;
-using PartyRaidR.Shared.Models.Responses;
 using PartyRaidR.Backend.Exceptions;
 using System.Text.RegularExpressions;
+using PartyRaidR.Backend.Models.Responses;
+using PartyRaidR.Backend.Assemblers;
+using PartyRaidR.Backend.Models;
 
 namespace PartyRaidR.Backend.Services
 {
