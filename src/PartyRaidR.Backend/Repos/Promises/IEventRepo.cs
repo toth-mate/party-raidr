@@ -11,6 +11,7 @@ namespace PartyRaidR.Backend.Repos.Promises
                                        string? description,
                                        DateTime? startingDate,
                                        DateTime? endingDate,
+                                       string? placeName,
                                        string? placeId,
                                        string? cityId,
                                        EventCategory? category,

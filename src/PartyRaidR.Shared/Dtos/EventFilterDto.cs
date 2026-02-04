@@ -8,6 +8,7 @@ namespace PartyRaidR.Shared.Dtos
         public string? Description { get; set; } = null;
         public DateTime? StartingDate { get; set; } = null;
         public DateTime? EndingDate { get; set; } = null;
+        public string? PlaceName { get; set; } = null;
         public string? PlaceId { get; set; } = null;
         public string? CityId { get; set; } = null;
         public EventCategory? Category { get; set; } = EventCategory.None;

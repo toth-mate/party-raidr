@@ -17,6 +17,7 @@ namespace PartyRaidR.Backend.Repos
                                                     string? description,
                                                     DateTime? startingDate,
                                                     DateTime? endingDate,
+                                                    string? placeName,
                                                     string? placeId,
                                                     string? cityId,
                                                     EventCategory? category,
@@ -36,6 +37,9 @@ namespace PartyRaidR.Backend.Repos
 
             if(endingDate is not null)
                 result = result.Where(e => e.EndingDate <= endingDate);
+
+            if (placeName is not null)
+                result = result.Include(e => e.Place).Where(e => e.Place.Name.Contains(placeName));
 
             if (placeId is not null)
                 result = result.Include(e => e.Place).Where(e => e.Place.Id == placeId);
