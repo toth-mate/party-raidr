@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PartyRaidR.Backend.Assemblers;
+using PartyRaidR.Backend.Exceptions;
 using PartyRaidR.Backend.Models;
 using PartyRaidR.Backend.Models.Responses;
 using PartyRaidR.Backend.Repos.Promises;
@@ -107,6 +108,7 @@ namespace PartyRaidR.Backend.Services
                                                                         filter.Description,
                                                                         filter.StartingDate,
                                                                         filter.EndingDate,
+                                                                        filter.PlaceName,
                                                                         filter.PlaceId,
                                                                         filter.CityId,
                                                                         filter.Category,
@@ -140,6 +142,16 @@ namespace PartyRaidR.Backend.Services
             {
                 // Check if the new event is valid
                 await ValidateNewEvent(dto);
+            }
+            catch(OverlappingEventsException oee)
+            {
+                return new ServiceResponse<EventDto>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = oee.Message,
+                    StatusCode = 409
+                };
             }
             catch (Exception ex)
             {
