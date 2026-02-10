@@ -136,6 +136,39 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
+        public async Task<ServiceResponse<EventDto>> ArchiveOldEventsAsync()
+        {
+            try
+            {
+                List<Event> events = await _eventRepo.GetAllAsQueryable().Where(e => e.EndingDate < DateTime.UtcNow && e.IsActive).ToListAsync();
+
+                foreach (Event eventToArchive in events)
+                {
+                    eventToArchive.IsActive = false;
+                    _repo.Update(eventToArchive);
+                    await _repo.SaveChangesAsync();
+                }
+
+                return new ServiceResponse<EventDto>
+                {
+                    Data = null,
+                    Success = true,
+                    Message = events.Count == 0 ? "No old events to archive." : $"{events.Count} event(s) archived successfully.",
+                    StatusCode = 200
+                };
+            }
+            catch(Exception ex)
+            {
+                return new ServiceResponse<EventDto>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = $"An error occured while archiving old events: {ex.Message}",
+                    StatusCode = 500
+                };
+            }
+        }
+
         public override async Task<ServiceResponse<EventDto>> AddAsync(EventDto dto)
         {
             try

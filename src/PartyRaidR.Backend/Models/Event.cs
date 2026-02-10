@@ -18,9 +18,10 @@ namespace PartyRaidR.Backend.Models
             Room = 0;
             TicketPrice = 0;
             DateCreated = DateTime.Now;
+            IsActive = true;
         }
 
-        public Event(Guid id, string title, string description, DateTime startingDate, DateTime endingDate, string placeId, EventCategory category, string authorId, int room, decimal ticketPrice, DateTime dateCreated)
+        public Event(Guid id, string title, string description, DateTime startingDate, DateTime endingDate, string placeId, EventCategory category, string authorId, int room, decimal ticketPrice, DateTime dateCreated, bool isActive)
         {
             Id = id.ToString();
             Title = title;
@@ -33,6 +34,7 @@ namespace PartyRaidR.Backend.Models
             Room = room;
             TicketPrice = ticketPrice;
             DateCreated = dateCreated;
+            IsActive = isActive;
         }
 
         public string Id { get; set; }
@@ -46,6 +48,7 @@ namespace PartyRaidR.Backend.Models
         public int Room { get; set; }
         public decimal TicketPrice { get; set; }
         public DateTime DateCreated { get; set; }
+        public bool IsActive { get; set; }
 
         public Place Place { get; set; }
 

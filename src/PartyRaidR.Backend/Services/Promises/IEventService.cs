@@ -11,5 +11,6 @@ namespace PartyRaidR.Backend.Services.Promises
         Task<ServiceResponse<List<EventDto>>> GetEventsByUserIdAsync(string userId);
         Task<ServiceResponse<List<EventDto>>> GetMyEventsAsync();
         Task<ServiceResponse<List<EventDto>>> FilterEventsAsync(EventFilterDto filter);
+        Task<ServiceResponse<EventDto>> ArchiveOldEventsAsync();
     }
 }

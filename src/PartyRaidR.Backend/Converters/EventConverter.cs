@@ -18,7 +18,8 @@ namespace PartyRaidR.Backend.Converters
                 AuthorId = @event.AuthorId,
                 Room = @event.Room,
                 TicketPrice = @event.TicketPrice,
-                DateCreated = @event.DateCreated
+                DateCreated = @event.DateCreated,
+                IsActive = @event.IsActive
             };
 
         public static Event ConvertToEvent(this EventDto eventDto) =>
@@ -34,7 +35,8 @@ namespace PartyRaidR.Backend.Converters
                 AuthorId = eventDto.AuthorId,
                 Room = eventDto.Room,
                 TicketPrice = eventDto.TicketPrice,
-                DateCreated = eventDto.DateCreated
+                DateCreated = eventDto.DateCreated,
+                IsActive = eventDto.IsActive
             };
     }
 }

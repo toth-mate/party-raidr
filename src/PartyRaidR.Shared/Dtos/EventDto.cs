@@ -15,5 +15,6 @@ namespace PartyRaidR.Shared.Dtos
         public int Room { get; set; } = 0;
         public decimal TicketPrice { get; set; } = 0;
         public DateTime DateCreated { get; set; } = DateTime.Now;
+        public bool IsActive { get; set; } = true;
     }
 }
