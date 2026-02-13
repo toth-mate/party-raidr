@@ -37,7 +37,7 @@ namespace PartyRaidR.Backend.Controllers
         public async Task<IActionResult> GetArchivedEvents() =>
             HandleResponse(await _eventService.GetArchivedEventsAsync());
 
-        [HttpGet("upcoming-events")]
+        [HttpGet("upcoming")]
         public async Task<IActionResult> GetUpcomingEvents() =>
             HandleResponse(await _eventService.GetUpcomingEventsAsync());
 
