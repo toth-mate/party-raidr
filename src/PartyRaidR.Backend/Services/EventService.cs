@@ -290,6 +290,15 @@ namespace PartyRaidR.Backend.Services
                         Message = "Event not found."
                     };
                 }
+                else if (!eventToEdit.IsActive)
+                {
+                    return new ServiceResponse<EventDto>
+                    {
+                        Success = false,
+                        StatusCode = 400,
+                        Message = "Cannot edit an archived event."
+                    };
+                }
                 else
                 {
                     bool isUserAuthor = await IsUserAuthor(eventToEdit);
