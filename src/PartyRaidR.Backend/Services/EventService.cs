@@ -372,5 +372,61 @@ namespace PartyRaidR.Backend.Services
 
             return await base.DeleteAsync(id);
         }
+
+        public async Task<ServiceResponse<List<EventDto>>> GetActiveEventsAsync()
+        {
+            try
+            {
+                var events = await _repo.FindByConditionAsync(e => e.IsActive);
+                List<EventDto> result = events.Select(_assembler.ConvertToDto).ToList();
+
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = result,
+                    Success = true,
+                    Message = result.Count == 0 ? "No active events found." : string.Empty,
+                    StatusCode = 200
+                };
+            }
+            catch(Exception ex)
+            {
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = $"An error occured while retrieving active events: {ex.Message}",
+                    StatusCode = 500
+                };
+
+            }
+        }
+
+        public async Task<ServiceResponse<List<EventDto>>> GetArchivedEventsAsync()
+        {
+            try
+            {
+                var events = await _repo.FindByConditionAsync(e => !e.IsActive);
+                List<EventDto> result = events.Select(_assembler.ConvertToDto).ToList();
+
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = result,
+                    Success = true,
+                    Message = result.Count == 0 ? "No archived events found." : string.Empty,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = $"An error occured while retrieving archived events: {ex.Message}",
+                    StatusCode = 500
+                };
+
+            }
+        }
     }
 }
