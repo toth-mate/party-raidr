@@ -9,8 +9,6 @@ JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.ConfigureServer(connectionString);
 
@@ -21,7 +19,7 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = false,
         ValidateAudience = false,
@@ -31,7 +29,7 @@ builder.Services.AddAuthentication(options =>
         ValidAudiences = builder.Configuration.GetSection("Jwt:Audiences").Get<string[]>(),
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
     };
-}); 
+});
 
 var app = builder.Build();
 

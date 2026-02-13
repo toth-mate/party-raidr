@@ -13,6 +13,8 @@ namespace PartyRaidR.Backend.Extensions
     {
         public static void ConfigureServer(this IServiceCollection services, string? connectionString)
         {
+            services.AddControllers();
+            services.ConfigureApiEndpoints();
             services.ConfigureOpenApi();
             services.ConfigureCors();
             services.AddAppDbContext(connectionString);
@@ -22,6 +24,15 @@ namespace PartyRaidR.Backend.Extensions
 
             // Service can access the HTTP request
             services.AddHttpContextAccessor();
+        }
+
+        private static void ConfigureApiEndpoints(this IServiceCollection services)
+        {
+            // Following conventions by making automatically generated API endpoints lowercase
+            services.Configure<RouteOptions>(options =>
+            {
+                options.LowercaseUrls = true;
+            });
         }
 
         private static void ConfigureCors(this IServiceCollection services)
