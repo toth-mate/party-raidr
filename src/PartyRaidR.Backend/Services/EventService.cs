@@ -313,6 +313,16 @@ namespace PartyRaidR.Backend.Services
                         };
                     }
 
+                    if(dto.EventStatus != 0)
+                    {
+                        return new ServiceResponse<EventDto>
+                        {
+                            Success = false,
+                            StatusCode = 400,
+                            Message = "Events with the flag 'Live', 'Starting Soon' or 'Past' can not be edited."
+                        };
+                    }
+
                     EventDto updated = dto;
                     updated.AuthorId = eventToEdit.AuthorId;
                 }
