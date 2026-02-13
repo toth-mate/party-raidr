@@ -21,6 +21,9 @@ namespace PartyRaidR.Backend.Services
             if (dto.StartingDate <= DateTime.UtcNow)
                 throw new ArgumentException("Starting date must be in the future.");
 
+            if(dto.StartingDate < DateTime.UtcNow.AddHours(3))
+                throw new ArgumentException("Starting date must be at least 3 hours from now.");
+
             if(dto.EndingDate < dto.StartingDate.AddMinutes(20))
                 throw new ArgumentException("Event duration must be at least 20 minutes.");
 
