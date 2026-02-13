@@ -24,7 +24,7 @@ namespace PartyRaidR.Backend.Repos
                                                     decimal? ticketPriceMin,
                                                     decimal? ticketPriceMax)
         {
-            var result = GetAllAsQueryable();
+            var result = GetAllAsQueryable().Where(e => e.IsActive);
 
             if(title is not null)
                 result = result.Where(e => e.Title.Contains(title));
