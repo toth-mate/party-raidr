@@ -1,6 +1,6 @@
-﻿using PartyRaidR.Shared.Dtos;
+﻿using PartyRaidR.Backend.Models.Responses;
+using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Dtos.AuthenticationRequests;
-using PartyRaidR.Shared.Models.Responses;
 
 namespace PartyRaidR.Backend.Services.Promises
 {

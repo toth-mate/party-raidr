@@ -1,0 +1,445 @@
+﻿using Microsoft.EntityFrameworkCore;
+using PartyRaidR.Backend.Assemblers;
+using PartyRaidR.Backend.Exceptions;
+using PartyRaidR.Backend.Models;
+using PartyRaidR.Backend.Models.Responses;
+using PartyRaidR.Backend.Repos.Promises;
+using PartyRaidR.Backend.Services.Base;
+using PartyRaidR.Backend.Services.Promises;
+using PartyRaidR.Shared.Dtos;
+
+namespace PartyRaidR.Backend.Services
+{
+    public partial class EventService : BaseService<Event, EventDto>, IEventService
+    {
+        private readonly IEventRepo _eventRepo;
+        private readonly IPlaceRepo _placeRepo;
+        private readonly ICityRepo _cityRepo;
+        private readonly IUserService _userService;
+
+        public EventService(EventAssembler assembler, IEventRepo? repo, IUserContext userContext, IPlaceRepo? placeRepo, IUserService? userService, ICityRepo? cityRepo) : base(assembler, repo, userContext)
+        {
+            _eventRepo = repo ?? throw new ArgumentNullException(nameof(IEventRepo));
+            _placeRepo = placeRepo ?? throw new ArgumentNullException(nameof(IPlaceRepo));
+            _userService = userService ?? throw new ArgumentNullException(nameof(IUserService));
+            _cityRepo = cityRepo ?? throw new ArgumentNullException(nameof(ICityRepo));
+        }
+
+        public async Task<ServiceResponse<int>> GetNumberOfEventsAsync()
+        {
+            try
+            {
+                int count = await _repo.CountAsync();
+
+                return new ServiceResponse<int>
+                {
+                    Data = count,
+                    Success = true,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<int>
+                {
+                    Success = false,
+                    Message = $"An error occured while counting events: {ex.Message}",
+                    StatusCode = 500
+                };
+
+            }
+        }
+
+        public async Task<ServiceResponse<int>> GetNumberOfActiveEventsAsync()
+        {
+            try
+            {
+                int count = await _repo.CountAsync(e => e.IsActive);
+
+                return new ServiceResponse<int>
+                {
+                    Data = count,
+                    Success = true,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<int>
+                {
+                    Success = false,
+                    Message = $"An error occured while counting active events: {ex.Message}",
+                    StatusCode = 500
+                };
+
+            }
+        }
+
+        public async Task<ServiceResponse<int>> GetNumberOfArchivedEventsAsync()
+        {
+            try
+            {
+                int count = await _repo.CountAsync(e => !e.IsActive);
+
+                return new ServiceResponse<int>
+                {
+                    Data = count,
+                    Success = true,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<int>
+                {
+                    Success = false,
+                    Message = $"An error occured while counting archived events: {ex.Message}",
+                    StatusCode = 500
+                };
+
+            }
+        }
+
+        public async Task<ServiceResponse<List<UpcomingEventDto>>> GetUpcomingEventsAsync()
+        {
+            try
+            {
+                DateTime now = DateTime.UtcNow;
+
+                var query = from e in _eventRepo.GetAllAsQueryable()
+                            join p in _placeRepo.GetAllAsQueryable() on e.PlaceId equals p.Id
+                            join c in _cityRepo.GetAllAsQueryable() on p.CityId equals c.Id
+                            where e.StartingDate > now
+                            orderby e.StartingDate
+                            select new UpcomingEventDto
+                            {
+                                Id = e.Id,
+                                Title = e.Title,
+                                CityName = c.Name,
+                                PlaceName = p.Name,
+                                StartTime = e.StartingDate
+                            };
+
+                List<UpcomingEventDto> result = await query.Take(10).ToListAsync();
+
+                return new ServiceResponse<List<UpcomingEventDto>>
+                {
+                    Data = result,
+                    Success = true,
+                    Message = result.Count == 0 ? "No upcoming events found." : string.Empty,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<List<UpcomingEventDto>>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = $"An error occured while retrieving upcoming events: {ex.Message}",
+                    StatusCode = 500
+                };
+            }
+        }
+
+        public async Task<ServiceResponse<List<EventDto>>> GetEventsByUserIdAsync(string userId)
+        {
+            try
+            {
+                List<Event> events = await _eventRepo.GetEventsByUserIdAsync(userId);
+                List<EventDto> result = events.Select(_assembler.ConvertToDto).ToList();
+
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = result,
+                    Success = true,
+                    Message = result.Count == 0 ? "No events found for the specified user." : string.Empty,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = $"An error occured while retrieving events: {ex.Message}",
+                    StatusCode = 500
+                };
+            }
+        }
+
+        public async Task<ServiceResponse<List<EventDto>>> GetMyEventsAsync()
+        {
+            string userId = _userContext.UserId;
+            return await GetEventsByUserIdAsync(userId);
+        }
+
+        public async Task<ServiceResponse<List<EventDto>>> FilterEventsAsync(EventFilterDto filter)
+        {
+            try
+            {
+                List<Event> events = await _eventRepo.FilterEventsAsync(filter.Title,
+                                                                        filter.Description,
+                                                                        filter.StartingDate,
+                                                                        filter.EndingDate,
+                                                                        filter.PlaceName,
+                                                                        filter.PlaceId,
+                                                                        filter.CityId,
+                                                                        filter.Category,
+                                                                        filter.TicketPriceMin,
+                                                                        filter.TicketPriceMax);
+                List<EventDto> result = events.Select(_assembler.ConvertToDto).ToList();
+
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = result,
+                    Success = true,
+                    Message = result.Count == 0 ? "No events found matching the specified criteria." : string.Empty,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = $"An error occured while filtering events: {ex.Message}",
+                    StatusCode = 500
+                };
+            }
+        }
+
+        public async Task<ServiceResponse<EventDto>> ArchiveOldEventsAsync()
+        {
+            try
+            {
+                List<Event> events = await _eventRepo.GetAllAsQueryable().Where(e => e.EndingDate < DateTime.UtcNow && e.IsActive).ToListAsync();
+
+                foreach (Event eventToArchive in events)
+                {
+                    eventToArchive.IsActive = false;
+                    _repo.Update(eventToArchive);
+                    await _repo.SaveChangesAsync();
+                }
+
+                return new ServiceResponse<EventDto>
+                {
+                    Data = null,
+                    Success = true,
+                    Message = events.Count == 0 ? "No old events to archive." : $"{events.Count} event(s) archived successfully.",
+                    StatusCode = 200
+                };
+            }
+            catch(Exception ex)
+            {
+                return new ServiceResponse<EventDto>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = $"An error occured while archiving old events: {ex.Message}",
+                    StatusCode = 500
+                };
+            }
+        }
+
+        public override async Task<ServiceResponse<EventDto>> AddAsync(EventDto dto)
+        {
+            try
+            {
+                // Check if the new event is valid
+                await ValidateEvent(dto);
+            }
+            catch(OverlappingEventsException oee)
+            {
+                return new ServiceResponse<EventDto>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = oee.Message,
+                    StatusCode = 409
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<EventDto>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = ex.Message,
+                    StatusCode = 400
+                };
+            }
+
+            return await base.AddAsync(dto);
+        }
+
+        public override async Task<ServiceResponse<EventDto>> UpdateAsync(EventDto dto)
+        {
+            try
+            {
+                Event? eventToEdit = await _repo.GetByIdAsync(dto.Id);
+
+                if (eventToEdit is null)
+                {
+                    return new ServiceResponse<EventDto>
+                    {
+                        Success = false,
+                        StatusCode = 404,
+                        Message = "Event not found."
+                    };
+                }
+                else if (!eventToEdit.IsActive)
+                {
+                    return new ServiceResponse<EventDto>
+                    {
+                        Success = false,
+                        StatusCode = 400,
+                        Message = "Cannot edit an archived event."
+                    };
+                }
+                else
+                {
+                    bool isUserAuthor = await IsUserAuthor(eventToEdit);
+
+                    if (!isUserAuthor)
+                    {
+                        return new ServiceResponse<EventDto>
+                        {
+                            Success = false,
+                            StatusCode = 403,
+                            Message = "You do not have permission to edit this event."
+                        };
+                    }
+
+                    if(dto.EventStatus != 0)
+                    {
+                        return new ServiceResponse<EventDto>
+                        {
+                            Success = false,
+                            StatusCode = 400,
+                            Message = "Events with the flag 'Live', 'Starting Soon' or 'Past' can not be edited."
+                        };
+                    }
+
+
+                    EventDto updated = dto;
+                    updated.AuthorId = eventToEdit.AuthorId;
+
+                    await ValidateEvent(updated);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<EventDto>
+                {
+                    Success = false,
+                    Message = ex.Message,
+                    StatusCode = 400
+                };
+            }
+
+            return await base.UpdateAsync(dto);
+        }
+
+        public override async Task<ServiceResponse<EventDto>> DeleteAsync(string id)
+        {
+            try
+            {
+                Event? eventToDelete = await _repo.GetByIdAsync(id);
+
+                if (eventToDelete is null)
+                {
+                    return new ServiceResponse<EventDto>
+                    {
+                        Success = false,
+                        StatusCode = 404,
+                        Message = "Event not found."
+                    };
+                }
+                else
+                {
+                    bool isUserAuthor = await IsUserAuthor(eventToDelete);
+
+                    if (!isUserAuthor)
+                    {
+                        return new ServiceResponse<EventDto>
+                        {
+                            Success = false,
+                            StatusCode = 403,
+                            Message = "You do not have permission to delete this event."
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<EventDto>
+                {
+                    Success = false,
+                    Message = $"An error occured while verifying user permissions: {ex.Message}",
+                    StatusCode = 500
+                };
+            }
+
+            return await base.DeleteAsync(id);
+        }
+
+        public async Task<ServiceResponse<List<EventDto>>> GetActiveEventsAsync()
+        {
+            try
+            {
+                var events = await _repo.FindByConditionAsync(e => e.IsActive);
+                List<EventDto> result = events.Select(_assembler.ConvertToDto).ToList();
+
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = result,
+                    Success = true,
+                    Message = result.Count == 0 ? "No active events found." : string.Empty,
+                    StatusCode = 200
+                };
+            }
+            catch(Exception ex)
+            {
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = $"An error occured while retrieving active events: {ex.Message}",
+                    StatusCode = 500
+                };
+
+            }
+        }
+
+        public async Task<ServiceResponse<List<EventDto>>> GetArchivedEventsAsync()
+        {
+            try
+            {
+                var events = await _repo.FindByConditionAsync(e => !e.IsActive);
+                List<EventDto> result = events.Select(_assembler.ConvertToDto).ToList();
+
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = result,
+                    Success = true,
+                    Message = result.Count == 0 ? "No archived events found." : string.Empty,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<List<EventDto>>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = $"An error occured while retrieving archived events: {ex.Message}",
+                    StatusCode = 500
+                };
+
+            }
+        }
+    }
+}

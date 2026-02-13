@@ -23,14 +23,14 @@ namespace PartyRaidR.Backend.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("PartyRaidR.Shared.Models.Application", b =>
+            modelBuilder.Entity("PartyRaidR.Backend.Models.Application", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("EventId")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -40,14 +40,18 @@ namespace PartyRaidR.Backend.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Applications");
                 });
 
-            modelBuilder.Entity("PartyRaidR.Shared.Models.City", b =>
+            modelBuilder.Entity("PartyRaidR.Backend.Models.City", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
@@ -73,14 +77,14 @@ namespace PartyRaidR.Backend.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("PartyRaidR.Shared.Models.Event", b =>
+            modelBuilder.Entity("PartyRaidR.Backend.Models.Event", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("AuthorId")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("Category")
                         .HasColumnType("int");
@@ -95,9 +99,12 @@ namespace PartyRaidR.Backend.Migrations
                     b.Property<DateTime>("EndingDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("PlaceId")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("Room")
                         .HasColumnType("int");
@@ -114,10 +121,14 @@ namespace PartyRaidR.Backend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("PlaceId");
+
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("PartyRaidR.Shared.Models.Notification", b =>
+            modelBuilder.Entity("PartyRaidR.Backend.Models.Notification", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
@@ -127,7 +138,7 @@ namespace PartyRaidR.Backend.Migrations
 
                     b.Property<string>("EventId")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("tinyint(1)");
@@ -145,14 +156,18 @@ namespace PartyRaidR.Backend.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Notifications");
                 });
 
-            modelBuilder.Entity("PartyRaidR.Shared.Models.Place", b =>
+            modelBuilder.Entity("PartyRaidR.Backend.Models.Place", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
@@ -166,7 +181,7 @@ namespace PartyRaidR.Backend.Migrations
 
                     b.Property<string>("CityId")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -182,24 +197,24 @@ namespace PartyRaidR.Backend.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Places");
                 });
 
-            modelBuilder.Entity("PartyRaidR.Shared.Models.User", b =>
+            modelBuilder.Entity("PartyRaidR.Backend.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
 
                     b.Property<DateOnly>("BirthDate")
                         .HasColumnType("date");
-
-                    b.Property<string>("CityId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -226,6 +241,103 @@ namespace PartyRaidR.Backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("PartyRaidR.Backend.Models.Application", b =>
+                {
+                    b.HasOne("PartyRaidR.Backend.Models.Event", "Event")
+                        .WithMany("Applications")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PartyRaidR.Backend.Models.User", "User")
+                        .WithMany("Applications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PartyRaidR.Backend.Models.Event", b =>
+                {
+                    b.HasOne("PartyRaidR.Backend.Models.User", "User")
+                        .WithMany("Events")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PartyRaidR.Backend.Models.Place", "Place")
+                        .WithMany("Events")
+                        .HasForeignKey("PlaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Place");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PartyRaidR.Backend.Models.Notification", b =>
+                {
+                    b.HasOne("PartyRaidR.Backend.Models.Event", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PartyRaidR.Backend.Models.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PartyRaidR.Backend.Models.Place", b =>
+                {
+                    b.HasOne("PartyRaidR.Backend.Models.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PartyRaidR.Backend.Models.User", "User")
+                        .WithMany("Places")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PartyRaidR.Backend.Models.Event", b =>
+                {
+                    b.Navigation("Applications");
+                });
+
+            modelBuilder.Entity("PartyRaidR.Backend.Models.Place", b =>
+                {
+                    b.Navigation("Events");
+                });
+
+            modelBuilder.Entity("PartyRaidR.Backend.Models.User", b =>
+                {
+                    b.Navigation("Applications");
+
+                    b.Navigation("Events");
+
+                    b.Navigation("Notifications");
+
+                    b.Navigation("Places");
                 });
 #pragma warning restore 612, 618
         }

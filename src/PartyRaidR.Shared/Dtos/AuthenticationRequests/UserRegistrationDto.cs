@@ -1,4 +1,4 @@
-﻿using PartyRaidR.Shared.Models;
+﻿using PartyRaidR.Shared.Enums;
 
 namespace PartyRaidR.Shared.Dtos.AuthenticationRequests
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using PartyRaidR.Backend.Models;
 using PartyRaidR.Backend.Services.Promises;
-using PartyRaidR.Shared.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

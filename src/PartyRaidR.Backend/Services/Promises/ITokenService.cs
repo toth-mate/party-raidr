@@ -1,4 +1,4 @@
-﻿using PartyRaidR.Shared.Models;
+﻿using PartyRaidR.Backend.Models;
 
 namespace PartyRaidR.Backend.Services.Promises
 {

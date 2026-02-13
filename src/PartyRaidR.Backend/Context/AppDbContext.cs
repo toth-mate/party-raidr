@@ -1,5 +1,5 @@
-﻿using PartyRaidR.Shared.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using PartyRaidR.Backend.Models;
 
 namespace PartyRaidR.Backend.Context
 {

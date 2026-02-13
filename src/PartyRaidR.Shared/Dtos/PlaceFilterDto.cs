@@ -1,5 +1,4 @@
-﻿using PartyRaidR.Shared.Models;
-using System.Drawing;
+﻿using PartyRaidR.Shared.Enums;
 
 namespace PartyRaidR.Shared.Dtos
 {

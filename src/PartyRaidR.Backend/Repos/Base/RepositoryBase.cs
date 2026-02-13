@@ -1,7 +1,7 @@
-﻿using PartyRaidR.Shared.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PartyRaidR.Backend.Context;
 using System.Linq.Expressions;
+using PartyRaidR.Backend.Models;
 
 namespace PartyRaidR.Backend.Repos.Base
 {
@@ -28,10 +28,10 @@ namespace PartyRaidR.Backend.Repos.Base
         public async Task InsertAsync(TEntity entity) =>
             await _dbSet!.AddAsync(entity);
 
-        public void UpdateAsync(TEntity entity) =>
+        public void Update(TEntity entity) =>
             _dbSet!.Update(entity);
 
-        public void DeleteAsync(TEntity entity) =>
+        public void Delete(TEntity entity) =>
             _dbSet!.Remove(entity);
 
         public async Task<int> SaveChangesAsync() =>
@@ -44,5 +44,11 @@ namespace PartyRaidR.Backend.Repos.Base
 
         public IQueryable<TEntity> GetAllAsQueryable() =>
             _dbSet!.AsQueryable();
+
+        public async Task<int> CountAsync() =>
+            await _dbSet!.CountAsync();
+
+        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate) =>
+            await _dbSet!.CountAsync(predicate);
     }
 }

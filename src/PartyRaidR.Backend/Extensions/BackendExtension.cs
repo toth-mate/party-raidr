@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using PartyRaidR.Backend.Assemblers;
 using PartyRaidR.Backend.Context;
 using PartyRaidR.Backend.Repos;
 using PartyRaidR.Backend.Repos.Promises;
 using PartyRaidR.Backend.Services;
 using PartyRaidR.Backend.Services.Promises;
-using PartyRaidR.Shared.Assemblers;
 
 namespace PartyRaidR.Backend.Extensions
 {
@@ -13,6 +13,8 @@ namespace PartyRaidR.Backend.Extensions
     {
         public static void ConfigureServer(this IServiceCollection services, string? connectionString)
         {
+            services.AddControllers();
+            services.ConfigureApiEndpoints();
             services.ConfigureOpenApi();
             services.ConfigureCors();
             services.AddAppDbContext(connectionString);
@@ -22,6 +24,15 @@ namespace PartyRaidR.Backend.Extensions
 
             // Service can access the HTTP request
             services.AddHttpContextAccessor();
+        }
+
+        private static void ConfigureApiEndpoints(this IServiceCollection services)
+        {
+            // Following conventions by making automatically generated API endpoints lowercase
+            services.Configure<RouteOptions>(options =>
+            {
+                options.LowercaseUrls = true;
+            });
         }
 
         private static void ConfigureCors(this IServiceCollection services)
@@ -103,6 +114,7 @@ namespace PartyRaidR.Backend.Extensions
             services.AddScoped<IPlaceService, PlaceService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IEventService, EventService>();
         }
 
         private static void ConfigureAssemblers(this IServiceCollection services)
