@@ -16,5 +16,23 @@ namespace PartyRaidR.Shared.Dtos
         public decimal TicketPrice { get; set; } = 0;
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public bool IsActive { get; set; } = true;
+        public EventStatus EventStatus
+        {
+            get
+            {
+                var now = DateTime.UtcNow;
+
+                if (EndingDate < now)
+                    return EventStatus.Past;
+
+                if (StartingDate <= now && EndingDate >= now)
+                    return EventStatus.Live;
+
+                if (StartingDate > now && StartingDate < now.AddHours(3))
+                    return EventStatus.StartingSoon;
+
+                return EventStatus.Upcoming;
+            }
+        }
     }
 }
