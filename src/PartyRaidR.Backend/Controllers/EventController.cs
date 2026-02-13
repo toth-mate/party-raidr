@@ -17,6 +17,18 @@ namespace PartyRaidR.Backend.Controllers
             _eventService = service;
         }
 
+        [HttpGet("count")]
+        public async Task<IActionResult> GetEventCount() =>
+            HandleResponse(await _eventService.GetNumberOfEventsAsync());
+
+        [HttpGet("count/active")]
+        public async Task<IActionResult> GetActiveEventCount() =>
+            HandleResponse(await _eventService.GetNumberOfActiveEventsAsync());
+
+        [HttpGet("count/archived")]
+        public async Task<IActionResult> GetArchivedEventCount() =>
+            HandleResponse(await _eventService.GetNumberOfArchivedEventsAsync());
+
         [HttpGet("upcoming-events")]
         public async Task<IActionResult> GetUpcomingEvents() =>
             HandleResponse(await _eventService.GetUpcomingEventsAsync());

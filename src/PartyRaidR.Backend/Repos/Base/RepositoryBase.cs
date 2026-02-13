@@ -44,5 +44,11 @@ namespace PartyRaidR.Backend.Repos.Base
 
         public IQueryable<TEntity> GetAllAsQueryable() =>
             _dbSet!.AsQueryable();
+
+        public async Task<int> CountAsync() =>
+            await _dbSet!.CountAsync();
+
+        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate) =>
+            await _dbSet!.CountAsync(predicate);
     }
 }

@@ -25,6 +25,81 @@ namespace PartyRaidR.Backend.Services
             _cityRepo = cityRepo ?? throw new ArgumentNullException(nameof(ICityRepo));
         }
 
+        public async Task<ServiceResponse<int>> GetNumberOfEventsAsync()
+        {
+            try
+            {
+                int count = await _repo.CountAsync();
+
+                return new ServiceResponse<int>
+                {
+                    Data = count,
+                    Success = true,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<int>
+                {
+                    Success = false,
+                    Message = $"An error occured while counting events: {ex.Message}",
+                    StatusCode = 500
+                };
+
+            }
+        }
+
+        public async Task<ServiceResponse<int>> GetNumberOfActiveEventsAsync()
+        {
+            try
+            {
+                int count = await _repo.CountAsync(e => e.IsActive);
+
+                return new ServiceResponse<int>
+                {
+                    Data = count,
+                    Success = true,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<int>
+                {
+                    Success = false,
+                    Message = $"An error occured while counting active events: {ex.Message}",
+                    StatusCode = 500
+                };
+
+            }
+        }
+
+        public async Task<ServiceResponse<int>> GetNumberOfArchivedEventsAsync()
+        {
+            try
+            {
+                int count = await _repo.CountAsync(e => !e.IsActive);
+
+                return new ServiceResponse<int>
+                {
+                    Data = count,
+                    Success = true,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<int>
+                {
+                    Success = false,
+                    Message = $"An error occured while counting archived events: {ex.Message}",
+                    StatusCode = 500
+                };
+
+            }
+        }
+
         public async Task<ServiceResponse<List<UpcomingEventDto>>> GetUpcomingEventsAsync()
         {
             try

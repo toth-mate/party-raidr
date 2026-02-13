@@ -11,6 +11,8 @@ namespace PartyRaidR.Backend.Repos.Base
         Task InsertAsync(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
+        Task<int> CountAsync();
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
         Task<int> SaveChangesAsync();
         IQueryable<TEntity> GetAllAsQueryable();
     }
