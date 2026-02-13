@@ -7,7 +7,7 @@ namespace PartyRaidR.Backend.Services
 {
     public partial class EventService
     {
-        private async Task ValidateNewEvent(EventDto dto)
+        private async Task ValidateEvent(EventDto dto)
         {
             if (dto.Title.Trim() == string.Empty)
                 throw new ArgumentException("Title cannot be empty.");
@@ -20,6 +20,9 @@ namespace PartyRaidR.Backend.Services
 
             if (dto.StartingDate <= DateTime.UtcNow)
                 throw new ArgumentException("Starting date must be in the future.");
+
+            if(dto.EndingDate < dto.StartingDate.AddMinutes(20))
+                throw new ArgumentException("Event duration must be at least 20 minutes.");
 
             if (dto.TicketPrice < 0)
                 throw new ArgumentException("Ticket price cannot be negative.");
@@ -45,6 +48,7 @@ namespace PartyRaidR.Backend.Services
 
             dto.DateCreated = DateTime.UtcNow;
             dto.AuthorId = _userContext.UserId;
+            dto.IsActive = true;
         }
 
         private async Task<bool> IsUserAuthor(Event eventToEdit)

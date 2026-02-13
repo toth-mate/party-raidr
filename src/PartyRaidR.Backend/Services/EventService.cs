@@ -249,7 +249,7 @@ namespace PartyRaidR.Backend.Services
             try
             {
                 // Check if the new event is valid
-                await ValidateNewEvent(dto);
+                await ValidateEvent(dto);
             }
             catch(OverlappingEventsException oee)
             {
@@ -323,8 +323,11 @@ namespace PartyRaidR.Backend.Services
                         };
                     }
 
+
                     EventDto updated = dto;
                     updated.AuthorId = eventToEdit.AuthorId;
+
+                    await ValidateEvent(updated);
                 }
             }
             catch (Exception ex)
