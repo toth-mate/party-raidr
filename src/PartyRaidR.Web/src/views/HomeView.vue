@@ -100,24 +100,26 @@
     <button class="btn btn-secondary mt-2" v-if="!hideFilter" @click="toggleFilter">Hide filtering options</button>
   </section>
   <section id="event-list" class="container">
-    <div class="row gx-5">
-      <div v-for="e in events" class="card col-12 col-md-6 col-lg-4 mb-3">
-        <div class="card-body position-relative">
-          <div id="status" class="position-absolute">
-            <div v-if="e.status === 3" class="bg-danger"></div>
-            <div v-else-if="e.status === 2" class="bg-success"></div>
-            <div v-else-if="e.status === 1" class="bg-warning"></div>
-            <div v-else class="bg-secondary"></div>
+    <div class="row gy-4">
+      <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="e in events" :key="e.id">
+        <div class="card">
+          <div class="card-body position-relative">
+            <div id="status" class="position-absolute">
+              <div v-if="e.status === 3" class="bg-danger"></div>
+              <div v-else-if="e.status === 2" class="bg-success"></div>
+              <div v-else-if="e.status === 1" class="bg-warning"></div>
+              <div v-else class="bg-secondary"></div>
+            </div>
+            <h5 class="card-title">{{ e.title }}</h5>
+            <h6 class="card-subtitle text-body-secondary mb-2">{{ e.startingDate }}-{{ e.endingDate }}</h6>
+            <p class="card-text">{{ e.description }}</p>
+            <p class="card-text text-body-secondary">Here: {{ e.city }}, {{ e.placeName }}</p>
           </div>
-          <h5 class="card-title">{{ e.title }}</h5>
-          <h6 class="card-subtitle text-body-secondary mb-2">{{ e.startingDate }}-{{ e.endingDate }}</h6>
-          <p class="card-text">{{ e.description }}</p>
-          <p class="card-text text-body-secondary">Here: {{ e.city }}, {{ e.placeName }}</p>
-        </div>
-        <div class="card-footer d-flex justify-content-between align-items-center">
-          <p class="card-text" v-if="e.ticketPrice == 0">Price: Not paid</p>
-          <p class="card-text" v-else>Price: {{ e.ticketPrice }}</p>
-          <button class="btn btn-primary">Details</button>
+          <div class="card-footer d-flex justify-content-between align-items-center">
+            <p class="card-text" v-if="e.ticketPrice == 0">Price: Not paid</p>
+            <p class="card-text" v-else>Price: {{ e.ticketPrice }}</p>
+            <button class="btn btn-primary">Details</button>
+          </div>
         </div>
       </div>
     </div>
