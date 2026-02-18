@@ -1,5 +1,8 @@
 <script setup>
   import { ref } from 'vue'
+  import { useRouter } from 'vue-router'
+
+  const router = useRouter()
 
   const events = ref([
     {
@@ -82,6 +85,10 @@
     }
   ])
 
+  const goToEventDetails = (id) => {
+    router.push(`/events/${id}`)
+  }
+
   const hideFilter = ref(true)
 
   const toggleFilter = () => {
@@ -118,7 +125,7 @@
           <div class="card-footer d-flex justify-content-between align-items-center">
             <p class="card-text" v-if="e.ticketPrice == 0">Price: Not paid</p>
             <p class="card-text" v-else>Price: {{ e.ticketPrice }}</p>
-            <button class="btn btn-primary">Details</button>
+            <button class="btn btn-primary" @click="goToEventDetails(e.id)">Details</button>
           </div>
         </div>
       </div>
