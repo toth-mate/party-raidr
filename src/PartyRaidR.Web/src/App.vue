@@ -4,9 +4,9 @@
 </script>
 
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <Header />
-    <main>
+    <main class="mt-3">
       <RouterView />
     </main>
   </div>
