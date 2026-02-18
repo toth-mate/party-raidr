@@ -111,6 +111,7 @@ namespace PartyRaidR.Backend.Extensions
             services.AddScoped<IUserContext, UserContext>();
 
             // Model related services
+            services.AddScoped<IApplicationService, ApplicationService>();
             services.AddScoped<IPlaceService, PlaceService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IUserService, UserService>();
