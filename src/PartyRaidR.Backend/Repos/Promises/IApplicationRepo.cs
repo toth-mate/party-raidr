@@ -5,5 +5,6 @@ namespace PartyRaidR.Backend.Repos.Promises
 {
     public interface IApplicationRepo : IRepositoryBase<Application>
     {
+        Task<bool> ApplicationExistsAsync(string userId, string eventId);
     }
 }

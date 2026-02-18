@@ -11,10 +11,12 @@ namespace PartyRaidR.Backend.Services
 {
     public class ApplicationService : BaseService<Application, ApplicationDto>, IApplicationService
     {
+        private IApplicationRepo? _applicationRepo;
         private readonly IEventRepo _eventRepo;
 
         public ApplicationService(ApplicationAssembler? assembler, IApplicationRepo? repo, IEventRepo eventRepo, IUserContext userContext) : base(assembler, repo, userContext)
         {
+            _applicationRepo = repo ?? throw new ArgumentNullException(nameof(repo));
             _eventRepo = eventRepo ?? throw new ArgumentNullException(nameof(eventRepo), "Event repository cannot be null.");
         }
 
@@ -39,6 +41,18 @@ namespace PartyRaidR.Backend.Services
                     {
                         Success = false,
                         Message = "You cannot apply to your own event.",
+                        StatusCode = 400
+                    };
+                }
+
+                bool applicationExists = await _applicationRepo!.ApplicationExistsAsync(_userContext.UserId, dto.EventId);
+
+                if (applicationExists)
+                {
+                    return new ServiceResponse<ApplicationDto>
+                    {
+                        Success = false,
+                        Message = "You have already applied to this event.",
                         StatusCode = 400
                     };
                 }
