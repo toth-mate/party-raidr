@@ -42,8 +42,9 @@ namespace PartyRaidR.Backend.Services
 
             // Check for overlapping events at the same place
             bool isOverlapping = eventsAtPlace.Any(e =>
-                (dto.StartingDate <= e.StartingDate && dto.EndingDate > e.StartingDate) ||
-                (dto.StartingDate > e.StartingDate && dto.StartingDate < e.EndingDate)
+                e.Id != dto.Id
+                && (dto.StartingDate <= e.StartingDate && dto.EndingDate > e.StartingDate)
+                || (dto.StartingDate > e.StartingDate && dto.StartingDate < e.EndingDate)
             );
 
             if(isOverlapping)
