@@ -23,7 +23,7 @@ namespace PartyRaidR.Backend.Repos.Base
             await _dbSet!.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<IEnumerable<TEntity>> GetAllAsync() =>
-            await _dbSet!.ToListAsync();
+            await _dbSet!.AsNoTracking().ToListAsync();
 
         public async Task InsertAsync(TEntity entity) =>
             await _dbSet!.AddAsync(entity);
