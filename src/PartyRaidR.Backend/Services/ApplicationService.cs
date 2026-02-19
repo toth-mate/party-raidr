@@ -72,5 +72,49 @@ namespace PartyRaidR.Backend.Services
 
             return await base.AddAsync(dto);
         }
+
+        public override async Task<ServiceResponse<ApplicationDto>> UpdateAsync(ApplicationDto dto)
+        {
+            try
+            {
+                Application? application = await _repo.GetByIdAsync(dto.Id);
+
+                if(application is null)
+                {
+                    return new ServiceResponse<ApplicationDto>
+                    {
+                        Success = false,
+                        Message = "Application not found.",
+                        StatusCode = 404
+                    };
+                }
+
+                if (application.Event.AuthorId == _userContext.UserId)
+                {
+                    return new ServiceResponse<ApplicationDto>
+                    {
+                        Success = false,
+                        Message = "Only the author of the event can update the status of the application.",
+                        StatusCode = 403
+                    };
+                }
+
+                // Preserve immutable fields
+                dto.UserId = application.UserId;
+                dto.TimeOfApplication = application.TimeOfApplication;
+                dto.EventId = application.EventId;
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<ApplicationDto>
+                {
+                    Success = false,
+                    Message = $"An error occurred while updating the application: {ex.Message}",
+                    StatusCode = 500
+                };
+            }
+
+            return await base.UpdateAsync(dto);
+        }
     }
 }
