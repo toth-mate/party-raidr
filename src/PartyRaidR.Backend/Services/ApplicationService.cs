@@ -89,7 +89,7 @@ namespace PartyRaidR.Backend.Services
                     };
                 }
 
-                if (application.Event.AuthorId == _userContext.UserId)
+                if (application.Event.AuthorId != _userContext.UserId)
                 {
                     return new ServiceResponse<ApplicationDto>
                     {
@@ -99,10 +99,14 @@ namespace PartyRaidR.Backend.Services
                     };
                 }
 
-                // Preserve immutable fields
-                dto.UserId = application.UserId;
-                dto.TimeOfApplication = application.TimeOfApplication;
-                dto.EventId = application.EventId;
+                application.Status = dto.Status;
+                await _applicationRepo.SaveChangesAsync();
+
+                return new ServiceResponse<ApplicationDto>
+                {
+                    Success = true,
+                    StatusCode = 204
+                };
             }
             catch (Exception ex)
             {
@@ -113,9 +117,6 @@ namespace PartyRaidR.Backend.Services
                     StatusCode = 500
                 };
             }
-
-            _applicationRepo.ClearTracker();
-            return await base.UpdateAsync(dto);
         }
     }
 }

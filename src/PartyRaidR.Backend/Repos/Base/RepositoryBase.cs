@@ -42,9 +42,6 @@ namespace PartyRaidR.Backend.Repos.Base
             .Where(condition)
             .ToListAsync();
 
-        public void ClearTracker() =>
-            _context.ChangeTracker.Clear();
-
         public IQueryable<TEntity> GetAllAsQueryable() =>
             _dbSet!.AsQueryable();
 
