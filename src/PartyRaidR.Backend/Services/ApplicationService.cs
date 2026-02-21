@@ -132,7 +132,7 @@ namespace PartyRaidR.Backend.Services
                     {
                         Success = false,
                         Message = "You have already applied to this event.",
-                        StatusCode = 400
+                        StatusCode = 409
                     };
                 }
             }
