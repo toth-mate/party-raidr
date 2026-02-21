@@ -16,7 +16,7 @@ namespace PartyRaidR.Backend.Controllers
             _applicationService = service;
         }
 
-        [HttpGet("event")]
+        [HttpGet("event/{eventId}")]
         public async Task<IActionResult> GetApplicationsByEvent(string eventId) =>
             HandleResponse(await _applicationService.GetApplicationsByEventAsync(eventId));
 
