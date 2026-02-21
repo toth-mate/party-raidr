@@ -118,5 +118,53 @@ namespace PartyRaidR.Backend.Services
                 };
             }
         }
+
+        public override async Task<ServiceResponse<ApplicationDto>> DeleteAsync(string id)
+        {
+            try
+            {
+                Application? application = await _applicationRepo.GetApplicationWithEventAsync(id);
+
+                if(application is null)
+                {
+                    return new ServiceResponse<ApplicationDto>
+                    {
+                        Success = false,
+                        Message = "Application not found",
+                        StatusCode = 404
+                    };
+                }
+
+                if(application.UserId == _userContext.UserId || application.Event.AuthorId == _userContext.UserId)
+                {
+                    _repo.Delete(application);
+                    await _repo.SaveChangesAsync();
+
+                    return new ServiceResponse<ApplicationDto>
+                    {
+                        Success = true,
+                        StatusCode = 204
+                    };
+                }
+                else
+                {
+                    return new ServiceResponse<ApplicationDto>
+                    {
+                        Success = false,
+                        Message = "Only the applicant or the author of the target event can delete the application.",
+                        StatusCode = 400
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<ApplicationDto>
+                {
+                    Success = false,
+                    Message = $"An error occured while deleting the application: {ex.Message}",
+                    StatusCode = 500
+                };
+            }
+        }
     }
 }
