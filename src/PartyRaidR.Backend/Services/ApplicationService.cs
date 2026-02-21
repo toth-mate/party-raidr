@@ -114,6 +114,7 @@ namespace PartyRaidR.Backend.Services
                         StatusCode = 404
                     };
                 }
+                // Check if the user is trying to apply to their own event
                 else if(_userContext.UserId == @event.AuthorId)
                 {
                     return new ServiceResponse<ApplicationDto>
@@ -124,6 +125,7 @@ namespace PartyRaidR.Backend.Services
                     };
                 }
 
+                // Duplicate applications are not allowed
                 bool applicationExists = await _applicationRepo!.ApplicationExistsAsync(_userContext.UserId, dto.EventId);
 
                 if (applicationExists)
@@ -136,6 +138,21 @@ namespace PartyRaidR.Backend.Services
                     };
                 }
 
+                // Forbid applying to live events
+                var now = DateTime.Now;
+                bool isEventLive = @event.StartingDate >= now && now <= @event.EndingDate;
+
+                if (isEventLive)
+                {
+                    return new ServiceResponse<ApplicationDto>
+                    {
+                        Success = false,
+                        Message = "Applying to live events is not possible.",
+                        StatusCode = 400
+                    };
+                }
+
+                // Check current participant number
                 int numberOfApplicants = await _repo.CountAsync(a => a.EventId == @event.Id);
 
                 if (@event.Room != 0 && numberOfApplicants >= @event.Room)
