@@ -19,7 +19,7 @@ namespace PartyRaidR.Backend.Services
         {
             _applicationRepo = repo ?? throw new ArgumentNullException(nameof(repo));
             _eventRepo = eventRepo ?? throw new ArgumentNullException(nameof(eventRepo), "Event repository cannot be null.");
-            _eventService = eventService ?? throw new ArgumentNullException(nameof(_eventService));
+            _eventService = eventService ?? throw new ArgumentNullException(nameof(eventService));
         }
 
         public async Task<ServiceResponse<List<ApplicationDto>>> GetApplicationsByEventAsync(string eventId)
