@@ -11,10 +11,10 @@ namespace PartyRaidR.Backend.Services
 {
     public class ApplicationService : BaseService<Application, ApplicationDto>, IApplicationService
     {
-        private IApplicationRepo? _applicationRepo;
+        private IApplicationRepo _applicationRepo;
         private readonly IEventRepo _eventRepo;
 
-        public ApplicationService(ApplicationAssembler? assembler, IApplicationRepo? repo, IEventRepo eventRepo, IUserContext userContext) : base(assembler, repo, userContext)
+        public ApplicationService(ApplicationAssembler? assembler, IApplicationRepo? repo, IUserContext userContext, IEventRepo? eventRepo) : base(assembler, repo, userContext)
         {
             _applicationRepo = repo ?? throw new ArgumentNullException(nameof(repo));
             _eventRepo = eventRepo ?? throw new ArgumentNullException(nameof(eventRepo), "Event repository cannot be null.");
