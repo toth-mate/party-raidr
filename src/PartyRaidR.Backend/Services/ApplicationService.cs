@@ -20,6 +20,43 @@ namespace PartyRaidR.Backend.Services
             _eventRepo = eventRepo ?? throw new ArgumentNullException(nameof(eventRepo), "Event repository cannot be null.");
         }
 
+        public async Task<ServiceResponse<List<ApplicationDto>>> GetApplicationsByEventAsync(string eventId)
+        {
+            try
+            {
+                Event? @event = await _eventRepo.GetByIdAsync(eventId);
+
+                if(@event is null)
+                {
+                    return new ServiceResponse<List<ApplicationDto>>
+                    {
+                        Success = false,
+                        Message = "Event with the given ID was not found.",
+                        StatusCode = 404
+                    };
+                }
+
+                var applications = await _repo.FindByConditionAsync(a => a.EventId == eventId);
+                List<ApplicationDto> result = applications.Select(_assembler.ConvertToDto).ToList();
+
+                return new ServiceResponse<List<ApplicationDto>>
+                {
+                    Success = true,
+                    Data = result,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<List<ApplicationDto>>
+                {
+                    Success = false,
+                    Message = ex.Message,
+                    StatusCode = 500
+                };
+            }
+        }
+
         public override async Task<ServiceResponse<ApplicationDto>> AddAsync(ApplicationDto dto)
         {
             try
