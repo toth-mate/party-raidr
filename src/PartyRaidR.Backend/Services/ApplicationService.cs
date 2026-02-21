@@ -77,7 +77,7 @@ namespace PartyRaidR.Backend.Services
         {
             try
             {
-                Application? application = await _repo.GetByIdAsync(dto.Id);
+                Application? application = await _applicationRepo.GetApplicationWithEventAsync(dto.Id);
 
                 if(application is null)
                 {
@@ -114,6 +114,7 @@ namespace PartyRaidR.Backend.Services
                 };
             }
 
+            _applicationRepo.ClearTracker();
             return await base.UpdateAsync(dto);
         }
     }
