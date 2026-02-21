@@ -135,6 +135,18 @@ namespace PartyRaidR.Backend.Services
                         StatusCode = 409
                     };
                 }
+
+                int numberOfApplicants = await _repo.CountAsync(a => a.EventId == @event.Id);
+
+                if (@event.Room != 0 && numberOfApplicants >= @event.Room)
+                {
+                    return new ServiceResponse<ApplicationDto>
+                    {
+                        Success = false,
+                        Message = "The number of applicants to this event have already reached the max room.",
+                        StatusCode = 400
+                    };
+                }
             }
             catch(Exception ex)
             {
