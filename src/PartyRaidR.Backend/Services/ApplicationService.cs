@@ -57,6 +57,42 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
+        public async Task<ServiceResponse<int>> GetNumberOfApplicationsByEventAsync(string eventId)
+        {
+            try
+            {
+                Event? @event = await _eventRepo.GetByIdAsync(eventId);
+
+                if (@event is null)
+                {
+                    return new ServiceResponse<int>
+                    {
+                        Success = false,
+                        Message = "Event with the given ID was not found.",
+                        StatusCode = 404
+                    };
+                }
+
+                int result = await _repo.CountAsync(a => a.EventId == eventId);
+
+                return new ServiceResponse<int>
+                {
+                    Success = true,
+                    Data = result,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<int>
+                {
+                    Success = false,
+                    Message = ex.Message,
+                    StatusCode = 500
+                };
+            }
+        }
+
         public override async Task<ServiceResponse<ApplicationDto>> AddAsync(ApplicationDto dto)
         {
             try
