@@ -11,40 +11,44 @@ namespace PartyRaidR.Backend.Services
 {
     public class ApplicationService : BaseService<Application, ApplicationDto>, IApplicationService
     {
-        private IApplicationRepo _applicationRepo;
+        private readonly IApplicationRepo _applicationRepo;
         private readonly IEventRepo _eventRepo;
+        private readonly IEventService _eventService;
 
-        public ApplicationService(ApplicationAssembler? assembler, IApplicationRepo? repo, IUserContext userContext, IEventRepo? eventRepo) : base(assembler, repo, userContext)
+        public ApplicationService(ApplicationAssembler? assembler, IApplicationRepo? repo, IUserContext userContext, IEventRepo? eventRepo, IEventService? eventService) : base(assembler, repo, userContext)
         {
             _applicationRepo = repo ?? throw new ArgumentNullException(nameof(repo));
             _eventRepo = eventRepo ?? throw new ArgumentNullException(nameof(eventRepo), "Event repository cannot be null.");
+            _eventService = eventService ?? throw new ArgumentNullException(nameof(_eventService));
         }
 
         public async Task<ServiceResponse<List<ApplicationDto>>> GetApplicationsByEventAsync(string eventId)
         {
             try
             {
-                Event? @event = await _eventRepo.GetByIdAsync(eventId);
+                var eventResponse = await _eventService.GetByIdAsync(eventId);
 
-                if(@event is null)
+                if (eventResponse.Success)
+                {
+                    var applications = await _repo.FindByConditionAsync(a => a.EventId == eventId);
+                    List<ApplicationDto> result = applications.Select(_assembler.ConvertToDto).ToList();
+
+                    return new ServiceResponse<List<ApplicationDto>>
+                    {
+                        Success = true,
+                        Data = result,
+                        StatusCode = 200
+                    };
+                }
+                else
                 {
                     return new ServiceResponse<List<ApplicationDto>>
                     {
                         Success = false,
-                        Message = "Event with the given ID was not found.",
-                        StatusCode = 404
+                        Message = eventResponse.Message,
+                        StatusCode = eventResponse.StatusCode
                     };
-                }
-
-                var applications = await _repo.FindByConditionAsync(a => a.EventId == eventId);
-                List<ApplicationDto> result = applications.Select(_assembler.ConvertToDto).ToList();
-
-                return new ServiceResponse<List<ApplicationDto>>
-                {
-                    Success = true,
-                    Data = result,
-                    StatusCode = 200
-                };
+                }                
             }
             catch (Exception ex)
             {
@@ -61,26 +65,28 @@ namespace PartyRaidR.Backend.Services
         {
             try
             {
-                Event? @event = await _eventRepo.GetByIdAsync(eventId);
+                var eventResponse = await _eventService.GetByIdAsync(eventId);
 
-                if (@event is null)
+                if (eventResponse.Success)
+                {
+                    int result = await _repo.CountAsync(a => a.EventId == eventId);
+
+                    return new ServiceResponse<int>
+                    {
+                        Success = true,
+                        Data = result,
+                        StatusCode = 200
+                    };
+                }
+                else
                 {
                     return new ServiceResponse<int>
                     {
                         Success = false,
-                        Message = "Event with the given ID was not found.",
-                        StatusCode = 404
+                        Message = eventResponse.Message,
+                        StatusCode = eventResponse.StatusCode
                     };
                 }
-
-                int result = await _repo.CountAsync(a => a.EventId == eventId);
-
-                return new ServiceResponse<int>
-                {
-                    Success = true,
-                    Data = result,
-                    StatusCode = 200
-                };
             }
             catch (Exception ex)
             {
