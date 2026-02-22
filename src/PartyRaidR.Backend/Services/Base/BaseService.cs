@@ -28,21 +28,15 @@ namespace PartyRaidR.Backend.Services.Base
             try
             {
                 TModel? model = await _repo.GetByIdAsync(id) ?? throw new EntityNotFoundException($"Could not found a(n) {nameof(TModel)} with the given ID.");
-                return new ServiceResponse<TDto>
-                {
-                    Success = true,
-                    Data = _assembler.ConvertToDto(model),
-                    StatusCode = 200
-                };
+
+                if (model is null)
+                    return CreateResponse<TDto>(false, 404, message: $"Entity with the given ID was not found.");
+
+                return CreateResponse(true, 200, _assembler.ConvertToDto(model));
             }
             catch(Exception)
             {
-                return new ServiceResponse<TDto>
-                {
-                    Success = false,
-                    Message = $"{nameof(TModel)} with the given ID was not found.",
-                    StatusCode = 404
-                };
+                return CreateResponse<TDto>(false, 500, message: "An error occured while retrieving entity data.");
             }
         }
 
@@ -51,21 +45,11 @@ namespace PartyRaidR.Backend.Services.Base
             try
             {
                 IEnumerable<TModel> models = await _repo.GetAllAsync();
-                return new ServiceResponse<IEnumerable<TDto>>
-                {
-                    Success = true,
-                    Data = models.Select(_assembler.ConvertToDto),
-                    StatusCode = 200
-                };
+                return CreateResponse(true, 200, models.Select(_assembler.ConvertToDto));
             }
             catch(Exception)
             {
-                return new ServiceResponse<IEnumerable<TDto>>
-                {
-                    Success = false,
-                    Message = $"Could not retrieve {nameof(TModel)} entities.",
-                    StatusCode = 500
-                };
+                return CreateResponse<IEnumerable<TDto>>(false, 500, message: "Could not retrieve entities.");
             }
         }
 
@@ -75,40 +59,17 @@ namespace PartyRaidR.Backend.Services.Base
 
             try
             {
-                if (entity.HasId)
-                    throw new EntityAlreadyExistsException($"There is already a(n) {nameof(TModel)} with the given ID.");
-
                 // Generate a new ID for new entities
                 entity.Id = Guid.CreateVersion7().ToString();
 
                 await _repo.InsertAsync(entity);
-
                 await _repo.SaveChangesAsync();
 
-                return new ServiceResponse<TDto>
-                {
-                    Success = true,
-                    Data = _assembler.ConvertToDto(entity),
-                    StatusCode = 201
-                };
-            }
-            catch(EntityAlreadyExistsException e)
-            {
-                return new ServiceResponse<TDto>
-                {
-                    Success = false,
-                    Message = e.Message,
-                    StatusCode = 409
-                };
+                return CreateResponse(true, 201, _assembler.ConvertToDto(entity));
             }
             catch(Exception)
             {
-                return new ServiceResponse<TDto>
-                {
-                    Success = false,
-                    Message = $"Could not add the new {nameof(TModel)} entity.",
-                    StatusCode = 500
-                };
+                return CreateResponse<TDto>(false, 500, message: "Failed to add new entity.");
             }
         }
 
@@ -122,30 +83,15 @@ namespace PartyRaidR.Backend.Services.Base
 
                 await _repo.SaveChangesAsync();
 
-                return new ServiceResponse<TDto>
-                {
-                    Success = true,
-                    StatusCode = 200,
-                    Message = $"{nameof(TModel)} entity updated successfully."
-                };
+                return CreateResponse<TDto>(true, 200, message: "Update successful.");
             }
             catch (EntityNotFoundException e)
             {
-                return new ServiceResponse<TDto>
-                {
-                    Success = false,
-                    Message = e.Message,
-                    StatusCode = 404
-                };
+                return CreateResponse<TDto>(false, 404, message: e.Message);
             }
             catch (Exception e)
             {
-                return new ServiceResponse<TDto>
-                {
-                    Success = false,
-                    Message = $"Could not update the {nameof(TModel)} entity.\n{e.Message}",
-                    StatusCode = 500
-                };
+                return CreateResponse<TDto>(false, 500, message: $"Failed to update entity: {e.Message}");
             }
         }
 
@@ -156,35 +102,17 @@ namespace PartyRaidR.Backend.Services.Base
                 TModel? entity = await _repo.GetByIdAsync(id);
 
                 if (entity is null)
-                    throw new EntityNotFoundException($"Could not found a(n) {nameof(TModel)} with the given ID.");
+                    return CreateResponse<TDto>(false, 404, message: "Could not found an entity with the given ID.");
                 else
                     _repo.Delete(entity);
 
                 await _repo.SaveChangesAsync();
 
-                return new ServiceResponse<TDto>
-                {
-                    Success = true,
-                    StatusCode = 200
-                };
-            }
-            catch(EntityNotFoundException e)
-            {
-                return new ServiceResponse<TDto>
-                {
-                    Success = false,
-                    Message = e.Message,
-                    StatusCode = 404
-                };
+                return CreateResponse<TDto>(true, 200);
             }
             catch (Exception)
             {
-                return new ServiceResponse<TDto>
-                {
-                    Success = false,
-                    Message = $"Could not delete the {nameof(TModel)} entity.",
-                    StatusCode = 500
-                };
+                return CreateResponse<TDto>(false, 500, message: "Failed to delete entity.");
             }
         }
 
