@@ -77,17 +77,16 @@ namespace PartyRaidR.Backend.Services.Base
         {
             try
             {
-                TModel entity = _assembler.ConvertToModel(dto);
+                TModel? entity = await _repo.GetByIdAsync(dto.Id);
+
+                if(entity is null)
+                    return CreateResponse<TDto>(false, 404, message: "Could not found entity with the given ID.");
 
                 _repo.Update(entity);
 
                 await _repo.SaveChangesAsync();
 
                 return CreateResponse<TDto>(true, 200, message: "Update successful.");
-            }
-            catch (EntityNotFoundException e)
-            {
-                return CreateResponse<TDto>(false, 404, message: e.Message);
             }
             catch (Exception e)
             {
