@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PartyRaidR.Backend.Models;
 using PartyRaidR.Backend.Services.Promises;
@@ -27,5 +28,10 @@ namespace PartyRaidR.Backend.Controllers
         [HttpGet("user/{userId}")]
         public async Task<IActionResult> GetApplicationsByUser(string userId) =>
             HandleResponse(await _applicationService.GetApplicationsByUserAsync(userId));
+
+        [Authorize]
+        [HttpGet("my-applications")]
+        public async Task<IActionResult> GetMyApplications() =>
+            HandleResponse(await _applicationService.GetMyApplicationsAsync());
     }
 }

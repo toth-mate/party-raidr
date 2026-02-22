@@ -86,6 +86,9 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
+        public async Task<ServiceResponse<List<ApplicationDto>>> GetMyApplicationsAsync() =>
+            await GetApplicationsByUserAsync(_userContext.UserId);
+
         public async Task<ServiceResponse<int>> GetNumberOfApplicationsByEventAsync(string eventId)
         {
             try

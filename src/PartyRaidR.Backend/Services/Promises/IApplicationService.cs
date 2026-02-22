@@ -9,6 +9,7 @@ namespace PartyRaidR.Backend.Services.Promises
     {
         Task<ServiceResponse<List<ApplicationDto>>> GetApplicationsByEventAsync(string eventId);
         Task<ServiceResponse<List<ApplicationDto>>> GetApplicationsByUserAsync(string userId);
+        Task<ServiceResponse<List<ApplicationDto>>> GetMyApplicationsAsync();
         Task<ServiceResponse<int>> GetNumberOfApplicationsByEventAsync(string eventId);
     }
 }
