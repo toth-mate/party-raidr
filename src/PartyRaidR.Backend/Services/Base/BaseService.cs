@@ -187,5 +187,16 @@ namespace PartyRaidR.Backend.Services.Base
                 };
             }
         }
+
+        protected ServiceResponse<T> CreateResponse<T>(bool isSuccess, int statusCode, T? data = default, string? message = null)
+        {
+            return new ServiceResponse<T>
+            {
+                Success = isSuccess,
+                StatusCode = statusCode,
+                Data = data,
+                Message = message ?? string.Empty
+            };
+        }
     }
 }
