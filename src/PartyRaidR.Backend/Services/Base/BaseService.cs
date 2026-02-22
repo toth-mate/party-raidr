@@ -82,6 +82,8 @@ namespace PartyRaidR.Backend.Services.Base
                 if(entity is null)
                     return CreateResponse<TDto>(false, 404, message: "Could not found entity with the given ID.");
 
+                entity = _assembler.ConvertToModel(dto);
+
                 _repo.Update(entity);
 
                 await _repo.SaveChangesAsync();
