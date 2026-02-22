@@ -127,6 +127,33 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
+        public async Task<ServiceResponse<int>> GetNumberOfApplicationsByUserAsync(string userId)
+        {
+            try
+            {
+                int count = await _repo.CountAsync(a => a.UserId == userId);
+
+                return new ServiceResponse<int>
+                {
+                    Success = true,
+                    Data = count,
+                    StatusCode = 200
+                };
+            }
+            catch(Exception ex)
+            {
+                return new ServiceResponse<int>
+                {
+                    Success = false,
+                    Message = ex.Message,
+                    StatusCode = 500
+                };
+            }
+        }
+
+        public async Task<ServiceResponse<int>> GetNumberOfMyApplicationsAsync() =>
+            await GetNumberOfApplicationsByUserAsync(_userContext.UserId);
+
         public override async Task<ServiceResponse<ApplicationDto>> AddAsync(ApplicationDto dto)
         {
             try

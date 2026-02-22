@@ -29,9 +29,18 @@ namespace PartyRaidR.Backend.Controllers
         public async Task<IActionResult> GetApplicationsByUser(string userId) =>
             HandleResponse(await _applicationService.GetApplicationsByUserAsync(userId));
 
+        [HttpGet("user/{userId}/count")]
+        public async Task<IActionResult> GetApplicationCountByUser(string userId) =>
+            HandleResponse(await _applicationService.GetNumberOfApplicationsByUserAsync(userId));
+
         [Authorize]
         [HttpGet("my-applications")]
         public async Task<IActionResult> GetMyApplications() =>
             HandleResponse(await _applicationService.GetMyApplicationsAsync());
+
+        [Authorize]
+        [HttpGet("my-applications/count")]
+        public async Task<IActionResult> GetMyApplicationsCount() =>
+            HandleResponse(await _applicationService.GetNumberOfMyApplicationsAsync());
     }
 }
