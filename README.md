@@ -27,7 +27,7 @@ This is a really great option for finding activities in our free time, wether it
 
 + Frontend: Vue JS & MAUI
 + Backend: .NET 9 (C#)
-+ Databse: MySQL
++ Database: MySQL
 + Infrastructure: Docker - The whole development environment and the database are containerized for portability and consistent running.
 
 ## ✨ Features
