@@ -61,6 +61,31 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
+        public async Task<ServiceResponse<List<ApplicationDto>>> GetApplicationsByUserAsync(string userId)
+        {
+            try
+            {
+                var applications = await _applicationRepo.GetApplicationsByUserAsync(userId);
+                List<ApplicationDto> result = applications.Select(_assembler.ConvertToDto).ToList();
+
+                return new ServiceResponse<List<ApplicationDto>>
+                {
+                    Data = result,
+                    Success = true,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<List<ApplicationDto>>
+                {
+                    Success = false,
+                    Message = ex.Message,
+                    StatusCode = 200
+                };
+            }
+        }
+
         public async Task<ServiceResponse<int>> GetNumberOfApplicationsByEventAsync(string eventId)
         {
             try

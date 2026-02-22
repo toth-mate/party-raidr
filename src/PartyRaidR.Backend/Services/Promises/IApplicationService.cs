@@ -8,6 +8,7 @@ namespace PartyRaidR.Backend.Services.Promises
     public interface IApplicationService : IBaseService<Application, ApplicationDto>
     {
         Task<ServiceResponse<List<ApplicationDto>>> GetApplicationsByEventAsync(string eventId);
+        Task<ServiceResponse<List<ApplicationDto>>> GetApplicationsByUserAsync(string userId);
         Task<ServiceResponse<int>> GetNumberOfApplicationsByEventAsync(string eventId);
     }
 }
