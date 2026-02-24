@@ -30,23 +30,11 @@ namespace PartyRaidR.Backend.Services
             try
             {
                 int count = await _repo.CountAsync();
-
-                return new ServiceResponse<int>
-                {
-                    Data = count,
-                    Success = true,
-                    StatusCode = 200
-                };
+                return CreateResponse(true, 200, count);
             }
             catch (Exception ex)
             {
-                return new ServiceResponse<int>
-                {
-                    Success = false,
-                    Message = $"An error occured while counting events: {ex.Message}",
-                    StatusCode = 500
-                };
-
+                return CreateResponse<int>(false, 500, message: $"An error occured while counting events: {ex.Message}");
             }
         }
 
@@ -55,23 +43,11 @@ namespace PartyRaidR.Backend.Services
             try
             {
                 int count = await _repo.CountAsync(e => e.IsActive);
-
-                return new ServiceResponse<int>
-                {
-                    Data = count,
-                    Success = true,
-                    StatusCode = 200
-                };
+                return CreateResponse(true, 200, count);
             }
             catch (Exception ex)
             {
-                return new ServiceResponse<int>
-                {
-                    Success = false,
-                    Message = $"An error occured while counting active events: {ex.Message}",
-                    StatusCode = 500
-                };
-
+                return CreateResponse<int>(false, 500, message: $"An error occured while counting active events: {ex.Message}");
             }
         }
 
@@ -80,23 +56,11 @@ namespace PartyRaidR.Backend.Services
             try
             {
                 int count = await _repo.CountAsync(e => !e.IsActive);
-
-                return new ServiceResponse<int>
-                {
-                    Data = count,
-                    Success = true,
-                    StatusCode = 200
-                };
+                return CreateResponse(true, 200, count);
             }
             catch (Exception ex)
             {
-                return new ServiceResponse<int>
-                {
-                    Success = false,
-                    Message = $"An error occured while counting archived events: {ex.Message}",
-                    StatusCode = 500
-                };
-
+                return CreateResponse<int>(false, 500, message: $"An error occured while counting archived events: {ex.Message}");
             }
         }
 
@@ -122,23 +86,11 @@ namespace PartyRaidR.Backend.Services
 
                 List<UpcomingEventDto> result = await query.Take(10).ToListAsync();
 
-                return new ServiceResponse<List<UpcomingEventDto>>
-                {
-                    Data = result,
-                    Success = true,
-                    Message = result.Count == 0 ? "No upcoming events found." : string.Empty,
-                    StatusCode = 200
-                };
+                return CreateResponse(true, 200, result, result.Count == 0 ? "No upcoming events found." : string.Empty);
             }
             catch (Exception ex)
             {
-                return new ServiceResponse<List<UpcomingEventDto>>
-                {
-                    Data = null,
-                    Success = false,
-                    Message = $"An error occured while retrieving upcoming events: {ex.Message}",
-                    StatusCode = 500
-                };
+                return CreateResponse<List<UpcomingEventDto>>(false, 500, message: $"An error occured while retrieving upcoming events: {ex.Message}");
             }
         }
 
@@ -148,24 +100,11 @@ namespace PartyRaidR.Backend.Services
             {
                 List<Event> events = await _eventRepo.GetEventsByUserIdAsync(userId);
                 List<EventDto> result = events.Select(_assembler.ConvertToDto).ToList();
-
-                return new ServiceResponse<List<EventDto>>
-                {
-                    Data = result,
-                    Success = true,
-                    Message = result.Count == 0 ? "No events found for the specified user." : string.Empty,
-                    StatusCode = 200
-                };
+                return CreateResponse(true, 200, result, result.Count == 0 ? "No events found for the specified user." : string.Empty);
             }
             catch (Exception ex)
             {
-                return new ServiceResponse<List<EventDto>>
-                {
-                    Data = null,
-                    Success = false,
-                    Message = $"An error occured while retrieving events: {ex.Message}",
-                    StatusCode = 500
-                };
+                return CreateResponse<List<EventDto>>(false, 500, message: $"An error occured while retrieving events: {ex.Message}");
             }
         }
 
@@ -191,23 +130,11 @@ namespace PartyRaidR.Backend.Services
                                                                         filter.TicketPriceMax);
                 List<EventDto> result = events.Select(_assembler.ConvertToDto).ToList();
 
-                return new ServiceResponse<List<EventDto>>
-                {
-                    Data = result,
-                    Success = true,
-                    Message = result.Count == 0 ? "No events found matching the specified criteria." : string.Empty,
-                    StatusCode = 200
-                };
+                return CreateResponse(true, 200, result, result.Count == 0 ? "No events found matching the specified criteria." : string.Empty);
             }
             catch (Exception ex)
             {
-                return new ServiceResponse<List<EventDto>>
-                {
-                    Data = null,
-                    Success = false,
-                    Message = $"An error occured while filtering events: {ex.Message}",
-                    StatusCode = 500
-                };
+                return CreateResponse<List<EventDto>>(false, 500, message: $"An error occured while filtering events: {ex.Message}");
             }
         }
 
@@ -224,23 +151,11 @@ namespace PartyRaidR.Backend.Services
                     await _repo.SaveChangesAsync();
                 }
 
-                return new ServiceResponse<EventDto>
-                {
-                    Data = null,
-                    Success = true,
-                    Message = events.Count == 0 ? "No old events to archive." : $"{events.Count} event(s) archived successfully.",
-                    StatusCode = 200
-                };
+                return CreateResponse<EventDto>(true, 200, message: events.Count == 0 ? "No old events to archive." : $"{events.Count} event(s) archived successfully.");
             }
             catch(Exception ex)
             {
-                return new ServiceResponse<EventDto>
-                {
-                    Data = null,
-                    Success = false,
-                    Message = $"An error occured while archiving old events: {ex.Message}",
-                    StatusCode = 500
-                };
+                return CreateResponse<EventDto>(false, 500, message: $"An error occured while archiving old events: {ex.Message}");
             }
         }
 
@@ -253,23 +168,11 @@ namespace PartyRaidR.Backend.Services
             }
             catch(OverlappingEventsException oee)
             {
-                return new ServiceResponse<EventDto>
-                {
-                    Data = null,
-                    Success = false,
-                    Message = oee.Message,
-                    StatusCode = 409
-                };
+                return CreateResponse<EventDto>(false, 409, message: oee.Message);
             }
             catch (Exception ex)
             {
-                return new ServiceResponse<EventDto>
-                {
-                    Data = null,
-                    Success = false,
-                    Message = ex.Message,
-                    StatusCode = 400
-                };
+                return CreateResponse<EventDto>(false, 500, message: $"An error occured while validating the event: {ex.Message}");
             }
 
             return await base.AddAsync(dto);
@@ -283,46 +186,21 @@ namespace PartyRaidR.Backend.Services
 
                 if (eventToEdit is null)
                 {
-                    return new ServiceResponse<EventDto>
-                    {
-                        Success = false,
-                        StatusCode = 404,
-                        Message = "Event not found."
-                    };
+                    return CreateResponse<EventDto>(false, 404, message: "Event not found.");
                 }
                 else if (!eventToEdit.IsActive)
                 {
-                    return new ServiceResponse<EventDto>
-                    {
-                        Success = false,
-                        StatusCode = 400,
-                        Message = "Cannot edit an archived event."
-                    };
+                    return CreateResponse<EventDto>(false, 400, message: "Cannot edit an archived event.");
                 }
                 else
                 {
                     bool isUserAuthor = await IsUserAuthor(eventToEdit);
 
                     if (!isUserAuthor)
-                    {
-                        return new ServiceResponse<EventDto>
-                        {
-                            Success = false,
-                            StatusCode = 403,
-                            Message = "You do not have permission to edit this event."
-                        };
-                    }
+                        return CreateResponse<EventDto>(false, 403, message: "You do not have permission to edit this event.");
 
                     if(dto.EventStatus != 0)
-                    {
-                        return new ServiceResponse<EventDto>
-                        {
-                            Success = false,
-                            StatusCode = 400,
-                            Message = "Events with the flag 'Live', 'Starting Soon' or 'Past' can not be edited."
-                        };
-                    }
-
+                        return CreateResponse<EventDto>(false, 400, message: "Events with the flag 'Live', 'Starting Soon' or 'Past' can not be edited.");
 
                     EventDto updated = dto;
                     updated.AuthorId = eventToEdit.AuthorId;
@@ -332,12 +210,7 @@ namespace PartyRaidR.Backend.Services
             }
             catch (Exception ex)
             {
-                return new ServiceResponse<EventDto>
-                {
-                    Success = false,
-                    Message = ex.Message,
-                    StatusCode = 400
-                };
+                return CreateResponse<EventDto>(false, 500, message: $"An error occured while validating the event: {ex.Message}");
             }
 
             return await base.UpdateAsync(dto);
@@ -350,37 +223,18 @@ namespace PartyRaidR.Backend.Services
                 Event? eventToDelete = await _repo.GetByIdAsync(id);
 
                 if (eventToDelete is null)
-                {
-                    return new ServiceResponse<EventDto>
-                    {
-                        Success = false,
-                        StatusCode = 404,
-                        Message = "Event not found."
-                    };
-                }
+                    return CreateResponse<EventDto>(false, 404, message: "Event not found.");
                 else
                 {
                     bool isUserAuthor = await IsUserAuthor(eventToDelete);
 
                     if (!isUserAuthor)
-                    {
-                        return new ServiceResponse<EventDto>
-                        {
-                            Success = false,
-                            StatusCode = 403,
-                            Message = "You do not have permission to delete this event."
-                        };
-                    }
+                        return CreateResponse<EventDto>(false, 403, message: "You do not have permission to delete this event.");
                 }
             }
             catch (Exception ex)
             {
-                return new ServiceResponse<EventDto>
-                {
-                    Success = false,
-                    Message = $"An error occured while verifying user permissions: {ex.Message}",
-                    StatusCode = 500
-                };
+                return CreateResponse<EventDto>(false, 500, message: $"An error occured while verifying user permissions: {ex.Message}");
             }
 
             return await base.DeleteAsync(id);
@@ -393,24 +247,11 @@ namespace PartyRaidR.Backend.Services
                 var events = await _repo.FindByConditionAsync(e => e.IsActive);
                 List<EventDto> result = events.Select(_assembler.ConvertToDto).ToList();
 
-                return new ServiceResponse<List<EventDto>>
-                {
-                    Data = result,
-                    Success = true,
-                    Message = result.Count == 0 ? "No active events found." : string.Empty,
-                    StatusCode = 200
-                };
+                return CreateResponse(true, 200, result, result.Count == 0 ? "No active events found." : string.Empty);
             }
             catch(Exception ex)
             {
-                return new ServiceResponse<List<EventDto>>
-                {
-                    Data = null,
-                    Success = false,
-                    Message = $"An error occured while retrieving active events: {ex.Message}",
-                    StatusCode = 500
-                };
-
+                return CreateResponse<List<EventDto>>(false, 500, message: $"An error occured while retrieving active events: {ex.Message}");
             }
         }
 
@@ -421,24 +262,11 @@ namespace PartyRaidR.Backend.Services
                 var events = await _repo.FindByConditionAsync(e => !e.IsActive);
                 List<EventDto> result = events.Select(_assembler.ConvertToDto).ToList();
 
-                return new ServiceResponse<List<EventDto>>
-                {
-                    Data = result,
-                    Success = true,
-                    Message = result.Count == 0 ? "No archived events found." : string.Empty,
-                    StatusCode = 200
-                };
+                return CreateResponse(true, 200, result, result.Count == 0 ? "No archived events found." : string.Empty);
             }
             catch (Exception ex)
             {
-                return new ServiceResponse<List<EventDto>>
-                {
-                    Data = null,
-                    Success = false,
-                    Message = $"An error occured while retrieving archived events: {ex.Message}",
-                    StatusCode = 500
-                };
-
+                return CreateResponse<List<EventDto>>(false, 500, message: $"An error occured while retrieving archived events: {ex.Message}");
             }
         }
     }
