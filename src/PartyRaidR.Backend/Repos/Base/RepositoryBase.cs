@@ -45,6 +45,9 @@ namespace PartyRaidR.Backend.Repos.Base
         public async void ClearTracker() =>
             _context.ChangeTracker.Clear();
 
+        public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate) =>
+            await _dbSet!.AnyAsync(predicate);
+
         public IQueryable<TEntity> GetAllAsQueryable() =>
             _dbSet!.AsQueryable();
 
@@ -53,6 +56,5 @@ namespace PartyRaidR.Backend.Repos.Base
 
         public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate) =>
             await _dbSet!.CountAsync(predicate);
-
     }
 }

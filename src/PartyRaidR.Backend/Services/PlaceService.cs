@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PartyRaidR.Backend.Assemblers;
+using PartyRaidR.Backend.Exceptions;
 using PartyRaidR.Backend.Models;
 using PartyRaidR.Backend.Models.Responses;
 using PartyRaidR.Backend.Repos.Promises;
@@ -13,11 +14,15 @@ namespace PartyRaidR.Backend.Services
     public class PlaceService : BaseService<Place, PlaceDto>, IPlaceService
     {
         private readonly IPlaceRepo _placeRepo;
+        private readonly IUserRepo _userRepo;
+        private readonly ICityRepo _cityRepo;
         private readonly IUserService _userService;
 
-        public PlaceService(PlaceAssembler? assembler, IPlaceRepo? repo, IUserContext userContext, IUserService userService) : base(assembler, repo, userContext)
+        public PlaceService(PlaceAssembler? assembler, IPlaceRepo? repo, IUserRepo? userRepo, ICityRepo? cityRepo, IUserContext userContext, IUserService userService) : base(assembler, repo, userContext)
         {
             _placeRepo = repo!;
+            _userRepo = userRepo ?? throw new ArgumentNullException(nameof(userRepo));
+            _cityRepo = cityRepo ?? throw new ArgumentNullException(nameof(cityRepo));
             _userService = userService;
         }
 
@@ -32,26 +37,33 @@ namespace PartyRaidR.Backend.Services
         {
             string userId = _userContext.UserId;
 
-            var userResult = await _userService.GetByIdAsync(userId);
-
-            Place? place = await _repo.GetByIdAsync(dto.Id);
-
-            if (place is null)
-                return CreateResponse<PlaceDto>(false, 404, message: "Place not found.");
-            else
+            try
             {
+                Place place = await _repo.GetByIdAsync(dto.Id) ?? throw new EntityNotFoundException("Place not found.");
+
                 bool isUserAuthor = await IsUserAuthor(place);
-
                 if (!isUserAuthor)
-                {
                     return CreateResponse<PlaceDto>(false, 403, message: "You do not have permission to update this place.");
-                }
 
-                // Ensure the UserId is not changed
-                PlaceDto updated = dto;
-                updated.UserId = place.UserId;
+                bool cityExists = await _cityRepo.ExistsAsync(c => c.Id == dto.CityId);
+                if (!cityExists)
+                    throw new EntityNotFoundException("The specified city does not exist.");
 
-                return await base.UpdateAsync(updated);
+                place = _assembler.ConvertToModel(dto);
+                place.UserId = userId;
+
+                _repo.Update(place);
+                await _repo.SaveChangesAsync();
+
+                return CreateResponse<PlaceDto>(true, 200, message: "Place updated successfully.");
+            }
+            catch(EntityNotFoundException ex)
+            {
+                return CreateResponse<PlaceDto>(false, 404, message: ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<PlaceDto>(false, 500, message: $"An error occured while verifying user permissions: {ex.Message}");
             }
         }
 
