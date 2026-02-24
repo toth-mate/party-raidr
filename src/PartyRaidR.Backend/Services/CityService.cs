@@ -43,7 +43,7 @@ namespace PartyRaidR.Backend.Services
         {
             try
             {
-                int count = _placeRepo.GetAllAsQueryable().Count(p => p.CityId == id);
+                int count = await _placeRepo.CountAsync(p => p.CityId == id);
                 return CreateResponse(true, 200, count);
             }
             catch (Exception ex)
