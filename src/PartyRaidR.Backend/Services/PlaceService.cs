@@ -37,26 +37,14 @@ namespace PartyRaidR.Backend.Services
             Place? place = await _repo.GetByIdAsync(dto.Id);
 
             if (place is null)
-            {
-                return new ServiceResponse<PlaceDto>
-                {
-                    Success = false,
-                    Message = "Place not found.",
-                    StatusCode = 404
-                };
-            }
+                return CreateResponse<PlaceDto>(false, 404, message: "Place not found.");
             else
             {
                 bool isUserAuthor = await IsUserAuthor(place);
 
                 if (!isUserAuthor)
                 {
-                    return new ServiceResponse<PlaceDto>
-                    {
-                        Success = false,
-                        Message = "You do not have permission to update this place.",
-                        StatusCode = 403
-                    };
+                    return CreateResponse<PlaceDto>(false, 403, message: "You do not have permission to update this place.");
                 }
 
                 // Ensure the UserId is not changed
@@ -76,39 +64,20 @@ namespace PartyRaidR.Backend.Services
                 Place? place = await _repo.GetByIdAsync(id);
 
                 if (place is null)
-                {
-                    return new ServiceResponse<PlaceDto>
-                    {
-                        Success = false,
-                        Message = "Place not found",
-                        StatusCode = 404
-                    };
-                }
+                    return CreateResponse<PlaceDto>(false, 404, message: "Place not found.");
                 else
                 {
                     bool isUserAuthor = await IsUserAuthor(place);
 
                     if (!isUserAuthor)
-                    {
-                        return new ServiceResponse<PlaceDto>
-                        {
-                            Success = false,
-                            Message = "You do not have permission to delete this place.",
-                            StatusCode = 403
-                        };
-                    }
+                        return CreateResponse<PlaceDto>(false, 403, message: "You do not have permission to delete this place.");
 
                     return await base.DeleteAsync(id);
                 }
             }
             catch (Exception e)
             {
-                return new ServiceResponse<PlaceDto>
-                {
-                    Success = false,
-                    Message = $"An error occured while verifying user permissions: {e.Message}",
-                    StatusCode = 500
-                };
+                return CreateResponse<PlaceDto>(false, 500, message: $"An error occured while verifying user permissions: {e.Message}");
             }
         }
 
@@ -142,23 +111,11 @@ namespace PartyRaidR.Backend.Services
                 List<Place> places = await query.ToListAsync();
                 List<PlaceDto> result = places.Select(_assembler.ConvertToDto).ToList();
 
-                return new ServiceResponse<IEnumerable<PlaceDto>>
-                {
-                    Data = result,
-                    Success = true,
-                    Message = "Places filtered successfully",
-                    StatusCode = 200
-                };
+                return CreateResponse<IEnumerable<PlaceDto>>(true, 200, result, "Places filtered successfully");
             }
             catch(Exception e)
             {
-                return new ServiceResponse<IEnumerable<PlaceDto>>
-                {
-                    Data = null,
-                    Success = false,
-                    Message = $"An error occurred while filtering places: {e.Message}",
-                    StatusCode = 500
-                };
+                return CreateResponse<IEnumerable<PlaceDto>>(false, 500, message: $"An error occurred while filtering places: {e.Message}");
             }
         }
 
@@ -170,25 +127,16 @@ namespace PartyRaidR.Backend.Services
 
                 var result = places.Select(_assembler.ConvertToDto).ToList();
 
-                return new ServiceResponse<IEnumerable<PlaceDto>>
-                {
-                    Success = true,
-                    Data = result,
-                    StatusCode = 200,
-                    Message = (places is null || places.Count() == 0)
-                                ? "This user have no places yet."
-                                : string.Empty
-                };
+                return CreateResponse<IEnumerable<PlaceDto>>(true,
+                                                             200,
+                                                             result,
+                                                             (places is null || places.Count() == 0)
+                                                                              ? "This user have no places yet."
+                                                                              : string.Empty);
             }
             catch(Exception e)
             {
-                return new ServiceResponse<IEnumerable<PlaceDto>>
-                {
-                    Data = null,
-                    Success = false,
-                    Message = $"An error occurred while retrieving your places: {e.Message}",
-                    StatusCode = 500
-                };
+                return CreateResponse<IEnumerable<PlaceDto>>(false, 500, message: $"An error occurred while retrieving your places: {e.Message}");
             }
         }
 
