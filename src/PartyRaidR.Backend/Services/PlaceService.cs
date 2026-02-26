@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PartyRaidR.Backend.Assemblers;
+using PartyRaidR.Backend.Exceptions;
 using PartyRaidR.Backend.Models;
 using PartyRaidR.Backend.Models.Responses;
 using PartyRaidR.Backend.Repos.Promises;
@@ -13,12 +14,14 @@ namespace PartyRaidR.Backend.Services
     public class PlaceService : BaseService<Place, PlaceDto>, IPlaceService
     {
         private readonly IPlaceRepo _placeRepo;
-        private readonly IUserService _userService;
+        private readonly IUserRepo _userRepo;
+        private readonly ICityRepo _cityRepo;
 
-        public PlaceService(PlaceAssembler? assembler, IPlaceRepo? repo, IUserContext userContext, IUserService userService) : base(assembler, repo, userContext)
+        public PlaceService(PlaceAssembler? assembler, IPlaceRepo? repo, IUserRepo? userRepo, ICityRepo? cityRepo, IUserContext? userContext) : base(assembler, repo, userContext)
         {
             _placeRepo = repo!;
-            _userService = userService;
+            _userRepo = userRepo ?? throw new ArgumentNullException(nameof(userRepo));
+            _cityRepo = cityRepo ?? throw new ArgumentNullException(nameof(cityRepo));
         }
 
         public override async Task<ServiceResponse<PlaceDto>> AddAsync(PlaceDto dto)
@@ -32,38 +35,33 @@ namespace PartyRaidR.Backend.Services
         {
             string userId = _userContext.UserId;
 
-            var userResult = await _userService.GetByIdAsync(userId);
-
-            Place? place = await _repo.GetByIdAsync(dto.Id);
-
-            if (place is null)
+            try
             {
-                return new ServiceResponse<PlaceDto>
-                {
-                    Success = false,
-                    Message = "Place not found.",
-                    StatusCode = 404
-                };
-            }
-            else
-            {
+                Place place = await _repo.GetByIdAsync(dto.Id) ?? throw new EntityNotFoundException("Place not found.");
+
                 bool isUserAuthor = await IsUserAuthor(place);
-
                 if (!isUserAuthor)
-                {
-                    return new ServiceResponse<PlaceDto>
-                    {
-                        Success = false,
-                        Message = "You do not have permission to update this place.",
-                        StatusCode = 403
-                    };
-                }
+                    return CreateResponse<PlaceDto>(false, 403, message: "You do not have permission to update this place.");
 
-                // Ensure the UserId is not changed
-                PlaceDto updated = dto;
-                updated.UserId = place.UserId;
+                bool cityExists = await _cityRepo.ExistsAsync(c => c.Id == dto.CityId);
+                if (!cityExists)
+                    throw new EntityNotFoundException("The specified city does not exist.");
 
-                return await base.UpdateAsync(updated);
+                place = _assembler.ConvertToModel(dto);
+                place.UserId = userId;
+
+                _repo.Update(place);
+                await _repo.SaveChangesAsync();
+
+                return CreateResponse<PlaceDto>(true, 200, message: "Place updated successfully.");
+            }
+            catch(EntityNotFoundException ex)
+            {
+                return CreateResponse<PlaceDto>(false, 404, message: ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<PlaceDto>(false, 500, message: $"An error occured while verifying user permissions: {ex.Message}");
             }
         }
 
@@ -76,39 +74,20 @@ namespace PartyRaidR.Backend.Services
                 Place? place = await _repo.GetByIdAsync(id);
 
                 if (place is null)
-                {
-                    return new ServiceResponse<PlaceDto>
-                    {
-                        Success = false,
-                        Message = "Place not found",
-                        StatusCode = 404
-                    };
-                }
+                    return CreateResponse<PlaceDto>(false, 404, message: "Place not found.");
                 else
                 {
                     bool isUserAuthor = await IsUserAuthor(place);
 
                     if (!isUserAuthor)
-                    {
-                        return new ServiceResponse<PlaceDto>
-                        {
-                            Success = false,
-                            Message = "You do not have permission to delete this place.",
-                            StatusCode = 403
-                        };
-                    }
+                        return CreateResponse<PlaceDto>(false, 403, message: "You do not have permission to delete this place.");
 
                     return await base.DeleteAsync(id);
                 }
             }
             catch (Exception e)
             {
-                return new ServiceResponse<PlaceDto>
-                {
-                    Success = false,
-                    Message = $"An error occured while verifying user permissions: {e.Message}",
-                    StatusCode = 500
-                };
+                return CreateResponse<PlaceDto>(false, 500, message: $"An error occured while verifying user permissions: {e.Message}");
             }
         }
 
@@ -142,23 +121,11 @@ namespace PartyRaidR.Backend.Services
                 List<Place> places = await query.ToListAsync();
                 List<PlaceDto> result = places.Select(_assembler.ConvertToDto).ToList();
 
-                return new ServiceResponse<IEnumerable<PlaceDto>>
-                {
-                    Data = result,
-                    Success = true,
-                    Message = "Places filtered successfully",
-                    StatusCode = 200
-                };
+                return CreateResponse<IEnumerable<PlaceDto>>(true, 200, result, "Places filtered successfully");
             }
             catch(Exception e)
             {
-                return new ServiceResponse<IEnumerable<PlaceDto>>
-                {
-                    Data = null,
-                    Success = false,
-                    Message = $"An error occurred while filtering places: {e.Message}",
-                    StatusCode = 500
-                };
+                return CreateResponse<IEnumerable<PlaceDto>>(false, 500, message: $"An error occurred while filtering places: {e.Message}");
             }
         }
 
@@ -170,25 +137,16 @@ namespace PartyRaidR.Backend.Services
 
                 var result = places.Select(_assembler.ConvertToDto).ToList();
 
-                return new ServiceResponse<IEnumerable<PlaceDto>>
-                {
-                    Success = true,
-                    Data = result,
-                    StatusCode = 200,
-                    Message = (places is null || places.Count() == 0)
-                                ? "This user have no places yet."
-                                : string.Empty
-                };
+                return CreateResponse<IEnumerable<PlaceDto>>(true,
+                                                             200,
+                                                             result,
+                                                             (places is null || places.Count() == 0)
+                                                                              ? "This user have no places yet."
+                                                                              : string.Empty);
             }
             catch(Exception e)
             {
-                return new ServiceResponse<IEnumerable<PlaceDto>>
-                {
-                    Data = null,
-                    Success = false,
-                    Message = $"An error occurred while retrieving your places: {e.Message}",
-                    StatusCode = 500
-                };
+                return CreateResponse<IEnumerable<PlaceDto>>(false, 500, message: $"An error occurred while retrieving your places: {e.Message}");
             }
         }
 
@@ -210,9 +168,9 @@ namespace PartyRaidR.Backend.Services
         private async Task<bool> IsUserAuthor(Place place)
         {
             string userId = _userContext.UserId;
-            var userResult = await _userService.GetByIdAsync(userId);
+            User? user = await _userRepo.GetByIdAsync(userId);
 
-            return (userResult.Success && userResult.Data is not null) && (userResult.Data.Role != UserRole.Admin && place.UserId == userId);
+            return user is not null && (user.Role == UserRole.Admin || place.UserId == userId);
         }
     }
 }

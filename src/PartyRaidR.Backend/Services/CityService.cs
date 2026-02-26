@@ -15,11 +15,11 @@ namespace PartyRaidR.Backend.Services
         private readonly IPlaceRepo _placeRepo;
         private readonly IUserService _userService;
 
-        public CityService(CityAssembler assembler, ICityRepo? repo, IUserContext userContext, IPlaceRepo placeRepo, IUserService userService) : base(assembler, repo, userContext)
+        public CityService(CityAssembler? assembler, ICityRepo? repo, IUserContext? userContext, IPlaceRepo? placeRepo, IUserService? userService) : base(assembler, repo, userContext)
         {
             _cityRepo = repo!;
-            _placeRepo = placeRepo;
-            _userService = userService;
+            _placeRepo = placeRepo ?? throw new ArgumentNullException(nameof(placeRepo));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
         public async Task<ServiceResponse<IEnumerable<CityDto>>> GetByCountyAsync(string county)
@@ -29,24 +29,13 @@ namespace PartyRaidR.Backend.Services
                 var cities = await _repo.FindByConditionAsync(c => c.County == county);
                 List<CityDto> cityDtos = cities.Select(_assembler.ConvertToDto).ToList();
 
-                return new ServiceResponse<IEnumerable<CityDto>>
-                {
-                    Success = true,
-                    StatusCode = 200,
-                    Data = cityDtos,
-                    Message = cityDtos.Count == 0
+                return CreateResponse<IEnumerable<CityDto>>(true, 200, cityDtos, cityDtos.Count == 0
                             ? $"No cities found in county '{county}'"
-                            : string.Empty
-                };
+                            : string.Empty);
             }
             catch (Exception ex)
             {
-                return new ServiceResponse<IEnumerable<CityDto>>
-                {
-                    Success = false,
-                    StatusCode = 500,
-                    Message = $"An error occurred while retrieving cities for county '{county}': {ex.Message}."
-                };
+                return CreateResponse<IEnumerable<CityDto>>(false, 500, message: $"An error occurred while retrieving cities for county '{county}': {ex.Message}.");
             }
         }
 
@@ -54,23 +43,12 @@ namespace PartyRaidR.Backend.Services
         {
             try
             {
-                int count = _placeRepo.GetAllAsQueryable().Count(p => p.CityId == id);
-
-                return new ServiceResponse<int>
-                {
-                    Success = true,
-                    StatusCode = 200,
-                    Data = count
-                };
+                int count = await _placeRepo.CountAsync(p => p.CityId == id);
+                return CreateResponse(true, 200, count);
             }
             catch (Exception ex)
             {
-                return new ServiceResponse<int>
-                {
-                    Success = false,
-                    StatusCode = 500,
-                    Message = $"An error occurred while retrieving the number of places for this city: {ex.Message}."
-                };
+                return CreateResponse<int>(false, 500, message: $"An error occurred while retrieving the number of places for this city: {ex.Message}.");
             }
         }
 
@@ -81,21 +59,11 @@ namespace PartyRaidR.Backend.Services
                 var trendingCities = await _cityRepo.GetTrendingCitiesAsync();
                 List<CityDto> result = trendingCities.Select(_assembler.ConvertToDto).ToList();
 
-                return new ServiceResponse<List<CityDto>>
-                {
-                    Data = result,
-                    StatusCode = 200,
-                    Success = true
-                };
+                return CreateResponse(true, 200, result);
             }
             catch (Exception ex)
             {
-                return new ServiceResponse<List<CityDto>>
-                {
-                    Success = false,
-                    StatusCode = 500,
-                    Message = $"An error occurred while retrieving trending cities: {ex.Message}."
-                };
+                return CreateResponse<List<CityDto>>(false, 500, message: $"An error occurred while retrieving trending cities: {ex.Message}.");
             }
         }
 
@@ -104,14 +72,7 @@ namespace PartyRaidR.Backend.Services
             bool isUserAdmin = await IsUserAdmin();
 
             if (!isUserAdmin)
-            {
-                return new ServiceResponse<CityDto>
-                {
-                    Success = false,
-                    StatusCode = 403,
-                    Message = "Your account lacks permission to complete this action."
-                };
-            }
+                return CreateResponse<CityDto>(false, 403, message: "Your account lacks permission to complete this action.");
 
             return await base.AddAsync(dto);
         }
@@ -121,14 +82,7 @@ namespace PartyRaidR.Backend.Services
             bool isUserAdmin = await IsUserAdmin();
 
             if (!isUserAdmin)
-            {
-                return new ServiceResponse<CityDto>
-                {
-                    Success = false,
-                    StatusCode = 403,
-                    Message = "Your account lacks permission to complete this action."
-                };
-            }
+                return CreateResponse<CityDto>(false, 403, message: "Your account lacks permission to complete this action.");
 
             return await base.DeleteAsync(id);
         }
@@ -138,14 +92,7 @@ namespace PartyRaidR.Backend.Services
             bool isUserAdmin = await IsUserAdmin();
 
             if (!isUserAdmin)
-            {
-                return new ServiceResponse<CityDto>
-                {
-                    Success = false,
-                    StatusCode = 403,
-                    Message = "Your account lacks permission to complete this action."
-                };
-            }
+                return CreateResponse<CityDto>(false, 403, message: "Your account lacks permission to complete this action.");
 
             return await base.UpdateAsync(dto);
         }

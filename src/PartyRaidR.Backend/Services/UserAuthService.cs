@@ -14,13 +14,15 @@ namespace PartyRaidR.Backend.Services
     {
         private readonly IUserRepo _userRepo;
         private readonly ITokenService _tokenService;
+        private readonly UserAssembler _userAssembler;
         private readonly UserRegistrationAssembler _userRegistrationAssembler;
 
-        public UserAuthService(IUserRepo userRepo, ITokenService tokenService)
+        public UserAuthService(IUserRepo? userRepo, ITokenService? tokenService, UserAssembler? userAssembler, UserRegistrationAssembler? registrationAssembler)
         {
-            _userRepo = userRepo;
-            _tokenService = tokenService;
-            _userRegistrationAssembler = new UserRegistrationAssembler();
+            _userRepo = userRepo ?? throw new ArgumentNullException(nameof(userRepo));
+            _tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
+            _userAssembler = userAssembler ?? throw new ArgumentNullException(nameof(userAssembler));
+            _userRegistrationAssembler = registrationAssembler ?? throw new ArgumentNullException(nameof(registrationAssembler));
         }
 
         public async Task<ServiceResponse<string>> LoginAsync(UserLoginDto request)
@@ -28,37 +30,16 @@ namespace PartyRaidR.Backend.Services
             User? user = await _userRepo.GetByEmailAsync(request.Email);
 
             if(user is null)
-            {
-                return new ServiceResponse<string>
-                {
-                    Success = false,
-                    Message = "Login failed: Incorrect email or password.",
-                    StatusCode = 401
-                };
-            }
+                return CreateResponse<string>(false, 400, message: "Login failed: Incorrect email or password.");
             else
             {
                 if(BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 {
                     string token = _tokenService.GenerateToken(user);
-
-                    return new ServiceResponse<string>
-                    {
-                        Data = token,
-                        Success = true,
-                        StatusCode = 200,
-                        Message = "Login successful."
-                    };
+                    return CreateResponse(true, 200, token, "Login successful.");
                 }
                 else
-                {
-                    return new ServiceResponse<string>
-                    {
-                        Success = false,
-                        StatusCode = 401,
-                        Message = "Login failed: Incorrect email or password."
-                    };
-                }
+                    return CreateResponse<string>(false, 400, message: "Login failed: Incorrect email or password.");
             }
         }
 
@@ -76,35 +57,17 @@ namespace PartyRaidR.Backend.Services
                     newUser.PasswordHash = passwordHash;
                     newUser.Id = Guid.CreateVersion7().ToString();
 
-                    Console.WriteLine(newUser.Id);
-
                     await _userRepo.InsertAsync(newUser);
                     await _userRepo.SaveChangesAsync();
 
-                    return new ServiceResponse<UserDto>
-                    {
-                        Success = true,
-                        Message = "Registration successful.",
-                        StatusCode = 201
-                    };
+                    return CreateResponse(true, 201, _userAssembler.ConvertToDto(newUser), message: "Registration successful.");
                 }
 
-                return new ServiceResponse<UserDto>
-                {
-                    Success = false,
-                    Message = "Unknown error.",
-                    StatusCode = 500
-                };
+                return CreateResponse<UserDto>(false, 400, message: "Registration failed: Invalid user data.");
             }
             catch(Exception e)
             {
-                return new ServiceResponse<UserDto>
-                {
-                    Success = false,
-                    Message = $"Registration failure: {e.Message}",
-                    StatusCode = 400
-                };
-
+                return CreateResponse<UserDto>(false, 500, message: $"Registration failure: {e.Message}");
             }
         }
 
@@ -131,6 +94,17 @@ namespace PartyRaidR.Backend.Services
                 throw new UserDoesNotMeetRequiredAgeException("User must be at least 16 years old to register.");
 
             return true;
+        }
+
+        private ServiceResponse<T> CreateResponse<T>(bool isSuccess, int statusCode, T? data = default, string? message = null)
+        {
+            return new ServiceResponse<T>
+            {
+                Success = isSuccess,
+                StatusCode = statusCode,
+                Data = data,
+                Message = message ?? string.Empty
+            };
         }
 
         private static bool IsEmailValid(string email) =>

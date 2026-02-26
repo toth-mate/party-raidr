@@ -15,6 +15,7 @@ namespace PartyRaidR.Backend.Repos.Base
         Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
         Task<int> SaveChangesAsync();
         void ClearTracker();
+        Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate);
         IQueryable<TEntity> GetAllAsQueryable();
     }
 }
