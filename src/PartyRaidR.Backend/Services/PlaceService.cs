@@ -16,14 +16,12 @@ namespace PartyRaidR.Backend.Services
         private readonly IPlaceRepo _placeRepo;
         private readonly IUserRepo _userRepo;
         private readonly ICityRepo _cityRepo;
-        private readonly IUserService _userService;
 
-        public PlaceService(PlaceAssembler? assembler, IPlaceRepo? repo, IUserRepo? userRepo, ICityRepo? cityRepo, IUserContext? userContext, IUserService? userService) : base(assembler, repo, userContext)
+        public PlaceService(PlaceAssembler? assembler, IPlaceRepo? repo, IUserRepo? userRepo, ICityRepo? cityRepo, IUserContext? userContext) : base(assembler, repo, userContext)
         {
             _placeRepo = repo!;
             _userRepo = userRepo ?? throw new ArgumentNullException(nameof(userRepo));
             _cityRepo = cityRepo ?? throw new ArgumentNullException(nameof(cityRepo));
-            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
         public override async Task<ServiceResponse<PlaceDto>> AddAsync(PlaceDto dto)
@@ -170,9 +168,9 @@ namespace PartyRaidR.Backend.Services
         private async Task<bool> IsUserAuthor(Place place)
         {
             string userId = _userContext.UserId;
-            var userResult = await _userService.GetByIdAsync(userId);
+            User? user = await _userRepo.GetByIdAsync(userId);
 
-            return (userResult.Success && userResult.Data is not null) && (userResult.Data.Role != UserRole.Admin && place.UserId == userId);
+            return user is not null && user.Role != UserRole.Admin && place.UserId == userId;
         }
     }
 }
