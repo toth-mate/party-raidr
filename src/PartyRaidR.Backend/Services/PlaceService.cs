@@ -170,7 +170,7 @@ namespace PartyRaidR.Backend.Services
             string userId = _userContext.UserId;
             User? user = await _userRepo.GetByIdAsync(userId);
 
-            return user is not null && user.Role != UserRole.Admin && place.UserId == userId;
+            return user is not null && (user.Role == UserRole.Admin || place.UserId == userId);
         }
     }
 }
