@@ -1,89 +1,14 @@
 <script setup>
-  import { ref } from 'vue'
+  import { ref, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
+  import { useEventStore } from '@/stores/event'
 
   const router = useRouter()
+  const eventStore = useEventStore()
 
-  const events = ref([
-    {
-      id: 1,
-      title: 'Event 1',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.',
-      startingDate: new Date(),
-      endingDate: new Date(),
-      placeName: 'Place 1',
-      city: 'City 1',
-      categoryName: 'Party',
-      room: 0,
-      ticketPrice: 0,
-      status: 1
-    },
-    {
-      id: 2,
-      title: 'Event 2',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.',
-      startingDate: new Date(),
-      endingDate: new Date(),
-      placeName: 'Place 2',
-      city: 'City 2',
-      categoryName: 'Party',
-      room: 0,
-      ticketPrice: 3500,
-      status: 2
-    },
-    {
-      id: 3,
-      title: 'Event 3',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.',
-      startingDate: new Date(),
-      endingDate: new Date(),
-      placeName: 'Place 3',
-      city: 'City 3',
-      categoryName: 'Party',
-      room: 0,
-      ticketPrice: 0,
-      status: 0
-    },
-    {
-      id: 4,
-      title: 'Event 4',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.',
-      startingDate: new Date(),
-      endingDate: new Date(),
-      placeName: 'Place 4',
-      city: 'City 4',
-      categoryName: 'Party',
-      room: 0,
-      ticketPrice: 0,
-      status: 3
-    },
-    {
-      id: 5,
-      title: 'Event 5',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.',
-      startingDate: new Date(),
-      endingDate: new Date(),
-      placeName: 'Place 5',
-      city: 'City 5',
-      categoryName: 'Party',
-      room: 0,
-      ticketPrice: 0,
-      status: 0
-    },
-    {
-      id: 6,
-      title: 'Event 6',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.',
-      startingDate: new Date(),
-      endingDate: new Date(),
-      placeName: 'Place 6',
-      city: 'City 6',
-      categoryName: 'Party',
-      room: 0,
-      ticketPrice: 0,
-      status: 0
-    }
-  ])
+  onMounted(async () => {
+    await eventStore.loadEvents()
+  })
 
   const goToEventDetails = (id) => {
     router.push(`/events/${id}`)
@@ -108,7 +33,7 @@
   </section>
   <section id="event-list" class="container">
     <div class="row gy-4">
-      <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="e in events" :key="e.id">
+      <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="e in eventStore.events" :key="e.id">
         <div class="card">
           <div class="card-body position-relative">
             <div id="status" class="position-absolute">
