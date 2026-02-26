@@ -18,12 +18,12 @@ namespace PartyRaidR.Backend.Services
         private readonly ICityRepo _cityRepo;
         private readonly IUserService _userService;
 
-        public PlaceService(PlaceAssembler? assembler, IPlaceRepo? repo, IUserRepo? userRepo, ICityRepo? cityRepo, IUserContext userContext, IUserService userService) : base(assembler, repo, userContext)
+        public PlaceService(PlaceAssembler? assembler, IPlaceRepo? repo, IUserRepo? userRepo, ICityRepo? cityRepo, IUserContext? userContext, IUserService? userService) : base(assembler, repo, userContext)
         {
             _placeRepo = repo!;
             _userRepo = userRepo ?? throw new ArgumentNullException(nameof(userRepo));
             _cityRepo = cityRepo ?? throw new ArgumentNullException(nameof(cityRepo));
-            _userService = userService;
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
         public override async Task<ServiceResponse<PlaceDto>> AddAsync(PlaceDto dto)

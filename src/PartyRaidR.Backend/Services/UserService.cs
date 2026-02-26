@@ -9,7 +9,7 @@ namespace PartyRaidR.Backend.Services
 {
     public class UserService : BaseService<User, UserDto>, IUserService
     {
-        public UserService(UserAssembler assembler, IUserRepo? repo, IUserContext userContext) : base(assembler, repo, userContext)
+        public UserService(UserAssembler? assembler, IUserRepo? repo, IUserContext? userContext) : base(assembler, repo, userContext)
         {
         }
     }

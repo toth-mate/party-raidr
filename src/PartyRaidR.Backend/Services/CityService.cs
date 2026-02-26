@@ -15,11 +15,11 @@ namespace PartyRaidR.Backend.Services
         private readonly IPlaceRepo _placeRepo;
         private readonly IUserService _userService;
 
-        public CityService(CityAssembler assembler, ICityRepo? repo, IUserContext userContext, IPlaceRepo placeRepo, IUserService userService) : base(assembler, repo, userContext)
+        public CityService(CityAssembler? assembler, ICityRepo? repo, IUserContext? userContext, IPlaceRepo? placeRepo, IUserService? userService) : base(assembler, repo, userContext)
         {
             _cityRepo = repo!;
-            _placeRepo = placeRepo;
-            _userService = userService;
+            _placeRepo = placeRepo ?? throw new ArgumentNullException(nameof(placeRepo));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
         public async Task<ServiceResponse<IEnumerable<CityDto>>> GetByCountyAsync(string county)

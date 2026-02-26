@@ -15,7 +15,7 @@ namespace PartyRaidR.Backend.Services
         private readonly IEventRepo _eventRepo;
         private readonly IEventService _eventService;
 
-        public ApplicationService(ApplicationAssembler? assembler, IApplicationRepo? repo, IUserContext userContext, IEventRepo? eventRepo, IEventService? eventService) : base(assembler, repo, userContext)
+        public ApplicationService(ApplicationAssembler? assembler, IApplicationRepo? repo, IUserContext? userContext, IEventRepo? eventRepo, IEventService? eventService) : base(assembler, repo, userContext)
         {
             _applicationRepo = repo ?? throw new ArgumentNullException(nameof(repo));
             _eventRepo = eventRepo ?? throw new ArgumentNullException(nameof(eventRepo), "Event repository cannot be null.");

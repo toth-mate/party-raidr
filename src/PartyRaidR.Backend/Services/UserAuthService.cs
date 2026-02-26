@@ -17,12 +17,12 @@ namespace PartyRaidR.Backend.Services
         private readonly UserAssembler _userAssembler;
         private readonly UserRegistrationAssembler _userRegistrationAssembler;
 
-        public UserAuthService(IUserRepo userRepo, ITokenService tokenService, UserAssembler? userAssembler)
+        public UserAuthService(IUserRepo? userRepo, ITokenService? tokenService, UserAssembler? userAssembler, UserRegistrationAssembler? registrationAssembler)
         {
-            _userRepo = userRepo;
-            _tokenService = tokenService;
-            _userRegistrationAssembler = new UserRegistrationAssembler();
+            _userRepo = userRepo ?? throw new ArgumentNullException(nameof(userRepo));
+            _tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
             _userAssembler = userAssembler ?? throw new ArgumentNullException(nameof(userAssembler));
+            _userRegistrationAssembler = registrationAssembler ?? throw new ArgumentNullException(nameof(registrationAssembler));
         }
 
         public async Task<ServiceResponse<string>> LoginAsync(UserLoginDto request)
@@ -60,7 +60,7 @@ namespace PartyRaidR.Backend.Services
                     await _userRepo.InsertAsync(newUser);
                     await _userRepo.SaveChangesAsync();
 
-                    return CreateResponse<UserDto>(true, 201, _userAssembler.ConvertToDto(newUser), message: "Registration successful.");
+                    return CreateResponse(true, 201, _userAssembler.ConvertToDto(newUser), message: "Registration successful.");
                 }
 
                 return CreateResponse<UserDto>(false, 400, message: "Registration failed: Invalid user data.");

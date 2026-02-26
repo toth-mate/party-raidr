@@ -16,11 +16,11 @@ namespace PartyRaidR.Backend.Services.Base
         protected readonly IRepositoryBase<TModel> _repo;
         protected readonly IUserContext _userContext;
 
-        public BaseService(Assembler<TModel, TDto>? assembler, IRepositoryBase<TModel>? repo, IUserContext userContext)
+        public BaseService(Assembler<TModel, TDto>? assembler, IRepositoryBase<TModel>? repo, IUserContext? userContext)
         {
             _assembler = assembler ?? throw new ArgumentNullException($"{nameof(assembler)} was null.");
             _repo = repo ?? throw new ArgumentNullException($"{nameof(repo)} was null.");
-            _userContext = userContext;
+            _userContext = userContext ?? throw new ArgumentNullException(nameof(userContext));
         }
 
         public virtual async Task<ServiceResponse<TDto>> GetByIdAsync(string id)

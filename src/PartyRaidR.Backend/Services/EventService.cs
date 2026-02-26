@@ -17,7 +17,7 @@ namespace PartyRaidR.Backend.Services
         private readonly ICityRepo _cityRepo;
         private readonly IUserService _userService;
 
-        public EventService(EventAssembler assembler, IEventRepo? repo, IUserContext userContext, IPlaceRepo? placeRepo, IUserService? userService, ICityRepo? cityRepo) : base(assembler, repo, userContext)
+        public EventService(EventAssembler assembler, IEventRepo? repo, IUserContext? userContext, IPlaceRepo? placeRepo, IUserService? userService, ICityRepo? cityRepo) : base(assembler, repo, userContext)
         {
             _eventRepo = repo ?? throw new ArgumentNullException(nameof(IEventRepo));
             _placeRepo = placeRepo ?? throw new ArgumentNullException(nameof(IPlaceRepo));
