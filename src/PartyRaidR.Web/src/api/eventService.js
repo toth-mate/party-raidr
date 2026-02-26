@@ -6,5 +6,11 @@ export default {
     },
     getById(id) {
         return apiClient.get(`/event/${id}`)
+    },
+    getWithDetails() {
+        return apiClient.get('/event/display-all')
+    },
+    getWithDetailsById(id) {
+        return apiClient.get(`/event/display/${id}`)
     }
 }

@@ -7,7 +7,7 @@
   const eventStore = useEventStore()
 
   onMounted(async () => {
-    await eventStore.loadEvents()
+    await eventStore.loadEventsDisplay()
   })
 
   const goToEventDetails = (id) => {

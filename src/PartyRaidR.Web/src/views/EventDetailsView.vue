@@ -10,8 +10,8 @@ let event = ref({})
 const eventId = route.params.id
 
 onMounted(async () => {
-    event.value = await eventStore.getEvent(eventId)
-    console.log(event)
+    event.value = await eventStore.getEventDisplay(eventId)
+    //console.log(event)
 })
 </script>
 <template>
@@ -23,13 +23,13 @@ onMounted(async () => {
                 <div class="col-12 col-md-6">
                     <p>Starting date: {{ event.startingDate }}</p>
                     <p>Ending date: {{ event.endingDate }}</p>
-                    <p>Place: {{ event.placeId }}</p>
-                    <p>City: {{ event.cityName || 'City' }}</p>
+                    <p>Place: {{ event.placeName }}</p>
+                    <p>City: {{ event.city || 'City' }}</p>
                 </div>
                 <div class="col-12 col-md-6">
                     <p>Category: {{ event.category }}</p>
-                    <p>Room: {{ event.room }}</p>
-                    <p>Ticket price: {{ event.ticketPrice }} Ft</p>
+                    <p>Room: {{ event.room === 0 ? 'Not limited' : event.room }}</p>
+                    <p>Ticket price: {{ event.ticketPrice === 0 ? 'Not paid' : event.ticketPrice + 'Ft' }}</p>
                 </div>
             </div>
         </div>
