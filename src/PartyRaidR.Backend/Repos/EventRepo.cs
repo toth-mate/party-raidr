@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PartyRaidR.Backend.Context;
+using PartyRaidR.Backend.Exceptions;
 using PartyRaidR.Backend.Models;
 using PartyRaidR.Backend.Repos.Base;
 using PartyRaidR.Backend.Repos.Promises;
@@ -12,6 +13,19 @@ namespace PartyRaidR.Backend.Repos
         public EventRepo(AppDbContext? context) : base(context)
         {
         }
+
+        public async Task<Event> GetEventWithDisplayData(string id) =>
+            await _dbSet!.Include(e => e.Place)
+                         .ThenInclude(p => p.City)
+                         .Include(e => e.User)
+                         .FirstOrDefaultAsync(e => e.Id == id) ?? throw new EntityNotFoundException("Event not found.");
+
+        public async Task<List<Event>> GetEventsWithDisplayData() =>
+            await _dbSet!.Include(e => e.Place)
+                         .ThenInclude(p => p.City)
+                         .Include(e => e.User)
+                         .Where(e => e.IsActive && e.StartingDate >= DateTime.UtcNow)
+                         .ToListAsync();
 
         public async Task<List<Event>> FilterEventsAsync(string? title,
                                                     string? description,

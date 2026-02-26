@@ -64,5 +64,26 @@ namespace PartyRaidR.Backend.Services
 
             return (userResult.Success && userResult.Data is not null) && (userResult.Data.Role != UserRole.Admin && eventToEdit.AuthorId == userId);
         }
+
+        private string GetEventCategoryDisplayName(EventCategory category)
+        {
+            switch (category)
+            {
+                case EventCategory.None:
+                    return "None";
+                case EventCategory.OutdoorsActivity:
+                    return "Outdoors Activity";
+                case EventCategory.IndoorsActivity:
+                    return "Indoors Activity";
+                case EventCategory.Concert:
+                    return "Concert";
+                case EventCategory.Festival:
+                    return "Festival";
+                case EventCategory.Party:
+                    return "Party";
+                default:
+                    return "Unknown";
+            }
+        }
     }
 }
