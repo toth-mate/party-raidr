@@ -5,6 +5,19 @@
 
   const router = useRouter()
   const eventStore = useEventStore()
+  const hideFilter = ref(true)
+  const filter = ref({
+    title: null,
+    description: null,
+    startingDate: null,
+    endingDate: null,
+    placeName: null,
+    placeId: null,
+    cityId: null,
+    category: null,
+    ticketPriceMin: null,
+    ticketPriceMax: null
+  })
 
   onMounted(async () => {
     await eventStore.loadEventsDisplay()
@@ -14,10 +27,26 @@
     router.push(`/events/${id}`)
   }
 
-  const hideFilter = ref(true)
-
   const toggleFilter = () => {
     hideFilter.value = !hideFilter.value
+  }
+
+  const doFilter = async () => {
+    resetFilter()
+    await eventStore.filterEvents(filter.value)
+    console.log(filter.value)
+  }
+
+  const resetFilter = () => {
+    if(filter.value.title === '') filter.value.title = null
+    if(filter.value.description === '') filter.value.description = null
+    if(filter.value.startingDate === '') filter.value.startingDate = null
+    if(filter.value.endingDate === '') filter.value.endingDate = null
+    if(filter.value.placeName === '') filter.value.placeName = null
+    if(filter.value.cityId === '') filter.value.cityId = null
+    if(filter.value.category === '') filter.value.category = null
+    if(filter.value.ticketPriceMin === '') filter.value.ticketPriceMin = null
+    if(filter.value.ticketPriceMax === '') filter.value.ticketPriceMax = null
   }
 </script>
 
@@ -26,40 +55,40 @@
   <section id="search" class="container mb-5">
     <div class="row">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for events...">
-        <button class="btn btn-primary">Search</button>
+        <input type="text" class="form-control" placeholder="Search for events..." v-model="filter.title">
+        <button class="btn btn-success" @click="doFilter">Search</button>
       </div>
     </div>
     <div class="row mt-2 bg-body-secondary px-1 py-2" v-if="!hideFilter">
       <h6>Advanced filtering</h6>
       <div class="mb-2 d-flex">
         <div class="form-floating flex-fill">
-          <input type="text" class="form-control" placeholder="Search by event description" id="event-description">
+          <input type="text" class="form-control" placeholder="Search by event description" id="event-description" v-model="filter.description">
           <label for="event-description">Search by event description</label>
         </div>
         <div class="form-floating flex-fill">
-          <input type="text" class="form-control" placeholder="Search by place name" id="event-place-name">
+          <input type="text" class="form-control" placeholder="Search by place name" id="event-place-name" v-model="filter.placeName">
           <label for="event-place-name">Search by place name</label>
         </div>
       </div>
       <div class="input-group mb-2">
         <span class="input-group-text">Start date</span>
-        <input type="date" class="form-control form-control-lg" id="event-start-date">
+        <input type="date" class="form-control form-control-lg" id="event-start-date" v-model="filter.startingDate">
         <span class="input-group-text">End date</span>
-        <input type="date" class="form-control form-control-lg" id="event-end-date">
+        <input type="date" class="form-control form-control-lg" id="event-end-date" v-model="filter.endingDate">
       </div>
       <div class="input-group mb-2">
         <span class="input-group-text">Minimum price</span>
-        <input type="number" class="form-control" id="event-price-min" placeholder="0">
+        <input type="number" class="form-control" id="event-price-min" placeholder="0" v-model="filter.ticketPriceMin">
         <span class="input-group-text">Ft</span>
       </div>
       <div class="input-group mb-2">
         <span class="input-group-text">Maximum price</span>
-        <input type="number" class="form-control" id="event-price-max" placeholder="0">
+        <input type="number" class="form-control" id="event-price-max" placeholder="0" v-model="filter.ticketPriceMax">
         <span class="input-group-text">Ft</span>
       </div>
       <div class="form-floating">
-        <select class="form-select" id="event-category">
+        <select class="form-select" id="event-category" v-model="filter.category">
           <option value="0">None</option>
           <option value="1">Outdoors activity</option>
           <option value="2">Indoors activity</option>

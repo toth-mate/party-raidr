@@ -41,12 +41,23 @@ export const useEventStore = defineStore('event', () => {
   async function getEventDisplay(id) {
     try {
       const res = await eventService.getWithDetailsById(id)
-      console.log(res)
       return res.data
     } catch(e) {
       console.warn(e)
     }
   }
 
-  return { events, loadEvents, getEvent, loadEventsDisplay, getEventDisplay }
+  async function filterEvents(filter) {
+    try {
+      const res = await eventService.filter(filter)
+      console.log(res)
+      if(res.data) {
+        events.value = res.data
+      }
+    } catch(e) {
+      console.warn(e)
+    }
+  }
+
+  return { events, loadEvents, getEvent, loadEventsDisplay, getEventDisplay, filterEvents }
 })
