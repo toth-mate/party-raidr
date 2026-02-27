@@ -29,7 +29,7 @@ onMounted(async () => {
                 <div class="col-12 col-md-6">
                     <p>Category: {{ event.category }}</p>
                     <p>Room: {{ event.room === 0 ? 'Not limited' : event.room }}</p>
-                    <p>Ticket price: {{ event.ticketPrice === 0 ? 'Not paid' : event.ticketPrice + 'Ft' }}</p>
+                    <p>Ticket price: {{ event.ticketPrice === 0 ? 'Not paid' : event.ticketPrice + ' Ft' }}</p>
                 </div>
             </div>
         </div>
