@@ -49,8 +49,8 @@
           </div>
           <div class="card-footer d-flex justify-content-between align-items-center">
             <p class="card-text" v-if="e.ticketPrice == 0">Price: Not paid</p>
-            <p class="card-text" v-else>Price: {{ e.ticketPrice }}</p>
-            <button class="btn btn-primary" @click="goToEventDetails(e.id)">Details</button>
+            <p class="card-text" v-else>Price: {{ e.ticketPrice === 0 ? 'Not paid' : e.ticketPrice + ' Ft' }}</p>
+            <button class="btn btn-secondary" @click="goToEventDetails(e.id)">Details</button>
           </div>
         </div>
       </div>
