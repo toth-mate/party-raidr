@@ -43,7 +43,7 @@
               <div v-else class="bg-secondary"></div>
             </div>
             <h5 class="card-title">{{ e.title }}</h5>
-            <h6 class="card-subtitle text-body-secondary mb-2">{{ e.startingDate }}-{{ e.endingDate }}</h6>
+            <h6 class="card-subtitle text-body-secondary mb-2">{{ e.startingDate }} - {{ e.endingDate }}</h6>
             <p class="card-text">{{ e.description }}</p>
             <p class="card-text text-body-secondary">Here: {{ e.city }}, {{ e.placeName }}</p>
           </div>

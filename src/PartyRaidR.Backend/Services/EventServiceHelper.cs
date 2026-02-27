@@ -21,10 +21,10 @@ namespace PartyRaidR.Backend.Services
             if (dto.StartingDate <= DateTime.UtcNow)
                 throw new ArgumentException("Starting date must be in the future.");
 
-            if(dto.StartingDate < DateTime.UtcNow.AddHours(3))
+            if (dto.StartingDate < DateTime.UtcNow.AddHours(3))
                 throw new ArgumentException("Starting date must be at least 3 hours from now.");
 
-            if(dto.EndingDate < dto.StartingDate.AddMinutes(20))
+            if (dto.EndingDate < dto.StartingDate.AddMinutes(20))
                 throw new ArgumentException("Event duration must be at least 20 minutes.");
 
             if (dto.TicketPrice < 0)
@@ -41,7 +41,7 @@ namespace PartyRaidR.Backend.Services
 
             var eventsAtPlace = await _repo.FindByConditionAsync(e => e.PlaceId == dto.PlaceId);
             _repo.ClearTracker();
-            
+
             // Check for overlapping events at the same place
             bool isOverlapping = eventsAtPlace.Any(e =>
                 e.Id != dto.Id
@@ -49,7 +49,7 @@ namespace PartyRaidR.Backend.Services
                 || (dto.StartingDate > e.StartingDate && dto.StartingDate < e.EndingDate)
             );
 
-            if(isOverlapping)
+            if (isOverlapping)
                 throw new OverlappingEventsException("An event is already scheduled at this place during the specified time.");
 
             dto.DateCreated = DateTime.UtcNow;
@@ -84,6 +84,27 @@ namespace PartyRaidR.Backend.Services
                 default:
                     return "Unknown";
             }
+        }
+
+        private string GetEventStatusDisplayName(DateTime starting, DateTime ending)
+        {
+            var now = DateTime.UtcNow;
+
+            if (ending < now)
+                return "Past";
+
+            if (starting <= now && ending >= now)
+                return "Live";
+
+            if (starting > now && starting < now.AddHours(3))
+                return "Starting soon";
+
+            return "Upcoming";
+        }
+
+        private string GetDateDisplayString(DateTime date)
+        {
+            return date.ToString("g");
         }
     }
 }

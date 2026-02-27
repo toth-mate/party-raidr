@@ -36,16 +36,17 @@ namespace PartyRaidR.Backend.Services
                     Id = @event.Id,
                     Title = @event.Title,
                     Description = @event.Description,
-                    StartingDate = @event.StartingDate,
-                    EndingDate = @event.EndingDate,
+                    StartingDate = GetDateDisplayString(@event.StartingDate),
+                    EndingDate = GetDateDisplayString(@event.EndingDate),
                     City = @event.Place.City.Name,
                     PlaceName = @event.Place.Name,
                     Category = nameof(@event.Category),
                     AuthorName = @event.User.Username,
                     Room = @event.Room,
                     TicketPrice = @event.TicketPrice,
-                    DateCreated = @event.DateCreated,
-                    IsActive = @event.IsActive
+                    DateCreated = GetDateDisplayString(@event.DateCreated),
+                    IsActive = @event.IsActive,
+                    EventStatus = GetEventStatusDisplayName(@event.StartingDate, @event.EndingDate)
                 };
 
                 return CreateResponse(true, 200, result);
@@ -70,16 +71,17 @@ namespace PartyRaidR.Backend.Services
                     Id = e.Id,
                     Title = e.Title,
                     Description = e.Description,
-                    StartingDate = e.StartingDate,
-                    EndingDate = e.EndingDate,
+                    StartingDate = GetDateDisplayString(e.StartingDate),
+                    EndingDate = GetDateDisplayString(e.EndingDate),
                     City = e.Place.City.Name,
                     PlaceName = e.Place.Name,
                     Category = GetEventCategoryDisplayName(e.Category),
                     AuthorName = e.User.Username,
                     Room = e.Room,
                     TicketPrice = e.TicketPrice,
-                    DateCreated = e.DateCreated,
-                    IsActive = e.IsActive
+                    DateCreated = GetDateDisplayString(e.DateCreated),
+                    IsActive = e.IsActive,
+                    EventStatus = GetEventStatusDisplayName(e.StartingDate, e.EndingDate)
                 }).ToList();
 
                 return CreateResponse(true, 200, result);
