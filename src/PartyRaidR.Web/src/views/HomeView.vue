@@ -68,8 +68,8 @@
 </script>
 
 <template>
-  <h1>Party RaidR</h1>
-  <section id="search" class="container mb-5">
+  <h1>Party RaidR | Find events</h1>
+  <section id="search" class="container mt-3 mb-5">
     <div class="row">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search for events..." v-model="filter.title">
