@@ -181,7 +181,7 @@ namespace PartyRaidR.Backend.Services
             return await GetEventsByUserIdAsync(userId);
         }
 
-        public async Task<ServiceResponse<List<EventDto>>> FilterEventsAsync(EventFilterDto filter)
+        public async Task<ServiceResponse<List<EventDisplayDto>>> FilterEventsAsync(EventFilterDto filter)
         {
             try
             {
@@ -195,13 +195,29 @@ namespace PartyRaidR.Backend.Services
                                                                         filter.Category,
                                                                         filter.TicketPriceMin,
                                                                         filter.TicketPriceMax);
-                List<EventDto> result = events.Select(_assembler.ConvertToDto).ToList();
+                List<EventDisplayDto> result = events.Select(e => new EventDisplayDto
+                {
+                    Id = e.Id,
+                    Title = e.Title,
+                    Description = e.Description,
+                    StartingDate = GetDateDisplayString(e.StartingDate),
+                    EndingDate = GetDateDisplayString(e.EndingDate),
+                    City = e.Place.City.Name,
+                    PlaceName = e.Place.Name,
+                    Category = GetEventCategoryDisplayName(e.Category),
+                    AuthorName = e.User.Username,
+                    Room = e.Room,
+                    TicketPrice = e.TicketPrice,
+                    DateCreated = GetDateDisplayString(e.DateCreated),
+                    IsActive = e.IsActive,
+                    EventStatus = GetEventStatusDisplayName(e.StartingDate, e.EndingDate)
+                }).ToList();
 
                 return CreateResponse(true, 200, result, result.Count == 0 ? "No events found matching the specified criteria." : string.Empty);
             }
             catch (Exception ex)
             {
-                return CreateResponse<List<EventDto>>(false, 500, message: $"An error occured while filtering events: {ex.Message}");
+                return CreateResponse<List<EventDisplayDto>>(false, 500, message: $"An error occured while filtering events: {ex.Message}");
             }
         }
 

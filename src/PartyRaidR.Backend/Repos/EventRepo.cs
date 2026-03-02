@@ -38,7 +38,7 @@ namespace PartyRaidR.Backend.Repos
                                                     decimal? ticketPriceMin,
                                                     decimal? ticketPriceMax)
         {
-            var result = GetAllAsQueryable().Where(e => e.IsActive);
+            var result = GetAllAsQueryable().Where(e => e.IsActive && e.StartingDate >= DateTime.Now && e.EndingDate > DateTime.Now);
 
             if(title is not null)
                 result = result.Where(e => e.Title.Contains(title));
@@ -70,7 +70,10 @@ namespace PartyRaidR.Backend.Repos
             if (ticketPriceMax is not null)
                 result = result.Where(e => e.TicketPrice <= ticketPriceMax);
 
-            return await result.ToListAsync();
+            return await result.Include(e => e.User)
+                .Include(e => e.Place)
+                .ThenInclude(p => p.City)
+                .ToListAsync();
         }
 
         public async Task<List<Event>> GetEventsByUserIdAsync(string userId) =>

@@ -63,7 +63,7 @@
       ticketPriceMax: null
     }
 
-    await doFilter()
+    await eventStore.loadEventsDisplay()
   }
 </script>
 
