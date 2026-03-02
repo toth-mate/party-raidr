@@ -45,6 +45,7 @@
     if(filter.value.placeName === '') filter.value.placeName = null
     if(filter.value.cityId === '') filter.value.cityId = null
     if(filter.value.category === '') filter.value.category = null
+    else filter.value.category = parseInt(filter.value.category)
     if(filter.value.ticketPriceMin === '') filter.value.ticketPriceMin = null
     if(filter.value.ticketPriceMax === '') filter.value.ticketPriceMax = null
   }
@@ -99,8 +100,8 @@
         <label for="event-category">Category</label>
       </div>
     </div>
-    <button class="btn btn-dark mt-2" v-if="hideFilter" @click="toggleFilter">More filtering options</button>
-    <button class="btn btn-light mt-2" v-if="!hideFilter" @click="toggleFilter">Hide filtering options</button>
+    <a class="mt-2" v-if="hideFilter" @click="toggleFilter">More filtering options</a>
+    <a class="mt-2" v-if="!hideFilter" @click="toggleFilter">Hide filtering options</a>
   </section>
   <section id="event-list" class="container">
     <div class="row" v-if="eventStore.events.length === 0">
@@ -135,6 +136,8 @@
 </template>
 
 <style scoped>
+  #search a { cursor: pointer }
+
   #status {
     border-radius: 50%;
     margin-bottom: 10px;
