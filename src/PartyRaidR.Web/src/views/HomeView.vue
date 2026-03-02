@@ -34,7 +34,6 @@
   const doFilter = async () => {
     resetFilter()
     await eventStore.filterEvents(filter.value)
-    console.log(filter.value)
   }
 
   const resetFilter = () => {
@@ -48,6 +47,23 @@
     else filter.value.category = parseInt(filter.value.category)
     if(filter.value.ticketPriceMin === '') filter.value.ticketPriceMin = null
     if(filter.value.ticketPriceMax === '') filter.value.ticketPriceMax = null
+  }
+
+  const clearFilter = async () => {
+    filter.value = {
+      title: null,
+      description: null,
+      startingDate: null,
+      endingDate: null,
+      placeName: null,
+      placeId: null,
+      cityId: null,
+      category: null,
+      ticketPriceMin: null,
+      ticketPriceMax: null
+    }
+
+    await doFilter()
   }
 </script>
 
@@ -98,6 +114,9 @@
           <option value="5">Party</option>
         </select>
         <label for="event-category">Category</label>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-danger mt-2" @click="clearFilter">Clear filter</button>
       </div>
     </div>
     <a class="mt-2" v-if="hideFilter" @click="toggleFilter">More filtering options</a>
