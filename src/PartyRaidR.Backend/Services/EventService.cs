@@ -40,7 +40,7 @@ namespace PartyRaidR.Backend.Services
                     EndingDate = GetDateDisplayString(@event.EndingDate),
                     City = @event.Place.City.Name,
                     PlaceName = @event.Place.Name,
-                    Category = nameof(@event.Category),
+                    Category = GetEventCategoryDisplayName(@event.Category),
                     AuthorName = @event.User.Username,
                     Room = @event.Room,
                     TicketPrice = @event.TicketPrice,
