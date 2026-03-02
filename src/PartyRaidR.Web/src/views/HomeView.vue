@@ -103,7 +103,12 @@
     <button class="btn btn-light mt-2" v-if="!hideFilter" @click="toggleFilter">Hide filtering options</button>
   </section>
   <section id="event-list" class="container">
-    <div class="row gy-4">
+    <div class="row" v-if="eventStore.events.length === 0">
+      <div class="col">
+        <p class="text-center text-secondary">No events match the specified filtering options.</p>
+      </div>
+    </div>
+    <div class="row gy-4" v-else>
       <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="e in eventStore.events" :key="e.id">
         <div class="card">
           <div class="card-body position-relative">
