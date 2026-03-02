@@ -11,7 +11,6 @@ const eventId = route.params.id
 
 onMounted(async () => {
     event.value = await eventStore.getEventDisplay(eventId)
-    console.log(event)
 })
 </script>
 <template>
