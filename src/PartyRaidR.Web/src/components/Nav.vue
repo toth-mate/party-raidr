@@ -19,14 +19,38 @@
                             Home
                         </RouterLink>
                     </li>
-                    <li class="nav-item" v-if="!authStore.isAuthenticated">
-                        <RouterLink class="nav-link" to="/login">
-                            <i class="fa-solid fa-user"></i>
-                            Login
-                        </RouterLink>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-regular fa-user"></i>
+                            Profile
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <RouterLink to="/login" v-if="!authStore.isAuthenticated" class="dropdown-item">
+                                    <i class="fa-regular fa-user"></i>
+                                    Login
+                                </RouterLink>
+                                <RouterLink to="/register" v-if="!authStore.isAuthenticated" class="dropdown-item">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                    Register
+                                </RouterLink>
+                                <RouterLink to="/logout" v-else class="dropdown-item">
+                                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                                    Logout
+                                </RouterLink>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </template>
+<style scoped>
+    #profile {
+        width: 40px;
+        height: 40px;
+        padding: 5px;
+        border-radius: 50%
+    }
+</style>
