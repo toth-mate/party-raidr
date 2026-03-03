@@ -4,17 +4,21 @@ import authService from "@/api/authService"
 
 export const useAuthStore = defineStore('auth', () => {
     const token = ref(localStorage.getItem('token') || null)
+    const user = ref(JSON.parse(localStorage.getItem('user')) || null)
 
     async function login(creds) {
-        console.log(creds)
-
         try {
-            const res = await authService.login(creds)
-            token.value = res.data
-
+            const tokenResponse = await authService.login(creds)
+            
+            token.value = tokenResponse.data
             localStorage.setItem('token', token.value)
-            console.log(res)
 
+            const userResponse = await authService.me()
+            
+            if(userResponse.status === 200) {
+                user.value = userResponse.data
+                localStorage.setItem('user', JSON.stringify(user.value))
+            }
             return true
         } catch(e) {
             console.error(e)

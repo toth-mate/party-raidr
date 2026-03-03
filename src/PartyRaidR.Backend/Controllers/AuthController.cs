@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PartyRaidR.Backend.Models.Responses;
 using PartyRaidR.Backend.Services.Promises;
 using PartyRaidR.Shared.Dtos.AuthenticationRequests;
@@ -16,13 +17,10 @@ namespace PartyRaidR.Backend.Controllers
             _service = authService;
         }
 
-        private IActionResult HandleResponse<T>(ServiceResponse<T> response)
-        {
-            if (response.Success)
-                return response.Data is null ? NoContent() : StatusCode(response.StatusCode, response.Data);
-
-            return StatusCode(response.StatusCode, response.Message);
-        }
+        [Authorize]
+        [HttpGet("me")]
+        public async Task<IActionResult> GetMe() =>
+            HandleResponse(await _service.GetMeAsync());
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginDto userLogin) =>
@@ -31,5 +29,13 @@ namespace PartyRaidR.Backend.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserRegistrationDto newUser) =>
             HandleResponse(await _service.RegisterAsync(newUser));
+
+        private IActionResult HandleResponse<T>(ServiceResponse<T> response)
+        {
+            if (response.Success)
+                return response.Data is null ? NoContent() : StatusCode(response.StatusCode, response.Data);
+
+            return StatusCode(response.StatusCode, response.Message);
+        }
     }
 }

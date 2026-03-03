@@ -6,5 +6,8 @@ export default {
     },
     register(data) {
         return apiClient.post('/auth/register', data)
+    },
+    me() {
+        return apiClient.get('/auth/me')
     }
 }

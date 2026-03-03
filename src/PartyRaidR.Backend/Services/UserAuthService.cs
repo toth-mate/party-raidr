@@ -14,15 +14,35 @@ namespace PartyRaidR.Backend.Services
     {
         private readonly IUserRepo _userRepo;
         private readonly ITokenService _tokenService;
+        private readonly IUserContext _userContext;
         private readonly UserAssembler _userAssembler;
         private readonly UserRegistrationAssembler _userRegistrationAssembler;
 
-        public UserAuthService(IUserRepo? userRepo, ITokenService? tokenService, UserAssembler? userAssembler, UserRegistrationAssembler? registrationAssembler)
+        public UserAuthService(IUserRepo? userRepo, ITokenService? tokenService, IUserContext? userContext, UserAssembler? userAssembler, UserRegistrationAssembler? registrationAssembler)
         {
             _userRepo = userRepo ?? throw new ArgumentNullException(nameof(userRepo));
             _tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
             _userAssembler = userAssembler ?? throw new ArgumentNullException(nameof(userAssembler));
             _userRegistrationAssembler = registrationAssembler ?? throw new ArgumentNullException(nameof(registrationAssembler));
+            _userContext = userContext ?? throw new ArgumentNullException(nameof(userContext));
+        }
+
+        public async Task<ServiceResponse<UserDto>> GetMeAsync()
+        {
+            Console.WriteLine("---------------------\n" + _userContext.UserId);
+            try
+            {
+                User? user = await _userRepo.GetByIdAsync(_userContext.UserId);
+
+                if(user is null)
+                    return CreateResponse<UserDto>(false, 404, message: "User not found.");
+
+                return CreateResponse(true, 200, _userAssembler.ConvertToDto(user));
+            }
+            catch(Exception e)
+            {
+                return CreateResponse<UserDto>(false, 500, message: $"Failed to retrieve user data: {e.Message}");
+            }
         }
 
         public async Task<ServiceResponse<string>> LoginAsync(UserLoginDto request)
