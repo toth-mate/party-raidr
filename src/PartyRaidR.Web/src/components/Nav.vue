@@ -1,5 +1,8 @@
 <script setup>
   import { RouterLink } from 'vue-router'
+  import { useAuthStore } from '@/stores/auth'
+
+  const authStore = useAuthStore()
 </script>
 <template>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -16,7 +19,7 @@
                             Home
                         </RouterLink>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="!authStore.isAuthenticated">
                         <RouterLink class="nav-link" to="/login">
                             <i class="fa-solid fa-user"></i>
                             Login
