@@ -129,7 +129,7 @@
       </div>
     </div>
     <div class="row gy-4" v-else>
-      <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="e in eventStore.events" :key="e.id">
+      <div class="col-12" v-for="e in eventStore.events" :key="e.id">
         <div class="card">
           <div class="card-body position-relative">
             <div id="status" class="position-absolute">
