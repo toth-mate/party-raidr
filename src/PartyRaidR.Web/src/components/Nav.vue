@@ -25,19 +25,23 @@
                             Profile
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <RouterLink to="/login" v-if="!authStore.isAuthenticated" class="dropdown-item">
+                            <li v-if="!authStore.isAuthenticated">
+                                <RouterLink to="/login" class="dropdown-item">
                                     <i class="fa-regular fa-user"></i>
                                     Login
                                 </RouterLink>
-                                <RouterLink to="/register" v-if="!authStore.isAuthenticated" class="dropdown-item">
+                            </li>
+                            <li v-if="!authStore.isAuthenticated">
+                                <RouterLink to="/register" class="dropdown-item">
                                     <i class="fa-solid fa-user-plus"></i>
                                     Register
                                 </RouterLink>
-                                <RouterLink to="/logout" v-else class="dropdown-item">
+                            </li>
+                            <li v-else>
+                                <button @click="authStore.logout" to="/logout" class="dropdown-item">
                                     <i class="fa-solid fa-arrow-right-to-bracket"></i>
                                     Logout
-                                </RouterLink>
+                                </button>
                             </li>
                         </ul>
                     </li>

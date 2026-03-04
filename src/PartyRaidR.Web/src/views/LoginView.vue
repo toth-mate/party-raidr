@@ -1,13 +1,30 @@
 <script setup>
-    import { RouterLink } from 'vue-router'
+    import { useRouter, RouterLink } from 'vue-router'
     import { useAuthStore } from '@/stores/auth'
-    import { ref } from 'vue'
+    import { ref, onMounted } from 'vue'
 
+    const router = useRouter()
     const authStore = useAuthStore()
     const creds = ref({
         email: null,
         password: null
     })
+
+    onMounted(rerouteOnAuthentication)
+
+    async function doLogin() {
+        await authStore.login({
+            email: creds.value.email,
+            password: creds.value.password
+        })
+        rerouteOnAuthentication()
+    }
+
+    function rerouteOnAuthentication() {
+        if(authStore.isAuthenticated) {
+            router.push('/')
+        }
+    }
 </script>
 <template>
     <h1>Login</h1>
@@ -20,7 +37,7 @@
             <input type="password" class="form-control" id="password" placeholder="Password" v-model="creds.password">
             <label for="password">Password</label>
         </div>
-        <button type="submit" class="btn btn-primary w-100" @click="authStore.login({ email: creds.email, password: creds.password })">Login</button>
+        <button type="submit" class="btn btn-primary w-100" @click="doLogin">Login</button>
         <p class="mt-3 text-center">
             Don't have an account?
             <RouterLink to="/register">Register here!</RouterLink>
