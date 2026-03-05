@@ -1,8 +1,17 @@
 <script setup>
-  import { RouterLink } from 'vue-router'
+  import { useRoute, useRouter, RouterLink } from 'vue-router'
   import { useAuthStore } from '@/stores/auth'
 
+  const route = useRoute()
+  const router = useRouter()
   const authStore = useAuthStore()
+
+  function doLogout() {
+    authStore.logout()
+    if(route.meta.requiresAuthentication && !authStore.isAuthenticated) {
+        router.push('/')
+    }
+  }
 </script>
 <template>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -22,7 +31,7 @@
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-regular fa-user"></i>
-                            Profile
+                            User
                         </a>
                         <ul class="dropdown-menu">
                             <li v-if="!authStore.isAuthenticated">
@@ -38,7 +47,9 @@
                                 </RouterLink>
                             </li>
                             <li v-else>
-                                <button @click="authStore.logout" to="/logout" class="dropdown-item">
+                                <RouterLink to="/profile" class="dropdown-item">Profile</RouterLink>
+                                <hr class="dropdown-divider">
+                                <button @click="doLogout" to="/logout" class="dropdown-item">
                                     <i class="fa-solid fa-arrow-right-to-bracket"></i>
                                     Logout
                                 </button>
