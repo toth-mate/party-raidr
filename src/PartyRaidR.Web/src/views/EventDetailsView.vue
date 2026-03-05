@@ -2,15 +2,19 @@
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useEventStore } from '@/stores/event'
+import { useApplicationStore } from '@/stores/application'
 
 const route = useRoute()
 const eventStore = useEventStore()
+const applicationStore = useApplicationStore()
 
 let event = ref({})
+const hasApplied = ref(false)
 const eventId = route.params.id
 
 onMounted(async () => {
     event.value = await eventStore.getEventDisplay(eventId)
+    hasApplied.value = await applicationStore.applicationExists(eventId)
 })
 </script>
 <template>
@@ -32,6 +36,6 @@ onMounted(async () => {
                 </div>
             </div>
         </div>
-        <button class="btn btn-success w-100 mt-2">Apply</button>
+        <button class="btn btn-success w-100 mt-2" :disabled="hasApplied">Apply</button>
     </div>
 </template>

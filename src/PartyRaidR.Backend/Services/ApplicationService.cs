@@ -189,5 +189,18 @@ namespace PartyRaidR.Backend.Services
                 return CreateResponse<ApplicationDto>(false, 500, message: $"An error occurred while deleting the application: {ex.Message}");
             }
         }
+
+        public async Task<ServiceResponse<bool>> ApplicationExistsAsync(string eventId)
+        {
+            try
+            {
+                bool exists = await _applicationRepo.ApplicationExistsAsync(_userContext.UserId, eventId);
+                return CreateResponse(true, 200, exists);
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<bool>(false, 500, message: $"An error occurred while checking for existing application: {ex.Message}");
+            }
+        }
     }
 }
