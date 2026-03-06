@@ -12,5 +12,19 @@ export const useApplicationStore = defineStore('application', () => {
         }
     }
 
-    return { applicationExists }
+    async function apply(eventId) {
+        try {
+            const res = await applicationService.apply({
+                id: '',
+                userId: '',
+                eventId: eventId,
+                timeOfApplication: '2000-01-01',
+                status: 0
+            })
+        } catch(e) {
+            console.warn(e)
+        }
+    }
+
+    return { applicationExists, apply }
 })

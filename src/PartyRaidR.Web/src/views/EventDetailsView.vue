@@ -12,6 +12,11 @@ let event = ref({})
 const hasApplied = ref(false)
 const eventId = route.params.id
 
+async function applyToEvent() {
+    await applicationStore.apply(eventId)
+    hasApplied.value = await applicationStore.applicationExists(eventId)
+}
+
 onMounted(async () => {
     event.value = await eventStore.getEventDisplay(eventId)
     hasApplied.value = await applicationStore.applicationExists(eventId)
@@ -36,6 +41,6 @@ onMounted(async () => {
                 </div>
             </div>
         </div>
-        <button class="btn btn-success w-100 mt-2" :disabled="hasApplied">Apply</button>
+        <button class="btn btn-success w-100 mt-2" :disabled="hasApplied" @click="applyToEvent">Apply</button>
     </div>
 </template>

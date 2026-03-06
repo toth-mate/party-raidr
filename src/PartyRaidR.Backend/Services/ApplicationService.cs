@@ -120,7 +120,8 @@ namespace PartyRaidR.Backend.Services
 
                 // Forbid applying to live events
                 var now = DateTime.Now;
-                bool isEventLive = @event.StartingDate >= now && now <= @event.EndingDate;
+                Console.WriteLine($"Now: {now}; Start date: {@event.StartingDate}; End date: {@event.EndingDate}");
+                bool isEventLive = @event.StartingDate <= now && now <= @event.EndingDate;
 
                 if (isEventLive)
                     return CreateResponse<ApplicationDto>(false, 400, message: "Applying to live events is not possible.");
