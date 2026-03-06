@@ -1,6 +1,6 @@
 <script setup>
   import { ref, onMounted } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { useRouter, RouterLink } from 'vue-router'
   import { useEventStore } from '@/stores/event'
 
   const router = useRouter()
@@ -24,7 +24,7 @@
   })
 
   const goToEventDetails = (id) => {
-    router.push(`/events/${id}`)
+    router.push(`/event/${id}`)
   }
 
   const toggleFilter = () => {
@@ -121,6 +121,9 @@
     </div>
     <a class="mt-2" v-if="hideFilter" @click="toggleFilter">More filtering options</a>
     <a class="mt-2" v-if="!hideFilter" @click="toggleFilter">Hide filtering options</a>
+  </section>
+  <section id="create" class="container">
+    <p class="text-center fs-4">Or create a <RouterLink to="/event/new">new event</RouterLink></p>
   </section>
   <section id="event-list" class="container">
     <div class="row" v-if="eventStore.events.length === 0">

@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/auth'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import CreateEventView from '@/views/CreateEventView.vue'
 import EventDetailsView from '@/views/EventDetailsView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 
@@ -28,7 +29,13 @@ const router = createRouter({
       meta: { title: 'Register', requiresAuthentication: false }
     },
     {
-      path: '/events/:id',
+      path: '/event/new',
+      name: 'new-event',
+      component: CreateEventView,
+      meta: { title: 'Create event', requiresAuthentication: true }
+    },
+    {
+      path: '/event/:id',
       name: 'event-details',
       component: EventDetailsView,
       meta: { title: 'Event Details', requiresAuthentication: false }
