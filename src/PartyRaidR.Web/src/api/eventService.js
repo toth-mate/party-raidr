@@ -13,6 +13,9 @@ export default {
     getWithDetailsById(id) {
         return apiClient.get(`/event/display/${id}`)
     },
+    insert(event) {
+        return apiClient.post('/event', event)
+    },
     filter(filter) {
         return apiClient.post('/event/filter', filter)
     }
