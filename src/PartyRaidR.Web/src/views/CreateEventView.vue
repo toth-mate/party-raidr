@@ -30,8 +30,7 @@
     })
 
     async function create() {
-        console.log(event.value)
-        const res = await eventStore.createEvent(event)
+        const res = await eventStore.createEvent(event.value)
 
         if(res) {
             router.push('/')

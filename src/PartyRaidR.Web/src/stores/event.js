@@ -50,6 +50,7 @@ export const useEventStore = defineStore('event', () => {
   async function createEvent(newEvent) {
     try {
       newEvent.category = parseInt(newEvent.category)
+
       const res = await eventService.insert(newEvent)
       return res.status === 201
     } catch(e) {
