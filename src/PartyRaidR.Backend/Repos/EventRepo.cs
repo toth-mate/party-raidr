@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PartyRaidR.Backend.Context;
+using PartyRaidR.Backend.Exceptions;
 using PartyRaidR.Backend.Models;
 using PartyRaidR.Backend.Repos.Base;
 using PartyRaidR.Backend.Repos.Promises;
@@ -13,6 +14,19 @@ namespace PartyRaidR.Backend.Repos
         {
         }
 
+        public async Task<Event> GetEventWithDisplayData(string id) =>
+            await _dbSet!.Include(e => e.Place)
+                         .ThenInclude(p => p.City)
+                         .Include(e => e.User)
+                         .FirstOrDefaultAsync(e => e.Id == id) ?? throw new EntityNotFoundException("Event not found.");
+
+        public async Task<List<Event>> GetEventsWithDisplayData() =>
+            await _dbSet!.Include(e => e.Place)
+                         .ThenInclude(p => p.City)
+                         .Include(e => e.User)
+                         .Where(e => e.IsActive && e.StartingDate >= DateTime.UtcNow)
+                         .ToListAsync();
+
         public async Task<List<Event>> FilterEventsAsync(string? title,
                                                     string? description,
                                                     DateTime? startingDate,
@@ -24,7 +38,7 @@ namespace PartyRaidR.Backend.Repos
                                                     decimal? ticketPriceMin,
                                                     decimal? ticketPriceMax)
         {
-            var result = GetAllAsQueryable().Where(e => e.IsActive);
+            var result = GetAllAsQueryable().Where(e => e.IsActive && e.StartingDate >= DateTime.Now && e.EndingDate > DateTime.Now);
 
             if(title is not null)
                 result = result.Where(e => e.Title.Contains(title));
@@ -56,7 +70,10 @@ namespace PartyRaidR.Backend.Repos
             if (ticketPriceMax is not null)
                 result = result.Where(e => e.TicketPrice <= ticketPriceMax);
 
-            return await result.ToListAsync();
+            return await result.Include(e => e.User)
+                .Include(e => e.Place)
+                .ThenInclude(p => p.City)
+                .ToListAsync();
         }
 
         public async Task<List<Event>> GetEventsByUserIdAsync(string userId) =>

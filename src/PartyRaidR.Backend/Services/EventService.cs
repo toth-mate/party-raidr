@@ -7,6 +7,7 @@ using PartyRaidR.Backend.Repos.Promises;
 using PartyRaidR.Backend.Services.Base;
 using PartyRaidR.Backend.Services.Promises;
 using PartyRaidR.Shared.Dtos;
+using PartyRaidR.Shared.Enums;
 
 namespace PartyRaidR.Backend.Services
 {
@@ -23,6 +24,72 @@ namespace PartyRaidR.Backend.Services
             _placeRepo = placeRepo ?? throw new ArgumentNullException(nameof(IPlaceRepo));
             _userService = userService ?? throw new ArgumentNullException(nameof(IUserService));
             _cityRepo = cityRepo ?? throw new ArgumentNullException(nameof(ICityRepo));
+        }
+
+        public async Task<ServiceResponse<EventDisplayDto>> GetEventWithDetailsAsync(string id)
+        {
+            try
+            {
+                Event @event = await _eventRepo.GetEventWithDisplayData(id);
+                EventDisplayDto result = new EventDisplayDto
+                {
+                    Id = @event.Id,
+                    Title = @event.Title,
+                    Description = @event.Description,
+                    StartingDate = GetDateDisplayString(@event.StartingDate),
+                    EndingDate = GetDateDisplayString(@event.EndingDate),
+                    City = @event.Place.City.Name,
+                    PlaceName = @event.Place.Name,
+                    Category = GetEventCategoryDisplayName(@event.Category),
+                    AuthorName = @event.User.Username,
+                    Room = @event.Room,
+                    TicketPrice = @event.TicketPrice,
+                    DateCreated = GetDateDisplayString(@event.DateCreated),
+                    IsActive = @event.IsActive,
+                    EventStatus = GetEventStatusDisplayName(@event.StartingDate, @event.EndingDate)
+                };
+
+                return CreateResponse(true, 200, result);
+            }
+            catch(EntityNotFoundException ex)
+            {
+                return CreateResponse<EventDisplayDto>(false, 404, message: ex.Message);
+            }
+            catch(Exception ex)
+            {
+                return CreateResponse<EventDisplayDto>(false, 500, message: $"An error occured while retrieving the event: {ex.Message}");
+            }
+        }
+
+        public async Task<ServiceResponse<List<EventDisplayDto>>> GetEventsWithDetailsAsync()
+        {
+            try
+            {
+                List<Event> events = await _eventRepo.GetEventsWithDisplayData();
+                List<EventDisplayDto> result = events.Select(e => new EventDisplayDto
+                {
+                    Id = e.Id,
+                    Title = e.Title,
+                    Description = e.Description,
+                    StartingDate = GetDateDisplayString(e.StartingDate),
+                    EndingDate = GetDateDisplayString(e.EndingDate),
+                    City = e.Place.City.Name,
+                    PlaceName = e.Place.Name,
+                    Category = GetEventCategoryDisplayName(e.Category),
+                    AuthorName = e.User.Username,
+                    Room = e.Room,
+                    TicketPrice = e.TicketPrice,
+                    DateCreated = GetDateDisplayString(e.DateCreated),
+                    IsActive = e.IsActive,
+                    EventStatus = GetEventStatusDisplayName(e.StartingDate, e.EndingDate)
+                }).ToList();
+
+                return CreateResponse(true, 200, result);
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<EventDisplayDto>>(false, 500, message: $"An error occured while retrieving events: {ex.Message}");
+            }
         }
 
         public async Task<ServiceResponse<int>> GetNumberOfEventsAsync()
@@ -114,7 +181,7 @@ namespace PartyRaidR.Backend.Services
             return await GetEventsByUserIdAsync(userId);
         }
 
-        public async Task<ServiceResponse<List<EventDto>>> FilterEventsAsync(EventFilterDto filter)
+        public async Task<ServiceResponse<List<EventDisplayDto>>> FilterEventsAsync(EventFilterDto filter)
         {
             try
             {
@@ -128,13 +195,29 @@ namespace PartyRaidR.Backend.Services
                                                                         filter.Category,
                                                                         filter.TicketPriceMin,
                                                                         filter.TicketPriceMax);
-                List<EventDto> result = events.Select(_assembler.ConvertToDto).ToList();
+                List<EventDisplayDto> result = events.Select(e => new EventDisplayDto
+                {
+                    Id = e.Id,
+                    Title = e.Title,
+                    Description = e.Description,
+                    StartingDate = GetDateDisplayString(e.StartingDate),
+                    EndingDate = GetDateDisplayString(e.EndingDate),
+                    City = e.Place.City.Name,
+                    PlaceName = e.Place.Name,
+                    Category = GetEventCategoryDisplayName(e.Category),
+                    AuthorName = e.User.Username,
+                    Room = e.Room,
+                    TicketPrice = e.TicketPrice,
+                    DateCreated = GetDateDisplayString(e.DateCreated),
+                    IsActive = e.IsActive,
+                    EventStatus = GetEventStatusDisplayName(e.StartingDate, e.EndingDate)
+                }).ToList();
 
                 return CreateResponse(true, 200, result, result.Count == 0 ? "No events found matching the specified criteria." : string.Empty);
             }
             catch (Exception ex)
             {
-                return CreateResponse<List<EventDto>>(false, 500, message: $"An error occured while filtering events: {ex.Message}");
+                return CreateResponse<List<EventDisplayDto>>(false, 500, message: $"An error occured while filtering events: {ex.Message}");
             }
         }
 

@@ -120,7 +120,8 @@ namespace PartyRaidR.Backend.Services
 
                 // Forbid applying to live events
                 var now = DateTime.Now;
-                bool isEventLive = @event.StartingDate >= now && now <= @event.EndingDate;
+                Console.WriteLine($"Now: {now}; Start date: {@event.StartingDate}; End date: {@event.EndingDate}");
+                bool isEventLive = @event.StartingDate <= now && now <= @event.EndingDate;
 
                 if (isEventLive)
                     return CreateResponse<ApplicationDto>(false, 400, message: "Applying to live events is not possible.");
@@ -187,6 +188,19 @@ namespace PartyRaidR.Backend.Services
             catch (Exception ex)
             {
                 return CreateResponse<ApplicationDto>(false, 500, message: $"An error occurred while deleting the application: {ex.Message}");
+            }
+        }
+
+        public async Task<ServiceResponse<bool>> ApplicationExistsAsync(string eventId)
+        {
+            try
+            {
+                bool exists = await _applicationRepo.ApplicationExistsAsync(_userContext.UserId, eventId);
+                return CreateResponse(true, 200, exists);
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<bool>(false, 500, message: $"An error occurred while checking for existing application: {ex.Message}");
             }
         }
     }

@@ -8,5 +8,6 @@ namespace PartyRaidR.Backend.Services.Promises
     {
         Task<ServiceResponse<UserDto>> RegisterAsync(UserRegistrationDto user);
         Task<ServiceResponse<string>> LoginAsync(UserLoginDto user);
+        Task<ServiceResponse<UserDto>> GetMeAsync();
     }
 }

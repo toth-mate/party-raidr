@@ -53,5 +53,13 @@ namespace PartyRaidR.Backend.Controllers
         [HttpPost("filter")]
         public async Task<IActionResult> FilterEvents([FromBody] EventFilterDto filter) =>
             HandleResponse(await _eventService.FilterEventsAsync(filter));
+
+        [HttpGet("display/{id}")]
+        public async Task<IActionResult> Display(string id) =>
+            HandleResponse(await _eventService.GetEventWithDetailsAsync(id));
+
+        [HttpGet("display-all")]
+        public async Task<IActionResult> DisplayAll() =>
+            HandleResponse(await _eventService.GetEventsWithDetailsAsync());
     }
 }

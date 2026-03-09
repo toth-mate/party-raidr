@@ -1,5 +1,17 @@
 <script setup>
-  import { RouterLink } from 'vue-router'
+  import { useRoute, useRouter, RouterLink } from 'vue-router'
+  import { useAuthStore } from '@/stores/auth'
+
+  const route = useRoute()
+  const router = useRouter()
+  const authStore = useAuthStore()
+
+  function doLogout() {
+    authStore.logout()
+    if(route.meta.requiresAuthentication && !authStore.isAuthenticated) {
+        router.push('/')
+    }
+  }
 </script>
 <template>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -16,14 +28,44 @@
                             Home
                         </RouterLink>
                     </li>
-                    <li class="nav-item">
-                        <RouterLink class="nav-link" to="/login">
-                            <i class="fa-solid fa-user"></i>
-                            Login
-                        </RouterLink>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-regular fa-user"></i>
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li v-if="!authStore.isAuthenticated">
+                                <RouterLink to="/login" class="dropdown-item">
+                                    <i class="fa-regular fa-user"></i>
+                                    Login
+                                </RouterLink>
+                            </li>
+                            <li v-if="!authStore.isAuthenticated">
+                                <RouterLink to="/register" class="dropdown-item">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                    Register
+                                </RouterLink>
+                            </li>
+                            <li v-else>
+                                <RouterLink to="/profile" class="dropdown-item">Profile</RouterLink>
+                                <hr class="dropdown-divider">
+                                <button @click="doLogout" to="/logout" class="dropdown-item">
+                                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                                    Logout
+                                </button>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </template>
+<style scoped>
+    #profile {
+        width: 40px;
+        height: 40px;
+        padding: 5px;
+        border-radius: 50%
+    }
+</style>

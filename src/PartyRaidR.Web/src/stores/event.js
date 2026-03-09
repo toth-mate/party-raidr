@@ -1,0 +1,74 @@
+import { ref } from 'vue'
+import { defineStore } from 'pinia'
+import eventService from '@/api/eventService'
+
+export const useEventStore = defineStore('event', () => {
+  const events = ref([])
+
+  async function loadEvents() {
+    try {
+      const res = await eventService.get()
+
+      if(res.data) {
+        events.value = res.data
+      }
+    } catch(e) {
+      console.warn(e)
+    }
+  }
+
+  async function getEvent(id) {
+    try{
+      const res = await eventService.getById(id)
+      return res.data
+    } catch(e) {
+      console.warn(e)
+    }
+  }
+
+  async function loadEventsDisplay() {
+    try {
+      const res = await eventService.getWithDetails()
+
+      if(res.data) {
+        events.value = res.data
+      }
+    } catch(e) {
+      console.warn(e)
+    }
+  }
+
+  async function getEventDisplay(id) {
+    try {
+      const res = await eventService.getWithDetailsById(id)
+      return res.data
+    } catch(e) {
+      console.warn(e)
+    }
+  }
+
+  async function createEvent(newEvent) {
+    try {
+      newEvent.category = parseInt(newEvent.category)
+
+      const res = await eventService.insert(newEvent)
+      return res.status === 201
+    } catch(e) {
+      console.error(e)
+    }
+  }
+
+  async function filterEvents(filter) {
+    try {
+      const res = await eventService.filter(filter)
+      console.log(res)
+      if(res.data) {
+        events.value = res.data
+      }
+    } catch(e) {
+      console.warn(e)
+    }
+  }
+
+  return { events, loadEvents, getEvent, loadEventsDisplay, getEventDisplay, createEvent, filterEvents }
+})
