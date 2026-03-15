@@ -76,7 +76,12 @@
 	  <Folder Include="Services\" />
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Views\Modals\" />
-	  <Folder Include="Views\Pages\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\Pages\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
