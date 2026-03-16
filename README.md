@@ -31,6 +31,31 @@ This is a really great option for finding activities in our free time, wether it
 - Android SDK & Emulator - Testing on Android. On Windows 11, enabling Hyper-V is recommended.
 - iOS SDK (macOS only) - For testing on iOS Xcode is needed.
 
+### 🛠️ Setup & Installation Guide
+
+Clone project repository and enter project folder:
+
+```bash
+git clone https://github.com/toth-mate/party-raidr.git
+cd party-raidr
+```
+
+Run Docker container:
+
+```bash
+docker compose up --build
+```
+
+This will setup the MySQL database and the API. The backend API can be accessed through *```http://localhost:8080/swagger```*.
+
+The backend runs a DB seeder, so some sample data is ready for you to play around with.
+
+###### Running MAUI:
+
++ Open ```src/PartyRaidR.sln``` in Visual Studio.
++ Set ```PartyRaidR.Mobile``` as the *Startup project.*
++ Select the target platform *(Android Emulator or Windows Machine)* and hit F5.
+
 ## 📈 Motivation
 
 Party RaidR is a pet project of mine. I started work during my first semester.
