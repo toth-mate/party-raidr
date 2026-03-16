@@ -17,21 +17,22 @@ Once registered, the user can post new events such as parties, gatherings, conce
 
 This is a really great option for finding activities in our free time, wether it be outdoors or indoors.
 
-## Setup instructions
+## 🛠️ Setup instructions
+
+If you want to try the current state of the app, follow these steps:
 
 ### 📋 Prerequisits
 
-#### General:
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
-- [Node 24.9.0](https://nodejs.org/en/download)
-- [Visual Studio](https://visualstudio.microsoft.com/vs/)
+ + **General:**
+    - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+    - [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+    - [Node 24.9.0](https://nodejs.org/en/download)
+    - [Visual Studio](https://visualstudio.microsoft.com/vs/)
+ + **Mobile:**
+    - Android SDK & Emulator - Testing on Android. On Windows 11, enabling Hyper-V is recommended.
+    - iOS SDK (macOS only) - For testing on iOS Xcode is needed.
 
-#### Mobile:
-- Android SDK & Emulator - Testing on Android. On Windows 11, enabling Hyper-V is recommended.
-- iOS SDK (macOS only) - For testing on iOS Xcode is needed.
-
-### 🛠️ Setup & Installation Guide
+### ⚙️ Setup & Installation Guide
 
 Clone project repository and enter project folder:
 
