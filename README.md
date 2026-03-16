@@ -21,7 +21,7 @@ This is a really great option for finding activities in our free time, wether it
 
 If you want to try the current state of the app, follow these steps:
 
-### 📋 Prerequisits
+### 📋 Prerequisites
 
  + **General:**
     - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
