@@ -17,7 +17,7 @@ Once registered, the user can post new events such as parties, gatherings, conce
 
 This is a really great option for finding activities in our free time, wether it be outdoors or indoors.
 
-## 🛠️ Setup instructions
+## 🛠️ Setup Instructions
 
 If you want to try the current state of the app, follow these steps:
 
@@ -95,7 +95,7 @@ Administrators would have the ability to:
 
 A moderation-panel is provided for admin users.
 
-## 🧱 Project structure
+## 🧱 Project Structure
 
 Party RaidR consists of a **Backend project** and two **Frontend projects.**
 
