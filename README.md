@@ -38,7 +38,7 @@ Clone project repository and enter project folder:
 
 ```bash
 git clone https://github.com/toth-mate/party-raidr.git
-cd party-raidr
+cd party-raidr/src
 ```
 
 Run Docker container:
