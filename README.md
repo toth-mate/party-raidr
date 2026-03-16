@@ -9,12 +9,6 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-## 📈 Motivation
-
-Party RaidR is a pet project of mine. I started work during my first semester.
-
-I started working on this project for hobby and learning purposes. I use technologies that I like while also trying to deepen my knowledge.
-
 ## 📄 Description
 
 Party RaidR (or Party Raider) is a web- and mobile application that gives users an easy solution for finding leasure activities.
@@ -22,6 +16,58 @@ Party RaidR (or Party Raider) is a web- and mobile application that gives users 
 Once registered, the user can post new events such as parties, gatherings, concerts etc. Other users can apply to these activities.
 
 This is a really great option for finding activities in our free time, wether it be outdoors or indoors.
+
+## 🛠️ Setup Instructions
+
+If you want to try the current state of the app, follow these steps:
+
+### 📋 Prerequisites
+
+ + **General:**
+    - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+    - [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+    - [Node 24.9.0](https://nodejs.org/en/download)
+    - [Visual Studio](https://visualstudio.microsoft.com/vs/)
+ + **Mobile:**
+    - Android SDK & Emulator - Testing on Android. On Windows 11, enabling Hyper-V is recommended.
+    - iOS SDK (macOS only) - For testing on iOS Xcode is needed.
+
+### ⚙️ Setup & Installation Guide
+
+Clone project repository and enter project folder:
+
+```bash
+git clone https://github.com/toth-mate/party-raidr.git
+cd party-raidr/src
+```
+
+Run Docker container:
+
+```bash
+docker compose up --build
+```
+
+This will setup the MySQL database and the API. The backend API can be accessed through *```http://localhost:8080/swagger```* by default.
+
+The backend runs a DB seeder, so some sample data is ready for you to play around with.
+
+###### Running MAUI:
+
++ Open ```src/PartyRaidR.sln``` in Visual Studio.
++ Set ```PartyRaidR.Mobile``` as the *Startup project.*
++ Select the target platform *(Android Emulator or Windows Machine)* and hit F5.
+
+###### Running Web:
+
+If you want to try the Vue app, you will need to create a ```.env``` file in ```party-raidr/src/PartyRaidR.Web/src/```. Add this line:
+
+```VITE_API_URL=http://localhost:8080/api```
+
+## 📈 Motivation
+
+Party RaidR is a pet project of mine. I started work during my first semester.
+
+I started working on this project for hobby and learning purposes. I use technologies that I like while also trying to deepen my knowledge.
 
 ## 💻 Tech Stack
 
@@ -55,7 +101,7 @@ Administrators would have the ability to:
 
 A moderation-panel is provided for admin users.
 
-## 🧱 Project structure
+## 🧱 Project Structure
 
 Party RaidR consists of a **Backend project** and two **Frontend projects.**
 
