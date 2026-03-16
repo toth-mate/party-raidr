@@ -57,6 +57,12 @@ The backend runs a DB seeder, so some sample data is ready for you to play aroun
 + Set ```PartyRaidR.Mobile``` as the *Startup project.*
 + Select the target platform *(Android Emulator or Windows Machine)* and hit F5.
 
+###### Running Web:
+
+If you want to try the Vue app, you will need to create a ```.env``` file in ```party-raidr/src/PartyRaidR.Web/src/```. Add this line:
+
+```VITE_API_URL=http://localhost:8080/api```
+
 ## 📈 Motivation
 
 Party RaidR is a pet project of mine. I started work during my first semester.
