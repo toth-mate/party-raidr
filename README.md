@@ -47,7 +47,7 @@ Run Docker container:
 docker compose up --build
 ```
 
-This will setup the MySQL database and the API. The backend API can be accessed through *```http://localhost:8080/swagger```*.
+This will setup the MySQL database and the API. The backend API can be accessed through *```http://localhost:8080/swagger```* by default.
 
 The backend runs a DB seeder, so some sample data is ready for you to play around with.
 
