@@ -11,14 +11,32 @@
         <Tab Title="Home">
             <ShellContent ContentTemplate="{DataTemplate local:Views.Pages.MainPage}"
               Route="home"/>
+            <Tab.Icon>
+                <FontImageSource FontFamily="FA-Solid"
+                         Glyph="&#xf015;"
+                         Size="16"/>
+            </Tab.Icon>
         </Tab>
+
         <Tab Title="Profile">
             <ShellContent ContentTemplate="{DataTemplate local:Views.Pages.LoginPage}"
               Route="profile"/>
+            <Tab.Icon>
+                <FontImageSource FontFamily="FA-Solid"
+                                 Glyph="&#xf007;"
+                                 Size="20"/>
+            </Tab.Icon>
         </Tab>
+
         <Tab Title="Settings">
             <ShellContent ContentTemplate="{DataTemplate local:Views.Pages.LoginPage}"
               Route="settings"/>
+            <Tab.Icon>
+                <FontImageSource FontFamily="FA-Solid"
+                         Glyph="&#xf013;"
+                         Size="16"
+                         Color="Gray"/>
+            </Tab.Icon>
         </Tab>
     </TabBar>
     

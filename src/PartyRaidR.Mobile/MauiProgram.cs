@@ -17,6 +17,9 @@ namespace PartyRaidR.Mobile
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Font Awesome 7 Brands-Regular-400.otf", "FA-Brands");
+                    fonts.AddFont("Font Awesome 7 Free-Regular-400.otf", "FA-Reg");
+                    fonts.AddFont("Font Awesome 7 Free-Solid-900.otf", "FA-Solid");
                 });
 
             builder.Services.AddTransient<MainVM>();
