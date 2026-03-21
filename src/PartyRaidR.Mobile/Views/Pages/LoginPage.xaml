@@ -2,10 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PartyRaidR.Mobile.Views.Pages.LoginPage"
-             Title="LoginPage">
+             Title="Party RaidR">
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Center">
-            <Label Text="Login" FontSize="26" HorizontalOptions="Center" TextColor="#5174E9"/>
+            <Label Text="Login" Style="{StaticResource Headline}" TextColor="{StaticResource Primary}"/>
             <Border Margin="20,20,20,10" StrokeThickness="1" StrokeShape="RoundRectangle 10">
                 <Entry x:Name="Email" Placeholder="Email"/>
             </Border>
@@ -13,7 +13,7 @@
             <Border Margin="20,0,20,10" StrokeThickness="1" StrokeShape="RoundRectangle 10">
                 <Entry Placeholder="Password" IsPassword="True"/>
             </Border>
-            <Button Text="Login" Margin="20,20,20,0" Padding="10" TextTransform="Uppercase" BackgroundColor="#5174E9" TextColor="WhiteSmoke"/>
+            <Button Text="Login" Margin="20,20,20,0"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
