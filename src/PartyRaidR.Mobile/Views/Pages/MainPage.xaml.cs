@@ -1,12 +1,15 @@
-﻿namespace PartyRaidR.Mobile.Views.Pages;
+﻿using PartyRaidR.Mobile.ViewModels;
+
+namespace PartyRaidR.Mobile.Views.Pages;
 
 public partial class MainPage : ContentPage
 {
     int count = 0;
 
-    public MainPage()
+    public MainPage(MainVM vm)
     {
         InitializeComponent();
+        BindingContext = vm;
     }
 
     private void OnCounterClicked(object? sender, EventArgs e)
