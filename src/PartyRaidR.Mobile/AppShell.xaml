@@ -3,42 +3,41 @@
     x:Class="PartyRaidR.Mobile.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:sf="clr-namespace:Syncfusion.Maui.Toolkit.SegmentedControl;assembly=Syncfusion.Maui.Toolkit"
-    xmlns:pages="clr-namespace:PartyRaidR.Mobile.Pages"
-    Shell.FlyoutBehavior="Flyout"
+    xmlns:local="clr-namespace:PartyRaidR.Mobile"
     Title="PartyRaidR.Mobile">
+    
+    <!-- Navigation -->
+    <TabBar>
+        <Tab Title="Home">
+            <ShellContent ContentTemplate="{DataTemplate local:Views.Pages.MainPage}"
+              Route="home"/>
+            <Tab.Icon>
+                <FontImageSource FontFamily="FA-Solid"
+                         Glyph="&#xf015;"
+                         Size="16"/>
+            </Tab.Icon>
+        </Tab>
 
-    <ShellContent
-        Title="Dashboard"
-        Icon="{StaticResource IconDashboard}"
-        ContentTemplate="{DataTemplate pages:MainPage}"
-        Route="main" />
+        <Tab Title="Profile">
+            <ShellContent ContentTemplate="{DataTemplate local:Views.Pages.LoginPage}"
+              Route="profile"/>
+            <Tab.Icon>
+                <FontImageSource FontFamily="FA-Solid"
+                                 Glyph="&#xf007;"
+                                 Size="20"/>
+            </Tab.Icon>
+        </Tab>
 
-    <ShellContent
-        Title="Projects"
-        Icon="{StaticResource IconProjects}"
-        ContentTemplate="{DataTemplate pages:ProjectListPage}"
-        Route="projects" />
-
-    <ShellContent
-        Title="Manage Meta"
-        Icon="{StaticResource IconMeta}"
-        ContentTemplate="{DataTemplate pages:ManageMetaPage}"
-        Route="manage" />
-
-    <Shell.FlyoutFooter>
-        <Grid Padding="15">
-            <sf:SfSegmentedControl x:Name="ThemeSegmentedControl" 
-                VerticalOptions="Center" HorizontalOptions="Center" SelectionChanged="SfSegmentedControl_SelectionChanged"
-                SegmentWidth="40" SegmentHeight="40">
-                <sf:SfSegmentedControl.ItemsSource>
-                    <x:Array Type="{x:Type sf:SfSegmentItem}">
-                        <sf:SfSegmentItem ImageSource="{StaticResource IconLight}"/>
-                        <sf:SfSegmentItem ImageSource="{StaticResource IconDark}"/>
-                    </x:Array>
-                </sf:SfSegmentedControl.ItemsSource>
-            </sf:SfSegmentedControl>
-        </Grid>
-    </Shell.FlyoutFooter>
-
+        <Tab Title="Settings">
+            <ShellContent ContentTemplate="{DataTemplate local:Views.Pages.LoginPage}"
+              Route="settings"/>
+            <Tab.Icon>
+                <FontImageSource FontFamily="FA-Solid"
+                         Glyph="&#xf013;"
+                         Size="16"
+                         Color="Gray"/>
+            </Tab.Icon>
+        </Tab>
+    </TabBar>
+    
 </Shell>
