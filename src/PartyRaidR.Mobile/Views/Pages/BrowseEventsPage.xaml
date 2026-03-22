@@ -11,5 +11,6 @@
             Text="{Binding Message}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <CollectionView ItemsSource="{Binding Events}"/>
     </VerticalStackLayout>
 </ContentPage>
