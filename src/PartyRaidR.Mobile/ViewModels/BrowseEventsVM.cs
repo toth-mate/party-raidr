@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using PartyRaidR.Mobile.Api;
 using PartyRaidR.Shared.Dtos;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace PartyRaidR.Mobile.ViewModels
 {
@@ -34,8 +35,9 @@ namespace PartyRaidR.Mobile.ViewModels
                 if (response is not null)
                     Events = new ObservableCollection<EventDisplayDto>(response);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex.Message);
             }
             finally { IsBusy = false; }
         }

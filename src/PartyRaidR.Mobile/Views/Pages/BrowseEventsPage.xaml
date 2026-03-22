@@ -2,12 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:PartyRaidR.Mobile.ViewModels"
+             x:DataType="vm:BrowseEventsVM"
              x:Class="PartyRaidR.Mobile.Views.Pages.BrowseEventsPage"
              Title="BrowseEventsPage">
-    <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Appearing"
-                                        Command="{Binding LoadEventsCommand}"/>
-    </ContentPage.Behaviors>
     <VerticalStackLayout>
         <Label 
             Text="{Binding Message}"
