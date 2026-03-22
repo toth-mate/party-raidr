@@ -5,8 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:PartyRaidR.Mobile"
     Title="PartyRaidR.Mobile">
-    
-    <!-- Navigation -->
+
+    <ShellContent ContentTemplate="{DataTemplate local:Views.Pages.BrowseEventsPage}"
+                    Route="browse"/>
+
+    <!-- Navigation
     <TabBar>
         <Tab Title="Home">
             <ShellContent ContentTemplate="{DataTemplate local:Views.Pages.MainPage}"
@@ -39,5 +42,5 @@
             </Tab.Icon>
         </Tab>
     </TabBar>
-    
+     -->
 </Shell>
