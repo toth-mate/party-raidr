@@ -5,15 +5,14 @@
              xmlns:vm="clr-namespace:PartyRaidR.Mobile.ViewModels"
              xmlns:models="clr-namespace:PartyRaidR.Shared.Dtos;assembly=PartyRaidR.Shared"
              x:DataType="vm:BrowseEventsVM"
-             x:Class="PartyRaidR.Mobile.Views.Pages.BrowseEventsPage"
-             Title="BrowseEventsPage">
-    <VerticalStackLayout Padding="6">
+             x:Class="PartyRaidR.Mobile.Views.Pages.BrowseEventsPage">
+    <VerticalStackLayout Padding="6,40,6,6">
         <Label 
             Text="Events"
             VerticalOptions="Center" 
             HorizontalOptions="Center"
             Style="{StaticResource SubHeadline}"/>
-        <CollectionView ItemsSource="{Binding Events}">
+        <CollectionView ItemsSource="{Binding Events}" Margin="0,8,0,0">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:EventDisplayDto">
                     <Border Margin="0,7,0,0" StrokeShape="RoundRectangle 10">
