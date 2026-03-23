@@ -41,7 +41,7 @@
                                 <Label Text=", " TextColor="{StaticResource Secondary}"/>
                                 <Label Text="{Binding PlaceName}" TextColor="{StaticResource Secondary}"/>
                             </HorizontalStackLayout>
-                            <Button Text="Apply"
+                            <Button Text="Details"
                                     FontSize="16"
                                     Margin="0,10,0,0"/>
                         </VerticalStackLayout>
