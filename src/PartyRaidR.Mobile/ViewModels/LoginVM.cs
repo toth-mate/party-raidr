@@ -1,6 +1,6 @@
 ﻿namespace PartyRaidR.Mobile.ViewModels
 {
-    public class LoginVM : BaseVM
+    public partial class LoginVM : BaseVM
     {
     }
 }

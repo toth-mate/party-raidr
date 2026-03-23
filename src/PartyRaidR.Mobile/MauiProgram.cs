@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using PartyRaidR.Mobile.Api;
 using PartyRaidR.Mobile.ViewModels;
 using PartyRaidR.Mobile.Views.Pages;
+using Refit;
 
 namespace PartyRaidR.Mobile
 {
@@ -24,9 +26,15 @@ namespace PartyRaidR.Mobile
 
             builder.Services.AddTransient<MainVM>();
             builder.Services.AddTransient<LoginVM>();
+            builder.Services.AddTransient<BrowseEventsVM>();
 
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<BrowseEventsPage>();
+
+            // API Clients
+            builder.Services.AddRefitClient<IEventApi>()
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://10.0.2.2:8080/api"));
 
 #if DEBUG
     		builder.Logging.AddDebug();

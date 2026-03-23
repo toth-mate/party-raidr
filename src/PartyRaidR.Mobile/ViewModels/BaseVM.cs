@@ -7,8 +7,16 @@ using System.Threading.Tasks;
 
 namespace PartyRaidR.Mobile.ViewModels
 {
-    public abstract class BaseVM : ObservableObject
+    public abstract partial class BaseVM : ObservableObject
     {
+        [ObservableProperty]
+        private bool _isBusy;
+
+        protected BaseVM()
+        {
+            IsBusy = false;
+        }
+
         protected virtual Task OnInitialized()
         {
             return Task.CompletedTask;
