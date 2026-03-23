@@ -9,9 +9,10 @@
              Title="BrowseEventsPage">
     <VerticalStackLayout Padding="6">
         <Label 
-            Text="{Binding Message}"
+            Text="Events"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="Center"
+            Style="{StaticResource SubHeadline}"/>
         <CollectionView ItemsSource="{Binding Events}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:EventDisplayDto">
