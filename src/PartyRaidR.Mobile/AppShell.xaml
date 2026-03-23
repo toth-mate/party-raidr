@@ -6,10 +6,6 @@
     xmlns:local="clr-namespace:PartyRaidR.Mobile"
     Title="PartyRaidR.Mobile">
 
-    <ShellContent ContentTemplate="{DataTemplate local:Views.Pages.BrowseEventsPage}"
-                    Route="browse"/>
-
-    <!-- Navigation
     <TabBar>
         <Tab Title="Home">
             <ShellContent ContentTemplate="{DataTemplate local:Views.Pages.MainPage}"
@@ -18,6 +14,16 @@
                 <FontImageSource FontFamily="FA-Solid"
                          Glyph="&#xf015;"
                          Size="16"/>
+            </Tab.Icon>
+        </Tab>
+        
+        <Tab Title="Events">
+            <ShellContent ContentTemplate="{DataTemplate local:Views.Pages.BrowseEventsPage}"
+                          Route="browse"/>
+            <Tab.Icon>
+                <FontImageSource FontFamily="FA-Solid"
+                                 Glyph="&#xf002;"
+                                 Size="16"/>
             </Tab.Icon>
         </Tab>
 
@@ -42,5 +48,4 @@
             </Tab.Icon>
         </Tab>
     </TabBar>
-     -->
 </Shell>
