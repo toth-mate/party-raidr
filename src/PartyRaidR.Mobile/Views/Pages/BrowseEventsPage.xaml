@@ -3,14 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:PartyRaidR.Mobile.ViewModels"
+             xmlns:models="clr-namespace:PartyRaidR.Shared.Dtos;assembly=PartyRaidR.Shared"
              x:DataType="vm:BrowseEventsVM"
              x:Class="PartyRaidR.Mobile.Views.Pages.BrowseEventsPage"
              Title="BrowseEventsPage">
-    <VerticalStackLayout>
+    <VerticalStackLayout Padding="6">
         <Label 
             Text="{Binding Message}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <CollectionView ItemsSource="{Binding Events}"/>
+        <CollectionView ItemsSource="{Binding Events}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:EventDisplayDto">
+                    <Border Margin="0,7,0,0" StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout Padding="8">
+                            <Label Text="{Binding Title}"
+                                   TextColor="{StaticResource PrimaryDark}"
+                                   Margin="0,0,0,5"/>
+                            <Label Text="{Binding Description}"
+                                   TextColor="{StaticResource Gray400}"
+                                   Margin="0,0,0,5"/>
+                            <HorizontalStackLayout Margin="0,0,0,2">
+                                <Label Text="Starts at: " TextColor="{StaticResource Gray600}"/>
+                                <Label Text="{Binding StartingDate}" TextColor="{StaticResource Gray500}"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Label Text="Ends at: " TextColor="{StaticResource Gray600}"/>
+                                <Label Text="{Binding EndingDate}" TextColor="{StaticResource Gray500}"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Label Text="At: " TextColor="{StaticResource Gray600}"/>
+                                <Label Text="{Binding City}" TextColor="{StaticResource Secondary}"/>
+                                <Label Text=", " TextColor="{StaticResource Secondary}"/>
+                                <Label Text="{Binding PlaceName}" TextColor="{StaticResource Secondary}"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
