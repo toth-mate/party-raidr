@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:PartyRaidR.Shared.Dtos;assembly=PartyRaidR.Shared"
              xmlns:vm="clr-namespace:PartyRaidR.Mobile.ViewModels"
              x:DataType="vm:EventDetailsVM"
              x:Class="PartyRaidR.Mobile.Views.Pages.EventDetailsPage">
     <VerticalStackLayout>
         <Label 
-            Text="{Binding Event.Id}"
+            Text="{Binding Id}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
     </VerticalStackLayout>
-</ContentView>
+</ContentPage>

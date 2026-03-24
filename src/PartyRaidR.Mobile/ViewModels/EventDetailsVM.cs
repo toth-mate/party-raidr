@@ -3,11 +3,11 @@ using PartyRaidR.Shared.Dtos;
 
 namespace PartyRaidR.Mobile.ViewModels
 {
-    [QueryProperty(nameof(Event.Id), "id")]
+    [QueryProperty(nameof(Id), "id")]
     public partial class EventDetailsVM : BaseVM
     {
         [ObservableProperty]
-        private EventDisplayDto _event;
+        private string _id;
 
         public EventDetailsVM()
         {

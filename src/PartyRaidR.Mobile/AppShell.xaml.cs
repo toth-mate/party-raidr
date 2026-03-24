@@ -7,12 +7,7 @@ namespace PartyRaidR.Mobile
         public AppShell()
         {
             InitializeComponent();
-            RegisterRoutes();
-        }
-
-        private void RegisterRoutes()
-        {
-            Routing.RegisterRoute("event-details", typeof(EventDetailsPage));
+            Routing.RegisterRoute("eventdetails", typeof(EventDetailsPage));
         }
     }
 }
