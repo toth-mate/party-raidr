@@ -4,10 +4,30 @@
              xmlns:vm="clr-namespace:PartyRaidR.Mobile.ViewModels"
              x:DataType="vm:EventDetailsVM"
              x:Class="PartyRaidR.Mobile.Views.Pages.EventDetailsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="{Binding Event.Title}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <VerticalStackLayout Grid.Row="0">
+            <Label Text="{Binding Event.Title}"
+                   Style="{StaticResource SubHeadline}"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Center"/>
+            <HorizontalStackLayout HorizontalOptions="Center"
+                                   Margin="0,2,0,0">
+                <Label Text="By: " TextColor="{StaticResource Gray300}"/>
+                <Label Text="{Binding Event.AuthorName}" TextColor="{StaticResource Gray300}"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>
