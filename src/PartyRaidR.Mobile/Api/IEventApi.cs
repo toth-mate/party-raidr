@@ -7,5 +7,8 @@ namespace PartyRaidR.Mobile.Api
     {
         [Get("/event/display-all")]
         Task<List<EventDisplayDto>> DisplayAll();
+
+        [Get("/event/display/{id}")]
+        Task<EventDisplayDto> GetEventDisplay(string id);
     }
 }

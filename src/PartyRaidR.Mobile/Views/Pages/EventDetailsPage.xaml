@@ -6,7 +6,7 @@
              x:Class="PartyRaidR.Mobile.Views.Pages.EventDetailsPage">
     <VerticalStackLayout>
         <Label 
-            Text="{Binding Id}"
+            Text="{Binding Event.Title}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
     </VerticalStackLayout>
