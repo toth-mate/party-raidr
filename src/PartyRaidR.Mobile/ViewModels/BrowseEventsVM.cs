@@ -41,5 +41,12 @@ namespace PartyRaidR.Mobile.ViewModels
             }
             finally { IsBusy = false; }
         }
+
+        [RelayCommand]
+        private async Task GoToEventDetails(string id)
+        {
+            Debug.WriteLine($"ID: {id}");
+            await Shell.Current.GoToAsync($"eventdetails?id={id}");
+        }
     }
 }

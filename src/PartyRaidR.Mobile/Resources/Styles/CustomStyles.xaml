@@ -9,4 +9,11 @@
         <Setter Property="StrokeShape" Value="RoundRectangle 10"/>
     </Style>
     
+    <!-- Small heading -->
+    <Style TargetType="Label" x:Key="SmallHeading">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="TextColor" Value="{StaticResource Secondary}"/>
+    </Style>
+    
 </ResourceDictionary>
