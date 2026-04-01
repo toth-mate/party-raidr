@@ -93,6 +93,6 @@
             <input type="number" class="form-control" id="price" placeholder="250" v-model="event.ticketPrice">
             <div class="form-text">Set ticket price '0' if there is no fee.</div>
         </div>
-        <button class="btn btn-primary w-100" @click="create">Create</button>
+        <button class="btn btn-primary w-100 fs-5" @click="create">Create</button>
     </div>
 </template>
