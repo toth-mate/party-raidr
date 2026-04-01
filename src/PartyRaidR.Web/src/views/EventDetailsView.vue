@@ -41,6 +41,6 @@ onMounted(async () => {
                 </div>
             </div>
         </div>
-        <button class="btn btn-success w-100 mt-2" :disabled="hasApplied" @click="applyToEvent">Apply</button>
+        <button class="btn btn-tertiary w-100 mt-2 fs-5" :disabled="hasApplied" @click="applyToEvent">Apply</button>
     </div>
 </template>
