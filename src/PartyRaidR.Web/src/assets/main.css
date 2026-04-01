@@ -18,5 +18,32 @@
 .bg-secondary { background-color: var(--secondary) }
 .bg-tertiary { background-color: var(--tertiary) }
 
-button.btn-primary { background-color: var(--primary) }
-button.btn-secondary { background-color: var(--secondary) }
+button.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary)
+}
+button.btn-primary:hover {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    filter: brightness(120%)
+}
+button.btn-secondary {
+    background-color: var(--secondary);
+    border-color: var(--secondary)
+}
+button.btn-secondary:hover {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+    filter: brightness(120%)
+}
+button.btn-tertiary {
+    background-color: var(--tertiary);
+    border-color: var(--tertiary)
+}
+button.btn-tertiary:hover {
+    background-color: var(--tertiary);
+    border-color: var(--tertiary);
+    border-style: solid;
+    border-width: 1px;
+    filter: brightness(120%)
+}

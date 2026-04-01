@@ -72,8 +72,8 @@
   <section id="search" class="container mt-3 mb-5">
     <div class="row">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for events..." v-model="filter.title">
-        <button class="btn btn-success" @click="doFilter">Search</button>
+        <input type="text" class="form-control border border-end-0" placeholder="Search for events..." v-model="filter.title">
+        <button class="btn btn-primary" @click="doFilter">Search</button>
       </div>
     </div>
     <div class="row mt-2 bg-body-secondary px-1 py-2" v-if="!hideFilter">
