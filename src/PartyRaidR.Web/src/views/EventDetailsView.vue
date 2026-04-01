@@ -31,8 +31,7 @@ onMounted(async () => {
                 <div class="col-12 col-md-6">
                     <p>Starting date: {{ event.startingDate }}</p>
                     <p>Ending date: {{ event.endingDate }}</p>
-                    <p>Place: {{ event.placeName }}</p>
-                    <p>City: {{ event.city || 'City' }}</p>
+                    <p>Place: {{ event.city || 'City' }}, {{ event.placeName }}</p>
                 </div>
                 <div class="col-12 col-md-6">
                     <p>Category: {{ event.category }}</p>
