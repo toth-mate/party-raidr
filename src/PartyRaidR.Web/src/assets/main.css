@@ -6,3 +6,17 @@
     --secondary-dark-text: #9880e5;
     --tertiary: #391759
 }
+
+.text-primary { color: var(--primary) }
+.text-primary-dark { color: var(--primary-dark-text) }
+.text-secondary { color: var(--secondary) }
+.text-secondary-dark-text { color: var(--secondary-dark-text) }
+.text-tertiary { color: var(--tertiary) }
+
+.bg-primary { background-color: var(--primary) }
+.bg-primary-dark { background-color: var(--primary-dark) }
+.bg-secondary { background-color: var(--secondary) }
+.bg-tertiary { background-color: var(--tertiary) }
+
+button.btn-primary { background-color: var(--primary) }
+button.btn-secondary { background-color: var(--secondary) }
