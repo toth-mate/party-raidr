@@ -72,8 +72,8 @@
   <section id="search" class="container mt-3 mb-5">
     <div class="row">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for events..." v-model="filter.title">
-        <button class="btn btn-success" @click="doFilter">Search</button>
+        <input type="text" class="form-control border border-end-0" placeholder="Search for events..." v-model="filter.title">
+        <button class="btn btn-primary" @click="doFilter">Search</button>
       </div>
     </div>
     <div class="row mt-2 bg-body-secondary px-1 py-2" v-if="!hideFilter">
@@ -141,7 +141,9 @@
               <div v-else-if="e.status === 1" class="bg-warning"></div>
               <div v-else class="bg-secondary"></div>
             </div>
-            <h5 class="card-title">{{ e.title }}</h5>
+            <RouterLink class="card-title text-secondary-dark-text link-underline link-underline-opacity-0" :to="`/event/${e.id}`">
+              <h5>{{ e.title }}</h5>
+            </RouterLink>
             <h6 class="card-subtitle text-body-secondary mb-2">{{ e.startingDate }} - {{ e.endingDate }}</h6>
             <p class="card-text">{{ e.description }}</p>
             <p class="card-text text-body-secondary">Here: {{ e.city }}, {{ e.placeName }}</p>

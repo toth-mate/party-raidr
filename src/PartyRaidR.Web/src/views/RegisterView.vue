@@ -30,7 +30,7 @@
             <input type="date" class="form-control" id="birthdate" placeholder="Birthdate" :value="date">
             <label for="birthdate">Birthdate</label>
         </div>
-        <button type="submit" class="btn btn-success w-100">Register</button>
+        <button type="submit" class="btn btn-secondary w-100">Register</button>
         <p class="mt-3 text-center">
             Already have an account?
             <RouterLink to="/login">Login here!</RouterLink>

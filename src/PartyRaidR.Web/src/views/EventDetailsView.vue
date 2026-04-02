@@ -31,8 +31,7 @@ onMounted(async () => {
                 <div class="col-12 col-md-6">
                     <p>Starting date: {{ event.startingDate }}</p>
                     <p>Ending date: {{ event.endingDate }}</p>
-                    <p>Place: {{ event.placeName }}</p>
-                    <p>City: {{ event.city || 'City' }}</p>
+                    <p>Place: {{ event.city || 'City' }}, {{ event.placeName }}</p>
                 </div>
                 <div class="col-12 col-md-6">
                     <p>Category: {{ event.category }}</p>
@@ -41,6 +40,6 @@ onMounted(async () => {
                 </div>
             </div>
         </div>
-        <button class="btn btn-success w-100 mt-2" :disabled="hasApplied" @click="applyToEvent">Apply</button>
+        <button class="btn btn-tertiary w-100 mt-2 fs-5" :disabled="hasApplied" @click="applyToEvent">Apply</button>
     </div>
 </template>
