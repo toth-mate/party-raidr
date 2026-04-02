@@ -141,7 +141,9 @@
               <div v-else-if="e.status === 1" class="bg-warning"></div>
               <div v-else class="bg-secondary"></div>
             </div>
-            <h5 class="card-title text-secondary-dark-text">{{ e.title }}</h5>
+            <RouterLink class="card-title text-secondary-dark-text link-underline link-underline-opacity-0" :to="`/event/${e.id}`">
+              <h5>{{ e.title }}</h5>
+            </RouterLink>
             <h6 class="card-subtitle text-body-secondary mb-2">{{ e.startingDate }} - {{ e.endingDate }}</h6>
             <p class="card-text">{{ e.description }}</p>
             <p class="card-text text-body-secondary">Here: {{ e.city }}, {{ e.placeName }}</p>
