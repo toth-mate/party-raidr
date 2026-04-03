@@ -3,9 +3,11 @@ import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useEventStore } from '@/stores/event'
 import { useApplicationStore } from '@/stores/application'
+import { useAuthStore } from '@/stores/auth'
 
 const route = useRoute()
 const eventStore = useEventStore()
+const authStore = useAuthStore()
 const applicationStore = useApplicationStore()
 
 let event = ref({})
@@ -19,7 +21,7 @@ async function applyToEvent() {
 
 onMounted(async () => {
     event.value = await eventStore.getEventDisplay(eventId)
-    hasApplied.value = await applicationStore.applicationExists(eventId)
+    hasApplied.value = authStore.isAuthenticated && (await applicationStore.applicationExists(eventId))
 })
 </script>
 <template>
