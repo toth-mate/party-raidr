@@ -25,6 +25,7 @@ namespace PartyRaidR.Backend.Repos
                          .ThenInclude(p => p.City)
                          .Include(e => e.User)
                          .Where(e => e.IsActive && e.StartingDate >= DateTime.UtcNow)
+                         .OrderBy(e => e.StartingDate)
                          .ToListAsync();
  
         public async Task<List<Event>> FilterEventsAsync(string? title,
