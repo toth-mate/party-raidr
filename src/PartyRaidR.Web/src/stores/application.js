@@ -8,7 +8,7 @@ export const useApplicationStore = defineStore('application', () => {
             const res = await applicationService.exists(eventId)
             return res.data
         } catch(e) {
-            console.warn(e) 
+            console.warn(e)
         }
     }
 
