@@ -26,7 +26,7 @@ namespace PartyRaidR.Backend.Repos
                          .Include(e => e.User)
                          .Where(e => e.IsActive && e.StartingDate >= DateTime.UtcNow)
                          .ToListAsync();
-
+ 
         public async Task<List<Event>> FilterEventsAsync(string? title,
                                                     string? description,
                                                     DateTime? startingDate,
