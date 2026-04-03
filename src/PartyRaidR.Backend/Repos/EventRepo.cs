@@ -74,6 +74,7 @@ namespace PartyRaidR.Backend.Repos
             return await result.Include(e => e.User)
                 .Include(e => e.Place)
                 .ThenInclude(p => p.City)
+                .OrderBy(e => e.StartingDate)
                 .ToListAsync();
         }
 
