@@ -144,4 +144,4 @@ Branch guide *(Legacy)*:
 + B - *Bugfix*
 + C - *Chore*
 
-Since **03/04 2026** I use *Conventional Commits* in the project (including Issues, Pull Requests and branches).
+Since **3 April 2026** I use *Conventional Commits* in the project (including Issues, Pull Requests and branches).
