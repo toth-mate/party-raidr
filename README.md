@@ -139,7 +139,9 @@ First of all, I would like to heavily build on community, as it can spread the p
 
 Nextly, categories. Currently, there are a few categories for places and events, and they are stored as database models with a couple of set values. However, I would like users to be able to add their own categories. It would not be a huge challenge to carry out at all. However, at the moment I do not have any idea what I would like it to look like. I can not let people to just create new categories any time they want. I could set up a system where users can post their new category ideas and administrators would need to accept is. Nevertheless, after some time it would require a lot of unnecessary effort from the moderation team, as of course I do not want a lot of categories for users to choose from.
 
-Branch guide (prefixes):
+Branch guide *(Legacy)*:
 + F - *Feature*
 + B - *Bugfix*
 + C - *Chore*
+
+Since **03/04 2026** I use *Conventional Commits* in the project (including Issues, Pull Requests and branches).
