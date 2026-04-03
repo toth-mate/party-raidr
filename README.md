@@ -63,6 +63,8 @@ If you want to try the Vue app, you will need to create a ```.env``` file in ```
 
 ```VITE_API_URL=http://localhost:8080/api```
 
+Docker also starts the web app, so after running ```docker-compose,``` you will be able to access it in your web browser on ```http://localhost:5173```.
+
 ## 📈 Motivation
 
 Party RaidR is a pet project of mine. I started work during my first semester.
