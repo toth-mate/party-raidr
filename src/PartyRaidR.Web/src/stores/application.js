@@ -6,7 +6,7 @@ export const useApplicationStore = defineStore('application', () => {
     async function getMyApplications() {
         try {
             const res = await applicationService.getMyApplications()
-            return res
+            return res.data
         } catch(e) {
             console.warn(e)
         }

@@ -1,7 +1,16 @@
 <script setup>
-    import { ref } from 'vue'
+    import { ref, onMounted } from 'vue'
     import { useAuthStore } from '@/stores/auth'
+    import { useApplicationStore } from '@/stores/application'
+
     const authStore = useAuthStore()
+    const applicationStore = useApplicationStore()
+
+    const applications = ref([])
+
+    onMounted(async () => {
+        applications.value = await applicationStore.getMyApplications()
+    })
 </script>
 <template>
     <h1>Profile</h1>
