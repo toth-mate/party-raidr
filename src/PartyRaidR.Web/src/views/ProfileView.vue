@@ -18,9 +18,14 @@
 
     <section>
         <ul class="list-group">
-            <li class="list-group-item" v-for="a in applications">
-                <h5>{{ a.eventId }}</h5>
-                <p class="text-body-tertiary">You applied at: {{ a.timeOfApplication }}</p>
+            <li class="list-group-item d-flex justify-content-between" v-for="a in applications">
+                <div>
+                    <h5>{{ a.eventId }}</h5>
+                    <p class="text-body-tertiary">You applied at: {{ a.timeOfApplication }}</p>
+                </div>
+                <div class="d-flex flex-column justify-content-center">
+                    <button class="btn btn-danger">Withdraw</button>
+                </div>
             </li>
         </ul>
     </section>
