@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, onMounted } from 'vue'
+    import { ref, onMounted, onUpdated } from 'vue'
     import { useAuthStore } from '@/stores/auth'
     import { useApplicationStore } from '@/stores/application'
 
@@ -9,6 +9,10 @@
     const applications = ref([])
 
     onMounted(async () => {
+        applications.value = await applicationStore.getMyApplications()
+    })
+
+    onUpdated(async () => {
         applications.value = await applicationStore.getMyApplications()
     })
 </script>
@@ -24,7 +28,7 @@
                     <p class="text-body-tertiary">You applied at: {{ a.timeOfApplication }}</p>
                 </div>
                 <div class="d-flex flex-column justify-content-center">
-                    <button class="btn btn-danger">Withdraw</button>
+                    <button class="btn btn-danger" @click="applicationStore.deleteApplication(a.id)">Withdraw</button>
                 </div>
             </li>
         </ul>
