@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using PartyRaidR.Backend.Assemblers;
 using PartyRaidR.Backend.Models;
 using PartyRaidR.Backend.Models.Responses;
@@ -201,6 +202,32 @@ namespace PartyRaidR.Backend.Services
             catch (Exception ex)
             {
                 return CreateResponse<bool>(false, 500, message: $"An error occurred while checking for existing application: {ex.Message}");
+            }
+        }
+
+        public async Task<ServiceResponse<List<ApplicationDisplayDto>>> GetMyApplicationsDisplayAsync()
+        {
+            try
+            {
+                List<Application> applications = await _applicationRepo.GetApplicationDisplaysQueryable()
+                                                                       .Where(a => a.UserId == _userContext.UserId)
+                                                                       .ToListAsync();
+                List<ApplicationDisplayDto> result = applications.Select(a => new ApplicationDisplayDto
+                {
+                    Id = a.Id,
+                    EventId = a.Event.Id,
+                    DateOfApplication = a.TimeOfApplication,
+                    StartDate = a.Event.StartingDate,
+                    EndDate = a.Event.StartingDate,
+                    Status = a.Status.ToString(),
+                    Title = a.Event.Title
+                }).ToList();
+
+                return CreateResponse(true, 200, result);
+            }
+            catch(Exception ex)
+            {
+                return CreateResponse<List<ApplicationDisplayDto>>(false, 500, message: ex.Message);
             }
         }
     }
