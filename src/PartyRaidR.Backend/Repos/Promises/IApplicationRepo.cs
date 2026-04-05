@@ -8,6 +8,5 @@ namespace PartyRaidR.Backend.Repos.Promises
         Task<bool> ApplicationExistsAsync(string userId, string eventId);
         Task<List<Application>> GetApplicationsByUserAsync(string userId);
         Task<Application?> GetApplicationWithEventAsync(string id);
-        IQueryable<Application> GetApplicationDisplaysQueryable();
     }
 }

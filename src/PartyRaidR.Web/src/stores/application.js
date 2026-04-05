@@ -3,23 +3,6 @@ import { defineStore } from "pinia"
 import applicationService from "@/api/applicationService"
 
 export const useApplicationStore = defineStore('application', () => {
-    async function getMyApplications() {
-        try {
-            const res = await applicationService.getMyApplications()
-            return res.data
-        } catch(e) {
-            console.warn(e)
-        }
-    }
-
-    async function deleteApplication(id) {
-        try {
-            await applicationService.withdraw(id)
-        } catch(e) {
-            console.warn(e)
-        }
-    }
-
     async function applicationExists(eventId) {
         try {
             const res = await applicationService.exists(eventId)
@@ -43,5 +26,5 @@ export const useApplicationStore = defineStore('application', () => {
         }
     }
 
-    return { applicationExists, apply, getMyApplications, deleteApplication }
+    return { applicationExists, apply }
 })
