@@ -219,7 +219,7 @@ namespace PartyRaidR.Backend.Services
                     DateOfApplication = a.TimeOfApplication,
                     StartDate = a.Event.StartingDate,
                     EndDate = a.Event.StartingDate,
-                    Status = a.Status.ToString(),
+                    Status = GetStatusDisplayName(a.Status),
                     Title = a.Event.Title
                 }).ToList();
 
@@ -228,6 +228,18 @@ namespace PartyRaidR.Backend.Services
             catch(Exception ex)
             {
                 return CreateResponse<List<ApplicationDisplayDto>>(false, 500, message: ex.Message);
+            }
+        }
+
+        private static string GetStatusDisplayName(StatusType status)
+        {
+            switch(status)
+            {
+                case StatusType.NoApplicationNeeded: return "No application needed";
+                case StatusType.Pending: return "Pending";
+                case StatusType.Rejected: return "Rejected";
+                case StatusType.WaitList: return "Waitlist";
+                default: return string.Empty;
             }
         }
     }
