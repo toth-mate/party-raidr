@@ -25,12 +25,24 @@
     <section>
         <h2 class="text-center mb-3">Your applications:</h2>
         <ul class="list-group" v-if="applications.length > 0">
-            <li class="list-group-item d-flex justify-content-between" v-for="a in applications">
+            <li class="list-group-item d-flex justify-content-between py-3" v-for="a in applications">
                 <div>
                     <RouterLink :to="`/event/${a.eventId}`">
                         <h5>{{ a.title }}</h5>
                     </RouterLink>
+
                     <p class="text-body-tertiary">You applied at: {{ a.dateOfApplication }}</p>
+
+                    <div class="fs-5">
+                        <div class="mb-2">
+                            Starts at:
+                            <time>{{ a.startDate }}</time>
+                        </div>
+                        <div>
+                            Ends at:
+                            <time>{{ a.endDate }}</time>
+                        </div>
+                    </div>
                 </div>
                 <div class="d-flex flex-column justify-content-center">
                     <button class="btn btn-danger" @click="withdraw(a.id)">Withdraw</button>
