@@ -1,6 +1,6 @@
 namespace PartyRaidR.Shared.Dtos
 {
-    public class ApplicationDisplay : IHasId
+    public class ApplicationDisplayDto : IHasId
     {
         // Application ID
         public string Id { get; set; } = Guid.Empty.ToString();
