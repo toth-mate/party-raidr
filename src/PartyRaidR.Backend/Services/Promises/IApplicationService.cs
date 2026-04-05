@@ -14,5 +14,6 @@ namespace PartyRaidR.Backend.Services.Promises
         Task<ServiceResponse<int>> GetNumberOfApplicationsByUserAsync(string userId);
         Task<ServiceResponse<int>> GetNumberOfMyApplicationsAsync();
         Task<ServiceResponse<bool>> ApplicationExistsAsync(string eventId);
+        Task<ServiceResponse<List<ApplicationDisplayDto>>> GetMyApplicationsDisplayAsync();
     }
 }

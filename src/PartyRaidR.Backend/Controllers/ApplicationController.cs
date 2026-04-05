@@ -47,5 +47,10 @@ namespace PartyRaidR.Backend.Controllers
         [HttpGet("exists")]
         public async Task<IActionResult> CheckIfApplicationExists([FromQuery] string eventId) =>
             HandleResponse(await _applicationService.ApplicationExistsAsync(eventId));
+
+        [Authorize]
+        [HttpGet("my-applications-display")]
+        public async Task<IActionResult> GetMyApplicationsDisplay() =>
+            HandleResponse(await _applicationService.GetMyApplicationsDisplayAsync());
     }
 }
