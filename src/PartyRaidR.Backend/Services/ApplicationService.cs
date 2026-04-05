@@ -216,9 +216,9 @@ namespace PartyRaidR.Backend.Services
                 {
                     Id = a.Id,
                     EventId = a.Event.Id,
-                    DateOfApplication = a.TimeOfApplication,
-                    StartDate = a.Event.StartingDate,
-                    EndDate = a.Event.StartingDate,
+                    DateOfApplication = a.TimeOfApplication.ToString("g"),
+                    StartDate = a.Event.StartingDate.ToString("g"),
+                    EndDate = a.Event.StartingDate.ToString("g"),
                     Status = GetStatusDisplayName(a.Status),
                     Title = a.Event.Title
                 }).ToList();
