@@ -1,6 +1,5 @@
 ﻿using PartyRaidR.Backend.Models;
 using PartyRaidR.Backend.Repos.Base;
-using PartyRaidR.Shared.Dtos;
 
 namespace PartyRaidR.Backend.Repos.Promises
 {
