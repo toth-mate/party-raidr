@@ -11,7 +11,6 @@
 
     onMounted(async () => {
         applications.value = await applicationStore.getMyApplications()
-        console.log(applications.value)
     })
 
     const withdraw = async (id) => {
