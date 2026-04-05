@@ -15,6 +15,9 @@ namespace PartyRaidR.Backend.Repos
         public async Task<bool> ApplicationExistsAsync(string userId, string eventId) =>
             await _dbSet!.AnyAsync(a => a.UserId == userId && a.EventId == eventId);
 
+        public IQueryable<Application> GetApplicationDisplaysQueryable() =>
+                _dbSet!.Include(a => a.Event);
+
         public async Task<List<Application>> GetApplicationsByUserAsync(string userId) =>
             await _dbSet!.Where(a => a.UserId == userId).ToListAsync();
 
