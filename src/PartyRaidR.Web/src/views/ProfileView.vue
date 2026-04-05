@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, onMounted, onUpdated } from 'vue'
+    import { ref, onMounted } from 'vue'
     import { useAuthStore } from '@/stores/auth'
     import { useApplicationStore } from '@/stores/application'
 
