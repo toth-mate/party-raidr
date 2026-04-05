@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using PartyRaidR.Backend.Assemblers;
 using PartyRaidR.Backend.Models;
 using PartyRaidR.Backend.Models.Responses;
@@ -202,44 +201,6 @@ namespace PartyRaidR.Backend.Services
             catch (Exception ex)
             {
                 return CreateResponse<bool>(false, 500, message: $"An error occurred while checking for existing application: {ex.Message}");
-            }
-        }
-
-        public async Task<ServiceResponse<List<ApplicationDisplayDto>>> GetMyApplicationsDisplayAsync()
-        {
-            try
-            {
-                List<Application> applications = await _applicationRepo.GetApplicationDisplaysQueryable()
-                                                                       .Where(a => a.UserId == _userContext.UserId)
-                                                                       .ToListAsync();
-                List<ApplicationDisplayDto> result = applications.Select(a => new ApplicationDisplayDto
-                {
-                    Id = a.Id,
-                    EventId = a.Event.Id,
-                    DateOfApplication = a.TimeOfApplication.ToString("g"),
-                    StartDate = a.Event.StartingDate.ToString("g"),
-                    EndDate = a.Event.StartingDate.ToString("g"),
-                    Status = GetStatusDisplayName(a.Status),
-                    Title = a.Event.Title
-                }).ToList();
-
-                return CreateResponse(true, 200, result);
-            }
-            catch(Exception ex)
-            {
-                return CreateResponse<List<ApplicationDisplayDto>>(false, 500, message: ex.Message);
-            }
-        }
-
-        private static string GetStatusDisplayName(StatusType status)
-        {
-            switch(status)
-            {
-                case StatusType.NoApplicationNeeded: return "No application needed";
-                case StatusType.Pending: return "Pending";
-                case StatusType.Rejected: return "Rejected";
-                case StatusType.WaitList: return "Waitlist";
-                default: return string.Empty;
             }
         }
     }
