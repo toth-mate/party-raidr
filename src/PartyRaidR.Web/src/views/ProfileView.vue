@@ -22,7 +22,8 @@
     <p class="text-center text-secondary fs-1 mt-3">Hello <span class="fw-semibold">{{ authStore.user.username }}!</span></p>
 
     <section>
-        <ul class="list-group">
+        <h2 class="text-center mb-3">Your applications:</h2>
+        <ul class="list-group" v-if="applications.length > 0">
             <li class="list-group-item d-flex justify-content-between" v-for="a in applications">
                 <div>
                     <h5>{{ a.eventId }}</h5>
@@ -33,5 +34,7 @@
                 </div>
             </li>
         </ul>
+
+        <p v-else class="text-body-secondary text-center fs-5">You haven't applied to any events yet.</p>
     </section>
 </template>
