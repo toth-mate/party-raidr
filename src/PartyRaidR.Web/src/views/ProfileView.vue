@@ -12,9 +12,10 @@
         applications.value = await applicationStore.getMyApplications()
     })
 
-    onUpdated(async () => {
+    const withdraw = async (id) => {
+        await applicationStore.deleteApplication(id)
         applications.value = await applicationStore.getMyApplications()
-    })
+    }
 </script>
 <template>
     <h1>Profile</h1>
@@ -28,7 +29,7 @@
                     <p class="text-body-tertiary">You applied at: {{ a.timeOfApplication }}</p>
                 </div>
                 <div class="d-flex flex-column justify-content-center">
-                    <button class="btn btn-danger" @click="applicationStore.deleteApplication(a.id)">Withdraw</button>
+                    <button class="btn btn-danger" @click="withdraw(a.id)">Withdraw</button>
                 </div>
             </li>
         </ul>
