@@ -1,5 +1,6 @@
 <script setup>
     import { ref, onMounted } from 'vue'
+    import { RouterLink } from 'vue-router'
     import { useAuthStore } from '@/stores/auth'
     import { useApplicationStore } from '@/stores/application'
 
@@ -27,7 +28,9 @@
         <ul class="list-group" v-if="applications.length > 0">
             <li class="list-group-item d-flex justify-content-between" v-for="a in applications">
                 <div>
-                    <h5>{{ a.title }}</h5>
+                    <RouterLink :to="`/event/${a.eventId}`">
+                        <h5>{{ a.title }}</h5>
+                    </RouterLink>
                     <p class="text-body-tertiary">You applied at: {{ a.dateOfApplication }}</p>
                 </div>
                 <div class="d-flex flex-column justify-content-center">
