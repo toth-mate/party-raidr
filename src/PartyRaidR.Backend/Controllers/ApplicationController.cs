@@ -46,6 +46,6 @@ namespace PartyRaidR.Backend.Controllers
         [Authorize]
         [HttpGet("exists")]
         public async Task<IActionResult> CheckIfApplicationExists([FromQuery] string eventId) =>
-            HandleResponse(await _applicationService.ApplicationExistsAsync(eventId));
+            HandleResponse(await _applicationService.ApplicationExistsAsync(eventId)); 
     }
 }
