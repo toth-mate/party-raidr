@@ -25,6 +25,9 @@ namespace PartyRaidR.Mobile
                     fonts.AddFont("Font Awesome 7 Free-Solid-900.otf", "FA-Solid");
                 });
 
+
+            // EditText components on Android have an "underline" by default
+            // Here we apply a mapping to remove this underline from all Entry controls globally
             #if ANDROID
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
             {
