@@ -4,6 +4,7 @@ using PartyRaidR.Mobile.Api;
 using PartyRaidR.Mobile.ViewModels;
 using PartyRaidR.Mobile.Views.Pages;
 using Refit;
+using System.Runtime.CompilerServices;
 
 namespace PartyRaidR.Mobile
 {
@@ -22,7 +23,15 @@ namespace PartyRaidR.Mobile
                     fonts.AddFont("Font Awesome 7 Brands-Regular-400.otf", "FA-Brands");
                     fonts.AddFont("Font Awesome 7 Free-Regular-400.otf", "FA-Reg");
                     fonts.AddFont("Font Awesome 7 Free-Solid-900.otf", "FA-Solid");
-                }); 
+                });
+
+            #if ANDROID
+            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
+            {
+                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+                handler.PlatformView.Background = null;
+            });
+            #endif
 
             builder.Services.AddTransient<MainVM>();
             builder.Services.AddTransient<LoginVM>();
