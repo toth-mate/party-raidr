@@ -103,8 +103,8 @@
         </ul>
 
         <div class="mt-2">
-            <button class="btn btn-primary me-2 fs-5">Edit</button>
-            <button class="btn btn-outline-danger fs-5">Delete</button>
+            <button class="btn btn-primary me-2 fs-5" :disabled="selected == null">Edit</button>
+            <button class="btn btn-outline-danger fs-5" :disabled="selected == null">Delete</button>
         </div>
     </section>
 </template>
