@@ -95,11 +95,17 @@
         <h2>Your events</h2>
 
         <ul class="list-group">
+            <!-- When clicking on an element, the 'active' Bootstrap class is added to it -->
             <li :class="`list-group-item${selected === e.id ? ' active' : ''}`" v-for="e in events" :key="e.id" @click="selected = e.id">
                 <h5>{{ e.title }}</h5>
                 <p class="mb-1"><i class="fa-regular fa-calendar"></i> Created: {{ e.dateCreated.split('T')[0] }}</p>
             </li>
         </ul>
+
+        <div class="mt-2">
+            <button class="btn btn-primary me-2 fs-5">Edit</button>
+            <button class="btn btn-outline-danger fs-5">Delete</button>
+        </div>
     </section>
 </template>
 <style scoped>
