@@ -12,6 +12,8 @@
     const applications = ref([])
     const events = ref([])
 
+    let selected = ref(null)
+
     onMounted(async () => {
         applications.value = await applicationStore.getMyApplications()
         events.value = await eventStore.getMyEvents()
@@ -93,7 +95,7 @@
         <h2>Your events</h2>
 
         <ul class="list-group">
-            <li class="list-group-item" v-for="e in events" :key="e.id">
+            <li :class="`list-group-item${selected === e.id ? ' active' : ''}`" v-for="e in events" :key="e.id" @click="selected = e.id">
                 <h5>{{ e.title }}</h5>
                 <p class="mb-1"><i class="fa-regular fa-calendar"></i> Created: {{ e.dateCreated.split('T')[0] }}</p>
             </li>
