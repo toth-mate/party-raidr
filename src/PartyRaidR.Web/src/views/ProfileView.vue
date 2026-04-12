@@ -17,8 +17,6 @@
     onMounted(async () => {
         applications.value = await applicationStore.getMyApplications()
         events.value = await eventStore.getMyEvents()
-        console.log(events.value)
-        console.log(authStore.user)
     })
 
     const withdraw = async (id) => {
