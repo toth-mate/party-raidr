@@ -89,8 +89,15 @@
         <p v-else class="text-body-secondary text-center fs-5">You haven't applied to any events yet.</p>
     </section>
 
-    <section class="bg-body-tertiary mt-3 p-3">
+    <section class="bg-body-tertiary mt-3 p-3 rounded">
         <h2>Your events</h2>
+
+        <ul class="list-group">
+            <li class="list-group-item" v-for="e in events">
+                <h5>{{ e.title }}</h5>
+                <p class="mb-1"><i class="fa-regular fa-calendar"></i> Created: {{ e.dateCreated.split('T')[0] }}</p>
+            </li>
+        </ul>
     </section>
 </template>
 <style scoped>
