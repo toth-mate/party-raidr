@@ -47,6 +47,15 @@ export const useEventStore = defineStore('event', () => {
     }
   }
 
+  async function getMyEvents() {
+    try {
+      const res = await eventService.getMyEvents()
+      return res.data
+    } catch(e) {
+      console.warn(e)
+    }
+  }
+
   async function createEvent(newEvent) {
     try {
       newEvent.category = parseInt(newEvent.category)
@@ -70,5 +79,5 @@ export const useEventStore = defineStore('event', () => {
     }
   }
 
-  return { events, loadEvents, getEvent, loadEventsDisplay, getEventDisplay, createEvent, filterEvents }
+  return { events, loadEvents, getEvent, loadEventsDisplay, getEventDisplay, getMyEvents, createEvent, filterEvents }
 })

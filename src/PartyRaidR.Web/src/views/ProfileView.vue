@@ -2,15 +2,20 @@
     import { ref, onMounted } from 'vue'
     import { RouterLink } from 'vue-router'
     import { useAuthStore } from '@/stores/auth'
+    import { useEventStore } from '@/stores/event'
     import { useApplicationStore } from '@/stores/application'
 
     const authStore = useAuthStore()
+    const eventStore = useEventStore()
     const applicationStore = useApplicationStore()
 
     const applications = ref([])
+    const events = ref([])
 
     onMounted(async () => {
         applications.value = await applicationStore.getMyApplications()
+        events.value = await eventStore.getMyEvents()
+        console.log(events.value)
         console.log(authStore.user)
     })
 
@@ -82,6 +87,10 @@
         </ul>
 
         <p v-else class="text-body-secondary text-center fs-5">You haven't applied to any events yet.</p>
+    </section>
+
+    <section class="bg-body-tertiary mt-3 p-3">
+        <h2>Your events</h2>
     </section>
 </template>
 <style scoped>
