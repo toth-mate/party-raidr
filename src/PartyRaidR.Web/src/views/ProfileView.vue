@@ -1,6 +1,7 @@
 <script setup>
-    import { ref, onMounted } from 'vue'
+    import { ref, onMounted, Teleport } from 'vue'
     import { RouterLink } from 'vue-router'
+    import { Modal } from 'bootstrap'
     import { useAuthStore } from '@/stores/auth'
     import { useEventStore } from '@/stores/event'
     import { useApplicationStore } from '@/stores/application'
@@ -8,6 +9,9 @@
     const authStore = useAuthStore()
     const eventStore = useEventStore()
     const applicationStore = useApplicationStore()
+
+    const modal = ref(null)
+    let modalInstance = null
 
     const applications = ref([])
     const events = ref([])
@@ -17,7 +21,17 @@
     onMounted(async () => {
         applications.value = await applicationStore.getMyApplications()
         events.value = await eventStore.getMyEvents()
+
+        modalInstance = new Modal(modal.value)
     })
+
+    const openModal = () => {
+        modalInstance.show()
+    }
+
+    const closeModal = () => {
+        modalInstance.hide()
+    }
 
     const withdraw = async (id) => {
         await applicationStore.deleteApplication(id)
@@ -103,9 +117,29 @@
 
         <div class="mt-2">
             <button class="btn btn-primary me-2 fs-5" :disabled="selected == null">Edit</button>
-            <button class="btn btn-outline-danger fs-5" :disabled="selected == null">Delete</button>
+            <button class="btn btn-outline-danger fs-5" :disabled="selected == null" @click="openModal">Delete</button>
         </div>
     </section>
+
+    <Teleport to="body">
+        <div class="modal" tabindex="-1" ref="modal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-danger">Warning!</h5>
+                        <button class="btn-close" type="button" @click="closeModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete this event?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" @click="closeModal">Cancel</button>
+                        <button class="btn btn-outline-danger" @click="closeModal">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </Teleport>
 </template>
 <style scoped>
     #edit-button { right: 10px; top: 5px }
