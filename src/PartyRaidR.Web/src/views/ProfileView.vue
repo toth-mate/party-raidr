@@ -93,6 +93,7 @@
 
     <section class="bg-body-tertiary mt-3 p-3 rounded">
         <h2>Your events</h2>
+        <p class="text-body-tertiary">Click on one of the items to be able to edit or delete them.</p>
 
         <ul class="list-group">
             <!-- When clicking on an element, the 'active' Bootstrap class is added to it -->
