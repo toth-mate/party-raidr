@@ -23,7 +23,11 @@
     <h1>Profile</h1>
     <p class="text-center text-secondary fs-1 mt-3">Hello <span class="fw-semibold">{{ authStore.user.username }}!</span></p>
 
-    <section class="bg-body-tertiary rounded mb-3 p-3">
+    <section class="bg-body-tertiary rounded mb-3 p-3 position-relative">
+
+        <button id="edit-button" class="btn btn-outline-secondary position-absolute">
+            <i class="fa-solid fa-pen-to-square"></i>
+        </button>
 
         <h2 class="h4 text-body-tertiary">User info:</h2>
 
@@ -80,3 +84,6 @@
         <p v-else class="text-body-secondary text-center fs-5">You haven't applied to any events yet.</p>
     </section>
 </template>
+<style scoped>
+    #edit-button { right: 10px; top: 5px }
+</style>
