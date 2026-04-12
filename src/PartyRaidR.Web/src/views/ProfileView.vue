@@ -11,6 +11,7 @@
 
     onMounted(async () => {
         applications.value = await applicationStore.getMyApplications()
+        console.log(authStore.user)
     })
 
     const withdraw = async (id) => {
@@ -22,6 +23,32 @@
     <h1>Profile</h1>
     <p class="text-center text-secondary fs-1 mt-3">Hello <span class="fw-semibold">{{ authStore.user.username }}!</span></p>
 
+    <section class="bg-body-tertiary rounded mb-3 p-3">
+
+        <h2 class="h4 text-body-tertiary">User info:</h2>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <!--<i class="fa-regular fa-calendar"></i>-->
+                <i class="fa-solid fa-cake-candles"></i>
+                Date of birth:
+                {{ authStore.user.birthDate }}
+            </li>
+            <li class="list-group-item">
+                <!-- <i class="fa-solid fa-envelope"></i> -->
+                <i class="fa-solid fa-at"></i>
+                Email address:
+                {{ authStore.user.email }}
+            </li>
+            <li class="list-group-item">
+                <i class="fa-solid fa-calendar"></i>
+                Date of register:
+                {{ authStore.user.registerDate.split('T')[0] }}
+            </li>
+        </ul>
+        
+    </section>
+    
     <section>
         <h2 class="text-center mb-3">Your applications:</h2>
         <ul class="list-group" v-if="applications.length > 0">
