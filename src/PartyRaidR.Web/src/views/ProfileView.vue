@@ -93,7 +93,7 @@
         <h2>Your events</h2>
 
         <ul class="list-group">
-            <li class="list-group-item" v-for="e in events">
+            <li class="list-group-item" v-for="e in events" :key="e.id">
                 <h5>{{ e.title }}</h5>
                 <p class="mb-1"><i class="fa-regular fa-calendar"></i> Created: {{ e.dateCreated.split('T')[0] }}</p>
             </li>
