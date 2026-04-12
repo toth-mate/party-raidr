@@ -21,5 +21,8 @@ export default {
     },
     filter(filter) {
         return apiClient.post('/event/filter', filter)
+    },
+    delete(id) {
+        return apiClient.delete(`/event/${id}`)
     }
 }

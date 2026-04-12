@@ -33,6 +33,15 @@
         modalInstance.hide()
     }
 
+    const deleteEvent = async () => {
+        closeModal()
+
+        await eventStore.deleteEvent(selected.value)
+        events.value = await eventStore.getMyEvents()
+
+        selected.value = null
+    }
+
     const withdraw = async (id) => {
         await applicationStore.deleteApplication(id)
         applications.value = await applicationStore.getMyApplications()
@@ -134,7 +143,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" @click="closeModal">Cancel</button>
-                        <button class="btn btn-outline-danger" @click="closeModal">Yes</button>
+                        <button class="btn btn-outline-danger" @click="deleteEvent">Yes</button>
                     </div>
                 </div>
             </div>
