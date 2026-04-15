@@ -136,6 +136,18 @@
         </div>
     </section>
 
+    <section class="bg-body-tertiary mt-3 p-3 rounded" v-show="places.length > 0">
+        <h2 class="mb-3">Your places</h2>
+
+        <ul class="list-group">
+            <li class="list-group-item" v-for="p in places">
+                <h5 class="fw-semibold">{{ p.name }}</h5>
+                <p>{{ p.description }}</p>
+                <p><i class="fa-solid fa-location-dot text-danger"></i> {{ p.address }}</p>
+            </li>
+        </ul>
+    </section>
+
     <Teleport to="body">
         <div class="modal" tabindex="-1" ref="modal">
             <div class="modal-dialog modal-dialog-centered">
