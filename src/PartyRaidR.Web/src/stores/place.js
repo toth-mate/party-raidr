@@ -17,5 +17,16 @@ export const usePlaceStore = defineStore('place', () => {
     }
   }
 
-  return { places, loadPlaces }
+  async function getMyPlaces() {
+    try {
+      const res = await placeService.getMyPlaces()
+      if(res.data) {
+        return res.data
+      }
+    } catch(e) {
+      console.warn(e)
+    }
+  }
+
+  return { places, loadPlaces, getMyPlaces }
 })
