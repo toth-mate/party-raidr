@@ -138,10 +138,10 @@
         <h2 class="mb-3">Your places</h2>
 
         <ul class="list-group">
-            <li class="list-group-item" v-for="p in places">
+            <li class="list-group-item py-3" v-for="p in places">
                 <h5 class="fw-semibold">{{ p.name }}</h5>
                 <p>{{ p.description }}</p>
-                <p><i class="fa-solid fa-location-dot text-danger"></i> {{ p.address }}</p>
+                <p class="mb-1"><i class="fa-solid fa-location-dot text-danger"></i> {{ p.address }}</p>
             </li>
         </ul>
     </section>
