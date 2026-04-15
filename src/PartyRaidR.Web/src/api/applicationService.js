@@ -9,8 +9,5 @@ export default {
     },
     apply(application) {
         return apiClient.post('/application', application)
-    },
-    withdraw(id) {
-        return apiClient.delete(`/application/${id}`)
     }
 }
