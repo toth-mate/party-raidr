@@ -5,22 +5,28 @@
     import { useAuthStore } from '@/stores/auth'
     import { useEventStore } from '@/stores/event'
     import { useApplicationStore } from '@/stores/application'
+    import { usePlaceStore } from '@/stores/place'
 
     const authStore = useAuthStore()
     const eventStore = useEventStore()
     const applicationStore = useApplicationStore()
+    const placeStore = usePlaceStore()
 
     const modal = ref(null)
     let modalInstance = null
 
     const applications = ref([])
     const events = ref([])
+    const places = ref([])
 
     let selected = ref(null)
 
     onMounted(async () => {
         applications.value = await applicationStore.getMyApplications()
         events.value = await eventStore.getMyEvents()
+        places.value = await placeStore.getMyPlaces()
+
+        console.log(places.value)
 
         modalInstance = new Modal(modal.value)
     })
