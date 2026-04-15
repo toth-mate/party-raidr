@@ -61,7 +61,7 @@
             <i class="fa-solid fa-pen-to-square"></i>
         </button>
 
-        <h2 class="h4 text-body-tertiary">User info:</h2>
+        <h2>User info:</h2>
 
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
@@ -84,8 +84,8 @@
         </ul>
 
         <div class="mt-3">
-            <h3>New password</h3>
-            <p class="text-body-secondary">If you want to, you can change your password here:</p>
+            <h3 class="h4 text-body-secondary">New password</h3>
+            <p class="text-body-tertiary">If you want to, you can change your password here:</p>
 
             <div class="mb-2">
                 <label for="old-password" class="form-label fw-semibold">Old password</label>
