@@ -82,6 +82,22 @@
                 {{ authStore.user.registerDate.split('T')[0] }}
             </li>
         </ul>
+
+        <div class="mt-3">
+            <h3>New password</h3>
+            <p class="text-body-secondary">If you want to, you can change your password here:</p>
+
+            <div class="mb-2">
+                <label for="old-password" class="form-label fw-semibold">Old password</label>
+                <input id="old-password" type="password fw-semibold" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="new-password" class="form-label">New password</label>
+                <input id="new-password" type="password" class="form-control">
+            </div>
+
+            <button class="btn btn-secondary">Change password</button>
+        </div>
         
     </section>
     
