@@ -1,3 +1,4 @@
+/*
 :root {
     --primary: #512BD4;
     --primary-dark: #2f0c82;
@@ -47,3 +48,10 @@ button.btn-tertiary:hover {
     border-width: 1px;
     filter: brightness(120%)
 }
+*/
+
+$primary: #512BD4;
+$secondary: #7852d1;
+$tertiary: #391759;
+
+@import "bootstrap/scss/bootstrap"

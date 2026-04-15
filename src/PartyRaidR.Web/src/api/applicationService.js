@@ -1,6 +1,9 @@
 import apiClient from './api.js'
 
 export default {
+    getMyApplications() {
+        return apiClient.get('/application/my-applications-display')
+    },
     exists(eventId) {
         return apiClient.get(`/application/exists?eventId=${eventId}`)
     },

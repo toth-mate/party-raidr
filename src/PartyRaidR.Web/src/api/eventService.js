@@ -13,10 +13,16 @@ export default {
     getWithDetailsById(id) {
         return apiClient.get(`/event/display/${id}`)
     },
+    getMyEvents() {
+        return apiClient.get('/event/my-events')
+    },
     insert(event) {
         return apiClient.post('/event', event)
     },
     filter(filter) {
         return apiClient.post('/event/filter', filter)
+    },
+    delete(id) {
+        return apiClient.delete(`/event/${id}`)
     }
 }
