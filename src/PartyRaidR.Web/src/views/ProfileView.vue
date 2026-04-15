@@ -136,6 +136,7 @@
 
     <section class="bg-body-tertiary mt-3 p-3 rounded" v-show="places.length > 0">
         <h2 class="mb-3">Your places</h2>
+        <p class="text-body-tertiary">Places created by you.</p>
 
         <ul class="list-group">
             <li class="list-group-item py-3" v-for="p in places">
