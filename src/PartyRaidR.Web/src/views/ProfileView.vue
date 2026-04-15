@@ -26,8 +26,6 @@
         events.value = await eventStore.getMyEvents()
         places.value = await placeStore.getMyPlaces()
 
-        console.log(places.value)
-
         modalInstance = new Modal(modal.value)
     })
 
