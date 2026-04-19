@@ -6,20 +6,29 @@
              xmlns:models="clr-namespace:PartyRaidR.Shared.Dtos;assembly=PartyRaidR.Shared"
              x:DataType="vm:BrowseEventsVM"
              x:Class="PartyRaidR.Mobile.Views.Pages.BrowseEventsPage">
-    <Grid Padding="6,40,6,6" RowDefinitions="Auto, *">
+    <Grid Padding="6,40,6,6" RowDefinitions="Auto, Auto, *">
         <Label Text="Events"
                VerticalOptions="Center" 
                HorizontalOptions="Center"
                Grid.Row="0"
                Style="{StaticResource SubHeadline}"/>
+        <Label Text="Tap on an event to view its details."
+               TextColor="{StaticResource Gray400}"
+               HorizontalTextAlignment="Center"
+               Margin="0,5,0,0"
+               Grid.Row="1"/>
         <RefreshView Margin="0,8,0,0"
-                     Grid.Row="1"
+                     Grid.Row="2"
                      IsRefreshing="{Binding IsBusy}"
                      Command="{Binding LoadEventsCommand}">
             <CollectionView ItemsSource="{Binding Events}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:EventDisplayDto">
                         <Border Margin="0,7,0,0" StrokeShape="RoundRectangle 10">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BrowseEventsVM}}, Path=GoToEventDetailsCommand}"
+                                                      CommandParameter="{Binding Id}"/>
+                            </Border.GestureRecognizers>
                             <VerticalStackLayout Padding="8">
                                 <Label Text="{Binding Title}"
                            TextColor="{StaticResource PrimaryDark}"
@@ -42,11 +51,13 @@
                                     <Label Text=", " TextColor="{StaticResource Secondary}"/>
                                     <Label Text="{Binding PlaceName}" TextColor="{StaticResource Secondary}"/>
                                 </HorizontalStackLayout>
+                                <!--
                                 <Button Text="Details"
                                         FontSize="16"
                                         Margin="0,10,0,0"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BrowseEventsVM}}, Path=GoToEventDetailsCommand}"
-                                        CommandParameter="{Binding Id}"/>
+                                        CommandParameter="{Binding Id}"/> 
+                                -->
                             </VerticalStackLayout>
                         </Border>
                     </DataTemplate>
