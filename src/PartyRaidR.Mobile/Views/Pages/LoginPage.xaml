@@ -18,7 +18,8 @@
                                      IsPassword="True"
                                      Margin="20,0,20,10"
                                      Text="{Binding Password}"/>
-            <Button Text="Login" Margin="20,5,20,0"/>
+            <Button Text="Login" Margin="20,5,20,0"
+                    Command="{Binding LoginCommand}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
