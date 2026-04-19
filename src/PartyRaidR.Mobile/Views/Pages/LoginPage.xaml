@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:PartyRaidR.Mobile.Controls"
+             xmlns:vm="clr-namespace:PartyRaidR.Mobile.ViewModels"
+             x:DataType="vm:LoginVM"
              x:Class="PartyRaidR.Mobile.Views.Pages.LoginPage">
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Center">
@@ -9,11 +11,13 @@
             
             <controls:InputTextField Placeholder="Enter your email address!"
                                      IsPassword="False"
-                                     Margin="20,20,20,10"/>
+                                     Margin="20,20,20,10"
+                                     Text="{Binding Email}"/>
             
             <controls:InputTextField Placeholder="Enter your password!"
                                      IsPassword="True"
-                                     Margin="20,0,20,10"/>
+                                     Margin="20,0,20,10"
+                                     Text="{Binding Password}"/>
             <Button Text="Login" Margin="20,5,20,0"/>
         </VerticalStackLayout>
     </ScrollView>
