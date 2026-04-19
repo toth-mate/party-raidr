@@ -8,16 +8,17 @@
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Center">
             <Label Text="Login" Style="{StaticResource Headline}" TextColor="{StaticResource Primary}"/>
-            
+
             <controls:InputTextField Placeholder="Enter your email address!"
                                      IsPassword="False"
                                      Margin="20,20,20,10"
-                                     Text="{Binding Email}"/>
-            
+                                     Text="{Binding Email, Mode=TwoWay}"/>
+
             <controls:InputTextField Placeholder="Enter your password!"
                                      IsPassword="True"
                                      Margin="20,0,20,10"
-                                     Text="{Binding Password}"/>
+                                     Text="{Binding Password, Mode=TwoWay}"/>
+
             <Button Text="Login" Margin="20,5,20,0"
                     Command="{Binding LoginCommand}"/>
         </VerticalStackLayout>

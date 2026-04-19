@@ -29,6 +29,10 @@ namespace PartyRaidR.Mobile.ViewModels
                 Email = Email,
                 Password = Password
             };
+
+            Debug.WriteLine($"Email: {Email}");
+            Debug.WriteLine($"Password: {Password}");
+
             string result = await _authClient.Login(creds);
             Debug.WriteLine(result);
         }
