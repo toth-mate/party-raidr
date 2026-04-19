@@ -20,6 +20,10 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:EventDisplayDto">
                         <Border Margin="0,7,0,0" StrokeShape="RoundRectangle 10">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BrowseEventsVM}}, Path=GoToEventDetailsCommand}"
+                                                      CommandParameter="{Binding Id}"/>
+                            </Border.GestureRecognizers>
                             <VerticalStackLayout Padding="8">
                                 <Label Text="{Binding Title}"
                            TextColor="{StaticResource PrimaryDark}"
