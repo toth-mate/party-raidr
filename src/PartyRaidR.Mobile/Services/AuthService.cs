@@ -1,8 +1,11 @@
-﻿using System.Text.Json;
-using PartyRaidR.Shared.Dtos;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using Microsoft.Maui.Graphics.Text;
 using PartyRaidR.Mobile.Api;
-using System.Diagnostics;
+using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Dtos.AuthenticationRequests;
+using System.Diagnostics;
+using System.Text.Json;
 
 namespace PartyRaidR.Mobile.Services
 {
@@ -32,6 +35,15 @@ namespace PartyRaidR.Mobile.Services
 
         public async Task Login(string email, string password)
         {
+            var snackbarOptions = new SnackbarOptions
+            {
+                BackgroundColor = Color.FromArgb("#7852d1"),
+                TextColor = Color.FromRgb(255, 255, 255),
+                ActionButtonTextColor = Color.FromRgb(255, 255, 255),
+                CharacterSpacing = .115
+            };
+            string snackbarText = string.Empty;
+
             try
             {
                 UserLoginDto creds = new UserLoginDto
@@ -48,12 +60,20 @@ namespace PartyRaidR.Mobile.Services
                     await SecureStorage.SetAsync("access_token", token);
 
                     UserDto? user = await _authClient.GetMe();
-                    await SaveUser(user);                    
+                    await SaveUser(user);
+
+                    snackbarText = $"Successfully logged in as {user?.Username}!";
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"FAIL: {ex.Message}");
+                snackbarOptions.BackgroundColor = Color.FromRgb(207, 23, 53);
+                snackbarText = "Login failed. Please check your credentials and try again.";
+            }
+            finally
+            {
+                var snackbar = Snackbar.Make(snackbarText, visualOptions: snackbarOptions);
+                await snackbar.Show();
             }
         }
 
