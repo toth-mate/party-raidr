@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using PartyRaidR.Mobile.Api;
+using PartyRaidR.Mobile.Services;
 using PartyRaidR.Mobile.ViewModels;
 using PartyRaidR.Mobile.Views.Pages;
 using Refit;
@@ -34,9 +35,15 @@ namespace PartyRaidR.Mobile
             builder.Services.AddTransient<BrowseEventsPage>();
             builder.Services.AddTransient<EventDetailsPage>();
 
+            builder.Services.AddSingleton<IAuthService, AuthService>();
+
+            builder.Services.AddTransient<AuthHandler>();
+
             // API Clients
             builder.Services.AddRefitClient<IEventApi>()
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://10.0.2.2:8080/api"));
+                            .AddRefitClient<IAuthApi>()
+                            .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://10.0.2.2:8080/api"))
+                            .AddHttpMessageHandler<AuthHandler>();
 
 #if DEBUG
     		builder.Logging.AddDebug();
