@@ -24,20 +24,30 @@ namespace PartyRaidR.Mobile.ViewModels
         [RelayCommand]
         private async Task Login()
         {
-            UserLoginDto creds = new UserLoginDto
+            try
             {
-                Email = Email,
-                Password = Password
-            };
+                IsBusy = true;
 
-            string result = await _authClient.Login(creds);
-            Debug.WriteLine(result);
+                UserLoginDto creds = new UserLoginDto
+                {
+                    Email = Email,
+                    Password = Password
+                };
 
-            if(!string.IsNullOrEmpty(result))
-            {
-                await SecureStorage.SetAsync("access_token", result);
-                await Shell.Current.GoToAsync("//home");
+                string result = await _authClient.Login(creds);
+                Debug.WriteLine(result);
+
+                if (!string.IsNullOrEmpty(result))
+                {
+                    await SecureStorage.SetAsync("access_token", result);
+                    await Shell.Current.GoToAsync("//home");
+                }
             }
+            catch(Exception ex)
+            {
+                Debug.WriteLine($"FAIL: {ex.Message}");
+            }
+            finally { IsBusy = false; }
         }
     }
 }
