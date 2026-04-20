@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using PartyRaidR.Mobile.Api;
+using PartyRaidR.Mobile.Services;
 using PartyRaidR.Mobile.ViewModels;
 using PartyRaidR.Mobile.Views.Pages;
 using Refit;
@@ -33,6 +34,8 @@ namespace PartyRaidR.Mobile
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<BrowseEventsPage>();
             builder.Services.AddTransient<EventDetailsPage>();
+
+            builder.Services.AddSingleton<IAuthService, AuthService>();
 
             builder.Services.AddTransient<AuthHandler>();
 
