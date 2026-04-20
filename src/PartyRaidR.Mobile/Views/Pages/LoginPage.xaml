@@ -21,6 +21,10 @@
 
             <Button Text="Login" Margin="20,5,20,0"
                     Command="{Binding LoginCommand}"/>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="{StaticResource Primary}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
