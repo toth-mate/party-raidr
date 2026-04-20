@@ -8,5 +8,8 @@ namespace PartyRaidR.Mobile.Api
     {
         [Post("/auth/login")]
         Task<string> Login([Body] UserLoginDto credentials);
+
+        [Get("/auth/me")]
+        Task<UserDto> GetMe();
     }
 }

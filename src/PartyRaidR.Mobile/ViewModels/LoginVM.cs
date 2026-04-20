@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PartyRaidR.Mobile.Api;
+using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Dtos.AuthenticationRequests;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace PartyRaidR.Mobile.ViewModels
 {
@@ -42,6 +44,16 @@ namespace PartyRaidR.Mobile.ViewModels
                 if (!string.IsNullOrEmpty(result))
                 {
                     await SecureStorage.SetAsync("access_token", result);
+
+                    UserDto? user = await GetUser();
+
+                    // The user info is converted to a string to make storing easier.
+                    if(user is not null)
+                    {
+                        string userJson = JsonSerializer.Serialize(user);
+                        Preferences.Default.Set("user", userJson);
+                    }
+
                     await Shell.Current.GoToAsync("//home");
                 }
             }
@@ -53,6 +65,16 @@ namespace PartyRaidR.Mobile.ViewModels
             {
                 IsBusy = false;
                 LoginCommand.NotifyCanExecuteChanged();
+            }
+        }
+
+        private async Task<UserDto?> GetUser()
+        {
+            try { return await _authClient.GetMe(); }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"FAIL: {ex.Message}");
+                return null;
             }
         }
     }
