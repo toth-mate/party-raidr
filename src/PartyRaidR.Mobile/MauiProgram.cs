@@ -34,10 +34,13 @@ namespace PartyRaidR.Mobile
             builder.Services.AddTransient<BrowseEventsPage>();
             builder.Services.AddTransient<EventDetailsPage>();
 
+            builder.Services.AddTransient<AuthHandler>();
+
             // API Clients
             builder.Services.AddRefitClient<IEventApi>()
                             .AddRefitClient<IAuthApi>()
-                            .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://10.0.2.2:8080/api"));
+                            .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://10.0.2.2:8080/api"))
+                            .AddHttpMessageHandler<AuthHandler>();
 
 #if DEBUG
     		builder.Logging.AddDebug();
