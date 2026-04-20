@@ -24,6 +24,7 @@ namespace PartyRaidR.Mobile.ViewModels
         [RelayCommand(CanExecute = nameof(IsNotBusy))]
         private async Task Login()
         {
+            // Commands can only be executed if 'not busy' to avoid button spamming.
             IsBusy = true;
             LoginCommand.NotifyCanExecuteChanged();
 
