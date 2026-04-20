@@ -48,13 +48,7 @@ namespace PartyRaidR.Mobile.Services
                     await SecureStorage.SetAsync("access_token", token);
 
                     UserDto? user = await _authClient.GetMe();
-
-                    // The user info is converted to a string to make storing easier.
-                    if (user is not null)
-                    {
-                        string userJson = JsonSerializer.Serialize(user);
-                        Preferences.Default.Set("user", userJson);
-                    }
+                    await SaveUser(user);                    
                 }
             }
             catch (Exception ex)
@@ -65,5 +59,15 @@ namespace PartyRaidR.Mobile.Services
 
         public void Logout() =>
             Preferences.Default.Remove("user");
+
+        private async Task SaveUser(UserDto? user)
+        {
+            // The user info is converted to a string to make storing easier.
+            if (user is not null)
+            {
+                string userJson = JsonSerializer.Serialize(user);
+                Preferences.Default.Set("user", userJson);
+            }
+        }
     }
 }
