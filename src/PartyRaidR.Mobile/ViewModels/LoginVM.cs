@@ -33,7 +33,11 @@ namespace PartyRaidR.Mobile.ViewModels
             string result = await _authClient.Login(creds);
             Debug.WriteLine(result);
 
-            await SecureStorage.SetAsync("access_token", result);
+            if(!string.IsNullOrEmpty(result))
+            {
+                await SecureStorage.SetAsync("access_token", result);
+                await Shell.Current.GoToAsync("//home");
+            }
         }
     }
 }
