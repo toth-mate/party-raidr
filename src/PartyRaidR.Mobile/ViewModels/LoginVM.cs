@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PartyRaidR.Mobile.Api;
+using PartyRaidR.Mobile.Services;
 using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Dtos.AuthenticationRequests;
 using System.Diagnostics;
@@ -10,7 +11,7 @@ namespace PartyRaidR.Mobile.ViewModels
 {
     public partial class LoginVM : BaseVM
     {
-        private readonly IAuthApi _authClient;
+        private readonly IAuthService _authService;
 
         [ObservableProperty]
         private string _email;
@@ -18,9 +19,9 @@ namespace PartyRaidR.Mobile.ViewModels
         [ObservableProperty]
         private string _password;
 
-        public LoginVM(IAuthApi authClient)
+        public LoginVM(IAuthService authService)
         {
-            _authClient = authClient;
+            _authService = authService;
         }
 
         [RelayCommand(CanExecute = nameof(IsNotBusy))]
@@ -32,49 +33,14 @@ namespace PartyRaidR.Mobile.ViewModels
 
             try
             {
-                UserLoginDto creds = new UserLoginDto
-                {
-                    Email = Email,
-                    Password = Password
-                };
-
-                string result = await _authClient.Login(creds);
-                Debug.WriteLine(result);
-
-                if (!string.IsNullOrEmpty(result))
-                {
-                    await SecureStorage.SetAsync("access_token", result);
-
-                    UserDto? user = await GetUser();
-
-                    // The user info is converted to a string to make storing easier.
-                    if(user is not null)
-                    {
-                        string userJson = JsonSerializer.Serialize(user);
-                        Preferences.Default.Set("user", userJson);
-                    }
-
-                    await Shell.Current.GoToAsync("//home");
-                }
+                await _authService.Login(Email, Password);
+                await Shell.Current.GoToAsync("//home");
             }
-            catch(Exception ex)
-            {
-                Debug.WriteLine($"FAIL: {ex.Message}");
-            }
+            catch(Exception ex) { Debug.WriteLine($"FAIL: {ex.Message}"); }
             finally
             {
                 IsBusy = false;
                 LoginCommand.NotifyCanExecuteChanged();
-            }
-        }
-
-        private async Task<UserDto?> GetUser()
-        {
-            try { return await _authClient.GetMe(); }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"FAIL: {ex.Message}");
-                return null;
             }
         }
     }
