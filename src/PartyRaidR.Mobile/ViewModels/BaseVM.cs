@@ -10,7 +10,10 @@ namespace PartyRaidR.Mobile.ViewModels
     public abstract partial class BaseVM : ObservableObject
     {
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         private bool _isBusy;
+
+        public bool IsNotBusy => !IsBusy;
 
         protected BaseVM()
         {

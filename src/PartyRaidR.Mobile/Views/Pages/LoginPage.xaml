@@ -20,7 +20,8 @@
                                      Text="{Binding Password, Mode=TwoWay}"/>
 
             <Button Text="Login" Margin="20,5,20,0"
-                    Command="{Binding LoginCommand}"/>
+                    Command="{Binding LoginCommand}"
+                    IsEnabled="{Binding IsNotBusy}"/>
 
             <ActivityIndicator IsRunning="{Binding IsBusy}"
                                IsVisible="{Binding IsBusy}"

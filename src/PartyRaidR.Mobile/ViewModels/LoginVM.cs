@@ -21,13 +21,14 @@ namespace PartyRaidR.Mobile.ViewModels
             _authClient = authClient;
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(IsNotBusy))]
         private async Task Login()
         {
+            IsBusy = true;
+            LoginCommand.NotifyCanExecuteChanged();
+
             try
             {
-                IsBusy = true;
-
                 UserLoginDto creds = new UserLoginDto
                 {
                     Email = Email,
@@ -47,7 +48,11 @@ namespace PartyRaidR.Mobile.ViewModels
             {
                 Debug.WriteLine($"FAIL: {ex.Message}");
             }
-            finally { IsBusy = false; }
+            finally
+            {
+                IsBusy = false;
+                LoginCommand.NotifyCanExecuteChanged();
+            }
         }
     }
 }
