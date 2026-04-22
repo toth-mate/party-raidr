@@ -48,5 +48,11 @@ namespace PartyRaidR.Mobile.ViewModels
             Debug.WriteLine($"ID: {id}");
             await Shell.Current.GoToAsync($"eventdetails?id={id}");
         }
+
+        [RelayCommand]
+        private async Task GoToCreateEvent()
+        {
+            await Shell.Current.GoToAsync("createevent");
+        }
     }
 }

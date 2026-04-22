@@ -6,7 +6,7 @@
              xmlns:models="clr-namespace:PartyRaidR.Shared.Dtos;assembly=PartyRaidR.Shared"
              x:DataType="vm:BrowseEventsVM"
              x:Class="PartyRaidR.Mobile.Views.Pages.BrowseEventsPage">
-    <Grid Padding="6,40,6,6" RowDefinitions="Auto, Auto, *">
+    <Grid Padding="6,40,6,6" RowDefinitions="Auto, Auto, *, Auto">
         <Label Text="Events"
                VerticalOptions="Center" 
                HorizontalOptions="Center"
@@ -57,5 +57,16 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
+
+        <Button HorizontalOptions="End"
+                VerticalOptions="End"
+                Grid.Row="3"
+                Command="{Binding GoToCreateEventCommand}">
+            <Button.ImageSource>
+                <FontImageSource FontFamily="FA-Solid"
+                                 Glyph="&#xf067;"
+                                 Size="20"/>
+            </Button.ImageSource>
+        </Button>
     </Grid>
 </ContentPage>
