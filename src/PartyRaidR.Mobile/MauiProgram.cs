@@ -29,11 +29,13 @@ namespace PartyRaidR.Mobile
             builder.Services.AddTransient<LoginVM>();
             builder.Services.AddTransient<BrowseEventsVM>();
             builder.Services.AddTransient<EventDetailsVM>();
+            builder.Services.AddTransient<CreateEventVM>();
 
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<BrowseEventsPage>();
             builder.Services.AddTransient<EventDetailsPage>();
+            builder.Services.AddTransient<CreateEventPage>();
 
             builder.Services.AddSingleton<IAuthService, AuthService>();
 

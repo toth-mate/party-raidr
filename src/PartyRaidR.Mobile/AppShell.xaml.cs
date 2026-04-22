@@ -8,6 +8,7 @@ namespace PartyRaidR.Mobile
         {
             InitializeComponent();
             Routing.RegisterRoute("eventdetails", typeof(EventDetailsPage));
+            Routing.RegisterRoute("createevent", typeof(CreateEventPage));
         }
     }
 }
