@@ -1,11 +1,72 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:PartyRaidR.Mobile.Controls"
              x:Class="PartyRaidR.Mobile.Views.Pages.CreateEventPage">
-    <VerticalStackLayout>
+    <Grid RowDefinitions="Auto, *, Auto, *, *, *, *, *, *"
+          Padding="10,0">
         <Label 
-            Text="Create event"
+            Text="New event"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+            HorizontalOptions="Center"
+            Style="{StaticResource Headline}"/>
+        
+        <!-- Input fields -->
+        <VerticalStackLayout Grid.Row="1">
+            <Label Text="Title"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <Entry Placeholder="Enter event title"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="2">
+            <Label Text="Description"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <Editor Placeholder="Enter event description"
+                    HeightRequest="100"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="3">
+            <Label Text="Start date"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <DatePicker/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="4">
+            <Label Text="End date"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <DatePicker/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="5">
+            <Label Text="Place"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <Picker />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="6">
+            <Label Text="Category"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <Picker />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="7">
+            <Label Text="Room"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <Entry Placeholder="Enter the maximum amount of guests"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="8">
+            <Label Text="Ticket price"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <Entry Placeholder="Enter a price ($)"/>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>
