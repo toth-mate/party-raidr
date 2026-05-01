@@ -43,6 +43,7 @@ namespace PartyRaidR.Mobile
 
             // API Clients
             builder.Services.AddRefitClient<IEventApi>()
+                            .AddRefitClient<IPlaceApi>()
                             .AddRefitClient<IAuthApi>()
                             .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://10.0.2.2:8080/api"))
                             .AddHttpMessageHandler<AuthHandler>();
