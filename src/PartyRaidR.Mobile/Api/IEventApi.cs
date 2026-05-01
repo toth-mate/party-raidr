@@ -10,5 +10,8 @@ namespace PartyRaidR.Mobile.Api
 
         [Get("/event/display/{id}")]
         Task<EventDisplayDto> GetEventDisplay(string id);
+
+        [Post("/event")]
+        Task CreateEvent([Body] EventDto newEvent);
     }
 }
