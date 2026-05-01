@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:PartyRaidR.Mobile.ViewModels"
              xmlns:controls="clr-namespace:PartyRaidR.Mobile.Controls"
+             xmlns:vm="clr-namespace:PartyRaidR.Mobile.ViewModels"
+             x:DataType="vm:CreateEventVM"
              x:Class="PartyRaidR.Mobile.Views.Pages.CreateEventPage">
     <Grid RowDefinitions="Auto, *, Auto, *, *, *, *, *, *, *"
           Padding="10,0">
@@ -72,6 +73,7 @@
 
         <Button Grid.Row="9"
                 Text="Create"
-                FontSize="22"/>
+                FontSize="22"
+                IsEnabled="{Binding IsNotBusy}"/>
     </Grid>
 </ContentPage>
