@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:PartyRaidR.Mobile.Controls"
              x:Class="PartyRaidR.Mobile.Views.Pages.CreateEventPage">
-    <Grid RowDefinitions="Auto, *, Auto, *, *, *, *, *, *"
+    <Grid RowDefinitions="Auto, *, Auto, *, *, *, *, *, *, *"
           Padding="10,0">
         <Label 
             Text="New event"
@@ -68,5 +68,9 @@
                    FontSize="16"/>
             <Entry Placeholder="Enter a price ($)"/>
         </VerticalStackLayout>
+
+        <Button Grid.Row="9"
+                Text="Create"
+                FontSize="22"/>
     </Grid>
 </ContentPage>
