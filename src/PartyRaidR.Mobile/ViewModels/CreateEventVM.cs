@@ -1,7 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Android.Webkit;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PartyRaidR.Mobile.Api;
 using PartyRaidR.Shared.Dtos;
+using PartyRaidR.Shared.Enums;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -18,12 +20,16 @@ namespace PartyRaidR.Mobile.ViewModels
         [ObservableProperty]
         private PlaceDto _selectedPlace;
 
+        [ObservableProperty]
+        private ObservableCollection<EventCategory> _categories;
+
         public CreateEventVM(IEventApi eventClient, IPlaceApi placeClient)
         {
             _placeClient = placeClient;
             _eventClient = eventClient;
             Places = new ObservableCollection<PlaceDto>();
             SelectedPlace = new PlaceDto();
+            this.Categories = new ObservableCollection<EventCategory>(Enum.GetValues(typeof(EventCategory)).Cast<EventCategory>().ToList());
         }
 
         [RelayCommand]
@@ -37,7 +43,7 @@ namespace PartyRaidR.Mobile.ViewModels
             }
             catch(Exception ex)
             { Debug.WriteLine($"FAIL: {ex.Message}"); }
-            finally { IsBusy = false;  }
+            finally { IsBusy = false; }
         }
     }
 }

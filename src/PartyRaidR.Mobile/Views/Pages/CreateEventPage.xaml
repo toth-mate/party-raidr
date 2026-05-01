@@ -57,7 +57,7 @@
             <Label Text="Category"
                    TextColor="{StaticResource Gray900}"
                    FontSize="16"/>
-            <Picker />
+            <Picker ItemsSource="{Binding Categories}"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="7">
