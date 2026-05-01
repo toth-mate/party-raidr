@@ -47,7 +47,10 @@
             <Label Text="Place"
                    TextColor="{StaticResource Gray900}"
                    FontSize="16"/>
-            <Picker />
+            <Picker ItemsSource="{Binding Places}"
+                    SelectedItem="{Binding SelectedPlace}"
+                    ItemDisplayBinding="{Binding Name}">
+            </Picker>
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="6">

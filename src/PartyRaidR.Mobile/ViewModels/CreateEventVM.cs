@@ -15,11 +15,15 @@ namespace PartyRaidR.Mobile.ViewModels
         [ObservableProperty]
         private ObservableCollection<PlaceDto> _places;
 
+        [ObservableProperty]
+        private PlaceDto _selectedPlace;
+
         public CreateEventVM(IEventApi eventClient, IPlaceApi placeClient)
         {
             _placeClient = placeClient;
             _eventClient = eventClient;
             Places = new ObservableCollection<PlaceDto>();
+            SelectedPlace = new PlaceDto();
         }
 
         [RelayCommand]
