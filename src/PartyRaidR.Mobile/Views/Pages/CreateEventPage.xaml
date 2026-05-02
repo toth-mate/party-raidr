@@ -49,7 +49,8 @@
                    FontSize="16"/>
             <Picker ItemsSource="{Binding Places}"
                     SelectedItem="{Binding SelectedPlace}"
-                    ItemDisplayBinding="{Binding Name}">
+                    ItemDisplayBinding="{Binding Name}"
+                    Title="Select a place">
             </Picker>
         </VerticalStackLayout>
 
@@ -57,21 +58,24 @@
             <Label Text="Category"
                    TextColor="{StaticResource Gray900}"
                    FontSize="16"/>
-            <Picker ItemsSource="{Binding Categories}"/>
+            <Picker ItemsSource="{Binding Categories}"
+                    Title="Select a category"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="7">
             <Label Text="Room"
                    TextColor="{StaticResource Gray900}"
                    FontSize="16"/>
-            <Entry Placeholder="Enter the maximum amount of guests"/>
+            <Entry Placeholder="Enter the maximum amount of guests"
+                   Keyboard="Telephone"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="8">
             <Label Text="Ticket price"
                    TextColor="{StaticResource Gray900}"
                    FontSize="16"/>
-            <Entry Placeholder="Enter a price ($)"/>
+            <Entry Placeholder="Enter a price ($)"
+                   Keyboard="Numeric"/>
         </VerticalStackLayout>
 
         <Button Grid.Row="9"
