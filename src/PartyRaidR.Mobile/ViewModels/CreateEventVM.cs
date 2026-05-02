@@ -18,10 +18,37 @@ namespace PartyRaidR.Mobile.ViewModels
         private ObservableCollection<PlaceDto> _places;
 
         [ObservableProperty]
+        private ObservableCollection<EventCategory> _categories;
+
+        [ObservableProperty]
+        private string _title;
+
+        [ObservableProperty]
+        private string _description;
+
+        [ObservableProperty]
+        private DateOnly _startDate;
+
+        [ObservableProperty]
+        private DateOnly _endDate;
+
+        [ObservableProperty]
+        private TimeOnly _startTime;
+
+        [ObservableProperty]
+        private TimeOnly _endTime;
+
+        [ObservableProperty]
         private PlaceDto _selectedPlace;
 
         [ObservableProperty]
-        private ObservableCollection<EventCategory> _categories;
+        private EventCategory _selectedCategory;
+
+        [ObservableProperty]
+        private int _maxGuests;
+
+        [ObservableProperty]
+        private decimal _price;
 
         public CreateEventVM(IEventApi eventClient, IPlaceApi placeClient)
         {
