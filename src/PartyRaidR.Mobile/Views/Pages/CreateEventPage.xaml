@@ -89,6 +89,7 @@
                 Text="Create"
                 FontSize="18"
                 Margin="0,5,0,0"
+                Command="{Binding SavePlaceCommand}"
                 IsEnabled="{Binding IsNotBusy}"/>
     </Grid>
 </ContentPage>

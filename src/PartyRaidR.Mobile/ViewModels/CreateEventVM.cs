@@ -72,5 +72,39 @@ namespace PartyRaidR.Mobile.ViewModels
             { Debug.WriteLine($"FAIL: {ex.Message}"); }
             finally { IsBusy = false; }
         }
+
+        [RelayCommand]
+        private async Task SavePlace()
+        {
+            IsBusy = true;
+            try
+            {
+                EventDto newEvent = new EventDto
+                {
+                    Title = Title,
+                    Description = Description,
+                    StartingDate = StartDate.ToDateTime(StartTime),
+                    EndingDate = EndDate.ToDateTime(EndTime),
+                    PlaceId = SelectedPlace.Id,
+                    Category = SelectedCategory,
+                    Room = MaxGuests,
+                    TicketPrice = Price
+                };
+
+                Debug.WriteLine("\n------------------------------------");
+                Debug.WriteLine(newEvent.Title);
+                Debug.WriteLine(newEvent.Description);
+                Debug.WriteLine(newEvent.StartingDate);
+                Debug.WriteLine(newEvent.EndingDate);
+                Debug.WriteLine(newEvent.PlaceId);
+                Debug.WriteLine(newEvent.Category);
+                Debug.WriteLine(newEvent.Room);
+                Debug.WriteLine(newEvent.TicketPrice);
+                Debug.WriteLine("------------------------------------\n");
+            }
+            catch(Exception ex)
+            { Debug.WriteLine($"FAIL: {ex.Message}"); }
+            finally { IsBusy = false; }
+        }
     }
 }
