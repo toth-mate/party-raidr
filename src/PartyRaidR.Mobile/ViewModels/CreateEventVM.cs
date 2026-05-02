@@ -27,16 +27,16 @@ namespace PartyRaidR.Mobile.ViewModels
         private string _description;
 
         [ObservableProperty]
-        private DateOnly _startDate;
+        private DateTime _startDate;
 
         [ObservableProperty]
-        private DateOnly _endDate;
+        private DateTime _endDate;
 
         [ObservableProperty]
-        private TimeOnly _startTime;
+        private TimeSpan _startTime;
 
         [ObservableProperty]
-        private TimeOnly _endTime;
+        private TimeSpan _endTime;
 
         [ObservableProperty]
         private PlaceDto _selectedPlace;
@@ -50,6 +50,8 @@ namespace PartyRaidR.Mobile.ViewModels
         [ObservableProperty]
         private decimal _price;
 
+        public DateTime Now { get; } = DateTime.Now;
+
         public CreateEventVM(IEventApi eventClient, IPlaceApi placeClient)
         {
             _placeClient = placeClient;
@@ -57,6 +59,8 @@ namespace PartyRaidR.Mobile.ViewModels
             Places = new ObservableCollection<PlaceDto>();
             SelectedPlace = new PlaceDto();
             this.Categories = new ObservableCollection<EventCategory>(Enum.GetValues(typeof(EventCategory)).Cast<EventCategory>().ToList());
+            StartDate = DateTime.Now;
+            EndDate = DateTime.Now.AddDays(1);
         }
 
         [RelayCommand]
@@ -79,12 +83,18 @@ namespace PartyRaidR.Mobile.ViewModels
             IsBusy = true;
             try
             {
+                Debug.WriteLine($"Start date: {StartDate}, Time: {StartTime}");
+                Debug.WriteLine($"End date: {EndDate}, Time: {EndTime}");
+
+                DateTime startDate = new DateTime(new DateOnly(StartDate.Year, StartDate.Month, StartDate.Day), new TimeOnly(StartTime.Hours, StartTime.Minutes, StartTime.Seconds)),
+                         endTime   = new DateTime(new DateOnly(EndDate.Year, EndDate.Month, EndDate.Day), new TimeOnly(EndTime.Hours, EndTime.Minutes, EndTime.Seconds));
+
                 EventDto newEvent = new EventDto()
                 {
                     Title = Title,
                     Description = Description,
-                    StartingDate = StartDate.ToDateTime(StartTime),
-                    EndingDate = EndDate.ToDateTime(EndTime),
+                    StartingDate = startDate,
+                    EndingDate = endTime,
                     PlaceId = SelectedPlace.Id,
                     Category = SelectedCategory,
                     Room = MaxGuests,

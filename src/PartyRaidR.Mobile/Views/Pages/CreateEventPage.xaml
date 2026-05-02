@@ -36,15 +36,17 @@
             <Label Text="Start date"
                    TextColor="{StaticResource Gray900}"
                    FontSize="16"/>
-            <DatePicker Date="{Binding StartDate}"/>
-            <TimePicker Time="{Binding StartTime}"/>
+                <DatePicker Date="{Binding StartDate}"
+                            MinimumDate="{Binding Now}"/>
+                <TimePicker Time="{Binding StartTime}"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="4">
             <Label Text="End date"
                    TextColor="{StaticResource Gray900}"
                    FontSize="16"/>
-            <DatePicker Date="{Binding StartDate}"/>
+            <DatePicker Date="{Binding EndDate}"
+                        MinimumDate="{Binding StartDate}"/>
             <TimePicker Time="{Binding EndTime}"/>
         </VerticalStackLayout>
 
