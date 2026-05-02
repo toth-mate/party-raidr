@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:PartyRaidR.Mobile.ViewModels"
              x:DataType="vm:CreateEventVM"
              x:Class="PartyRaidR.Mobile.Views.Pages.CreateEventPage">
-    <Grid RowDefinitions="Auto, *, Auto, *, *, *, *, *, *, *"
+    <Grid RowDefinitions="Auto, *, Auto, *, *, *, *, *, *, Auto"
           Padding="10,0">
         <Label 
             Text="New event"
@@ -80,7 +80,8 @@
 
         <Button Grid.Row="9"
                 Text="Create"
-                FontSize="22"
+                FontSize="18"
+                Margin="0,5,0,0"
                 IsEnabled="{Binding IsNotBusy}"/>
     </Grid>
 </ContentPage>
