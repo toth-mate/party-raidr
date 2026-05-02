@@ -111,9 +111,13 @@ namespace PartyRaidR.Mobile.ViewModels
                 Debug.WriteLine(newEvent.Room);
                 Debug.WriteLine(newEvent.TicketPrice);
                 Debug.WriteLine("------------------------------------\n");
+
+                var response = await _eventClient.CreateEvent(newEvent);
+                Debug.WriteLine(response);
+                await Shell.Current.GoToAsync($"//home");
             }
             catch(Exception ex)
-            { Debug.WriteLine($"FAIL: {ex.Message}"); }
+            { Debug.WriteLine($"FAIL: {ex.Message}, Source: {ex.Source}"); }
             finally { IsBusy = false; }
         }
     }

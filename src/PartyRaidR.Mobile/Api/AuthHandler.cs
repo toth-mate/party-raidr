@@ -12,6 +12,7 @@ namespace PartyRaidR.Mobile.Api
                 request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
             var response = await base.SendAsync(request, cancellationToken);
+            Debug.WriteLine(await response.Content.ReadAsStringAsync());
 
             if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
