@@ -5,7 +5,8 @@
              xmlns:vm="clr-namespace:PartyRaidR.Mobile.ViewModels"
              x:DataType="vm:CreateEventVM"
              x:Class="PartyRaidR.Mobile.Views.Pages.CreateEventPage">
-    <Grid RowDefinitions="Auto, *, Auto, *, *, *, *, *, *, Auto"
+    <ScrollView>
+        <Grid RowDefinitions="*, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
           Padding="10,0">
         <Label 
             Text="New event"
@@ -92,4 +93,5 @@
                 Command="{Binding SavePlaceCommand}"
                 IsEnabled="{Binding IsNotBusy}"/>
     </Grid>
+    </ScrollView>
 </ContentPage>

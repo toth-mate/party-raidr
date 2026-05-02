@@ -79,7 +79,7 @@ namespace PartyRaidR.Mobile.ViewModels
             IsBusy = true;
             try
             {
-                EventDto newEvent = new EventDto
+                EventDto newEvent = new EventDto()
                 {
                     Title = Title,
                     Description = Description,
