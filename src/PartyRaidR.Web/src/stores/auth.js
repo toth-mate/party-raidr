@@ -1,5 +1,6 @@
 import { ref, computed } from "vue"
 import { defineStore } from "pinia"
+import { toast } from "vue3-toastify"
 import authService from "@/api/authService"
 
 export const useAuthStore = defineStore('auth', () => {
@@ -22,9 +23,12 @@ export const useAuthStore = defineStore('auth', () => {
                 user.value = userResponse.data
                 localStorage.setItem('user', JSON.stringify(user.value))
             }
+
+            toast.success('Login successful!')
             return true
         } catch(e) {
             console.error(e)
+            toast.error('Login failed. Please check your credentials and try again.')
         }
     }
 
