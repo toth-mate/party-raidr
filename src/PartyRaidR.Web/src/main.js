@@ -17,7 +17,9 @@ app.use(router)
 
 // Vue3Toastify configuration
 app.use(Vue3Toastify, {
-    autoClose: 3000
+    autoClose: 5000,
+    position: 'bottom-center',
+    theme: 'dark'
 })
 
 app.mount('#app')
