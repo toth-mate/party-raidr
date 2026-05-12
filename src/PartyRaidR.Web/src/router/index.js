@@ -6,6 +6,8 @@ import RegisterView from '../views/RegisterView.vue'
 import CreateEventView from '@/views/CreateEventView.vue'
 import EventDetailsView from '@/views/EventDetailsView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import AdminDashboard from '@/views/Admin/AdminDashboard.vue'
+import AdminLogin from '@/views/Admin/AdminLogin.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +47,18 @@ const router = createRouter({
       name: 'profile',
       component: ProfileView,
       meta: { title: 'Profile', requiresAuthentication: true }
+    },
+    {
+      path: '/admin-dashboard',
+      name: 'admin-dashboard',
+      component: AdminDashboard,
+      meta: { title: 'Admin Dashboard', requiresAuthentication: true }
+    },
+    {
+      path: '/admin-login',
+      name: 'admin-login',
+      component: AdminLogin,
+      meta: { title: 'Admin Login', requiresAuthentication: false }
     }
   ]
 })
