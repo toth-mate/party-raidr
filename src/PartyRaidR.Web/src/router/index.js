@@ -8,6 +8,7 @@ import EventDetailsView from '@/views/EventDetailsView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import AdminDashboard from '@/views/Admin/AdminDashboard.vue'
 import AdminLogin from '@/views/Admin/AdminLogin.vue'
+import ManagementView from '@/views/Admin/ManagementView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,6 +60,17 @@ const router = createRouter({
       name: 'admin-login',
       component: AdminLogin,
       meta: { title: 'Admin Login', requiresAuthentication: false }
+    },
+    {
+      path: '/admin-dashboard/:entity',
+      name: 'admin-management',
+      component: ManagementView,
+      meta: {
+        title: 'Admin Management',
+        requiresAuthentication: true,
+        authRedirect: '/admin-login',
+        adminOnly: true
+      }
     }
   ]
 })
