@@ -53,7 +53,12 @@ const router = createRouter({
       path: '/admin-dashboard',
       name: 'admin-dashboard',
       component: AdminDashboard,
-      meta: { title: 'Admin Dashboard', requiresAuthentication: false, authRedirect: '/admin-login' }
+      meta: {
+        title: 'Admin Dashboard',
+        requiresAuthentication: true,
+        authRedirect: '/admin-login',
+        adminOnly: true
+      }
     },
     {
       path: '/admin-login',
@@ -78,7 +83,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
 
-  if(to.meta.requiresAuthentication && !authStore.isAuthenticated) {
+  if(to.meta.requiresAuthentication && !authStore.isAuthenticated || (authStore.isAuthenticated && to.meta.adminOnly && !authStore.isAdmin)) {
       next(to.meta.authRedirect || '/login')
   } else {
     next()
