@@ -44,7 +44,10 @@ const router = useRouter()
 const navigateTo = (path) => router.push(path)
 </script>
 <style scoped>
-.dashboard-card { color: whitesmoke }
+.dashboard-card {
+    color: whitesmoke;
+    cursor: pointer
+}
 .col-12:first-of-type .dashboard-card {
     background-color: #198754
 }
