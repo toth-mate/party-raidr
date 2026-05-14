@@ -3,44 +3,57 @@
 
     <section class="container mt-5">
         <div class="row g-4">
-            <div class="col-12 col-md-6 col-lg-2 p-3 rounded">
-                <h2 class="h3">Users</h2>
-                <p>Manage users here.</p>
+            <div class="col-12 col-md-6 col-lg-2">
+                <div class="dashboard-card p-3 rounded h-100">
+                    <h2 class="h3">Users</h2>
+                    <p>Manage users here.</p>
+                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-2 p-3 rounded">
-                <h2 class="h3">Events</h2>
-                <p>Manage events here.</p>
+            <div class="col-12 col-md-6 col-lg-2">
+                <div class="dashboard-card p-3 rounded h-100">
+                    <h2 class="h3">Events</h2>
+                    <p>Manage events here.</p>
+                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-2 p-3 rounded">
-                <h2 class="h3">Cities</h2>
-                <p>Manage cities here.</p>
+            <div class="col-12 col-md-6 col-lg-2">
+                <div class="dashboard-card p-3 rounded h-100">
+                    <h2 class="h3">Cities</h2>
+                    <p>Manage cities here.</p>
+                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-2 p-3 rounded">
-                <h2 class="h3">Places</h2>
-                <p>Manage places here.</p>
+            <div class="col-12 col-md-6 col-lg-2">
+                <div class="dashboard-card p-3 rounded h-100">
+                    <h2 class="h3">Places</h2>
+                    <p>Manage places here.</p>
+                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-2 p-3 rounded">
-                <h2 class="h3">Applications</h2>
-                <p>Manage applications here.</p>
+            <div class="col-12 col-md-6 col-lg-2">
+                <div class="dashboard-card p-3 rounded h-100">
+                    <h2 class="h3">Applications</h2>
+                    <p>Manage applications here.</p>
+                </div>
             </div>
         </div>
     </section>
 </template>
 <style scoped>
-.col-12 { color: whitesmoke }
-.col-12:first-of-type {
+.dashboard-card { color: whitesmoke }
+.col-12:first-of-type .dashboard-card {
     background-color: #198754
 }
-.col-12:nth-of-type(2) {
+.col-12:nth-of-type(2) .dashboard-card {
     background-color: #0d6efd
 }
-.col-12:nth-of-type(3) {
+.col-12:nth-of-type(3) .dashboard-card {
     background-color: #ffc107
 }
-.col-12:nth-of-type(4) {
+.col-12:nth-of-type(4) .dashboard-card {
     background-color: #dc3545
 }
-.col-12:last-of-type {
+.col-12:nth-of-type(5) .dashboard-card {
+    background-color: #6c757d
+}
+.col-12:last-of-type .dashboard-card {
     background-color: #20c997
 }
 </style>
