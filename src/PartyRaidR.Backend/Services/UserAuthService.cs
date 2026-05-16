@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using PartyRaidR.Backend.Models.Responses;
 using PartyRaidR.Backend.Assemblers;
 using PartyRaidR.Backend.Models;
+using PartyRaidR.Shared.Enums;
 
 namespace PartyRaidR.Backend.Services
 {
@@ -55,6 +56,27 @@ namespace PartyRaidR.Backend.Services
             {
                 if(BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 {
+                    string token = _tokenService.GenerateToken(user);
+                    return CreateResponse(true, 200, token, "Login successful.");
+                }
+                else
+                    return CreateResponse<string>(false, 400, message: "Login failed: Incorrect email or password.");
+            }
+        }
+
+        public async Task<ServiceResponse<string>> AdminLoginAsync(UserLoginDto request)
+        {
+            User? user = await _userRepo.GetByEmailAsync(request.Email);
+
+            if(user is null)
+                return CreateResponse<string>(false, 400, message: "Login failed: Incorrect email or password.");
+            else
+            {
+                if(BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+                {
+                    if(user.Role != UserRole.Admin)
+                        return CreateResponse<string>(false, 400, message: "Login failed: User does not have admin privileges.");
+                    
                     string token = _tokenService.GenerateToken(user);
                     return CreateResponse(true, 200, token, "Login successful.");
                 }
