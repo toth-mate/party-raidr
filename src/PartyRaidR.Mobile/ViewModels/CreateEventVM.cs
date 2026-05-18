@@ -103,7 +103,12 @@ namespace PartyRaidR.Mobile.ViewModels
 
                 var response = await _eventClient.CreateEvent(newEvent);
                 Debug.WriteLine(response.ToString());
-                await Shell.Current.GoToAsync($"//home");
+
+                if(response is not null)
+                {
+                    string route = $"eventdetails?id={response.Id}" ?? $"//home";
+                    await Shell.Current.GoToAsync(route);
+                }
             }
             catch(Exception ex)
             { Debug.WriteLine($"FAIL: {ex.Message}, Source: {ex.Source}"); }
