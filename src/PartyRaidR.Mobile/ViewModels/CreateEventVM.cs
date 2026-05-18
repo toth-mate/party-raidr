@@ -1,4 +1,4 @@
-﻿using Android.Webkit;
+﻿//using Android.Webkit;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PartyRaidR.Mobile.Api;
@@ -89,14 +89,14 @@ namespace PartyRaidR.Mobile.ViewModels
                 DateTime startDate = new DateTime(new DateOnly(StartDate.Year, StartDate.Month, StartDate.Day), new TimeOnly(StartTime.Hours, StartTime.Minutes, StartTime.Seconds)),
                          endTime   = new DateTime(new DateOnly(EndDate.Year, EndDate.Month, EndDate.Day), new TimeOnly(EndTime.Hours, EndTime.Minutes, EndTime.Seconds));
 
-                EventDto newEvent = new EventDto()
+                CreateEventDto newEvent = new CreateEventDto()
                 {
                     Title = Title,
                     Description = Description,
                     StartingDate = startDate,
                     EndingDate = endTime,
                     PlaceId = SelectedPlace.Id,
-                    Category = SelectedCategory,
+                    Category = GetCategoryName(SelectedCategory),
                     Room = MaxGuests,
                     TicketPrice = Price
                 };
@@ -113,12 +113,31 @@ namespace PartyRaidR.Mobile.ViewModels
                 Debug.WriteLine("------------------------------------\n");
 
                 var response = await _eventClient.CreateEvent(newEvent);
-                Debug.WriteLine(response);
+                Debug.WriteLine(response.ToString());
                 await Shell.Current.GoToAsync($"//home");
             }
             catch(Exception ex)
             { Debug.WriteLine($"FAIL: {ex.Message}, Source: {ex.Source}"); }
             finally { IsBusy = false; }
+        }
+
+        private string GetCategoryName(EventCategory category)
+        {
+            switch (category)
+            {
+                case EventCategory.OutdoorsActivity:
+                    return "Outdoors Activity";
+                case EventCategory.IndoorsActivity:
+                    return "Indoors Activity";
+                case EventCategory.Concert:
+                    return "Concert";
+                case EventCategory.Festival:
+                    return "Festival";
+                case EventCategory.Party:
+                    return "Party";
+                default:
+                    return "None";
+            }
         }
     }
 }

@@ -242,23 +242,22 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
-        public override async Task<ServiceResponse<EventDto>> AddAsync(EventDto dto)
+        public async Task<ServiceResponse<EventDto>> AddAsync(CreateEventDto dto)
         {
             try
             {
                 // Check if the new event is valid
-                await ValidateEvent(dto);
+                EventDto newEvent = await ValidateEvent(dto);
+                return await base.AddAsync(newEvent);
             }
             catch(OverlappingEventsException oee)
             {
                 return CreateResponse<EventDto>(false, 409, message: oee.Message);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 return CreateResponse<EventDto>(false, 500, message: $"An error occured while validating the event: {ex.Message}");
             }
-
-            return await base.AddAsync(dto);
         }
 
         public override async Task<ServiceResponse<EventDto>> UpdateAsync(EventDto dto)

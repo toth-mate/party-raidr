@@ -57,6 +57,68 @@ namespace PartyRaidR.Backend.Services
             dto.IsActive = true;
         }
 
+        private async Task<EventDto> ValidateEvent(CreateEventDto dto)
+        {
+            if (dto.Title.Trim() == string.Empty)
+                throw new ArgumentException("Title cannot be empty.");
+
+            if (dto.Description.Trim() == string.Empty)
+                throw new ArgumentException("Description cannot be empty.");
+
+            if (dto.StartingDate >= dto.EndingDate)
+                throw new ArgumentException("Starting date must be before ending date.");
+
+            if (dto.StartingDate <= DateTime.UtcNow)
+                throw new ArgumentException("Starting date must be in the future.");
+
+            if (dto.StartingDate < DateTime.UtcNow.AddHours(3))
+                throw new ArgumentException("Starting date must be at least 3 hours from now.");
+
+            if (dto.EndingDate < dto.StartingDate.AddMinutes(20))
+                throw new ArgumentException("Event duration must be at least 20 minutes.");
+
+            if (dto.TicketPrice < 0)
+                throw new ArgumentException("Ticket price cannot be negative.");
+
+            Place? place = await _placeRepo.GetByIdAsync(dto.PlaceId);
+
+            if (dto.PlaceId is null || dto.PlaceId == string.Empty || place is null)
+                throw new ArgumentException("Invalid place.");
+
+            if (dto.Room < 0 || dto.Room == 1)
+                throw new ArgumentException("Room must be greater than 1.");
+
+
+            var eventsAtPlace = await _repo.FindByConditionAsync(e => e.PlaceId == dto.PlaceId);
+            _repo.ClearTracker();
+
+            // Check for overlapping events at the same place
+            bool isOverlapping = eventsAtPlace.Any(e =>
+                e.Id != dto.Id
+                && (dto.StartingDate <= e.StartingDate && dto.EndingDate > e.StartingDate)
+                || (dto.StartingDate > e.StartingDate && dto.StartingDate < e.EndingDate)
+            );
+
+            if (isOverlapping)
+                throw new OverlappingEventsException("An event is already scheduled at this place during the specified time.");
+
+            return new EventDto
+            {
+                Id = Guid.Empty.ToString(),
+                Title = dto.Title,
+                Description = dto.Description,
+                StartingDate = dto.StartingDate,
+                EndingDate = dto.EndingDate,
+                TicketPrice = dto.TicketPrice,
+                Category = GetEventCategoryFromString(dto.Category),
+                PlaceId = dto.PlaceId,
+                Room = dto.Room,
+                DateCreated = DateTime.Now,
+                AuthorId = _userContext.UserId,
+                IsActive = true
+            };
+        }
+
         private async Task<bool> IsUserAuthor(Event eventToEdit)
         {
             string userId = _userContext.UserId;
@@ -83,6 +145,25 @@ namespace PartyRaidR.Backend.Services
                     return "Party";
                 default:
                     return "Unknown";
+            }
+        }
+
+        private EventCategory GetEventCategoryFromString(string category)
+        {
+            switch (category)
+            {
+                case "Outdoors Activity":
+                    return EventCategory.OutdoorsActivity;
+                case "Indoors Activity":
+                    return EventCategory.IndoorsActivity;
+                case "Concert":
+                    return EventCategory.Concert;
+                case "Festival":
+                    return EventCategory.Festival;
+                case "Party":
+                    return EventCategory.Party;
+                default:
+                    return EventCategory.None;
             }
         }
 
