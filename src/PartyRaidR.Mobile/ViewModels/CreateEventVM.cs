@@ -101,17 +101,6 @@ namespace PartyRaidR.Mobile.ViewModels
                     TicketPrice = Price
                 };
 
-                Debug.WriteLine("\n------------------------------------");
-                Debug.WriteLine(newEvent.Title);
-                Debug.WriteLine(newEvent.Description);
-                Debug.WriteLine(newEvent.StartingDate);
-                Debug.WriteLine(newEvent.EndingDate);
-                Debug.WriteLine(newEvent.PlaceId);
-                Debug.WriteLine(newEvent.Category);
-                Debug.WriteLine(newEvent.Room);
-                Debug.WriteLine(newEvent.TicketPrice);
-                Debug.WriteLine("------------------------------------\n");
-
                 var response = await _eventClient.CreateEvent(newEvent);
                 Debug.WriteLine(response.ToString());
                 await Shell.Current.GoToAsync($"//home");
