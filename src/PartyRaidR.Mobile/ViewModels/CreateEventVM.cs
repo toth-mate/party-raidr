@@ -122,8 +122,6 @@ namespace PartyRaidR.Mobile.ViewModels
             catch(Exception ex)
             {
                 Debug.WriteLine($"FAIL: {ex.Message}, Source: {ex.Source}");
-                //snackbarColor = Color.FromRgb(220, 53, 69);
-                //snackbarMessage = ex.Message;
             }
             finally
             {
