@@ -1,11 +1,13 @@
 ﻿//using Android.Webkit;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Maui.Alerts;
 using PartyRaidR.Mobile.Api;
 using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Enums;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using CommunityToolkit.Maui.Core;
 
 namespace PartyRaidR.Mobile.ViewModels
 {
@@ -81,11 +83,10 @@ namespace PartyRaidR.Mobile.ViewModels
         private async Task SavePlace()
         {
             IsBusy = true;
+            Color snackbarColor = Color.FromRgb(25, 135, 84);
+            string snackbarMessage = "Event created successfully!";
             try
             {
-                Debug.WriteLine($"Start date: {StartDate}, Time: {StartTime}");
-                Debug.WriteLine($"End date: {EndDate}, Time: {EndTime}");
-
                 DateTime startDate = new DateTime(new DateOnly(StartDate.Year, StartDate.Month, StartDate.Day), new TimeOnly(StartTime.Hours, StartTime.Minutes, StartTime.Seconds)),
                          endTime   = new DateTime(new DateOnly(EndDate.Year, EndDate.Month, EndDate.Day), new TimeOnly(EndTime.Hours, EndTime.Minutes, EndTime.Seconds));
 
@@ -102,17 +103,32 @@ namespace PartyRaidR.Mobile.ViewModels
                 };
 
                 var response = await _eventClient.CreateEvent(newEvent);
-                Debug.WriteLine(response.ToString());
+                Debug.WriteLine($"dwasdsa {response}");
 
-                if(response is not null)
+                if (response is not null)
                 {
                     string route = $"eventdetails?id={response.Id}" ?? $"//home";
                     await Shell.Current.GoToAsync(route);
+
+                    ISnackbar sb = Snackbar.Make(snackbarMessage, visualOptions: new()
+                    {
+                        BackgroundColor = snackbarColor,
+                        TextColor = Color.FromRgb(255, 255, 255),
+                        ActionButtonTextColor = Color.FromRgb(255, 255, 255)
+                    });
+                    await sb.Show();
                 }
             }
             catch(Exception ex)
-            { Debug.WriteLine($"FAIL: {ex.Message}, Source: {ex.Source}"); }
-            finally { IsBusy = false; }
+            {
+                Debug.WriteLine($"FAIL: {ex.Message}, Source: {ex.Source}");
+                //snackbarColor = Color.FromRgb(220, 53, 69);
+                //snackbarMessage = ex.Message;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private string GetCategoryName(EventCategory category)
