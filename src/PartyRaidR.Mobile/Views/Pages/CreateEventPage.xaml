@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:PartyRaidR.Mobile.Controls"
+             xmlns:vm="clr-namespace:PartyRaidR.Mobile.ViewModels"
+             x:DataType="vm:CreateEventVM"
+             x:Class="PartyRaidR.Mobile.Views.Pages.CreateEventPage">
+    <ScrollView>
+        <Grid RowDefinitions="*, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+          Padding="10,0">
+        <Label 
+            Text="New event"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Style="{StaticResource Headline}"/>
+        
+        <!-- Input fields -->
+        <VerticalStackLayout Grid.Row="1">
+            <Label Text="Title"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <Entry Placeholder="Enter event title"
+                   Text="{Binding Title}"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="2">
+            <Label Text="Description"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <Editor Placeholder="Enter event description"
+                    HeightRequest="100"
+                    Text="{Binding Description}"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="3">
+            <Label Text="Start date"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+                <DatePicker Date="{Binding StartDate}"
+                            MinimumDate="{Binding Now}"/>
+                <TimePicker Time="{Binding StartTime}"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="4">
+            <Label Text="End date"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <DatePicker Date="{Binding EndDate}"
+                        MinimumDate="{Binding StartDate}"/>
+            <TimePicker Time="{Binding EndTime}"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="5">
+            <Label Text="Place"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <Picker ItemsSource="{Binding Places}"
+                    SelectedItem="{Binding SelectedPlace}"
+                    ItemDisplayBinding="{Binding Name}"
+                    Title="Select a place">
+            </Picker>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="6">
+            <Label Text="Category"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <Picker ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding SelectedCategory}"
+                    Title="Select a category"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="7">
+            <Label Text="Room"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <Entry Placeholder="Enter the maximum amount of guests"
+                   Keyboard="Telephone"
+                   Text="{Binding MaxGuests}"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="8">
+            <Label Text="Ticket price"
+                   TextColor="{StaticResource Gray900}"
+                   FontSize="16"/>
+            <Entry Placeholder="Enter a price ($)"
+                   Keyboard="Numeric"
+                   Text="{Binding Price}"/>
+        </VerticalStackLayout>
+
+        <Button Grid.Row="9"
+                Text="Create"
+                FontSize="18"
+                Margin="0,5,0,0"
+                Command="{Binding SavePlaceCommand}"
+                IsEnabled="{Binding IsNotBusy}"/>
+    </Grid>
+    </ScrollView>
+</ContentPage>

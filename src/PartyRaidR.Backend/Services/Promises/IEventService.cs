@@ -7,6 +7,7 @@ namespace PartyRaidR.Backend.Services.Promises
 {
     public interface IEventService : IBaseService<Event, EventDto>
     {
+        Task<ServiceResponse<EventDto>> AddAsync(CreateEventDto dto);
         Task<ServiceResponse<EventDisplayDto>> GetEventWithDetailsAsync(string id);
         Task<ServiceResponse<List<EventDisplayDto>>> GetEventsWithDetailsAsync();
         Task<ServiceResponse<List<EventDto>>> GetActiveEventsAsync();

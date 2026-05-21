@@ -29,11 +29,13 @@ namespace PartyRaidR.Mobile
             builder.Services.AddTransient<LoginVM>();
             builder.Services.AddTransient<BrowseEventsVM>();
             builder.Services.AddTransient<EventDetailsVM>();
+            builder.Services.AddTransient<CreateEventVM>();
 
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<BrowseEventsPage>();
             builder.Services.AddTransient<EventDetailsPage>();
+            builder.Services.AddTransient<CreateEventPage>();
 
             builder.Services.AddSingleton<IAuthService, AuthService>();
 
@@ -41,6 +43,7 @@ namespace PartyRaidR.Mobile
 
             // API Clients
             builder.Services.AddRefitClient<IEventApi>()
+                            .AddRefitClient<IPlaceApi>()
                             .AddRefitClient<IAuthApi>()
                             .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://10.0.2.2:8080/api"))
                             .AddHttpMessageHandler<AuthHandler>();

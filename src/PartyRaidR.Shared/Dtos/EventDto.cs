@@ -1,4 +1,5 @@
 ﻿using PartyRaidR.Shared.Enums;
+using System.Text.Json.Serialization;
 
 namespace PartyRaidR.Shared.Dtos
 {
@@ -10,6 +11,7 @@ namespace PartyRaidR.Shared.Dtos
         public DateTime StartingDate { get; set; } = DateTime.Now;
         public DateTime EndingDate { get; set; } = DateTime.Now;
         public string PlaceId { get; set; } = string.Empty;
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public EventCategory Category { get; set; } = EventCategory.None;
         public string AuthorId { get; set; } = string.Empty;
         public int Room { get; set; } = 0;

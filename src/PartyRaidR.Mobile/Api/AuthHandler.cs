@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using CommunityToolkit.Maui.Alerts;
+using System.Diagnostics;
 
 namespace PartyRaidR.Mobile.Api
 {
@@ -17,6 +18,16 @@ namespace PartyRaidR.Mobile.Api
             {
                 Debug.WriteLine("FAIL: Unauthorized!!!");
                 await Shell.Current.GoToAsync("/profile");
+            }
+            else if (!response.IsSuccessStatusCode)
+            {
+                var snackbar = Snackbar.Make(await response.Content.ReadAsStringAsync(), visualOptions: new()
+                {
+                    BackgroundColor = Color.FromRgb(220, 53, 69),
+                    TextColor = Color.FromRgb(255, 255, 255),
+                    ActionButtonTextColor = Color.FromRgb(255, 255, 255)
+                });
+                await snackbar.Show();
             }
 
             return response;

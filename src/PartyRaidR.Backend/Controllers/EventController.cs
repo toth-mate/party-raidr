@@ -17,6 +17,11 @@ namespace PartyRaidR.Backend.Controllers
             _eventService = service;
         }
 
+        [Authorize]
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateEvent([FromBody] CreateEventDto dto) =>
+            HandleResponse(await _eventService.AddAsync(dto));
+
         [HttpGet("count")]
         public async Task<IActionResult> GetEventCount() =>
             HandleResponse(await _eventService.GetNumberOfEventsAsync());
