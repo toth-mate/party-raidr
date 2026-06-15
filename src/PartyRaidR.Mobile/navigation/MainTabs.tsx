@@ -12,7 +12,7 @@ export default function MainTabs() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors.primary,
         headerShown: false,
         tabBarButton: HapticTab,
       }}>
