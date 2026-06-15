@@ -1,50 +1,21 @@
-# Welcome to your Expo app 👋
+# Mobile app
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is the mobile app built with React Native. The project had to be migrated from .NET MAUI because of its limitations and poor developer experience. The legacy MAUI app can still be found in the repository under ```src`/PartyRaidR.Mobile (Old)```, but relating issues won't be worked on and will be closed soon.
 
-## Get started
+## Try the project
 
-1. Install dependencies
+You can try the project on your own device! Just install Expo Go from the Google Play Store on Android or the App Store on iOS.
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Once you have Expo Go installed and you're in the app's directory ```(src/PartyRaidR.Mobile)``` in your terminal, run the following command:
 
 ```bash
-npm run reset-project
+> npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Now, you should be able to see a QR code. Scanning it with your device will build the app for you and open it in Expo Go.
 
-## Learn more
+You can now try it and play around.
 
-To learn more about developing your project with Expo, look at the following resources:
+###### Important!
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+The backend and database services must be running on your PC for the app to work properly.
