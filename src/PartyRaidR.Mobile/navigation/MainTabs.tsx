@@ -23,6 +23,13 @@ export default function MainTabs() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="browse"
+        options={{
+          title: 'Browse',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="magnifyingglass" color={color} />,
+        }}
+      />
     </Tabs>
   );
 }
