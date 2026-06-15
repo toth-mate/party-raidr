@@ -5,6 +5,7 @@ import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Platform } from 'react-native';
 
 export default function MainTabs() {
   const colorScheme = useColorScheme();
@@ -33,8 +34,14 @@ export default function MainTabs() {
       <Tabs.Screen
         name="create"
         options={{
-          title: 'Create',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="plus.circle" color={color} />,
+          title: '',
+          tabBarIcon: ({ color }) => <IconSymbol size={44} name="plus.circle" color={color} />,
+          tabBarIconStyle: {
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+            marginTop: Platform.OS === 'ios' ? 6 : 0,
+          }
         }}
       />
       <Tabs.Screen
