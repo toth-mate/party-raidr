@@ -8,7 +8,7 @@ export default function HomeScreen() {
     <>
       <ThemedView safe={true}>
         <ThemedText type="title">
-          Main Page
+          Home
         </ThemedText>
       </ThemedView>
     </>
