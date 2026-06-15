@@ -37,6 +37,13 @@ export default function MainTabs() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="plus.circle" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.circle" color={color} />,
+        }}
+      />
     </Tabs>
   );
 }
