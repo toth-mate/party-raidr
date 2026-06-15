@@ -1,12 +1,12 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 
-export default function HomeScreen() {
+export default function BrowseScreen() {
   return (
     <>
       <ThemedView safe={true}>
         <ThemedText type="title">
-          Home
+          Browse
         </ThemedText>
       </ThemedView>
     </>
