@@ -10,15 +10,22 @@ import { Colors } from '@/constants/theme';
 
 export default function BrowseScreen() {
   const [events, setEvents] = useState<EventDisplayDto[]>();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const loadData = async () => {
+    const data = await eventService.getAllDisplay();
+    setEvents(data);
+  };
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await loadData();
+    setIsRefreshing(false);
+  };
 
   useEffect(() => {
-    setIsLoading(true);
-
-    eventService.getAllDisplay()
-      .then((data) => setEvents(data));
-
-    setIsLoading(false);
+    loadData().finally(() => setIsLoading(false));
   }, []);
 
   const renderItem = (item: EventDisplayDto) => {
@@ -53,6 +60,8 @@ export default function BrowseScreen() {
           data={events}
           renderItem={({item}) => renderItem(item)}
           keyExtractor={(item) => item.id}
+          refreshing={isRefreshing}
+          onRefresh={handleRefresh}
           />
       </ThemedView>
     </>
