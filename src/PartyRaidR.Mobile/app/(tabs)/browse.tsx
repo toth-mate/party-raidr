@@ -22,12 +22,15 @@ export default function BrowseScreen() {
   }, []);
 
   const renderItem = (item: EventDisplayDto) => {
+    // Titles above 20 characters are shortened for more convenient display.
+    const renderTitle = item.title.length < 20 ? item.title : item.title.slice(0, 20).trim().concat('...');
+
     return (
       <ThemedView style={styles.listItem}>
         <View style={styles.listItemHeader}>
           <ThemedText type="subtitle"
             style={styles.eventTitle}>
-            {item.title}
+            {renderTitle}
           </ThemedText>
           <ThemedText style={styles.eventDate}>
             {item.dateCreated}
