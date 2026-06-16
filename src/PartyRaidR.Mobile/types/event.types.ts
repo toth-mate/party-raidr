@@ -1,5 +1,5 @@
 export interface EventDisplayDto {
-    id: number;
+    id: string;
     title: string;
     description: string;
     startingDate: string;

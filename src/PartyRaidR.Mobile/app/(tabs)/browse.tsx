@@ -5,6 +5,7 @@ import { eventService } from '@/services/eventService';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { EventDisplayDto } from '@/types/event.types';
+import { FlatList } from 'react-native';
 
 export default function BrowseScreen() {
   const [events, setEvents] = useState<EventDisplayDto[]>();
@@ -19,12 +20,22 @@ export default function BrowseScreen() {
     setIsLoading(false);
   }, []);
 
+  const renderItem = (item: EventDisplayDto) => {
+    return (
+      <ThemedText>
+        {item.title}
+      </ThemedText>
+    )
+  };
+
   return (
     <>
       <ThemedView safe={true}>
-        <ThemedText type="title">
-          Browse
-        </ThemedText>
+        <FlatList
+          data={events}
+          renderItem={({item}) => renderItem(item)}
+          keyExtractor={(item) => item.id}
+          />
       </ThemedView>
     </>
   );
