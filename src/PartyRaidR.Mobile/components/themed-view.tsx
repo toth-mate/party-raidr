@@ -32,8 +32,9 @@ export function ThemedView({ style, lightColor, darkColor, safe, ...otherProps }
         {
           paddingTop: insets.top,
           paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
+          paddingLeft: 10,
+          paddingRight: 10,
+          flex: 1,
         },
       ]}
       {...otherProps}
