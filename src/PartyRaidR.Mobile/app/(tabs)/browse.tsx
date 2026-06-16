@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, FlatList, View } from 'react-native';
+import { StyleSheet, FlatList, View, ActivityIndicator } from 'react-native';
 
 import { EventDisplayDto } from '@/types/event.types';
 import { eventService } from '@/services/eventService';
@@ -50,21 +50,23 @@ export default function BrowseScreen() {
     )
   };
 
+  if(isLoading) {
+    return <ActivityIndicator size="large" color={Colors.primary} />;
+  }
+
   return (
-    <>
-      <ThemedView safe={true}>
-        <ThemedText style={styles.descriptionText}>
-          Tap on an event to view its details.
-        </ThemedText>
-        <FlatList
-          data={events}
-          renderItem={({item}) => renderItem(item)}
-          keyExtractor={(item) => item.id}
-          refreshing={isRefreshing}
-          onRefresh={handleRefresh}
-          />
-      </ThemedView>
-    </>
+    <ThemedView safe={true}>
+      <ThemedText style={styles.descriptionText}>
+        Tap on an event to view its details.
+      </ThemedText>
+      <FlatList
+        data={events}
+        renderItem={({item}) => renderItem(item)}
+        keyExtractor={(item) => item.id}
+        refreshing={isRefreshing}
+        onRefresh={handleRefresh}
+        />
+    </ThemedView>
   );
 }
 
