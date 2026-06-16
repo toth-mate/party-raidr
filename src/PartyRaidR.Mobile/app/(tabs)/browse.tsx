@@ -46,6 +46,9 @@ export default function BrowseScreen() {
   return (
     <>
       <ThemedView safe={true}>
+        <ThemedText style={styles.descriptionText}>
+          Tap on an event to view its details.
+        </ThemedText>
         <FlatList
           data={events}
           renderItem={({item}) => renderItem(item)}
@@ -57,6 +60,11 @@ export default function BrowseScreen() {
 }
 
 const styles = StyleSheet.create({
+  descriptionText: {
+    marginTop: 10,
+    marginBottom: 15,
+    textAlign: 'center',
+  },
   listItem: {
     borderWidth: 1,
     borderColor: '#999',
