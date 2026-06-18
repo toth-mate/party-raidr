@@ -7,6 +7,7 @@ import { eventService } from '@/services/eventService';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
+import ThemedButton from '@/components/themed-button';
 
 export default function BrowseScreen() {
   const [events, setEvents] = useState<EventDisplayDto[]>();
