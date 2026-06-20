@@ -1,9 +1,12 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 import React from 'react';
+import { Link } from 'expo-router';
+
+import { useThemeColor } from '@/hooks/use-theme-color';
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
-import { useThemeColor } from '@/hooks/use-theme-color';
 import ThemedButton from '@/components/themed-button';
+import { Colors } from '@/constants/theme';
 
 const Login = () => {
   const inputTextColor = useThemeColor({}, 'text');
@@ -52,6 +55,10 @@ const Login = () => {
           }}
           title='Login'
           onPress={() => console.log('Login')}/>
+
+        <ThemedText style={styles.textCentered}>
+          Don't have an account yet? <Link href='/' style={styles.link}>Register here!</Link>
+        </ThemedText>
       </ThemedView>
     </ThemedView>
   );
@@ -67,7 +74,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   textCentered: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
   input: {
     marginTop: 5,
@@ -80,5 +87,8 @@ const styles = StyleSheet.create({
   },
   inputSection: {
     marginTop: 10,
+  },
+  link: {
+    color: Colors.secondaryDarkText,
   },
 });
