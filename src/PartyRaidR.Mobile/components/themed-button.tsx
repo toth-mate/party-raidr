@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         marginVertical: 10,
         color: '#fff',
-        textAlign: 'center',
         flexDirection: 'row',
+        justifyContent: 'center',
     },
     primary: {
         backgroundColor: Colors.primary,

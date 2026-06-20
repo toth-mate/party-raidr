@@ -2,10 +2,11 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import React from 'react';
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
-import { Colors } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import ThemedButton from '@/components/themed-button';
 
 const Login = () => {
+  const inputTextColor = useThemeColor({}, 'text');
   const backgroundColor = useThemeColor({}, 'inputFieldBackground');
 
   return (
@@ -26,6 +27,7 @@ const Login = () => {
             placeholder='example@mail.org'
             inputMode='email'
             style={[styles.input, {
+              color: inputTextColor,
               backgroundColor: backgroundColor,
             }]}
           />
@@ -38,10 +40,18 @@ const Login = () => {
             inputMode='text'
             secureTextEntry
             style={[styles.input, {
+              color: inputTextColor,
               backgroundColor: backgroundColor,
             }]}
           />
         </View>
+
+        <ThemedButton
+          style={{
+            marginTop: 15,
+          }}
+          title='Login'
+          onPress={() => console.log('Login')}/>
       </ThemedView>
     </ThemedView>
   );
