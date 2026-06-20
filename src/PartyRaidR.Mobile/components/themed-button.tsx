@@ -1,20 +1,23 @@
 import { ActivityIndicator, Pressable, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import React from 'react'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Colors } from '@/constants/theme';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'success' | 'warning' | 'info';
+type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'success' | 'warning' | 'info';
 
-export type ThemedButtonProps = {
-    title: string;
+type ThemedButtonProps = {
+    title?: string;
     onPress: () => void;
     variant?: ButtonVariant,
     isLoading?: boolean;
     disabled?: boolean;
     style?: StyleProp<ViewStyle>;
+    icon?: string;
 };
 
 const ThemedButton = ({
     title,
+    icon,
     onPress,
     variant = 'primary',
     isLoading = false,
@@ -40,7 +43,17 @@ const ThemedButton = ({
         {isLoading ? (
             <ActivityIndicator size="small" color={variant === 'secondary' ? 'white' : 'black'} />
         ) : (
-            <Text style={styles.text}>{title}</Text>
+            <>
+                {icon && (
+                    <Ionicons
+                        name={icon}
+                        size={20}
+                        color="#fff"
+                        style={[title ? { marginRight: 8 } : null]}
+                    />
+                )}
+                <Text style={styles.text}>{title}</Text>
+            </>
         )}
     </Pressable>
   )
@@ -56,6 +69,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         color: '#fff',
         textAlign: 'center',
+        flexDirection: 'row',
     },
     primary: {
         backgroundColor: Colors.primary,
@@ -91,4 +105,4 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 600,
     },
-})
+});

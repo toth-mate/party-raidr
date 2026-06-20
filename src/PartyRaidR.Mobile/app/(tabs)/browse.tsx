@@ -57,9 +57,16 @@ export default function BrowseScreen() {
 
   return (
     <ThemedView safe={true}>
-      <ThemedText style={styles.descriptionText}>
-        Tap on an event to view its details.
-      </ThemedText>
+      <View style={styles.contentHeader}>
+        <ThemedText style={styles.descriptionText}>
+          Tap on an event to view its details.
+        </ThemedText>
+        <ThemedButton
+          onPress={() => console.log('Search')}
+          icon="search"
+          variant='tertiary'
+        />
+      </View>
       <FlatList
         data={events}
         renderItem={({item}) => renderItem(item)}
@@ -72,6 +79,12 @@ export default function BrowseScreen() {
 }
 
 const styles = StyleSheet.create({
+  contentHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderColor: 'black',
+  },
   descriptionText: {
     marginTop: 10,
     marginBottom: 15,
