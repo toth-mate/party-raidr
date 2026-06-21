@@ -31,7 +31,7 @@ const Login = () => {
       if(token) {
         await SecureStorage.setItemAsync('auth_token', token);
         await initialize();
-        router.replace('/');
+        router.replace('/profile');
       }
     }
   };
