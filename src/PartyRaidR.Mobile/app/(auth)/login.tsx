@@ -11,6 +11,7 @@ import { Colors } from '@/constants/theme';
 const Login = () => {
   const inputTextColor = useThemeColor({}, 'text');
   const backgroundColor = useThemeColor({}, 'inputFieldBackground');
+  const secondaryTextColor = useThemeColor({}, 'secondaryText');
 
   return (
     <ThemedView safe={true}>
@@ -21,7 +22,7 @@ const Login = () => {
             marginBottom: 5,
           }]}>Login</ThemedText>
 
-        <ThemedText style={[styles.textCentered, { color: Colors.primaryDarkText }]}>Log in to your account!</ThemedText>
+        <ThemedText style={[styles.textCentered, { color: secondaryTextColor }]}>Log in to your account!</ThemedText>
 
 
         <View style={styles.inputSection}>
@@ -81,6 +82,10 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 15,
     fontSize: 16,
+    shadowColor: Colors.primaryDarkText,
+    shadowOpacity: 0.5,
+    shadowOffset: { width: 0.5, height: 1 },
+    shadowRadius: 1,
   },
   inputLabel: {
     fontWeight: 600,
