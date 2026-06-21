@@ -14,7 +14,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     initializeAuth: async () => {
         set({ isLoading: true });
         try {
-            const token = await SecureStorage.getItem('auth_token');
+            const token = await SecureStorage.getItemAsync('auth_token');
 
             if(!token) {
                 set({ user: null, isAuthenticated: false });
