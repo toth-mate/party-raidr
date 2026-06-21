@@ -4,13 +4,20 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useEffect } from 'react';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export const unstable_settings = {
   anchor: '(tabs)',
 };
 
 export default function RootLayout() {
+  const initializeAuth = useAuthStore((state) => state.initializeAuth);
   const colorScheme = useColorScheme();
+
+  useEffect(() => {
+    initializeAuth();
+  }, []);
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
