@@ -21,7 +21,7 @@ const Login = () => {
             marginBottom: 5,
           }]}>Login</ThemedText>
 
-        <ThemedText style={styles.textCentered}>Log in to your account!</ThemedText>
+        <ThemedText style={[styles.textCentered, { color: Colors.primaryDarkText }]}>Log in to your account!</ThemedText>
 
 
         <View style={styles.inputSection}>
