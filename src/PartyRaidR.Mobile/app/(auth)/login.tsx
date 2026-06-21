@@ -1,17 +1,40 @@
 import { StyleSheet, TextInput, View } from 'react-native';
-import React from 'react';
-import { Link } from 'expo-router';
+import React, { useState } from 'react';
+import { useRouter, Link } from 'expo-router';
+import * as SecureStorage from 'expo-secure-store';
 
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
 import ThemedButton from '@/components/themed-button';
 import { Colors } from '@/constants/theme';
+import { authService } from '@/services/authService';
+import { useAuthStore } from '@/store/useAuthStore';
 
 const Login = () => {
+  const router = useRouter();
+
   const inputTextColor = useThemeColor({}, 'text');
   const backgroundColor = useThemeColor({}, 'inputFieldBackground');
   const secondaryTextColor = useThemeColor({}, 'secondaryText');
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const initialize = useAuthStore((state) => state.initializeAuth);
+  const user = useAuthStore((state) => state.user);
+
+  const login = async () => {
+    if(email && password) {
+      const token = await authService.login({ email: email, password: password });
+
+      if(token) {
+        await SecureStorage.setItemAsync('auth_token', token);
+        await initialize();
+        router.replace('/');
+      }
+    }
+  };
 
   return (
     <ThemedView safe={true}>
@@ -24,12 +47,12 @@ const Login = () => {
 
         <ThemedText style={[styles.textCentered, { color: secondaryTextColor }]}>Log in to your account!</ThemedText>
 
-
         <View style={styles.inputSection}>
           <ThemedText style={styles.inputLabel}>Email</ThemedText>
           <TextInput
             placeholder='example@mail.org'
             inputMode='email'
+            onChangeText={(newEmail) => setEmail(newEmail)}
             style={[styles.input, {
               color: inputTextColor,
               backgroundColor: backgroundColor,
@@ -42,6 +65,7 @@ const Login = () => {
           <TextInput
             placeholder='Password'
             inputMode='text'
+            onChangeText={(newPassword) => setPassword(newPassword)}
             secureTextEntry
             style={[styles.input, {
               color: inputTextColor,
@@ -55,7 +79,7 @@ const Login = () => {
             marginTop: 15,
           }}
           title='Login'
-          onPress={() => console.log('Login')}/>
+          onPress={login}/>
 
         <ThemedText style={styles.textCentered}>
           Don't have an account yet? <Link href='/' style={styles.link}>Register here!</Link>
