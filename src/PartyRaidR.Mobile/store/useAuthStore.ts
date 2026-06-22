@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import * as SecureStorage from 'expo-secure-store';
+import Toast from 'react-native-toast-message';
 
 import { authService } from '@/services/authService';
 import { UserDto } from "@/types/auth.types";
@@ -24,11 +25,24 @@ export const useAuthStore = create<AuthState>((set) => ({
             const userData = await authService.me();
             if(userData) {
                 set({ user: userData, isAuthenticated: true });
+                Toast.show({
+                    type: 'success',
+                    text1: 'Successfully logged in',
+                    text2: 'Welcome back!',
+                    autoHide: true,
+                });
             }
         } catch(error) {
             console.error(`An error occured when initializing authentication: ${error}`);
             await SecureStorage.deleteItemAsync('auth_token');
             set({ user: null, isAuthenticated: false });
+
+            Toast.show({
+                type: 'error',
+                text1: 'Error!',
+                text2: 'An error occured when logging in. Please try again later.',
+                autoHide: true,
+            });
         } finally {
             set({ isLoading: false });
         }
@@ -36,6 +50,12 @@ export const useAuthStore = create<AuthState>((set) => ({
     logout: async () => {
         await SecureStorage.deleteItemAsync('auth_token');
         set({ user: null, isAuthenticated: false });
+        Toast.show({
+            type: 'info',
+            text1: 'Successfully logged out',
+            text2: 'You have been logged out.',
+            autoHide: true,
+        });
     },
 }));
 
