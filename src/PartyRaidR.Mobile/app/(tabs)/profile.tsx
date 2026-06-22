@@ -1,9 +1,9 @@
 import { useRouter } from 'expo-router';
+import { StyleSheet } from 'react-native';
 
 import { useAuthStore } from '@/store/useAuthStore';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { useEffect } from 'react';
 import ThemedButton from '@/components/themed-button';
 
 export default function ProfileScreen() {
@@ -30,17 +30,28 @@ export default function ProfileScreen() {
 
   return (
     <ThemedView safe={true}>
-      <ThemedButton
-        title="Login"
-        variant='secondary'
-        onPress={() => router.push('/login')}
-      />
-      <ThemedButton
-        title="Create an account"
-        variant='primary'
-        onPress={() => router.push('/')}
-        outline
-      />
+      <ThemedView style={styles.buttonWrapper}>
+        <ThemedButton
+          title="Login"
+          variant='secondary'
+          onPress={() => router.push('/login')}
+        />
+        <ThemedButton
+          title="Create an account"
+          variant='primary'
+          onPress={() => router.push('/')}
+          outline
+        />
+      </ThemedView>
     </ThemedView>
   );
 }
+
+const styles = StyleSheet.create({
+  buttonWrapper: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    gap: 8,
+  },
+});
