@@ -11,24 +11,36 @@ export default function ProfileScreen() {
   const isLoggedIn = useAuthStore(state => state.isAuthenticated);
   const logout = useAuthStore(state => state.logout);
 
-  useEffect(() => {
-    if(!isLoggedIn) {
-      router.replace('/login');
-    }
-  }, [isLoggedIn]);
+  if(isLoggedIn) {
+    return (
+      <>
+        <ThemedView safe={true}>
+          <ThemedText type="title">
+            Profile
+          </ThemedText>
+          <ThemedButton
+            title="Logout"
+            variant='danger'
+            onPress={logout}
+          />
+        </ThemedView>
+      </>
+    );
+  }
 
   return (
-    <>
-      <ThemedView safe={true}>
-        <ThemedText type="title">
-          Profile
-        </ThemedText>
-        <ThemedButton
-          title="Logout"
-          variant='danger'
-          onPress={logout}
-        />
-      </ThemedView>
-    </>
+    <ThemedView safe={true}>
+      <ThemedButton
+        title="Login"
+        variant='secondary'
+        onPress={() => router.push('/login')}
+      />
+      <ThemedButton
+        title="Create an account"
+        variant='primary'
+        onPress={() => router.push('/')}
+        outline
+      />
+    </ThemedView>
   );
 }

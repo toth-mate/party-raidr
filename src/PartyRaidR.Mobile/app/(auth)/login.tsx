@@ -22,7 +22,6 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const initialize = useAuthStore((state) => state.initializeAuth);
-  const user = useAuthStore((state) => state.user);
 
   const login = async () => {
     if(email && password) {
