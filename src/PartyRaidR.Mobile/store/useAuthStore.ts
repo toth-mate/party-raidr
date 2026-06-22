@@ -25,12 +25,6 @@ export const useAuthStore = create<AuthState>((set) => ({
             const userData = await authService.me();
             if(userData) {
                 set({ user: userData, isAuthenticated: true });
-                Toast.show({
-                    type: 'success',
-                    text1: 'Successfully logged in',
-                    text2: 'Welcome back!',
-                    autoHide: true,
-                });
             }
         } catch(error) {
             console.error(`An error occured when initializing authentication: ${error}`);

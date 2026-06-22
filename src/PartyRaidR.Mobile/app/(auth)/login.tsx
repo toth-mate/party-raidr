@@ -2,6 +2,7 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import React, { useState } from 'react';
 import { useRouter, Link } from 'expo-router';
 import * as SecureStorage from 'expo-secure-store';
+import Toast from 'react-native-toast-message';
 
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { ThemedView } from '@/components/themed-view';
@@ -30,6 +31,12 @@ const Login = () => {
       if(token) {
         await SecureStorage.setItemAsync('auth_token', token);
         await initialize();
+        Toast.show({
+          type: 'success',
+          text1: 'Successfully logged in',
+          text2: 'Welcome back!',
+          autoHide: true,
+        });
         router.replace('/profile');
       }
     }
