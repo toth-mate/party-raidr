@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput, View } from 'react-native';
+import { Keyboard, StyleSheet, TextInput, View } from 'react-native';
 import React, { useState } from 'react';
 import { useRouter, Link } from 'expo-router';
 import * as SecureStorage from 'expo-secure-store';
@@ -25,6 +25,8 @@ const Login = () => {
   const initialize = useAuthStore((state) => state.initializeAuth);
 
   const login = async () => {
+    Keyboard.dismiss();
+
     if(email && password) {
       const token = await authService.login({ email: email, password: password });
 
