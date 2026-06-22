@@ -2,6 +2,7 @@ import { ActivityIndicator, Pressable, StyleProp, StyleSheet, Text, View, ViewSt
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Colors } from '@/constants/theme';
+import { useThemeColor } from '@/hooks/use-theme-color';
 
 type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'success' | 'warning' | 'info';
 
@@ -13,6 +14,7 @@ type ThemedButtonProps = {
     disabled?: boolean;
     style?: StyleProp<ViewStyle>;
     icon?: string;
+    outline?: boolean;
 };
 
 const ThemedButton = ({
@@ -20,6 +22,7 @@ const ThemedButton = ({
     icon,
     onPress,
     variant = 'primary',
+    outline = false,
     isLoading = false,
     disabled = false,
     style,
@@ -30,6 +33,7 @@ const ThemedButton = ({
         disabled || isLoading ? styles.disabled : null,
         style
     ];
+    const textColor = useThemeColor({}, 'text');
 
   return (
     <Pressable
@@ -37,7 +41,8 @@ const ThemedButton = ({
       disabled={disabled || isLoading}
       style={({ pressed }) => [
         ...applicableStyles,
-        pressed && !disabled && !isLoading ? styles.pressed : null
+        pressed && !disabled && !isLoading ? styles.pressed : null,
+        outline ? { borderWidth: 1, borderColor: textColor, backgroundColor: 'transparent' } : null,
       ]}
     >
         {isLoading ? (
@@ -52,7 +57,7 @@ const ThemedButton = ({
                         style={[title ? { marginRight: 8 } : null]}
                     />
                 )}
-                <Text style={styles.text}>{title}</Text>
+                <Text style={[styles.text, outline ? { color: textColor} : null,]}>{title}</Text>
             </>
         )}
     </Pressable>
@@ -68,8 +73,8 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         marginVertical: 10,
         color: '#fff',
-        textAlign: 'center',
         flexDirection: 'row',
+        justifyContent: 'center',
     },
     primary: {
         backgroundColor: Colors.primary,
