@@ -16,7 +16,7 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchEvent = async () => {
         const result = await eventService.getDisplayById(id);
-        setEvent(result);
+        //setEvent(result);
     };
     fetchEvent();
     setIsLoading(false);
@@ -34,7 +34,7 @@ const EventDetails = () => {
         {isLoading ? (
             <ActivityIndicator size="large" color={Colors.primary} />
         ) : !event ? (
-            <ThemedView>
+            <ThemedView style={styles.errorContainer}>
                 <ThemedText>Failed to load event.</ThemedText>
                 <ColoredLink href="/browse" replace>Go back</ColoredLink>
             </ThemedView>
@@ -51,5 +51,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 15,
+    },
+    errorContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: -50,
+        gap: 2,
     },
 })
