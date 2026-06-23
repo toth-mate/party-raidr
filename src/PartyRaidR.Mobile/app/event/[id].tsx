@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
         padding: 10,
+        gap: 5,
         borderRadius: 15,
     },
     errorContainer: {
