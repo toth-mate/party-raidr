@@ -1,0 +1,19 @@
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { Link, LinkProps } from 'expo-router';
+import { Colors } from '@/constants/theme';
+
+const ColoredLink = (props: LinkProps) => {
+  return (
+    <Link {...props} style={styles.link}/>
+  );
+}
+
+export default ColoredLink;
+
+const styles = StyleSheet.create({
+    link: {
+        color: Colors.secondary,
+        textDecorationLine: 'underline',
+    },
+});

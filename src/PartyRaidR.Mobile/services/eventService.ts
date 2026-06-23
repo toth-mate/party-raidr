@@ -11,4 +11,13 @@ export const eventService = {
             return [];
         }
     },
+    getDisplayById: async (id: string): Promise<EventDisplayDto | undefined> => {
+        try {
+            const response = await apiClient.get<EventDisplayDto>(`/event/display/${id}`);
+            return response.data;
+        } catch(error) {
+            console.error(`Failed to fetch event: ${error}`);
+            return undefined;
+        }
+    },
 };
