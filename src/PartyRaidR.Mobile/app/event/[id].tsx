@@ -6,6 +6,7 @@ import { ThemedText } from '@/components/themed-text';
 import { eventService } from '@/services/eventService';
 import { EventDisplayDto } from '@/types/event.types';
 import { Colors } from '@/constants/theme';
+import ColoredLink from '@/components/colored-link';
 
 const EventDetails = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -33,7 +34,10 @@ const EventDetails = () => {
         {isLoading ? (
             <ActivityIndicator size="large" color={Colors.primary} />
         ) : !event ? (
-            <ThemedText>Failed to load event.</ThemedText>
+            <ThemedView>
+                <ThemedText>Failed to load event.</ThemedText>
+                <ColoredLink href="/browse" replace>Go back</ColoredLink>
+            </ThemedView>
         ) : (
             <ThemedText>{event.title}</ThemedText>
         )}
