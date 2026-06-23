@@ -8,6 +8,7 @@ import { EventDisplayDto } from '@/types/event.types';
 import { Colors } from '@/constants/theme';
 import ColoredLink from '@/components/colored-link';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import ThemedButton from '@/components/themed-button';
 
 const EventDetails = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -52,6 +53,11 @@ const EventDetails = () => {
                 <ThemedText>Max Room: {event.room}</ThemedText>
                 <ThemedText style={{color: '#888'}}>Organizer: {event.authorName}</ThemedText>
                 <ThemedText style={{color: '#888'}}>Created: {event.dateCreated}</ThemedText>
+                <ThemedButton
+                  onPress={() => console.log('Apply')}
+                  title="Apply"
+                  variant="primary"
+                />
             </ThemedView>
         )}
     </ThemedView>
