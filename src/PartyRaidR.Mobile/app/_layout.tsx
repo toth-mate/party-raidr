@@ -25,6 +25,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{headerShown: false}}/>
+        <Stack.Screen name="event/[id]" options={{headerShown: false}}/>
       </Stack>
       <Toast position='bottom' swipeable/>
       <StatusBar style="auto" />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, FlatList, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, FlatList, View, ActivityIndicator, Pressable } from 'react-native';
 
 import { EventDisplayDto } from '@/types/event.types';
 import { eventService } from '@/services/eventService';
@@ -8,6 +8,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import ThemedButton from '@/components/themed-button';
+import { router } from 'expo-router';
 
 export default function BrowseScreen() {
   const [events, setEvents] = useState<EventDisplayDto[]>();
@@ -34,20 +35,22 @@ export default function BrowseScreen() {
     const renderTitle = item.title.length < 20 ? item.title : item.title.slice(0, 20).trim().concat('...');
 
     return (
-      <ThemedView style={styles.listItem}>
-        <View style={styles.listItemHeader}>
-          <ThemedText type="subtitle"
-            style={styles.eventTitle}>
-            {renderTitle}
+      <Pressable onPress={() => router.push(`/event/${item.id}`)}>
+        <ThemedView style={styles.listItem}>
+          <View style={styles.listItemHeader}>
+            <ThemedText type="subtitle"
+              style={styles.eventTitle}>
+              {renderTitle}
+            </ThemedText>
+            <ThemedText style={styles.eventDate}>
+              {item.dateCreated}
+            </ThemedText>
+          </View>
+          <ThemedText>
+            {item.description}
           </ThemedText>
-          <ThemedText style={styles.eventDate}>
-            {item.dateCreated}
-          </ThemedText>
-        </View>
-        <ThemedText>
-          {item.description}
-        </ThemedText>
-      </ThemedView>
+        </ThemedView>
+      </Pressable>
     )
   };
 
