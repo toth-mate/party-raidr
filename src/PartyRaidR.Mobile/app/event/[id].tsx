@@ -45,7 +45,9 @@ const EventDetails = () => {
             <ThemedView style={[styles.content, { backgroundColor: contentBackgroundColor }]}>
                 <ThemedText type="subtitle">{event.title}</ThemedText>
                 <ThemedText style={styles.description}>{event.description}</ThemedText>
-                <ThemedText>Location: {event.city}, {event.placeName}</ThemedText>
+                <ThemedText>
+                  Location: <ThemedText style={styles.location}>{event.city}, {event.placeName}</ThemedText>
+                </ThemedText>
                 <ThemedView style={styles.dateContainer}>
                   <ThemedText>From: {event.startingDate}</ThemedText>
                   <ThemedText>To: {event.endingDate}</ThemedText>
@@ -79,6 +81,9 @@ const styles = StyleSheet.create({
     description: {
         marginBottom: 10,
         color: '#888',
+    },
+    location: {
+        fontWeight: '600',
     },
     dateContainer: {
         alignItems: 'center',
