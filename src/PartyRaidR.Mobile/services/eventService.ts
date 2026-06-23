@@ -1,0 +1,14 @@
+import { apiClient } from "@/api/apiClient";
+import { EventDisplayDto } from "@/types/event.types";
+
+export const eventService = {
+    getAllDisplay: async (): Promise<EventDisplayDto[]> => {
+        try {
+            const response = await apiClient.get<EventDisplayDto[]>('/event/display-all');
+            return response.status === 200 ? response.data : [];
+        } catch(error) {
+            console.error(`Failed to fetch events: ${error}`);
+            return [];
+        }
+    },
+};
