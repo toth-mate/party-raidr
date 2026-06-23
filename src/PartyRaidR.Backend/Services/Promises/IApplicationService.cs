@@ -57,6 +57,7 @@ namespace PartyRaidR.Backend.Services.Promises
         
         /// <summary>
         /// Get a list of applications of an authenticated user.
+        /// The user is read from the token in the request header.
         /// </summary>
         /// <returns>
         /// A list of applications. The returned objects include additional information: Event Title, Start and End Dates.
