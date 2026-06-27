@@ -15,45 +15,43 @@ export default function ProfileScreen() {
 
   const backgroundColor = useThemeColor({}, 'inputFieldBackground');
 
-  if(isLoggedIn) {
-    return (
-      <>
-        <ThemedView safe={true}>
-          <ThemedView style={styles.header}>
-            <ThemedText type="title" style={styles.title}>
-              Welcome back!
-            </ThemedText>
-          </ThemedView>
-          <ThemedView style={[styles.content, { backgroundColor }]}>
-            <ThemedText style={styles.usernameText}>{user?.username}</ThemedText>
-            <ThemedText style={styles.emailText}>{user?.email}</ThemedText>
-          </ThemedView>
-          <ThemedButton
-            title="Logout"
-            variant='danger'
-            onPress={logout}
-          />
-        </ThemedView>
-      </>
-    );
-  }
-
   return (
-    <ThemedView safe={true}>
-      <ThemedView style={styles.buttonWrapper}>
-        <ThemedButton
-          title="Login"
-          variant='secondary'
-          onPress={() => router.push('/login')}
-        />
-        <ThemedButton
-          title="Create an account"
-          variant='primary'
-          onPress={() => router.push('/')}
-          outline
-        />
-      </ThemedView>
-    </ThemedView>
+    <>
+      <ThemedView safe={true}>
+        <ThemedView style={styles.header}>
+          <ThemedText type="title" style={styles.title}>
+            Welcome back!
+          </ThemedText>
+        </ThemedView>
+        {isLoggedIn ? (
+          <ThemedView>
+              <ThemedView style={[styles.content, { backgroundColor }]}>
+              <ThemedText style={styles.usernameText}>{user?.username}</ThemedText>
+              <ThemedText style={styles.emailText}>{user?.email}</ThemedText>
+            </ThemedView>
+            <ThemedButton
+              title="Logout"
+              variant='danger'
+              onPress={logout}
+            />
+          </ThemedView>
+        ) : (
+          <ThemedView style={styles.buttonWrapper}>
+            <ThemedButton
+              title="Login"
+              variant='secondary'
+              onPress={() => router.push('/login')}
+            />
+            <ThemedButton
+              title="Create an account"
+              variant='primary'
+              onPress={() => router.push('/')}
+              outline
+            />
+          </ThemedView>
+        )}
+        </ThemedView>
+    </>
   );
 }
 
