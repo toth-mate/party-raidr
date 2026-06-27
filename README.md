@@ -41,6 +41,20 @@ git clone https://github.com/toth-mate/party-raidr.git
 cd party-raidr/src
 ```
 
+Create a ```.env``` file in ```src/``` with the following content:
+
+```
+DB_ROOT_PASSWORD=YOUR_PASSWORD
+DB_USER=YOUR_USER
+DB_PASSWORD=YOUR_PASSWORD
+DB_NAME=YOUR_DB_NAME
+DB_PORT=YOUR_DB_PORT
+BACKEND_PORT=8080
+FRONTEND_PORT=5173
+```
+
+Navigate to ```src/PartyRaidR.Backend```, and create ```appsettings.json``` based on the provided sample. Note that your **API key needs to be at least 32 characters long.**
+
 Run Docker container:
 
 ```bash

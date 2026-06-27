@@ -5,16 +5,16 @@ services:
             dockerfile: PartyRaidR.Backend/Dockerfile
         container_name: partyraidr-backend
         ports:
-            - "8080:8080"
+            - "${BACKEND_PORT}:${BACKEND_PORT}"
         volumes:
             - ./PartyRaidR.Backend:/app
             - ./PartyRaidR.Shared:/PartyRaidR.Shared
             - ~nuget/packages:/root/.nuget/packages
         user: root
-        command: dotnet watch run --urls http://0.0.0.0:8080
+        command: dotnet watch run --urls http://0.0.0.0:${BACKEND_PORT}
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
-            - ConnectionStrings__DefaultConnection=Server=db;Port=3306;Database=partyraidrdb;Uid=partyuser;Pwd=password;
+            - ConnectionStrings__DefaultConnection=Server=db;Port=${DB_PORT};Database=${DB_NAME};Uid=${DB_USER};Pwd=${DB_PASSWORD};
         depends_on:
             db:
                 condition: service_started
@@ -24,14 +24,14 @@ services:
             - db-data:/var/lib/mysql
         container_name: partyraidr-database
         ports:
-            - "3306:3306"
+            - "${DB_PORT}:${DB_PORT}"
         environment:
-            - MYSQL_ROOT_PASSWORD=password
-            - MYSQL_DATABASE=partyraidrdb
-            - MYSQL_USER=partyuser
-            - MYSQL_PASSWORD=password
+            - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${DB_NAME}
+            - MYSQL_USER=${DB_USER}
+            - MYSQL_PASSWORD=${DB_PASSWORD}
         healthcheck:
-            test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p", "password"]
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p", "${DB_ROOT_PASSWORD}"]
             timeout: 20s
             retries: 10
     web:
@@ -40,12 +40,12 @@ services:
             dockerfile: Dockerfile
         container_name: partyraidr-frontend
         ports:
-        - "5173:5173"
+        - "${FRONTEND_PORT}:${FRONTEND_PORT}"
         volumes:
             - ./PartyRaidR.Web:/app
             - /app/node_modules
         environment:
-            - VITE_API_URL=http://localhost:8080/api
+            - VITE_API_URL=http://localhost:${BACKEND_PORT}/api
         depends_on:
             - backend
 volumes:
