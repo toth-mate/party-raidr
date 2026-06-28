@@ -23,7 +23,7 @@ export default function ProfileScreen() {
             Welcome back!
           </ThemedText>
           <ThemedButton
-            onPress={() => console.log('Settings')}
+            onPress={() => router.push('/profile/settings')}
             icon="settings"
             outline
             color="#888"
