@@ -53,7 +53,7 @@ const ThemedButton = ({
                     <Ionicons
                         name={icon}
                         size={20}
-                        color="#fff"
+                        color={outline ? textColor : 'white'}
                         style={[title ? { marginRight: 8 } : null]}
                     />
                 )}
