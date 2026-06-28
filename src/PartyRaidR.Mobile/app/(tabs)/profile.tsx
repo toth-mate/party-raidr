@@ -26,6 +26,8 @@ export default function ProfileScreen() {
             onPress={() => console.log('Settings')}
             icon="settings"
             outline
+            color="#888"
+            borderColor="#888"
             style={styles.headerButton}
           />
         </ThemedView>
