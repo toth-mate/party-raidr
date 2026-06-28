@@ -57,7 +57,9 @@ const ThemedButton = ({
                         style={[title ? { marginRight: 8 } : null]}
                     />
                 )}
-                <Text style={[styles.text, outline ? { color: textColor} : null,]}>{title}</Text>
+                {title && (
+                    <Text style={[styles.text, outline ? { color: textColor} : null,]}>{title}</Text>
+                )}
             </>
         )}
     </Pressable>
