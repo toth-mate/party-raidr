@@ -22,6 +22,12 @@ export default function ProfileScreen() {
           <ThemedText type="title" style={styles.title}>
             Welcome back!
           </ThemedText>
+          <ThemedButton
+            onPress={() => console.log('Settings')}
+            icon="settings"
+            outline
+            style={styles.headerButton}
+          />
         </ThemedView>
         {isLoggedIn ? (
           <ThemedView>
@@ -67,9 +73,20 @@ const styles = StyleSheet.create({
     borderColor: '#999',
     padding: 10,
     marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   title: {
     fontWeight: '100',
+  },
+  headerButton: {
+    borderRadius: '50%',
+    width: 35,
+    height: 35,
+    fontSize: 10,
+    alignItems: 'center',
+    padding: 0,
   },
   content: {
     padding: 10,
