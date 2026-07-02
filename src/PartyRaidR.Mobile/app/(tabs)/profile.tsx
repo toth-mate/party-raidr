@@ -15,45 +15,51 @@ export default function ProfileScreen() {
 
   const backgroundColor = useThemeColor({}, 'inputFieldBackground');
 
-  if(isLoggedIn) {
-    return (
-      <>
-        <ThemedView safe={true}>
-          <ThemedView style={styles.header}>
-            <ThemedText type="title" style={styles.title}>
-              Welcome back!
-            </ThemedText>
-          </ThemedView>
-          <ThemedView style={[styles.content, { backgroundColor }]}>
-            <ThemedText style={styles.usernameText}>{user?.username}</ThemedText>
-            <ThemedText style={styles.emailText}>{user?.email}</ThemedText>
-          </ThemedView>
+  return (
+    <>
+      <ThemedView safe={true}>
+        <ThemedView style={styles.header}>
+          <ThemedText type="title" style={styles.title}>
+            Welcome back!
+          </ThemedText>
           <ThemedButton
-            title="Logout"
-            variant='danger'
-            onPress={logout}
+            onPress={() => router.push('/profile/settings')}
+            icon="settings"
+            outline
+            color="#888"
+            borderColor="#888"
+            style={styles.headerButton}
           />
         </ThemedView>
-      </>
-    );
-  }
-
-  return (
-    <ThemedView safe={true}>
-      <ThemedView style={styles.buttonWrapper}>
-        <ThemedButton
-          title="Login"
-          variant='secondary'
-          onPress={() => router.push('/login')}
-        />
-        <ThemedButton
-          title="Create an account"
-          variant='primary'
-          onPress={() => router.push('/')}
-          outline
-        />
-      </ThemedView>
-    </ThemedView>
+        {isLoggedIn ? (
+          <ThemedView>
+              <ThemedView style={[styles.content, { backgroundColor }]}>
+              <ThemedText style={styles.usernameText}>{user?.username}</ThemedText>
+              <ThemedText style={styles.emailText}>{user?.email}</ThemedText>
+            </ThemedView>
+            <ThemedButton
+              title="Logout"
+              variant='danger'
+              onPress={logout}
+            />
+          </ThemedView>
+        ) : (
+          <ThemedView style={styles.buttonWrapper}>
+            <ThemedButton
+              title="Login"
+              variant='secondary'
+              onPress={() => router.push('/login')}
+            />
+            <ThemedButton
+              title="Create an account"
+              variant='primary'
+              onPress={() => router.push('/')}
+              outline
+            />
+          </ThemedView>
+        )}
+        </ThemedView>
+    </>
   );
 }
 
@@ -69,9 +75,20 @@ const styles = StyleSheet.create({
     borderColor: '#999',
     padding: 10,
     marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   title: {
     fontWeight: '100',
+  },
+  headerButton: {
+    borderRadius: '50%',
+    width: 35,
+    height: 35,
+    fontSize: 10,
+    alignItems: 'center',
+    padding: 0,
   },
   content: {
     padding: 10,

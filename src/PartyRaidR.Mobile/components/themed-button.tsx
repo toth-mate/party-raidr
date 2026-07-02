@@ -15,6 +15,8 @@ type ThemedButtonProps = {
     style?: StyleProp<ViewStyle>;
     icon?: string;
     outline?: boolean;
+    color?: string;
+    borderColor?: string;
 };
 
 const ThemedButton = ({
@@ -25,6 +27,8 @@ const ThemedButton = ({
     outline = false,
     isLoading = false,
     disabled = false,
+    color = '#fff',
+    borderColor,
     style,
 }: ThemedButtonProps) => {
     const applicableStyles = [
@@ -43,6 +47,7 @@ const ThemedButton = ({
         ...applicableStyles,
         pressed && !disabled && !isLoading ? styles.pressed : null,
         outline ? { borderWidth: 1, borderColor: textColor, backgroundColor: 'transparent' } : null,
+        borderColor ? { borderColor } : null,
       ]}
     >
         {isLoading ? (
@@ -53,11 +58,22 @@ const ThemedButton = ({
                     <Ionicons
                         name={icon}
                         size={20}
-                        color="#fff"
-                        style={[title ? { marginRight: 8 } : null]}
+                        color={outline ? textColor : 'white'}
+                        style={[
+                            title ? { marginRight: 8 } : null,
+                            { color }
+                        ]}
                     />
                 )}
-                <Text style={[styles.text, outline ? { color: textColor} : null,]}>{title}</Text>
+                {title && (
+                    <Text style={[
+                        styles.text,
+                        outline ? { color: textColor} : null,
+                        { color }
+                    ]}>
+                        {title}
+                    </Text>
+                )}
             </>
         )}
     </Pressable>
@@ -106,7 +122,6 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 16,
         letterSpacing: 0.5,
-        color: '#fff',
         textAlign: 'center',
         fontWeight: 600,
     },
