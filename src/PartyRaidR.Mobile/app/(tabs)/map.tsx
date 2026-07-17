@@ -1,13 +1,16 @@
 import { StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Callout, Marker } from 'react-native-maps';
+import { useRouter } from 'expo-router';
 
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
 import { eventService } from '@/services/eventService';
 import { EventMarkerDto } from '@/types/event.types';
+import MarkerContent from '@/components/marker-content';
 
 const Map = () => {
+  const router = useRouter();
   const [events, setEvents] = useState<EventMarkerDto[]>([]);
 
   useEffect(() => {
@@ -41,7 +44,11 @@ const Map = () => {
                     }}
                     title={marker.title}
                     description={marker.address}
-                />
+                >
+                    <Callout onPress={() => router.navigate(`/event/${marker.id}`)} tooltip>
+                        <MarkerContent event={marker} />
+                    </Callout>
+                </Marker>
             ))}
         </MapView>
     </ThemedView>
