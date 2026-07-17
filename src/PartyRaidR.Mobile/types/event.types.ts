@@ -24,3 +24,11 @@ export interface EventMarkerDto {
     latitude: number;
     longitude: number;
 };
+
+export interface UpcomingEventDto {
+    id: string;
+    title: string;
+    placeName: string;
+    cityName: string;
+    startTime: string;
+};
