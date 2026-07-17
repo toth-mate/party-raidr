@@ -28,6 +28,8 @@ const Map = () => {
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
             }}
+            rotateEnabled={false}
+            showsPointsOfInterest={false}
             style={styles.map}
         >
             {events.map((marker) => (
