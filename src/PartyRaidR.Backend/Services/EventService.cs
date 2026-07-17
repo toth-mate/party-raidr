@@ -363,6 +363,7 @@ namespace PartyRaidR.Backend.Services
                     Title = e.Title,
                     StartingDate = e.StartingDate,
                     EndingDate = e.EndingDate,
+                    Address = e.Place.Address,
                     Latitude = e.Place.Location.Y,
                     Longitude = e.Place.Location.X,
                 }).ToListAsync();

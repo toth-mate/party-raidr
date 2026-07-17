@@ -20,6 +20,7 @@ export interface EventMarkerDto {
     title: string;
     startingDate: string;
     endingDate: string;
+    address: string;
     latitude: number;
     longitude: number;
 };

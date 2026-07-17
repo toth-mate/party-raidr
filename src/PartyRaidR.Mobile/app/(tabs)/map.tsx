@@ -40,6 +40,7 @@ const Map = () => {
                         longitude: marker.longitude
                     }}
                     title={marker.title}
+                    description={marker.address}
                 />
             ))}
         </MapView>
