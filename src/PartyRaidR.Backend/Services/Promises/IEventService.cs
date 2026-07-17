@@ -90,5 +90,7 @@ namespace PartyRaidR.Backend.Services.Promises
         /// </summary>
         /// <returns>An integer representing the number of events that are not active</returns>
         Task<ServiceResponse<int>> GetNumberOfArchivedEventsAsync();
+
+        Task<ServiceResponse<List<EventMarkerDto>>> GetEventsWithMarkerDetailsAsync();
     }
 }

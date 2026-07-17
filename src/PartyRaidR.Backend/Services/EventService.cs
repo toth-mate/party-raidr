@@ -351,5 +351,28 @@ namespace PartyRaidR.Backend.Services
                 return CreateResponse<List<EventDto>>(false, 500, message: $"An error occured while retrieving archived events: {ex.Message}");
             }
         }
+
+        public async Task<ServiceResponse<List<EventMarkerDto>>> GetEventsWithMarkerDetailsAsync()
+        {
+            try
+            {
+                var events = _eventRepo.GetEventsWithMarkerDetails();
+                List<EventMarkerDto> result = await events.Select(e => new EventMarkerDto
+                {
+                    Id = e.Id,
+                    Title = e.Title,
+                    StartingDate = e.StartingDate,
+                    EndingDate = e.EndingDate,
+                    Latitude = e.Place.Location.Y,
+                    Longitude = e.Place.Location.X,
+                }).ToListAsync();
+                
+                return CreateResponse(true, 200, result, result.Count == 0 ? "No events found." : string.Empty);
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<EventMarkerDto>>(false, 500, message: $"An error occured while retrieving events with marker details: {ex.Message}");
+            }
+        }
     }
 }
