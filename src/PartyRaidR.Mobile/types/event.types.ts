@@ -14,3 +14,13 @@ export interface EventDisplayDto {
     isActive: boolean;
     eventStatus: string;
 };
+
+export interface EventMarkerDto {
+    id: string;
+    title: string;
+    startingDate: string;
+    endingDate: string;
+    address: string;
+    latitude: number;
+    longitude: number;
+};

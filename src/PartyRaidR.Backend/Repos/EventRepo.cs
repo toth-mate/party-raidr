@@ -82,5 +82,9 @@ namespace PartyRaidR.Backend.Repos
             await _dbSet!.Include(e => e.Place)
                          .Where(e => e.User.Id == userId)
                          .ToListAsync();
+
+        public IQueryable<Event> GetEventsWithMarkerDetails() =>
+            _dbSet!.Include(e => e.Place)
+                   .Where(e => e.IsActive && e.StartingDate >= DateTime.UtcNow);
     }
 }
