@@ -91,6 +91,10 @@ namespace PartyRaidR.Backend.Services.Promises
         /// <returns>An integer representing the number of events that are not active</returns>
         Task<ServiceResponse<int>> GetNumberOfArchivedEventsAsync();
 
+        /// <summary>
+        /// Get a list of events with information ready for UI map display. The information includes the event's title, dates, and location coordinates.
+        /// </summary>
+        /// <returns>A list of events with marker details</returns>
         Task<ServiceResponse<List<EventMarkerDto>>> GetEventsWithMarkerDetailsAsync();
     }
 }
