@@ -66,5 +66,9 @@ namespace PartyRaidR.Backend.Controllers
         [HttpGet("display-all")]
         public async Task<IActionResult> DisplayAll() =>
             HandleResponse(await _eventService.GetEventsWithDetailsAsync());
+        
+        [HttpGet("marker-details")]
+        public async Task<IActionResult> GetEventsWithMarkerDetails() =>
+            HandleResponse(await _eventService.GetEventsWithMarkerDetailsAsync());
     }
 }
