@@ -7,7 +7,7 @@ import { ThemedText } from '@/components/themed-text';
 
 const Map = () => {
   return (
-    <ThemedView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <ThemedView style={styles.container}>
         <MapView
             initialRegion={{
                 latitude: 46.253,
@@ -16,7 +16,7 @@ const Map = () => {
                 longitudeDelta: 0.0421,
             }}
             style={styles.map}
-/>
+        />
     </ThemedView>
   )
 }
@@ -24,8 +24,13 @@ const Map = () => {
 export default Map;
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     map: {
         width: '100%',
         height: '100%',
-    }
+    },
 });
