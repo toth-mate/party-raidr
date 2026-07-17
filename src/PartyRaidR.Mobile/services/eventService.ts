@@ -1,5 +1,5 @@
 import { apiClient } from "@/api/apiClient";
-import { EventDisplayDto } from "@/types/event.types";
+import { EventDisplayDto, EventMarkerDto } from "@/types/event.types";
 
 export const eventService = {
     getAllDisplay: async (): Promise<EventDisplayDto[]> => {
@@ -18,6 +18,15 @@ export const eventService = {
         } catch(error) {
             console.error(`Failed to fetch event: ${error}`);
             return undefined;
+        }
+    },
+    getMarkerEvents: async (): Promise<EventMarkerDto[]> => {
+        try {
+            const response = await apiClient.get<EventMarkerDto[]>('/event/marker-details');
+            return response.data;
+        } catch(error) {
+            console.error(`Failed to fetch event marker details: ${error}`);
+            return [];
         }
     },
 };
