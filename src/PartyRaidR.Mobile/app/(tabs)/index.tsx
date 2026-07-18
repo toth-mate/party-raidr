@@ -7,6 +7,7 @@ import { UpcomingEventDto } from '@/types/event.types';
 import { eventService } from '@/services/eventService';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Collapsible } from '@/components/ui/collapsible';
+import EventCard from '@/components/event-card';
 
 export default function HomeScreen() {
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEventDto[]>([]);
@@ -33,9 +34,7 @@ export default function HomeScreen() {
           </ThemedText>
           <Collapsible title="Show/Hide upcoming events" defaultOpen>
             {upcomingEvents.map((event) => (
-              <View key={event.id}>
-                <ThemedText>{event.title}</ThemedText>
-              </View>
+              <EventCard key={event.id} event={event}/>
             ))}
           </Collapsible>
         </View>
