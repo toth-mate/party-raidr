@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { UpcomingEventDto } from '@/types/event.types';
 import { eventService } from '@/services/eventService';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import { Collapsible } from '@/components/ui/collapsible';
 
 export default function HomeScreen() {
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEventDto[]>([]);
@@ -27,14 +28,16 @@ export default function HomeScreen() {
           Welcome!
         </ThemedText>
         <View style={[styles.upcomingEventsContainer, { backgroundColor: panelBgColor }]}>
-          <ThemedText type="subtitle">
+          <ThemedText type="subtitle" style={{ marginBottom: 5 }}>
             Upcoming events:
           </ThemedText>
-          {upcomingEvents.map((event) => (
-            <View key={event.id}>
-              <ThemedText>{event.title}</ThemedText>
-            </View>
-          ))}
+          <Collapsible title="Show/Hide upcoming events" defaultOpen>
+            {upcomingEvents.map((event) => (
+              <View key={event.id}>
+                <ThemedText>{event.title}</ThemedText>
+              </View>
+            ))}
+          </Collapsible>
         </View>
       </ThemedView>
     </ThemedView>
