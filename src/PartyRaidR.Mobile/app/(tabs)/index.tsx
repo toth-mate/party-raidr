@@ -11,8 +11,11 @@ import EventCard from '@/components/event-card';
 import ThemedButton from '@/components/themed-button';
 import { useLocationStore } from '@/store/useLocationStore';
 
+const MAX_DISTANCE_IN_KM: number = 30;
+
 export default function HomeScreen() {
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEventDto[]>([]);
+  const [nearbyEvents, setNearbyEvents] = useState<UpcomingEventDto[]>([]);
   const loadLocation = useLocationStore((state) => state.loadLocation);
   const latitude = useLocationStore((state) => state.lat),
         longitude = useLocationStore((state) => state.lng);
@@ -27,6 +30,18 @@ export default function HomeScreen() {
     fetchUpcomingEvents();
     loadLocation();
   }, []);
+
+  useEffect(() => {
+    const fetchNearbyEvents = async () => {
+      if(!latitude || !longitude) return;
+
+      const result = await eventService.getNearbyEvents(latitude, longitude, MAX_DISTANCE_IN_KM);
+      setNearbyEvents(result);
+    };
+
+    fetchNearbyEvents();
+    console.log('FETCH!');
+  }, [latitude, longitude]);
 
   return (
     <ThemedView safe>
@@ -54,6 +69,18 @@ export default function HomeScreen() {
             <ThemedButton title="Login" onPress={() => null} outline style={styles.button} />
           </View>
         </ThemedView>
+
+        <View style={[styles.upcomingEventsContainer, { backgroundColor: panelBgColor }]}>
+          <ThemedText type="subtitle" style={{ marginBottom: 5 }}>
+            Upcoming events:
+          </ThemedText>
+
+          <Collapsible title="Show/Hide nearby events" defaultOpen>
+            {nearbyEvents.map((event) => (
+              <EventCard key={event.id} event={event}/>
+            ))}
+          </Collapsible>
+        </View>
       </ThemedView>
     </ThemedView>
   );
