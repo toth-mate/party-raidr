@@ -19,6 +19,9 @@ namespace PartyRaidR.Backend.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Place>()
+                .Property(p => p.Location)
+                .HasColumnType("POINT SRID 4326");
         }
     }
 }
