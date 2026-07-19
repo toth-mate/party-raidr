@@ -375,5 +375,27 @@ namespace PartyRaidR.Backend.Services
                 return CreateResponse<List<EventMarkerDto>>(false, 500, message: $"An error occured while retrieving events with marker details: {ex.Message}");
             }
         }
+
+        public async Task<ServiceResponse<List<UpcomingEventDto>>> GetNearbyEventsAsync(double latitude, double longitude, double radiusInKm)
+        {
+            try
+            {
+                List<Event> events = await _eventRepo.GetNearbyEventsAsync(latitude, longitude, radiusInKm);
+                List<UpcomingEventDto> result = events.Select(e => new UpcomingEventDto
+                {
+                    Id = e.Id,
+                    Title = e.Title,
+                    CityName = e.Place.City.Name,
+                    PlaceName = e.Place.Name,
+                    StartTime = e.StartingDate
+                }).ToList();
+
+                return CreateResponse(true, 200, result);
+            }
+            catch(Exception ex)
+            {
+                return CreateResponse<List<UpcomingEventDto>>(false, 500, message: $"An error occured while retrieving nearby events: {ex.Message}");
+            }
+        }
     }
 }

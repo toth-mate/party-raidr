@@ -1,5 +1,5 @@
 import { apiClient } from "@/api/apiClient";
-import { EventDisplayDto, EventMarkerDto } from "@/types/event.types";
+import { EventDisplayDto, EventMarkerDto, UpcomingEventDto } from "@/types/event.types";
 
 export const eventService = {
     getAllDisplay: async (): Promise<EventDisplayDto[]> => {
@@ -26,6 +26,24 @@ export const eventService = {
             return response.data;
         } catch(error) {
             console.error(`Failed to fetch event marker details: ${error}`);
+            return [];
+        }
+    },
+    getUpcomingEvents: async (): Promise<UpcomingEventDto[]> => {
+        try {
+            const response = await apiClient.get<UpcomingEventDto[]>('/event/upcoming');
+            return response.data;
+        } catch(error) {
+            console.error(`Failed to fetch upcoming events: ${error}`);
+            return [];
+        }
+    },
+    getNearbyEvents: async (latitude: number, longitude: number, radius: number): Promise<UpcomingEventDto[]> => {
+        try {
+            const response = await apiClient.get<UpcomingEventDto[]>(`/event/nearby?latitude=${latitude}&longitude=${longitude}&radiusInKm=${radius}`)
+            return response.data;
+        } catch(error) {
+            console.error(`Failed to fetch nearby events: ${error}`);
             return [];
         }
     },

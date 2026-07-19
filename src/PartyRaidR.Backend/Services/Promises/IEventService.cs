@@ -96,5 +96,14 @@ namespace PartyRaidR.Backend.Services.Promises
         /// </summary>
         /// <returns>A list of events with marker details</returns>
         Task<ServiceResponse<List<EventMarkerDto>>> GetEventsWithMarkerDetailsAsync();
+
+        /// <summary>
+        /// Get a list of events that are within a certain radius of given coordinates.
+        /// </summary>
+        /// <param name="latitude">The latitude of the reference point</param>
+        /// <param name="longitude">The longitude of the reference point</param>
+        /// <param name="radiusInKm">The radius in kilometers</param>
+        /// <returns>A list of nearby events</returns>
+        Task<ServiceResponse<List<UpcomingEventDto>>> GetNearbyEventsAsync(double latitude, double longitude, double radiusInKm);
     }
 }
