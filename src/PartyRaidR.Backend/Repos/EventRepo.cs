@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NetTopologySuite.Geometries;
 using PartyRaidR.Backend.Context;
 using PartyRaidR.Backend.Exceptions;
 using PartyRaidR.Backend.Models;
@@ -86,5 +87,15 @@ namespace PartyRaidR.Backend.Repos
         public IQueryable<Event> GetEventsWithMarkerDetails() =>
             _dbSet!.Include(e => e.Place)
                    .Where(e => e.IsActive && e.StartingDate >= DateTime.UtcNow);
+
+        public async Task<List<Event>> GetNearbyEventsAsync(double latitude, double longitude, double radius)
+        {
+            IQueryable<Event> events = _dbSet!.Include(e => e.Place)
+                .Where(e => e.IsActive && e.StartingDate >= DateTime.UtcNow)
+                .OrderBy(e => e.StartingDate);
+            
+            Point location = new Point(longitude, latitude) { SRID = 4326 };
+            return await events.Where(e => e.Place.Location.IsWithinDistance(location, radius * 1000)).ToListAsync();
+        }
     }
 }

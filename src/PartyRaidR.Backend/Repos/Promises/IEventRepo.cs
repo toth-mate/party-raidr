@@ -20,5 +20,6 @@ namespace PartyRaidR.Backend.Repos.Promises
                                        EventCategory? category,
                                        decimal? ticketPriceMin,
                                        decimal? ticketPriceMax);
+        Task<List<Event>> GetNearbyEventsAsync(double latitude, double longitude, double radius);
     }
 }
