@@ -40,7 +40,6 @@ export default function HomeScreen() {
     };
 
     fetchNearbyEvents();
-    console.log('FETCH!');
   }, [latitude, longitude]);
 
   return (
