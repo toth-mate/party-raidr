@@ -9,9 +9,13 @@ import { useThemeColor } from '@/hooks/use-theme-color';
 import { Collapsible } from '@/components/ui/collapsible';
 import EventCard from '@/components/event-card';
 import ThemedButton from '@/components/themed-button';
+import { useLocationStore } from '@/store/useLocationStore';
 
 export default function HomeScreen() {
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEventDto[]>([]);
+  const loadLocation = useLocationStore((state) => state.loadLocation);
+  const latitude = useLocationStore((state) => state.lat),
+        longitude = useLocationStore((state) => state.lng);
   const panelBgColor = useThemeColor({}, 'inputFieldBackground');
 
   useEffect(() => {
@@ -21,6 +25,7 @@ export default function HomeScreen() {
     };
 
     fetchUpcomingEvents();
+    loadLocation();
   }, []);
 
   return (
