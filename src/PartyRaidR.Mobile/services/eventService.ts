@@ -40,7 +40,7 @@ export const eventService = {
     },
     getNearbyEvents: async (latitude: number, longitude: number, radius: number): Promise<UpcomingEventDto[]> => {
         try {
-            const response = await apiClient.get<UpcomingEventDto[]>(`/event/nearby?latitude=${latitude}&longitude=${longitude}&radiusInKm=${radius}'`)
+            const response = await apiClient.get<UpcomingEventDto[]>(`/event/nearby?latitude=${latitude}&longitude=${longitude}&radiusInKm=${radius}`)
             return response.data;
         } catch(error) {
             console.error(`Failed to fetch nearby events: ${error}`);
