@@ -12,10 +12,13 @@ import ThemedButton from '@/components/themed-button';
 import { useLocationStore } from '@/store/useLocationStore';
 import { Colors } from '@/constants/theme';
 import { useAuthStore } from '@/store/useAuthStore';
+import { useRouter } from 'expo-router';
 
 const MAX_DISTANCE_IN_KM: number = 30;
 
 export default function HomeScreen() {
+  const router = useRouter();
+
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEventDto[]>([]);
   const [nearbyEvents, setNearbyEvents] = useState<UpcomingEventDto[]>([]);
 
@@ -71,8 +74,8 @@ export default function HomeScreen() {
           <ThemedView>
           <ThemedText type="title" centered>Join our community!</ThemedText>
           <View style={styles.buttonContainer}>
-            <ThemedButton title="Register" onPress={() => null} style={styles.button} />
-            <ThemedButton title="Login" onPress={() => null} outline style={styles.button} />
+            <ThemedButton title="Register" onPress={() => router.push('/')} style={styles.button} />
+            <ThemedButton title="Login" onPress={() => router.push('/login')} outline style={styles.button} />
           </View>
         </ThemedView>
         )}        
