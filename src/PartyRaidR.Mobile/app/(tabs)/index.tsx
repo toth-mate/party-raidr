@@ -10,6 +10,7 @@ import { Collapsible } from '@/components/ui/collapsible';
 import EventCard from '@/components/event-card';
 import ThemedButton from '@/components/themed-button';
 import { useLocationStore } from '@/store/useLocationStore';
+import { Colors } from '@/constants/theme';
 
 const MAX_DISTANCE_IN_KM: number = 30;
 
@@ -20,6 +21,7 @@ export default function HomeScreen() {
   const latitude = useLocationStore((state) => state.lat),
         longitude = useLocationStore((state) => state.lng);
   const panelBgColor = useThemeColor({}, 'inputFieldBackground');
+  const sublteTextColor = useThemeColor({}, 'icon');
 
   useEffect(() => {
     const fetchUpcomingEvents = async () => {
@@ -51,7 +53,7 @@ export default function HomeScreen() {
 
         <View style={[styles.upcomingEventsContainer, { backgroundColor: panelBgColor }]}>
           <ThemedText type="subtitle" style={{ marginBottom: 5 }}>
-            Upcoming events:
+            Nearby events:
           </ThemedText>
 
           <Collapsible title="Show/Hide upcoming events" defaultOpen>
@@ -72,6 +74,9 @@ export default function HomeScreen() {
         <View style={[styles.upcomingEventsContainer, { backgroundColor: panelBgColor }]}>
           <ThemedText type="subtitle" style={{ marginBottom: 5 }}>
             Upcoming events:
+          </ThemedText>
+          <ThemedText style={[styles.description, { color: sublteTextColor }]}>
+            These are events that are in 30 kms radius of your location.
           </ThemedText>
 
           <Collapsible title="Show/Hide nearby events" defaultOpen>
@@ -107,5 +112,9 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '45%',
+  },
+  description: {
+    marginBottom: 5,
+    fontSize: 14,
   },
 });
