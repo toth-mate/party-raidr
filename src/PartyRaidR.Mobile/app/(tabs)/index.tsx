@@ -11,15 +11,19 @@ import EventCard from '@/components/event-card';
 import ThemedButton from '@/components/themed-button';
 import { useLocationStore } from '@/store/useLocationStore';
 import { Colors } from '@/constants/theme';
+import { useAuthStore } from '@/store/useAuthStore';
 
 const MAX_DISTANCE_IN_KM: number = 30;
 
 export default function HomeScreen() {
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEventDto[]>([]);
   const [nearbyEvents, setNearbyEvents] = useState<UpcomingEventDto[]>([]);
+
   const loadLocation = useLocationStore((state) => state.loadLocation);
   const latitude = useLocationStore((state) => state.lat),
         longitude = useLocationStore((state) => state.lng);
+  const isLoggedIn = useAuthStore((state) => state.isAuthenticated);
+
   const panelBgColor = useThemeColor({}, 'inputFieldBackground');
   const sublteTextColor = useThemeColor({}, 'icon');
 
@@ -63,13 +67,15 @@ export default function HomeScreen() {
           </Collapsible>
         </View>
 
-        <ThemedView>
+        {!isLoggedIn && (
+          <ThemedView>
           <ThemedText type="title" centered>Join our community!</ThemedText>
           <View style={styles.buttonContainer}>
             <ThemedButton title="Register" onPress={() => null} style={styles.button} />
             <ThemedButton title="Login" onPress={() => null} outline style={styles.button} />
           </View>
         </ThemedView>
+        )}        
 
         <View style={[styles.upcomingEventsContainer, { backgroundColor: panelBgColor }]}>
           <ThemedText type="subtitle" style={{ marginBottom: 5 }}>
