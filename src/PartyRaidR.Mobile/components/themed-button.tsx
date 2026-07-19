@@ -68,8 +68,8 @@ const ThemedButton = ({
                 {title && (
                     <Text style={[
                         styles.text,
+                        { color },
                         outline ? { color: textColor} : null,
-                        { color }
                     ]}>
                         {title}
                     </Text>
