@@ -91,6 +91,7 @@ namespace PartyRaidR.Backend.Repos
         public async Task<List<Event>> GetNearbyEventsAsync(double latitude, double longitude, double radius)
         {
             IQueryable<Event> events = _dbSet!.Include(e => e.Place)
+                .ThenInclude(p => p.City)
                 .Where(e => e.IsActive && e.StartingDate >= DateTime.UtcNow)
                 .OrderBy(e => e.StartingDate);
             
