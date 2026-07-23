@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 import { Link, Stack, useLocalSearchParams } from 'expo-router';
+import { useTranslation } from 'react-i18next';
+
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
 import { eventService } from '@/services/eventService';
@@ -10,7 +12,10 @@ import ColoredLink from '@/components/colored-link';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import ThemedButton from '@/components/themed-button';
 
+const TRANSLATION_PREFIX = 'screens.event.';
+
 const EventDetails = () => {
+  const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState(true);
   const [event, setEvent] = useState<EventDisplayDto | undefined>(undefined);
@@ -30,7 +35,7 @@ const EventDetails = () => {
         <Stack.Screen
             options={{
                 headerShown: true,
-                title: event ? event.title : 'Event details...',
+                title: event ? event.title : t(`${TRANSLATION_PREFIX}fallbackTitle`),
                 headerTitleStyle: { fontWeight: '600' },
             }}
         />
@@ -38,26 +43,26 @@ const EventDetails = () => {
             <ActivityIndicator size="large" color={Colors.primary} />
         ) : !event ? (
             <ThemedView style={styles.errorContainer}>
-                <ThemedText>Failed to load event.</ThemedText>
-                <ColoredLink href="/browse" replace>Go back</ColoredLink>
+                <ThemedText>{t(`${TRANSLATION_PREFIX}loadFail`)}</ThemedText>
+                <ColoredLink href="/browse" replace>{t(`${TRANSLATION_PREFIX}goBack`)}</ColoredLink>
             </ThemedView>
         ) : (
             <ThemedView style={[styles.content, { backgroundColor: contentBackgroundColor }]}>
                 <ThemedText type="subtitle">{event.title}</ThemedText>
                 <ThemedText style={styles.description}>{event.description}</ThemedText>
                 <ThemedText>
-                  Location: <ThemedText style={styles.location}>{event.city}, {event.placeName}</ThemedText>
+                  {t(`${TRANSLATION_PREFIX}location`)}: <ThemedText style={styles.location}>{event.city}, {event.placeName}</ThemedText>
                 </ThemedText>
                 <ThemedView style={styles.dateContainer}>
-                  <ThemedText>From: {event.startingDate}</ThemedText>
-                  <ThemedText>To: {event.endingDate}</ThemedText>
+                  <ThemedText>{t(`${TRANSLATION_PREFIX}from`)}: {event.startingDate}</ThemedText>
+                  <ThemedText>{t(`${TRANSLATION_PREFIX}to`)}: {event.endingDate}</ThemedText>
                 </ThemedView>
-                <ThemedText>Max Room: {event.room}</ThemedText>
-                <ThemedText style={{color: '#888'}}>Organizer: {event.authorName}</ThemedText>
-                <ThemedText style={{color: '#888'}}>Created: {event.dateCreated}</ThemedText>
+                <ThemedText>{t(`${TRANSLATION_PREFIX}maxRoom`)}: {event.room}</ThemedText>
+                <ThemedText style={{color: '#888'}}>{t(`${TRANSLATION_PREFIX}organizer`)}: {event.authorName}</ThemedText>
+                <ThemedText style={{color: '#888'}}>{t(`${TRANSLATION_PREFIX}createdDate`)}: {event.dateCreated}</ThemedText>
                 <ThemedButton
                   onPress={() => console.log('Apply')}
-                  title="Apply"
+                  title={t(`${TRANSLATION_PREFIX}applyButton`)}
                   variant="primary"
                 />
             </ThemedView>
