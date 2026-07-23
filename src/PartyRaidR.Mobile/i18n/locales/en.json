@@ -7,7 +7,8 @@
             "title": "Home"
         },
         "browse": {
-            "title": "Browse"
+            "title": "Browse",
+            "viewDetails": "Tap on an event to view its details."
         },
         "profile": {
             "title": "Profile",
