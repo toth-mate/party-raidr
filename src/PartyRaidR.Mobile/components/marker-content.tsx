@@ -43,8 +43,8 @@ const MarkerContent = ({ event }: MarkerContentProps) => {
     <View style={styles.container}>
       <Text style={{fontWeight: 'bold'}}>{event.title}</Text>
       <Text>{event.address}</Text>
-      <Text>Starts in: {calculateStartTime()}</Text>
-      <Text style={styles.tooltip}>Tap here to view details</Text>
+      <Text>{t(`${TRANSLATION_PREFIX}start`)} {calculateStartTime()}</Text>
+      <Text style={styles.tooltip}>{t(`${TRANSLATION_PREFIX}details`)}</Text>
     </View>
   )
 };

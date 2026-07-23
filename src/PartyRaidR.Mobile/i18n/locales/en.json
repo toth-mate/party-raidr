@@ -39,7 +39,9 @@
                 "days": "day(s)",
                 "hours": "hour(s)",
                 "minutes": "minute(s)",
-                "lessThan": "less than an hour"
+                "lessThan": "less than an hour",
+                "start": "Starts in:",
+                "details": "Tap here to view details"
             }
         },
         "create": {
