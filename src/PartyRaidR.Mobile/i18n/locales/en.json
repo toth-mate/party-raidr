@@ -10,7 +10,11 @@
             "title": "Browse"
         },
         "profile": {
-            "title": "Profile"
+            "title": "Profile",
+            "logout": "Logout",
+            "login": "Login",
+            "createAccount": "Create an account",
+            "welcome": "Welcome back!"
         },
         "map": {
             "title": "Map"
