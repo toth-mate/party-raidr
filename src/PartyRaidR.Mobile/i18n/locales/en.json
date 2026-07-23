@@ -1,0 +1,33 @@
+{
+    "tabs": {
+        "home": {
+            "title": "Home"
+        },
+        "browse": {
+            "title": "Browse"
+        },
+        "profile": {
+            "title": "Profile"
+        },
+        "map": {
+            "title": "Map"
+        },
+        "create": {
+            "title": "Create"
+        }
+    },
+    "screens": {
+        "event": {
+            "fallbackTitle": "Event details...",
+            "loadFail": "Failed to load event.",
+            "goBack": "Go back",
+            "location": "Location",
+            "from": "From",
+            "to": "To",
+            "maxRoom": "Max Room",
+            "applyButton": "Apply",
+            "organizer": "Organizer",
+            "createdDate": "Created"
+        }
+    }
+}
