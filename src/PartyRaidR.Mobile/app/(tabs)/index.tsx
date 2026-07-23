@@ -57,42 +57,42 @@ export default function HomeScreen() {
 
   return (
     <ScrollView style={[styles.container, { backgroundColor }]}>
-        <View style={[styles.upcomingEventsContainer, { backgroundColor: panelBgColor }]}>
-          <ThemedText type="subtitle" style={{ marginBottom: 5 }}>
-            {t(`${TRANSLATION_PREFIX}upcoming`)}
-          </ThemedText>
+      <View style={[styles.upcomingEventsContainer, { backgroundColor: panelBgColor }]}>
+        <ThemedText type="subtitle" style={{ marginBottom: 5 }}>
+          {t(`${TRANSLATION_PREFIX}upcoming`)}
+        </ThemedText>
 
-          <Collapsible title={t(`${TRANSLATION_PREFIX}showHideUpcoming`)} defaultOpen>
-            {upcomingEvents.map((event) => (
-              <EventCard key={event.id} event={event}/>
-            ))}
-          </Collapsible>
+        <Collapsible title={t(`${TRANSLATION_PREFIX}showHideUpcoming`)} defaultOpen>
+          {upcomingEvents.map((event) => (
+            <EventCard key={event.id} event={event}/>
+          ))}
+        </Collapsible>
+      </View>
+
+      {!isLoggedIn && (
+        <ThemedView>
+        <ThemedText type="title" centered>{t(`${TRANSLATION_PREFIX}community`)}</ThemedText>
+        <View style={styles.buttonContainer}>
+          <ThemedButton title={t(`${TRANSLATION_PREFIX}register`)} onPress={() => router.push('/')} style={styles.button} />
+          <ThemedButton title={t(`${TRANSLATION_PREFIX}login`)} onPress={() => router.push('/login')} outline style={styles.button} />
         </View>
+      </ThemedView>
+      )}        
 
-        {!isLoggedIn && (
-          <ThemedView>
-          <ThemedText type="title" centered>{t(`${TRANSLATION_PREFIX}community`)}</ThemedText>
-          <View style={styles.buttonContainer}>
-            <ThemedButton title={t(`${TRANSLATION_PREFIX}register`)} onPress={() => router.push('/')} style={styles.button} />
-            <ThemedButton title={t(`${TRANSLATION_PREFIX}login`)} onPress={() => router.push('/login')} outline style={styles.button} />
-          </View>
-        </ThemedView>
-        )}        
+      <View style={[styles.upcomingEventsContainer, { backgroundColor: panelBgColor }]}>
+        <ThemedText type="subtitle" style={{ marginBottom: 5 }}>
+          {t(`${TRANSLATION_PREFIX}nearby`)}
+        </ThemedText>
+        <ThemedText style={[styles.description, { color: sublteTextColor }]}>
+          {t(`${TRANSLATION_PREFIX}inRadius`)}
+        </ThemedText>
 
-        <View style={[styles.upcomingEventsContainer, { backgroundColor: panelBgColor }]}>
-          <ThemedText type="subtitle" style={{ marginBottom: 5 }}>
-            {t(`${TRANSLATION_PREFIX}nearby`)}
-          </ThemedText>
-          <ThemedText style={[styles.description, { color: sublteTextColor }]}>
-            {t(`${TRANSLATION_PREFIX}inRadius`)}
-          </ThemedText>
-
-          <Collapsible title={t(`${TRANSLATION_PREFIX}showHideNearby`)} defaultOpen>
-            {nearbyEvents.map((event) => (
-              <EventCard key={event.id} event={event}/>
-            ))}
-          </Collapsible>
-        </View>
+        <Collapsible title={t(`${TRANSLATION_PREFIX}showHideNearby`)} defaultOpen>
+          {nearbyEvents.map((event) => (
+            <EventCard key={event.id} event={event}/>
+          ))}
+        </Collapsible>
+      </View>
     </ScrollView>
   );
 };
