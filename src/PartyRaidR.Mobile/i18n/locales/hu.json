@@ -33,11 +33,12 @@
         "map": {
             "title": "Térkép",
             "marker": {
-                "year": "év",
-                "month": "hónap",
-                "day": "nap",
-                "hour": "óra",
-                "minute": "perc",
+                "years": "év",
+                "months": "hónap",
+                "weeks": "hetek",
+                "days": "nap",
+                "hours": "óra",
+                "minutes": "perc",
                 "lessThan": "kevesebb, mint egy óra"
             }
         },

@@ -33,11 +33,12 @@
         "map": {
             "title": "Map",
             "marker": {
-                "year": "year(s)",
-                "month": "month(s)",
-                "day": "day(s)",
-                "hour": "hour(s)",
-                "minute": "minute(s)",
+                "years": "year(s)",
+                "months": "month(s)",
+                "weeks": "week(s)",
+                "days": "day(s)",
+                "hours": "hour(s)",
+                "minutes": "minute(s)",
                 "lessThan": "less than an hour"
             }
         },
