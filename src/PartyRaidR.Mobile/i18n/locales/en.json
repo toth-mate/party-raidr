@@ -78,6 +78,9 @@
                     "welcome": "Welcome back!"
                 }
             }
+        },
+        "settings": {
+            "title": "Settings"
         }
     }
 }
