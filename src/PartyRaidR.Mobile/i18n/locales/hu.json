@@ -79,7 +79,7 @@
             "login": {
                 "title": "Bejelentkezés",
                 "secondaryTitle": "Jelentkezz be a fiókodba!",
-                "email": "E-mail",
+                "email": "E-mail cím",
                 "password": "Jelszó",
                 "placeholder": {
                     "email": "pelda@mail.org",
