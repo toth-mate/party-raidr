@@ -13,7 +13,11 @@
             "community": "Join our community!",
             "register": "Register",
             "login": "Login",
-            "inRadius": "These are events that are in 30 kms radius of your location."
+            "inRadius": "These are events that are in 30 kms radius of your location.",
+            "eventCard": {
+                "start": "Starts at:",
+                "location": "Location: "
+            }
         },
         "browse": {
             "title": "Browse",
