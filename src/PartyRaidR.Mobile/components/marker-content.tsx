@@ -3,12 +3,16 @@ import React from 'react';
 import { EventMarkerDto } from '@/types/event.types';
 import { Link } from 'expo-router';
 import { Colors } from '@/constants/theme';
+import { useTranslation } from 'react-i18next';
 
 type MarkerContentProps = {
   event: EventMarkerDto;
 }
 
+const TRANSLATION_PREFIX = 'tabs.map.marker.';
+
 const MarkerContent = ({ event }: MarkerContentProps) => {
+  const { t } = useTranslation();
   const calculateStartTime = (): string => {
     const startDate = new Date(event.startingDate);
     const now = new Date();
@@ -21,17 +25,17 @@ const MarkerContent = ({ event }: MarkerContentProps) => {
     const diffInYears = Math.floor(diffInDays / 365);
     
     if(diffInYears > 0) {
-      return `${diffInYears} year(s)`;
+      return `${diffInYears} ${t(`${TRANSLATION_PREFIX}years`)}`;
     } else if(diffInMonths > 0) {
-      return `${diffInMonths} month(s)`;
+      return `${diffInMonths} ${t(`${TRANSLATION_PREFIX}months`)}`;
     } else if(diffInWeeks > 0) {
-      return `${diffInWeeks} week(s)`;
+      return `${diffInWeeks} ${t(`${TRANSLATION_PREFIX}weeks`)}`;
     } else if(diffInDays > 0) {
-      return `${diffInDays} day(s)`;
+      return `${diffInDays} ${t(`${TRANSLATION_PREFIX}days`)}`;
     } else if(diffInHours > 0) {
-      return `${diffInHours} hour(s)`;
+      return `${diffInHours} ${t(`${TRANSLATION_PREFIX}hours`)}`;
     } else {
-      return 'less than an hour';
+      return t(`${TRANSLATION_PREFIX}lessThan`);
     }
   };
 
