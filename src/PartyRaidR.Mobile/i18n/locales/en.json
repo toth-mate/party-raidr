@@ -15,7 +15,7 @@
             "login": "Login",
             "inRadius": "These are events that are in 30 kms radius of your location.",
             "eventCard": {
-                "start": "Starts at:",
+                "start": "Starts at: ",
                 "location": "Location: "
             }
         },

@@ -13,7 +13,11 @@
             "community": "Csatlakozz a közösségünkhöz!",
             "register": "Regisztráció",
             "login": "Bejelentkezés",
-            "inRadius": "Olyan események, amelyek a 30 km-es körzetben találhatóak."
+            "inRadius": "Olyan események, amelyek a 30 km-es körzetben találhatóak.",
+            "eventCard": {
+                "start": "Kezdés: ",
+                "location": "Hely: "
+            }
         },
         "browse": {
             "title": "Böngészés",
