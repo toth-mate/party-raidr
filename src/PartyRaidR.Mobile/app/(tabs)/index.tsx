@@ -30,6 +30,7 @@ export default function HomeScreen() {
         longitude = useLocationStore((state) => state.lng);
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated);
 
+  const backgroundColor = useThemeColor({}, 'background');
   const panelBgColor = useThemeColor({}, 'inputFieldBackground');
   const sublteTextColor = useThemeColor({}, 'icon');
 
@@ -55,8 +56,7 @@ export default function HomeScreen() {
   }, [latitude, longitude]);
 
   return (
-    <ScrollView>
-      <ThemedView style={styles.container}>
+    <ScrollView style={[styles.container, { backgroundColor }]}>
         <View style={[styles.upcomingEventsContainer, { backgroundColor: panelBgColor }]}>
           <ThemedText type="subtitle" style={{ marginBottom: 5 }}>
             {t(`${TRANSLATION_PREFIX}upcoming`)}
@@ -93,7 +93,6 @@ export default function HomeScreen() {
             ))}
           </Collapsible>
         </View>
-      </ThemedView>
     </ScrollView>
   );
 };
@@ -102,6 +101,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 5,
     paddingVertical: 10,
+    flex: 1,
   },
   title: {
     fontSize: 24,
