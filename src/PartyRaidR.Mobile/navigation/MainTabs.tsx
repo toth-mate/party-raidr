@@ -36,7 +36,7 @@ export default function MainTabs() {
       <Tabs.Screen
         name="create"
         options={{
-          title: t(`${TRANSLATION_PREFIX}create.title`),
+          title: '',
           tabBarIcon: ({ color }) => <IconSymbol size={44} name="plus.circle" color={color} />,
           tabBarIconStyle: {
             justifyContent: 'center',
