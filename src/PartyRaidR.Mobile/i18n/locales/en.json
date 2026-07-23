@@ -1,4 +1,7 @@
 {
+    "common": {
+        "apply": "Apply"
+    },
     "tabs": {
         "home": {
             "title": "Home"
