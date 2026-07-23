@@ -1,6 +1,20 @@
 {
     "common": {
-        "apply": "Alkalmaz"
+        "apply": "Alkalmaz",
+        "auth": {
+            "logout": {
+                "toast": {
+                    "logout": {
+                        "title": "Sikeres kijelentkezés",
+                        "text": "Kijelentkeztél."
+                    },
+                    "error": {
+                        "title": "Hiba!",
+                        "text": "Hiba keletkezett bejelentkezés közben. Kérlek, próbáld újra később."
+                    }
+                }
+            }
+        }
     },
     "tabs": {
         "home": {
