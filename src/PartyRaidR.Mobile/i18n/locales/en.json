@@ -45,6 +45,24 @@
             "applyButton": "Apply",
             "organizer": "Organizer",
             "createdDate": "Created"
+        },
+        "auth": {
+            "login": {
+                "title": "Login",
+                "secondaryTitle": "Log in to your account!",
+                "email": "Email",
+                "password": "Password",
+                "placeholder": {
+                    "email": "example@mail.org",
+                    "password": "Password"
+                },
+                "noAccountYet": "Don't have an account yet?",
+                "register": "Register here!",
+                "toast": {
+                    "success": "Successfully logged in",
+                    "welcome": "Welcome back!"
+                }
+            }
         }
     }
 }
