@@ -5,8 +5,13 @@ import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { Platform } from 'react-native';
+import { useTranslation } from 'react-i18next';
+
+const TRANSLATION_PREFIX = 'tabs.';
 
 export default function MainTabs() {
+  const { t } = useTranslation();
+
   return (
     <Tabs
       screenOptions={{
@@ -17,21 +22,21 @@ export default function MainTabs() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: t(`${TRANSLATION_PREFIX}home.title`),
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
         }}
       />
       <Tabs.Screen
         name="browse"
         options={{
-          title: 'Browse',
+          title: t(`${TRANSLATION_PREFIX}browse.title`),
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="magnifyingglass" color={color} />,
         }}
       />
       <Tabs.Screen
         name="create"
         options={{
-          title: '',
+          title: t(`${TRANSLATION_PREFIX}create.title`),
           tabBarIcon: ({ color }) => <IconSymbol size={44} name="plus.circle" color={color} />,
           tabBarIconStyle: {
             justifyContent: 'center',
@@ -44,14 +49,14 @@ export default function MainTabs() {
       <Tabs.Screen
         name="map"
         options={{
-          title: 'Map',
+          title: t(`${TRANSLATION_PREFIX}map.title`),
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="map" color={color} />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profile',
+          title: t(`${TRANSLATION_PREFIX}profile.title`),
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.circle" color={color} />,
         }}
       />
