@@ -1,0 +1,68 @@
+{
+    "common": {
+        "apply": "Alkalmaz"
+    },
+    "tabs": {
+        "home": {
+            "title": "Főoldal",
+            "welcome": "Szia!",
+            "upcoming": "Közelgő események:",
+            "nearby": "Közeledben lévő események:",
+            "showHideUpcoming": "Közelgő események megjelenítése/elrejtése",
+            "showHideNearby": "Közeledben lévő események megjelenítése/elrejtése",
+            "community": "Csatlakozz a közösségünkhöz!",
+            "register": "Regisztráció",
+            "login": "Bejelentkezés",
+            "inRadius": "Olyan események, amelyek a 30 km-es körzetben találhatóak."
+        },
+        "browse": {
+            "title": "Böngészés",
+            "viewDetails": "Koppints egy eseményre, hogy megtekintsd a részleteit."
+        },
+        "profile": {
+            "title": "Profil",
+            "logout": "Kijelentkezés",
+            "login": "Bejelentkezés",
+            "createAccount": "Készíts fiókot",
+            "welcome": "Üdv újra!"
+        },
+        "map": {
+            "title": "Térkép"
+        },
+        "create": {
+            "title": "Esemény létrehozása"
+        }
+    },
+    "screens": {
+        "event": {
+            "fallbackTitle": "Esemény részletei...",
+            "loadFail": "Nem sikerült betölteni az eseményt.",
+            "goBack": "Vissza",
+            "location": "Hely",
+            "from": "Ettől",
+            "to": "Eddig",
+            "maxRoom": "Maximum hely",
+            "applyButton": "Jelentkezés",
+            "organizer": "Szervező",
+            "createdDate": "Létrehozva"
+        },
+        "auth": {
+            "login": {
+                "title": "Bejelentkezés",
+                "secondaryTitle": "Jelentkezz be a fiókodba!",
+                "email": "E-mail",
+                "password": "Jelszó",
+                "placeholder": {
+                    "email": "pelda@mail.org",
+                    "password": "Jelszó"
+                },
+                "noAccountYet": "Még nincs fiókod?",
+                "register": "Regisztrálj itt!",
+                "toast": {
+                    "success": "Sikeres bejelentkezés!",
+                    "welcome": "Üdv újra!"
+                }
+            }
+        }
+    }
+}
