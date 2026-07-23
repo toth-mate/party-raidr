@@ -31,6 +31,7 @@ export const useAuthStore = create<AuthState>((set) => ({
             await SecureStorage.deleteItemAsync('auth_token');
             set({ user: null, isAuthenticated: false });
 
+            // TODO: Custom Toast component with translation key.
             Toast.show({
                 type: 'error',
                 text1: 'Error!',

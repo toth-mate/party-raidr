@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
 import { StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { useAuthStore } from '@/store/useAuthStore';
 import { ThemedText } from '@/components/themed-text';
@@ -7,7 +8,10 @@ import { ThemedView } from '@/components/themed-view';
 import ThemedButton from '@/components/themed-button';
 import { useThemeColor } from '@/hooks/use-theme-color';
 
+const TRANSLATION_PREFIX = 'tabs.profile.';
+
 export default function ProfileScreen() {
+  const { t } = useTranslation();
   const router = useRouter();
   const user = useAuthStore(state => state.user);
   const isLoggedIn = useAuthStore(state => state.isAuthenticated);
@@ -20,7 +24,7 @@ export default function ProfileScreen() {
       <ThemedView safe={true}>
         <ThemedView style={styles.header}>
           <ThemedText type="title" style={styles.title}>
-            Welcome back!
+            {t(`${TRANSLATION_PREFIX}welcome`)}
           </ThemedText>
           <ThemedButton
             onPress={() => router.push('/profile/settings')}
@@ -38,7 +42,7 @@ export default function ProfileScreen() {
               <ThemedText style={styles.emailText}>{user?.email}</ThemedText>
             </ThemedView>
             <ThemedButton
-              title="Logout"
+              title={t(`${TRANSLATION_PREFIX}logout`)}
               variant='danger'
               onPress={logout}
             />
@@ -46,12 +50,12 @@ export default function ProfileScreen() {
         ) : (
           <ThemedView style={styles.buttonWrapper}>
             <ThemedButton
-              title="Login"
+              title={t(`${TRANSLATION_PREFIX}login`)}
               variant='secondary'
               onPress={() => router.push('/login')}
             />
             <ThemedButton
-              title="Create an account"
+              title={t(`${TRANSLATION_PREFIX}createAccount`)}
               variant='primary'
               onPress={() => router.push('/')}
               outline

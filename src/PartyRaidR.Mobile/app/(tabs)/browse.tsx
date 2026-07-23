@@ -9,8 +9,10 @@ import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import ThemedButton from '@/components/themed-button';
 import { router } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 export default function BrowseScreen() {
+  const { t } = useTranslation();
   const [events, setEvents] = useState<EventDisplayDto[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -62,7 +64,7 @@ export default function BrowseScreen() {
     <ThemedView safe={true}>
       <View style={styles.contentHeader}>
         <ThemedText style={styles.descriptionText}>
-          Tap on an event to view its details.
+          {t('tabs.browse.viewDetails')}
         </ThemedText>
         <ThemedButton
           onPress={() => console.log('Search')}

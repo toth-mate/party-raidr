@@ -11,8 +11,12 @@ import ThemedButton from '@/components/themed-button';
 import { Colors } from '@/constants/theme';
 import { authService } from '@/services/authService';
 import { useAuthStore } from '@/store/useAuthStore';
+import { useTranslation } from 'react-i18next';
+
+const TRANSLATION_PREFIX = 'screens.auth.login.';
 
 const Login = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const inputTextColor = useThemeColor({}, 'text');
@@ -35,8 +39,8 @@ const Login = () => {
         await initialize();
         Toast.show({
           type: 'success',
-          text1: 'Successfully logged in',
-          text2: 'Welcome back!',
+          text1: t(`${TRANSLATION_PREFIX}toast.success`),
+          text2: t(`${TRANSLATION_PREFIX}toast.welcome`),
           autoHide: true,
         });
         router.replace('/profile');
@@ -51,14 +55,14 @@ const Login = () => {
           type='title'
           style={[styles.textCentered, {
             marginBottom: 5,
-          }]}>Login</ThemedText>
+          }]}>{t(`${TRANSLATION_PREFIX}title`)}</ThemedText>
 
-        <ThemedText style={[styles.textCentered, { color: secondaryTextColor }]}>Log in to your account!</ThemedText>
+        <ThemedText style={[styles.textCentered, { color: secondaryTextColor }]}>{t(`${TRANSLATION_PREFIX}secondaryTitle`)}</ThemedText>
 
         <View style={styles.inputSection}>
-          <ThemedText style={styles.inputLabel}>Email</ThemedText>
+          <ThemedText style={styles.inputLabel}>{t(`${TRANSLATION_PREFIX}email`)}</ThemedText>
           <TextInput
-            placeholder='example@mail.org'
+            placeholder={t(`${TRANSLATION_PREFIX}placeholder.email`)}
             inputMode='email'
             onChangeText={(newEmail) => setEmail(newEmail)}
             style={[styles.input, {
@@ -69,9 +73,9 @@ const Login = () => {
         </View>
 
         <View style={styles.inputSection}>
-          <ThemedText style={styles.inputLabel}>Password</ThemedText>
+          <ThemedText style={styles.inputLabel}>{t(`${TRANSLATION_PREFIX}password`)}</ThemedText>
           <TextInput
-            placeholder='Password'
+            placeholder={t(`${TRANSLATION_PREFIX}placeholder.password`)}
             inputMode='text'
             onChangeText={(newPassword) => setPassword(newPassword)}
             secureTextEntry
@@ -86,11 +90,11 @@ const Login = () => {
           style={{
             marginTop: 15,
           }}
-          title='Login'
+          title={t(`${TRANSLATION_PREFIX}title`)}
           onPress={login}/>
 
         <ThemedText style={styles.textCentered}>
-          Don't have an account yet? <Link href='/' style={styles.link}>Register here!</Link>
+          {t(`${TRANSLATION_PREFIX}noAccountYet`)} <Link href='/' style={styles.link}>{t(`${TRANSLATION_PREFIX}register`)}</Link>
         </ThemedText>
       </ThemedView>
     </ThemedView>
