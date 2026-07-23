@@ -4,7 +4,16 @@
     },
     "tabs": {
         "home": {
-            "title": "Home"
+            "title": "Home",
+            "welcome": "Welcome!",
+            "upcoming": "Upcoming events:",
+            "nearby": "Nearby events:",
+            "showHideUpcoming": "Show/Hide upcoming events",
+            "showHideNearby": "Show/Hide nearby events",
+            "community": "Join our community!",
+            "register": "Register",
+            "login": "Login",
+            "inRadius": "These are events that are in 30 kms radius of your location.",
         },
         "browse": {
             "title": "Browse",
