@@ -31,7 +31,15 @@
             "welcome": "Welcome back!"
         },
         "map": {
-            "title": "Map"
+            "title": "Map",
+            "marker": {
+                "year": "year(s)",
+                "month": "month(s)",
+                "day": "day(s)",
+                "hour": "hour(s)",
+                "minute": "minute(s)",
+                "lessThan": "less than an hour"
+            }
         },
         "create": {
             "title": "Create"
