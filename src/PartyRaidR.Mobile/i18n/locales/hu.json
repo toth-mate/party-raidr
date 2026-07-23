@@ -39,7 +39,9 @@
                 "days": "nap",
                 "hours": "óra",
                 "minutes": "perc",
-                "lessThan": "kevesebb, mint egy óra"
+                "lessThan": "kevesebb, mint egy óra",
+                "start": "Kezdés:",
+                "details": "Koppints ide az esemény részleteihez"
             }
         },
         "create": {
@@ -76,6 +78,9 @@
                     "welcome": "Üdv újra!"
                 }
             }
+        },
+        "settings": {
+            "title": "Beállítások"
         }
     }
 }
