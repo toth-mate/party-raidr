@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -55,12 +55,8 @@ export default function HomeScreen() {
   }, [latitude, longitude]);
 
   return (
-    <ThemedView safe>
+    <ScrollView>
       <ThemedView style={styles.container}>
-        <ThemedText style={styles.title}>
-          {t(`${TRANSLATION_PREFIX}welcome`)}
-        </ThemedText>
-
         <View style={[styles.upcomingEventsContainer, { backgroundColor: panelBgColor }]}>
           <ThemedText type="subtitle" style={{ marginBottom: 5 }}>
             {t(`${TRANSLATION_PREFIX}upcoming`)}
@@ -98,7 +94,7 @@ export default function HomeScreen() {
           </Collapsible>
         </View>
       </ThemedView>
-    </ThemedView>
+    </ScrollView>
   );
 };
 
