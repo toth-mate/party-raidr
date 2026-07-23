@@ -24,6 +24,9 @@ export default function MainTabs() {
         options={{
           title: t(`${TRANSLATION_PREFIX}home.title`),
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          headerShown: true,
+          headerTitle: t(`${TRANSLATION_PREFIX}home.welcome`),
+          headerTitleAlign: 'left',
         }}
       />
       <Tabs.Screen
