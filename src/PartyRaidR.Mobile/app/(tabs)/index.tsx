@@ -13,10 +13,13 @@ import { useLocationStore } from '@/store/useLocationStore';
 import { Colors } from '@/constants/theme';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 const MAX_DISTANCE_IN_KM: number = 30;
+const TRANSLATION_PREFIX = 'tabs.home.';
 
 export default function HomeScreen() {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEventDto[]>([]);
@@ -55,15 +58,15 @@ export default function HomeScreen() {
     <ThemedView safe>
       <ThemedView style={styles.container}>
         <ThemedText style={styles.title}>
-          Welcome!
+          {t(`${TRANSLATION_PREFIX}welcome`)}
         </ThemedText>
 
         <View style={[styles.upcomingEventsContainer, { backgroundColor: panelBgColor }]}>
           <ThemedText type="subtitle" style={{ marginBottom: 5 }}>
-            Nearby events:
+            {t(`${TRANSLATION_PREFIX}upcoming`)}
           </ThemedText>
 
-          <Collapsible title="Show/Hide upcoming events" defaultOpen>
+          <Collapsible title={t(`${TRANSLATION_PREFIX}showHideUpcoming`)} defaultOpen>
             {upcomingEvents.map((event) => (
               <EventCard key={event.id} event={event}/>
             ))}
@@ -72,23 +75,23 @@ export default function HomeScreen() {
 
         {!isLoggedIn && (
           <ThemedView>
-          <ThemedText type="title" centered>Join our community!</ThemedText>
+          <ThemedText type="title" centered>{t(`${TRANSLATION_PREFIX}community`)}</ThemedText>
           <View style={styles.buttonContainer}>
-            <ThemedButton title="Register" onPress={() => router.push('/')} style={styles.button} />
-            <ThemedButton title="Login" onPress={() => router.push('/login')} outline style={styles.button} />
+            <ThemedButton title={t(`${TRANSLATION_PREFIX}register`)} onPress={() => router.push('/')} style={styles.button} />
+            <ThemedButton title={t(`${TRANSLATION_PREFIX}login`)} onPress={() => router.push('/login')} outline style={styles.button} />
           </View>
         </ThemedView>
         )}        
 
         <View style={[styles.upcomingEventsContainer, { backgroundColor: panelBgColor }]}>
           <ThemedText type="subtitle" style={{ marginBottom: 5 }}>
-            Upcoming events:
+            {t(`${TRANSLATION_PREFIX}nearby`)}
           </ThemedText>
           <ThemedText style={[styles.description, { color: sublteTextColor }]}>
-            These are events that are in 30 kms radius of your location.
+            {t(`${TRANSLATION_PREFIX}inRadius`)}
           </ThemedText>
 
-          <Collapsible title="Show/Hide nearby events" defaultOpen>
+          <Collapsible title={t(`${TRANSLATION_PREFIX}showHideNearby`)} defaultOpen>
             {nearbyEvents.map((event) => (
               <EventCard key={event.id} event={event}/>
             ))}
