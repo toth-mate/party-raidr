@@ -4,6 +4,7 @@ import Toast from 'react-native-toast-message';
 
 import { authService } from '@/services/authService';
 import { UserDto } from "@/types/auth.types";
+import { AuthState } from '@/types/state.type';
 
 export const useAuthStore = create<AuthState>((set) => ({
     user: null,
@@ -53,13 +54,3 @@ export const useAuthStore = create<AuthState>((set) => ({
         });
     },
 }));
-
-interface AuthState {
-    user: UserDto | null;
-    isAuthenticated: boolean;
-    isLoading: boolean;
-
-    setUser: (user: UserDto) => void;
-    initializeAuth: () => Promise<void>;
-    logout: () => Promise<void>;
-}
