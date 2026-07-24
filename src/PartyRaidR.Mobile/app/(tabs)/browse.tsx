@@ -1,4 +1,6 @@
+import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   StyleSheet,
   FlatList,
@@ -7,15 +9,13 @@ import {
   Pressable,
 } from 'react-native';
 
-import { EventDisplayDto } from '@/types/event.types';
-import { eventService } from '@/services/eventService';
-
+import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
-import ThemedButton from '@/components/themed-button';
-import { router } from 'expo-router';
-import { useTranslation } from 'react-i18next';
+import { eventService } from '@/services/eventService';
+import { EventDisplayDto } from '@/types/event.types';
+
 
 export default function BrowseScreen() {
   const { t } = useTranslation();

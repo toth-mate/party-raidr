@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { Platform } from 'react-native';
 import Constants from 'expo-constants';
 import * as Device from 'expo-device';
 import * as SecureStore from 'expo-secure-store';
+import { Platform } from 'react-native';
 
 const getBaseUrl = () => {
   if (!__DEV__) {

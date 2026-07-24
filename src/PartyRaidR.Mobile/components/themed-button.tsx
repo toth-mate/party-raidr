@@ -1,6 +1,7 @@
-import { ActivityIndicator, Pressable, StyleSheet, Text } from 'react-native';
 import React from 'react';
+import { ActivityIndicator, Pressable, StyleSheet, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import { Colors } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { ThemedButtonProps } from '@/types/props.types';

@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { StyleSheet } from 'react-native';
+
 import { UpcomingEventDto } from '@/types/event.types';
+
 import { ThemedText } from './themed-text';
 import { ThemedView } from './themed-view';
-import { IconSymbol } from './ui/icon-symbol';
-import { Colors } from '@/constants/theme';
 
 const EventCard = ({ event }: { event: UpcomingEventDto }) => {
   const { t } = useTranslation();

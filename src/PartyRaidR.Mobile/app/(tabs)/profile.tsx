@@ -1,12 +1,12 @@
 import { useRouter } from 'expo-router';
-import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { StyleSheet } from 'react-native';
 
-import { useAuthStore } from '@/store/useAuthStore';
+import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import ThemedButton from '@/components/themed-button';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import { useAuthStore } from '@/store/useAuthStore';
 
 const TRANSLATION_PREFIX = 'tabs.profile.';
 

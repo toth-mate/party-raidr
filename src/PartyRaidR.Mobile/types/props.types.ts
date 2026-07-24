@@ -1,9 +1,10 @@
-import { Href, Link } from 'expo-router';
-import { ComponentProps, PropsWithChildren, ReactElement } from 'react';
-import { EventMarkerDto } from './event.types';
-import { StyleProp, TextProps, ViewProps, ViewStyle } from 'react-native';
-import { SymbolViewProps } from 'expo-symbols';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { Href, Link } from 'expo-router';
+import { SymbolViewProps } from 'expo-symbols';
+import { ComponentProps, PropsWithChildren, ReactElement } from 'react';
+import { StyleProp, TextProps, ViewProps, ViewStyle } from 'react-native';
+
+import { EventMarkerDto } from './event.types';
 
 export type ExternalLinkProps = Omit<ComponentProps<typeof Link>, 'href'> & {
   href: Href & string;

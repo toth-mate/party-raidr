@@ -10,7 +10,9 @@ import Toast from 'react-native-toast-message';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
+
 import { useEffect } from 'react';
+
 import { useAuthStore } from '@/store/useAuthStore';
 
 export const unstable_settings = {

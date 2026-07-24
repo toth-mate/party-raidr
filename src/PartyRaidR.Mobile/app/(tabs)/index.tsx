@@ -1,19 +1,20 @@
+import { useRouter } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { useEffect, useState } from 'react';
-import { UpcomingEventDto } from '@/types/event.types';
-import { eventService } from '@/services/eventService';
-import { useThemeColor } from '@/hooks/use-theme-color';
-import { Collapsible } from '@/components/ui/collapsible';
 import EventCard from '@/components/event-card';
 import ThemedButton from '@/components/themed-button';
-import { useLocationStore } from '@/store/useLocationStore';
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+import { Collapsible } from '@/components/ui/collapsible';
 import { Colors } from '@/constants/theme';
+import { useThemeColor } from '@/hooks/use-theme-color';
+import { eventService } from '@/services/eventService';
 import { useAuthStore } from '@/store/useAuthStore';
-import { useRouter } from 'expo-router';
-import { useTranslation } from 'react-i18next';
+import { useLocationStore } from '@/store/useLocationStore';
+import { UpcomingEventDto } from '@/types/event.types';
+
 
 const MAX_DISTANCE_IN_KM: number = 30;
 const TRANSLATION_PREFIX = 'tabs.home.';

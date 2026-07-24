@@ -1,6 +1,6 @@
-import { create } from 'zustand';
 import * as SecureStorage from 'expo-secure-store';
 import Toast from 'react-native-toast-message';
+import { create } from 'zustand';
 
 import { authService } from '@/services/authService';
 import { UserDto } from '@/types/auth.types';

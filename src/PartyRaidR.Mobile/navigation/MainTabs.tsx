@@ -1,11 +1,12 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Platform } from 'react-native';
 
 import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
-import { Platform } from 'react-native';
-import { useTranslation } from 'react-i18next';
+
 
 const TRANSLATION_PREFIX = 'tabs.';
 

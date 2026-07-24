@@ -1,8 +1,8 @@
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { ThemedViewProps } from '@/types/props.types';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import { ThemedViewProps } from '@/types/props.types';
 
 export function ThemedView({
   style,

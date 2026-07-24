@@ -1,6 +1,7 @@
-import { create } from 'zustand';
 import * as Location from 'expo-location';
 import { Alert } from 'react-native';
+import { create } from 'zustand';
+
 import { LocationState } from '@/types/state.type';
 
 export const useLocationStore = create<LocationState>(set => ({

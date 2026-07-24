@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { Colors } from '@/constants/theme';
 import { useTranslation } from 'react-i18next';
+import { StyleSheet, Text, View } from 'react-native';
+
+import { Colors } from '@/constants/theme';
 import { MarkerContentProps } from '@/types/props.types';
 
 const TRANSLATION_PREFIX = 'tabs.map.marker.';

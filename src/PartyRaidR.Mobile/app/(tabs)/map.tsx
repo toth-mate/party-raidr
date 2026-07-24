@@ -1,13 +1,13 @@
-import { StyleSheet } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import MapView, { Callout, Marker } from 'react-native-maps';
 import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import MapView, { Callout, Marker } from 'react-native-maps';
 
-import { ThemedView } from '@/components/themed-view';
+import MarkerContent from '@/components/marker-content';
 import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
 import { eventService } from '@/services/eventService';
 import { EventMarkerDto } from '@/types/event.types';
-import MarkerContent from '@/components/marker-content';
 
 const Map = () => {
   const router = useRouter();

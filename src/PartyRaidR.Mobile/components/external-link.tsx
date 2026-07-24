@@ -1,9 +1,10 @@
-import { ExternalLinkProps } from '@/types/props.types';
 import { Link } from 'expo-router';
 import {
   openBrowserAsync,
   WebBrowserPresentationStyle,
 } from 'expo-web-browser';
+
+import { ExternalLinkProps } from '@/types/props.types';
 
 export function ExternalLink({ href, ...rest }: ExternalLinkProps) {
   return (

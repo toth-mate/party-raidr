@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet } from 'react-native';
 import { Link, Stack, useLocalSearchParams } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 
-import { ThemedView } from '@/components/themed-view';
+import ColoredLink from '@/components/colored-link';
+import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+import { Colors } from '@/constants/theme';
+import { useThemeColor } from '@/hooks/use-theme-color';
 import { eventService } from '@/services/eventService';
 import { EventDisplayDto } from '@/types/event.types';
-import { Colors } from '@/constants/theme';
-import ColoredLink from '@/components/colored-link';
-import { useThemeColor } from '@/hooks/use-theme-color';
-import ThemedButton from '@/components/themed-button';
 
 const TRANSLATION_PREFIX = 'screens.event.';
 
