@@ -118,3 +118,11 @@ To make services unified and serve the API as easily as possible, each service m
     "statusCode": 200
 }
 ```
+
+##### Controller
+
+This layer is the main gate of the API. Here, **endpoints** are defined. For each endpoint a *service method is called.* So controllers are essentially responsible for nothing but to **call the relevant service method** that does the job instead.
+
+Everything is handled by the service, as the Controller method only gets the object from the service mentioned before, so all the necessary data is ready for the controller to send the response.
+
+Controller methods get data from the request (it might come from the **URL query, the request body or sometimes even the header**) and hands it to the service method.
