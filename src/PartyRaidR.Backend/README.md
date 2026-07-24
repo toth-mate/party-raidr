@@ -126,3 +126,16 @@ This layer is the main gate of the API. Here, **endpoints** are defined. For eac
 Everything is handled by the service, as the Controller method only gets the object from the service mentioned before, so all the necessary data is ready for the controller to send the response.
 
 Controller methods get data from the request (it might come from the **URL query, the request body or sometimes even the header**) and hands it to the service method.
+
+## Authentication
+
+The backend app implements its own, custom authentication system. The user model is defined in `Models/User.cs`.
+
+Authentication and authorization is done using **JSON Web Tokens.** The token payload contains the following information:
+- User ID
+- Email address
+- User role
+
+Tokens live for 60 minutes, though it would be ideal to implement ***refresh tokens*** in the future.
+
+User role can either be *User* or *Admin*.
