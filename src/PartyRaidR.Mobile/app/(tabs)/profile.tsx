@@ -22,21 +22,6 @@ export default function ProfileScreen() {
   return (
     <>
       <ThemedView safe={true}>
-        <ThemedView style={styles.header}>
-          <ThemedText
-            type='title'
-            style={styles.title}>
-            {t(`${TRANSLATION_PREFIX}welcome`)}
-          </ThemedText>
-          <ThemedButton
-            onPress={() => router.push('/profile/settings')}
-            icon='settings'
-            outline
-            color='#888'
-            borderColor='#888'
-            style={styles.headerButton}
-          />
-        </ThemedView>
         {isLoggedIn ? (
           <ThemedView>
             <ThemedView style={[styles.content, { backgroundColor }]}>
@@ -78,25 +63,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 8,
   },
-  header: {
-    borderBottomWidth: 0.8,
-    borderColor: '#999',
-    padding: 10,
-    marginBottom: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
   title: {
     fontWeight: '100',
-  },
-  headerButton: {
-    borderRadius: '50%',
-    width: 35,
-    height: 35,
-    fontSize: 10,
-    alignItems: 'center',
-    padding: 0,
   },
   content: {
     padding: 10,
