@@ -9,6 +9,7 @@ Before beginning development, a few setup steps are required.
 #### Prerequisites:
 - .NET 9 (or higher version) installed
 - Docker installed
+- EF Core CLI tool (dotnet-ef) installed
 
 #### Steps:
 Run the following command:
@@ -25,6 +26,41 @@ In some cases you might need to run:
 ```
 
 After that, go to `src` and run `docker compose up backend db`.
+
+#### Migrations
+
+After modifying the DB Context or a database model, running a migration is necessary in order to apply changes to the databse.
+
+First, you need to have **EF Core CLI tool** installed.
+If you do not have it yet, install it like this:
+
+```bash
+> dotnet tool install --global dotnet-ef
+```
+
+Once in `src/PartyRaidR.Backend`, in your terminal run:
+```bash
+> dotnet ef migrations add 
+```
+
+###### Warning
+
+On Linux systems, running `dotnet ef` commands might result in the following: `dotnet-ef: command not found`.
+
+If you get this error message, you need to add `dotnet-ef` to your `PATH`.
+
+**Quick fix:**
+Open your shell config (`nano ~/.bashrc` or `nano ~/.zshrc`) and insert this line to the end of the file:
+```bash
+export PATH="$PATH:$HOME/.dotnet/tools"
+```
+Then save the file and close it.
+Reload your config:
+```bash
+> source ~/.bashrc
+```
+
+After that, running `dotnet ef` in your terminal should work properly.
 
 ## Architecture
 
