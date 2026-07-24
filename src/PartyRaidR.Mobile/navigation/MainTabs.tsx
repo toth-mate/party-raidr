@@ -1,17 +1,20 @@
-import { Tabs } from 'expo-router';
+import { Tabs, useRouter } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 import { HapticTab } from '@/components/haptic-tab';
+import ThemedButton from '@/components/themed-button';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
-
+import { useThemeColor } from '@/hooks/use-theme-color';
 
 const TRANSLATION_PREFIX = 'tabs.';
 
 export default function MainTabs() {
   const { t } = useTranslation();
+  const router = useRouter();
+  const headerBgColor = useThemeColor({}, 'background');
 
   return (
     <Tabs
@@ -92,8 +95,39 @@ export default function MainTabs() {
               color={color}
             />
           ),
+          headerShown: true,
+          headerStyle: { backgroundColor: headerBgColor },
+          headerTitle: t(`${TRANSLATION_PREFIX}profile.welcome`),
+          headerTitleAlign: 'left',
+          headerTitleStyle: styles.customHeaderTitle,
+          headerRight: () => (
+            <ThemedButton
+              onPress={() => router.push('/profile/settings')}
+              icon='settings'
+              outline
+              color='#888'
+              borderColor='#888'
+              style={styles.headerButton}
+            />
+          ),
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  headerButton: {
+    borderRadius: '50%',
+    width: 35,
+    height: 35,
+    fontSize: 10,
+    alignItems: 'center',
+    padding: 0,
+    marginRight: 8,
+  },
+  customHeaderTitle: {
+    fontWeight: 300,
+    fontSize: 20,
+  },
+});
