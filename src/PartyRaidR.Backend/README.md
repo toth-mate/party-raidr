@@ -72,3 +72,49 @@ The **Entity Framework Core** ORM is used in order to perform a code-first appro
 
 All database entities are defined in the `Models` folder following EF Core conventions. Every model needs to implement the `IDbEntity` interface.
 
+#### Layers - Quick Summary
+
+The flow in the API can be broken down into three main layers:
+
+- Repository
+- Service
+- Controller
+
+##### Repository
+
+Repository classes are responsible for direct communication with the database.
+Every repository class extends the `RepositoryBase` class.
+
+##### Service
+
+Service layer is where the business logic happens. Services use repositories, and they might even use other services.
+
+To make services unified and serve the API as easily as possible, each service method returns a `ServiceResponse` including the following information:
+
+```js
+{
+    data: T,
+    success: boolean,
+    message: string,
+    statusCode: number
+}
+```
+
+**Data** is the actual target of the request. It might be an object or a scalar value.
+**Success** is a boolean value indicating if the request was successful.
+**Message** is a `string` value (mostly used when there is no data or if the request was unsuccessful).
+**Status Code** is the HTTP code to be returned by the API.
+
+*Example:*
+```json
+{
+    "data": {
+        "id": '123',
+        "username": 'user1',
+        "email": 'example@mail.org'
+    },
+    "success": true,
+    "message": "User fetched successfully.",
+    "statusCode": 200
+}
+```
