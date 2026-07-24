@@ -15,6 +15,8 @@ export default function MainTabs() {
   const { t } = useTranslation();
   const router = useRouter();
   const headerBgColor = useThemeColor({}, 'background');
+  const buttonBgColor = useThemeColor({}, 'inputFieldBackground');
+  const buttonTextColor = useThemeColor({}, 'text');
 
   return (
     <Tabs
@@ -104,10 +106,9 @@ export default function MainTabs() {
             <ThemedButton
               onPress={() => router.push('/profile/settings')}
               icon='settings'
-              outline
-              color='#888'
+              color={buttonTextColor}
               borderColor='#888'
-              style={styles.headerButton}
+              style={[styles.headerButton, { backgroundColor: buttonBgColor }]}
             />
           ),
         }}
@@ -125,6 +126,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 0,
     marginRight: 8,
+    borderWidth: 0.3,
   },
   customHeaderTitle: {
     fontWeight: 300,
