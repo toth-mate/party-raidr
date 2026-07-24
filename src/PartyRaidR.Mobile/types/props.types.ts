@@ -28,6 +28,7 @@ export type ThemedButtonProps = {
   outline?: boolean;
   color?: string;
   borderColor?: string;
+  shadow?: boolean;
 };
 
 export type ThemedViewProps = ViewProps & {
