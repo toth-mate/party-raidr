@@ -17,7 +17,7 @@ Run the following command:
 > cp appsettings.Sample.json appsettings.json
 ```
 
-Fill the missing data with the **same ones as in `src/.env`.**
+In the new `appsettings.json` fill the missing data with the **same ones as in `src/.env`.**
 
 In some cases you might need to run:
 ```bash
