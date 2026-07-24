@@ -70,7 +70,7 @@ The **Entity Framework Core** ORM is used in order to perform a code-first appro
 
 #### API documentation
 
-Swagger is used as the API documentation. It can be accessed through `http://localhost:8080/swagger/index.html` by default.
+Swagger is used as the API documentation. It can be accessed through `http://localhost:8080/swagger/index.html` in a local setup by default.
 
 #### DB Entities
 
