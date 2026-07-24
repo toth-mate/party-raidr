@@ -1,4 +1,4 @@
-import { Link, Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, StyleSheet } from 'react-native';
@@ -28,7 +28,7 @@ const EventDetails = () => {
     };
     fetchEvent();
     setIsLoading(false);
-  }, []);
+  }, [id]);
 
   return (
     <ThemedView style={styles.container}>

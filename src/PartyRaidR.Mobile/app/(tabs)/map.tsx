@@ -4,7 +4,6 @@ import { StyleSheet } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 
 import MarkerContent from '@/components/marker-content';
-import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { eventService } from '@/services/eventService';
 import { EventMarkerDto } from '@/types/event.types';

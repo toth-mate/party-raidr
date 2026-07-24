@@ -8,13 +8,11 @@ import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Collapsible } from '@/components/ui/collapsible';
-import { Colors } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { eventService } from '@/services/eventService';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useLocationStore } from '@/store/useLocationStore';
 import { UpcomingEventDto } from '@/types/event.types';
-
 
 const MAX_DISTANCE_IN_KM: number = 30;
 const TRANSLATION_PREFIX = 'tabs.home.';

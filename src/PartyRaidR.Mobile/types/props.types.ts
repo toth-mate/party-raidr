@@ -1,6 +1,4 @@
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Href, Link } from 'expo-router';
-import { SymbolViewProps } from 'expo-symbols';
 import { ComponentProps, PropsWithChildren, ReactElement } from 'react';
 import { StyleProp, TextProps, ViewProps, ViewStyle } from 'react-native';
 
