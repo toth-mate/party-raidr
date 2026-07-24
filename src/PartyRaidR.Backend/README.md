@@ -68,6 +68,10 @@ The API is built using **.NET 9.**, `ASP.NET` and uses a *MySQL* database.
 
 The **Entity Framework Core** ORM is used in order to perform a code-first approach. Most of the time writing SQL queries by hand is not needed.
 
+#### API documentation
+
+Swagger is used as the API documentation. It can be accessed through `http://localhost:8080/swagger/index.html` by default.
+
 #### DB Entities
 
 All database entities are defined in the `Models` folder following EF Core conventions. Every model needs to implement the `IDbEntity` interface.
