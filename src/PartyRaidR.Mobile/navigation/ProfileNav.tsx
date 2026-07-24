@@ -7,7 +7,10 @@ const ProfileNav = () => {
 
   return (
     <Stack>
-      <Stack.Screen name="settings/index" options={{ title: t('screens.settings.title') }} />
+      <Stack.Screen
+        name='settings/index'
+        options={{ title: t('screens.settings.title') }}
+      />
     </Stack>
   );
 };

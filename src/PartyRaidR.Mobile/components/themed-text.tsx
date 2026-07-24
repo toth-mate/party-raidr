@@ -3,7 +3,6 @@ import { StyleSheet, Text } from 'react-native';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { ThemedTextProps } from '@/types/props.types';
 
-
 export function ThemedText({
   style,
   lightColor,

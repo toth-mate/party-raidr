@@ -1,15 +1,21 @@
+import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { StyleSheet, FlatList, View, ActivityIndicator, Pressable } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  ActivityIndicator,
+  Pressable,
+} from 'react-native';
 
-import { EventDisplayDto } from '@/types/event.types';
-import { eventService } from '@/services/eventService';
-
+import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
-import ThemedButton from '@/components/themed-button';
-import { router } from 'expo-router';
-import { useTranslation } from 'react-i18next';
+import { eventService } from '@/services/eventService';
+import { EventDisplayDto } from '@/types/event.types';
+
 
 export default function BrowseScreen() {
   const { t } = useTranslation();
@@ -34,30 +40,35 @@ export default function BrowseScreen() {
 
   const renderItem = (item: EventDisplayDto) => {
     // Titles above 20 characters are shortened for more convenient display.
-    const renderTitle = item.title.length < 20 ? item.title : item.title.slice(0, 20).trim().concat('...');
+    const renderTitle =
+      item.title.length < 20
+        ? item.title
+        : item.title.slice(0, 20).trim().concat('...');
 
     return (
       <Pressable onPress={() => router.push(`/event/${item.id}`)}>
         <ThemedView style={styles.listItem}>
           <View style={styles.listItemHeader}>
-            <ThemedText type="subtitle"
+            <ThemedText
+              type='subtitle'
               style={styles.eventTitle}>
               {renderTitle}
             </ThemedText>
-            <ThemedText style={styles.eventDate}>
-              {item.dateCreated}
-            </ThemedText>
+            <ThemedText style={styles.eventDate}>{item.dateCreated}</ThemedText>
           </View>
-          <ThemedText>
-            {item.description}
-          </ThemedText>
+          <ThemedText>{item.description}</ThemedText>
         </ThemedView>
       </Pressable>
-    )
+    );
   };
 
-  if(isLoading) {
-    return <ActivityIndicator size="large" color={Colors.primary} />;
+  if (isLoading) {
+    return (
+      <ActivityIndicator
+        size='large'
+        color={Colors.primary}
+      />
+    );
   }
 
   return (
@@ -68,17 +79,17 @@ export default function BrowseScreen() {
         </ThemedText>
         <ThemedButton
           onPress={() => console.log('Search')}
-          icon="search"
+          icon='search'
           variant='tertiary'
         />
       </View>
       <FlatList
         data={events}
-        renderItem={({item}) => renderItem(item)}
-        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => renderItem(item)}
+        keyExtractor={item => item.id}
         refreshing={isRefreshing}
         onRefresh={handleRefresh}
-        />
+      />
     </ThemedView>
   );
 }

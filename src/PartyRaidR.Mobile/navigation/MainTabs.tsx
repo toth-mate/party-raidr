@@ -1,11 +1,12 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Platform } from 'react-native';
 
 import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
-import { Platform } from 'react-native';
-import { useTranslation } from 'react-i18next';
+
 
 const TRANSLATION_PREFIX = 'tabs.';
 
@@ -20,47 +21,77 @@ export default function MainTabs() {
         tabBarButton: HapticTab,
       }}>
       <Tabs.Screen
-        name="index"
+        name='index'
         options={{
           title: t(`${TRANSLATION_PREFIX}home.title`),
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <IconSymbol
+              size={28}
+              name='house.fill'
+              color={color}
+            />
+          ),
           headerShown: true,
           headerTitle: t(`${TRANSLATION_PREFIX}home.welcome`),
           headerTitleAlign: 'left',
         }}
       />
       <Tabs.Screen
-        name="browse"
+        name='browse'
         options={{
           title: t(`${TRANSLATION_PREFIX}browse.title`),
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="magnifyingglass" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <IconSymbol
+              size={28}
+              name='magnifyingglass'
+              color={color}
+            />
+          ),
         }}
       />
       <Tabs.Screen
-        name="create"
+        name='create'
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <IconSymbol size={44} name="plus.circle" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <IconSymbol
+              size={44}
+              name='plus.circle'
+              color={color}
+            />
+          ),
           tabBarIconStyle: {
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
             marginTop: Platform.OS === 'ios' ? 6 : 0,
-          }
+          },
         }}
       />
       <Tabs.Screen
-        name="map"
+        name='map'
         options={{
           title: t(`${TRANSLATION_PREFIX}map.title`),
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="map" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <IconSymbol
+              size={28}
+              name='map'
+              color={color}
+            />
+          ),
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name='profile'
         options={{
           title: t(`${TRANSLATION_PREFIX}profile.title`),
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.circle" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <IconSymbol
+              size={28}
+              name='person.circle'
+              color={color}
+            />
+          ),
         }}
       />
     </Tabs>

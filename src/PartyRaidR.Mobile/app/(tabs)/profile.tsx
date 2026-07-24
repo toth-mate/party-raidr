@@ -1,12 +1,12 @@
 import { useRouter } from 'expo-router';
-import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { StyleSheet } from 'react-native';
 
-import { useAuthStore } from '@/store/useAuthStore';
+import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import ThemedButton from '@/components/themed-button';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import { useAuthStore } from '@/store/useAuthStore';
 
 const TRANSLATION_PREFIX = 'tabs.profile.';
 
@@ -23,22 +23,26 @@ export default function ProfileScreen() {
     <>
       <ThemedView safe={true}>
         <ThemedView style={styles.header}>
-          <ThemedText type="title" style={styles.title}>
+          <ThemedText
+            type='title'
+            style={styles.title}>
             {t(`${TRANSLATION_PREFIX}welcome`)}
           </ThemedText>
           <ThemedButton
             onPress={() => router.push('/profile/settings')}
-            icon="settings"
+            icon='settings'
             outline
-            color="#888"
-            borderColor="#888"
+            color='#888'
+            borderColor='#888'
             style={styles.headerButton}
           />
         </ThemedView>
         {isLoggedIn ? (
           <ThemedView>
-              <ThemedView style={[styles.content, { backgroundColor }]}>
-              <ThemedText style={styles.usernameText}>{user?.username}</ThemedText>
+            <ThemedView style={[styles.content, { backgroundColor }]}>
+              <ThemedText style={styles.usernameText}>
+                {user?.username}
+              </ThemedText>
               <ThemedText style={styles.emailText}>{user?.email}</ThemedText>
             </ThemedView>
             <ThemedButton
@@ -62,7 +66,7 @@ export default function ProfileScreen() {
             />
           </ThemedView>
         )}
-        </ThemedView>
+      </ThemedView>
     </>
   );
 }
