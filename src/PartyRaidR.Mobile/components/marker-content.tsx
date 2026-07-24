@@ -1,13 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { EventMarkerDto } from '@/types/event.types';
-import { Link } from 'expo-router';
 import { Colors } from '@/constants/theme';
 import { useTranslation } from 'react-i18next';
-
-type MarkerContentProps = {
-  event: EventMarkerDto;
-}
+import { MarkerContentProps } from '@/types/props.types';
 
 const TRANSLATION_PREFIX = 'tabs.map.marker.';
 

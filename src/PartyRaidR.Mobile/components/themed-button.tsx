@@ -1,23 +1,9 @@
-import { ActivityIndicator, Pressable, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native'
+import { ActivityIndicator, Pressable, StyleSheet, Text } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Colors } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
-
-type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'success' | 'warning' | 'info';
-
-type ThemedButtonProps = {
-    title?: string;
-    onPress: () => void;
-    variant?: ButtonVariant,
-    isLoading?: boolean;
-    disabled?: boolean;
-    style?: StyleProp<ViewStyle>;
-    icon?: string;
-    outline?: boolean;
-    color?: string;
-    borderColor?: string;
-};
+import { ThemedButtonProps } from '@/types/props.types';
 
 const ThemedButton = ({
     title,
