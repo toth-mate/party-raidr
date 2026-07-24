@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import * as Location from 'expo-location';
 import { Alert } from 'react-native';
+import { LocationState } from '@/types/state.type';
 
 export const useLocationStore = create<LocationState>((set) => ({
     lat: undefined,
@@ -20,9 +21,3 @@ export const useLocationStore = create<LocationState>((set) => ({
         }
     },
 }));
-
-interface LocationState {
-    lat: number | undefined;
-    lng: number | undefined;
-    loadLocation: () => Promise<void>;
-};
