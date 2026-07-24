@@ -16,6 +16,7 @@ const ThemedButton = ({
   disabled = false,
   color = '#fff',
   borderColor,
+  shadow = true,
   style,
 }: ThemedButtonProps) => {
   const applicableStyles = [
@@ -41,6 +42,7 @@ const ThemedButton = ({
             }
           : null,
         borderColor ? { borderColor } : null,
+        shadow ? styles.buttonShadow : null,
       ]}>
       {isLoading ? (
         <ActivityIndicator
@@ -111,6 +113,9 @@ const styles = StyleSheet.create({
   },
   disabled: {
     backgroundColor: '#9ca3af',
+  },
+  buttonShadow: {
+    boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
   },
   text: {
     fontSize: 16,
