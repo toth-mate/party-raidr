@@ -23,22 +23,26 @@ export default function ProfileScreen() {
     <>
       <ThemedView safe={true}>
         <ThemedView style={styles.header}>
-          <ThemedText type="title" style={styles.title}>
+          <ThemedText
+            type='title'
+            style={styles.title}>
             {t(`${TRANSLATION_PREFIX}welcome`)}
           </ThemedText>
           <ThemedButton
             onPress={() => router.push('/profile/settings')}
-            icon="settings"
+            icon='settings'
             outline
-            color="#888"
-            borderColor="#888"
+            color='#888'
+            borderColor='#888'
             style={styles.headerButton}
           />
         </ThemedView>
         {isLoggedIn ? (
           <ThemedView>
-              <ThemedView style={[styles.content, { backgroundColor }]}>
-              <ThemedText style={styles.usernameText}>{user?.username}</ThemedText>
+            <ThemedView style={[styles.content, { backgroundColor }]}>
+              <ThemedText style={styles.usernameText}>
+                {user?.username}
+              </ThemedText>
               <ThemedText style={styles.emailText}>{user?.email}</ThemedText>
             </ThemedView>
             <ThemedButton
@@ -62,7 +66,7 @@ export default function ProfileScreen() {
             />
           </ThemedView>
         )}
-        </ThemedView>
+      </ThemedView>
     </>
   );
 }

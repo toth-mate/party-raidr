@@ -1,4 +1,8 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import '../i18n';
@@ -14,7 +18,7 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
-  const initializeAuth = useAuthStore((state) => state.initializeAuth);
+  const initializeAuth = useAuthStore(state => state.initializeAuth);
   const colorScheme = useColorScheme();
 
   useEffect(() => {
@@ -24,13 +28,28 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{headerShown: false}}/>
-        <Stack.Screen name="event/[id]" options={{headerBackButtonDisplayMode: 'generic'}}/>
-        <Stack.Screen name="profile" options={{ headerShown: false }}/>
+        <Stack.Screen
+          name='(tabs)'
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='(auth)'
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='event/[id]'
+          options={{ headerBackButtonDisplayMode: 'generic' }}
+        />
+        <Stack.Screen
+          name='profile'
+          options={{ headerShown: false }}
+        />
       </Stack>
-      <Toast position='bottom' swipeable/>
-      <StatusBar style="auto" />
+      <Toast
+        position='bottom'
+        swipeable
+      />
+      <StatusBar style='auto' />
     </ThemeProvider>
   );
 }

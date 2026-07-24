@@ -8,9 +8,7 @@ export default function SettingsScreen() {
   return (
     <>
       <ThemedView safe={true}>
-        <ThemedText type="title">
-          {t('screens.settings.title')}
-        </ThemedText>
+        <ThemedText type='title'>{t('screens.settings.title')}</ThemedText>
       </ThemedView>
     </>
   );

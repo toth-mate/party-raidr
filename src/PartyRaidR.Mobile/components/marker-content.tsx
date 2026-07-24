@@ -18,16 +18,16 @@ const MarkerContent = ({ event }: MarkerContentProps) => {
     const diffInWeeks = Math.floor(diffInDays / 7);
     const diffInMonths = Math.floor(diffInDays / 30);
     const diffInYears = Math.floor(diffInDays / 365);
-    
-    if(diffInYears > 0) {
+
+    if (diffInYears > 0) {
       return `${diffInYears} ${t(`${TRANSLATION_PREFIX}years`)}`;
-    } else if(diffInMonths > 0) {
+    } else if (diffInMonths > 0) {
       return `${diffInMonths} ${t(`${TRANSLATION_PREFIX}months`)}`;
-    } else if(diffInWeeks > 0) {
+    } else if (diffInWeeks > 0) {
       return `${diffInWeeks} ${t(`${TRANSLATION_PREFIX}weeks`)}`;
-    } else if(diffInDays > 0) {
+    } else if (diffInDays > 0) {
       return `${diffInDays} ${t(`${TRANSLATION_PREFIX}days`)}`;
-    } else if(diffInHours > 0) {
+    } else if (diffInHours > 0) {
       return `${diffInHours} ${t(`${TRANSLATION_PREFIX}hours`)}`;
     } else {
       return t(`${TRANSLATION_PREFIX}lessThan`);
@@ -36,12 +36,14 @@ const MarkerContent = ({ event }: MarkerContentProps) => {
 
   return (
     <View style={styles.container}>
-      <Text style={{fontWeight: 'bold'}}>{event.title}</Text>
+      <Text style={{ fontWeight: 'bold' }}>{event.title}</Text>
       <Text>{event.address}</Text>
-      <Text>{t(`${TRANSLATION_PREFIX}start`)} {calculateStartTime()}</Text>
+      <Text>
+        {t(`${TRANSLATION_PREFIX}start`)} {calculateStartTime()}
+      </Text>
       <Text style={styles.tooltip}>{t(`${TRANSLATION_PREFIX}details`)}</Text>
     </View>
-  )
+  );
 };
 
 export default MarkerContent;

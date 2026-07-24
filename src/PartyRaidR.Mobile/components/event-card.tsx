@@ -12,21 +12,27 @@ const EventCard = ({ event }: { event: UpcomingEventDto }) => {
   const date = new Date(event.startTime);
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="defaultSemiBold">{event.title}</ThemedText>
-      <ThemedText>{t('tabs.home.eventCard.start')}{date.toLocaleDateString()} {date.toLocaleTimeString().slice(0, 5)}</ThemedText>
-      <ThemedText>{t('tabs.home.eventCard.start')}{event.cityName}, {event.placeName}</ThemedText>
+      <ThemedText type='defaultSemiBold'>{event.title}</ThemedText>
+      <ThemedText>
+        {t('tabs.home.eventCard.start')}
+        {date.toLocaleDateString()} {date.toLocaleTimeString().slice(0, 5)}
+      </ThemedText>
+      <ThemedText>
+        {t('tabs.home.eventCard.start')}
+        {event.cityName}, {event.placeName}
+      </ThemedText>
     </ThemedView>
-  )
+  );
 };
 
 export default EventCard;
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 10,
-        borderRadius: 10,
-        marginBottom: 5,
-        borderWidth: 1,
-        borderColor: '#ccc',
-    },
+  container: {
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 5,
+    borderWidth: 1,
+    borderColor: '#ccc',
+  },
 });

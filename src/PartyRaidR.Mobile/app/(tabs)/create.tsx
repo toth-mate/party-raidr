@@ -8,9 +8,7 @@ export default function CreateScreen() {
   return (
     <>
       <ThemedView safe={true}>
-        <ThemedText type="title">
-          {t('tabs.create.title')}
-        </ThemedText>
+        <ThemedText type='title'>{t('tabs.create.title')}</ThemedText>
       </ThemedView>
     </>
   );
