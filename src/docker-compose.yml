@@ -4,8 +4,6 @@ services:
             context: .
             dockerfile: PartyRaidR.Backend/Dockerfile
         container_name: partyraidr-backend
-        ports:
-            - "${BACKEND_PORT}:${BACKEND_PORT}"
         volumes:
             - ./PartyRaidR.Backend:/app
             - ./PartyRaidR.Shared:/PartyRaidR.Shared
@@ -39,13 +37,11 @@ services:
             context: ./PartyRaidR.Web
             dockerfile: Dockerfile
         container_name: partyraidr-frontend
-        ports:
-        - "${FRONTEND_PORT}:${FRONTEND_PORT}"
         volumes:
             - ./PartyRaidR.Web:/app
             - /app/node_modules
         environment:
-            - VITE_API_URL=http://localhost:${BACKEND_PORT}/api
+            - VITE_API_URL=/api
         depends_on:
             - backend
 volumes:
