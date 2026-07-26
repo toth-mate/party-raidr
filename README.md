@@ -55,13 +55,23 @@ FRONTEND_PORT=5173
 
 Navigate to ```src/PartyRaidR.Backend```, and create ```appsettings.json``` based on the provided sample. Note that your **API key needs to be at least 32 characters long.**
 
-Run Docker container:
+There is also an NGINX container that acts as a reverse-proxy and API-gateway. It makes the API and the web application accessible from the `party.test` URL. For it to work, you will need to make this URL point to your own device.
 
+**Edit your hosts file**:
 ```bash
-docker compose up --build
+> nano /etc/hosts
+```
+**Add this line at the end:**
+```
+127.0.0.1 party.test
 ```
 
-This will setup the MySQL database and the API. The backend API can be accessed through *```http://localhost:8080/swagger```* by default.
+**Run Docker container:**
+```bash
+> docker compose up --build
+```
+
+This will setup the MySQL database and the API. The backend API documentation can be accessed through *```http://party.test/swagger```* by default.
 
 The backend runs a DB seeder, so some sample data is ready for you to play around with.
 
@@ -75,9 +85,9 @@ The backend runs a DB seeder, so some sample data is ready for you to play aroun
 
 If you want to try the Vue app, you will need to create a ```.env``` file in ```party-raidr/src/PartyRaidR.Web/src/```. Add this line:
 
-```VITE_API_URL=http://localhost:8080/api```
+```VITE_API_URL=http://party.test/api```
 
-Docker also starts the web app, so after running ```docker-compose,``` you will be able to access it in your web browser on ```http://localhost:5173```.
+Docker also starts the web app, so after running ```docker-compose,``` you will be able to access it in your web browser on ```http://party.test```.
 
 ## 📈 Motivation
 
