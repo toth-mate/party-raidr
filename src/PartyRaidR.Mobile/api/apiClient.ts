@@ -15,14 +15,14 @@ const getBaseUrl = () => {
 
   if (Platform.OS === 'android') {
     if (!Device.isDevice) {
-      return 'http://10.0.2.2:8080/api';
+      return 'http://10.0.2.2/api';
     }
-    return localIp ? `http://${localIp}:8080/api` : 'http://10.0.2.2:8080/api';
+    return localIp ? `http://${localIp}/api` : 'http://10.0.2.2/api';
   } else {
     if (Device.isDevice && localIp) {
-      return `http://${localIp}:8080/api`;
+      return `http://${localIp}/api`;
     }
-    return 'http://localhost:8080/api';
+    return 'http://localhost/api';
   }
 };
 
