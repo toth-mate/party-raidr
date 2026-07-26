@@ -46,7 +46,7 @@ export default function ProfileScreen() {
             <ThemedButton
               title={t(`${TRANSLATION_PREFIX}createAccount`)}
               variant='primary'
-              onPress={() => router.push('/')}
+              onPress={() => router.push('/register')}
               outline
             />
           </ThemedView>

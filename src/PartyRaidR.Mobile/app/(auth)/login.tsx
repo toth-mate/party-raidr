@@ -119,7 +119,7 @@ const Login = () => {
         <ThemedText style={styles.textCentered}>
           {t(`${TRANSLATION_PREFIX}noAccountYet`)}{' '}
           <Link
-            href='/'
+            href='/register'
             style={styles.link}>
             {t(`${TRANSLATION_PREFIX}register`)}
           </Link>
