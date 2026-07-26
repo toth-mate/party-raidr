@@ -75,12 +75,6 @@ This will setup the MySQL database and the API. The backend API documentation ca
 
 The backend runs a DB seeder, so some sample data is ready for you to play around with.
 
-###### Running MAUI:
-
-+ Open ```src/PartyRaidR.sln``` in Visual Studio.
-+ Set ```PartyRaidR.Mobile``` as the *Startup project.*
-+ Select the target platform *(Android Emulator or Windows Machine)* and hit F5.
-
 ###### Running Web:
 
 If you want to try the Vue app, you will need to create a ```.env``` file in ```party-raidr/src/PartyRaidR.Web/src/```. Add this line:
@@ -91,7 +85,7 @@ Docker also starts the web app, so after running ```docker-compose,``` you will 
 
 ## 💻 Tech Stack
 
-+ Frontend: Vue JS & MAUI
++ Frontend: Vue JS & React Native
 + Backend: .NET 9 (C#)
 + Database: MySQL
 + Infrastructure: Docker - The whole development environment and the database are containerized for portability and consistent running.
