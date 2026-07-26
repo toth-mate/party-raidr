@@ -14,7 +14,10 @@ export default defineConfig({
     },
     hmr: {
       clientPort: 80
-    }
+    },
+    allowedHosts: [
+      'party.test'
+    ]
   },
   plugins: [
     vue(),
