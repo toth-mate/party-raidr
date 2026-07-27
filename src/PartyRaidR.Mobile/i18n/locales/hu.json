@@ -91,6 +91,21 @@
                     "success": "Sikeres bejelentkezés!",
                     "welcome": "Üdv újra!"
                 }
+            },
+            "register": {
+                "title": "Regisztráció",
+                "createAccount": "Készíts fiókot ingyen, hogy az app minden funkcióját használhasd!",
+                "username": "Felhasználónév",
+                "email": "E-mail cím",
+                "password": "Jelszó",
+                "passwordConfirm": "Jelszó megerősítése",
+                "dateOfBirth": "Születési dátum",
+                "placeholders": {
+                    "usernameExample": "Kovács János",
+                    "emailExample": "pelda@mail.org",
+                    "password": "Jelszó",
+                    "passwordConfirm": "Jelszó megerősítése"
+                }
             }
         },
         "settings": {

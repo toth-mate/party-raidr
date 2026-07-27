@@ -91,6 +91,21 @@
                     "success": "Successfully logged in",
                     "welcome": "Welcome back!"
                 }
+            },
+            "register": {
+                "title": "Register",
+                "createAccount": "Create an account to enjoy all features of the app for free!",
+                "username": "Username",
+                "email": "Email",
+                "password": "Password",
+                "passwordConfirm": "Confirm password",
+                "dateOfBirth": "Date of Birth",
+                "placeholders": {
+                    "usernameExample": "John Doe",
+                    "emailExample": "example@mail.org",
+                    "password": "Password",
+                    "passwordConfirm": "Confirm password"
+                }
             }
         },
         "settings": {
