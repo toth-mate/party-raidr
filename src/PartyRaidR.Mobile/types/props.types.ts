@@ -46,6 +46,8 @@ export type ThemedTextProps = TextProps & {
 
 export type LabeledInputProps = TextInputProps & {
   labelKey?: string;
+  type?: 'text' | 'date' | 'time';
+  date?: Date;
 };
 
 type ButtonVariant =
