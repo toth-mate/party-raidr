@@ -6,6 +6,7 @@ import { Colors } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { LabeledInputProps } from '@/types/props.types';
 
+import i18next from 'i18next';
 import { ThemedText } from '../themed-text';
 
 const LabeledInput = ({
@@ -31,7 +32,8 @@ const LabeledInput = ({
         <DateTimePicker
           value={date}
           textColor={inputTextColor}
-          style={[styles.input, { padding: 0 }]}
+          style={{ marginTop: 8 }}
+          locale={i18next.language}
         />
       )}
     </View>
