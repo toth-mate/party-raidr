@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import LabeledInput from '@/components/ui/labeled-input';
+import ThemedButton from '@/components/themed-button';
 
 const TRANSLATION_PREFIX = 'screens.auth.register.';
 
@@ -53,6 +54,9 @@ const Register = () => {
           type='date'
         />
       </ThemedView>
+
+      <ThemedButton
+        title={t(`${TRANSLATION_PREFIX}buttonTitle`)} />
     </ThemedView>
   );
 };

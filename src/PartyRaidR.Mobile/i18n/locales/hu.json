@@ -1,115 +1,116 @@
 {
-    "common": {
-        "apply": "Alkalmaz",
-        "auth": {
-            "logout": {
-                "toast": {
-                    "logout": {
-                        "title": "Sikeres kijelentkezés",
-                        "text": "Kijelentkeztél."
-                    },
-                    "error": {
-                        "title": "Hiba!",
-                        "text": "Hiba keletkezett bejelentkezés közben. Kérlek, próbáld újra később."
-                    }
-                }
-            }
+  "common": {
+    "apply": "Alkalmaz",
+    "auth": {
+      "logout": {
+        "toast": {
+          "logout": {
+            "title": "Sikeres kijelentkezés",
+            "text": "Kijelentkeztél."
+          },
+          "error": {
+            "title": "Hiba!",
+            "text": "Hiba keletkezett bejelentkezés közben. Kérlek, próbáld újra később."
+          }
         }
-    },
-    "tabs": {
-        "home": {
-            "title": "Főoldal",
-            "welcome": "Szia!",
-            "upcoming": "Közelgő események:",
-            "nearby": "Közeledben lévő események:",
-            "showHideUpcoming": "Közelgő események megjelenítése/elrejtése",
-            "showHideNearby": "Közeledben lévő események megjelenítése/elrejtése",
-            "community": "Csatlakozz a közösségünkhöz!",
-            "register": "Regisztráció",
-            "login": "Bejelentkezés",
-            "inRadius": "Olyan események, amelyek a 30 km-es körzetben találhatóak.",
-            "eventCard": {
-                "start": "Kezdés: ",
-                "location": "Hely: "
-            }
-        },
-        "browse": {
-            "title": "Böngészés",
-            "viewDetails": "Koppints egy eseményre, hogy megtekintsd a részleteit."
-        },
-        "profile": {
-            "title": "Profil",
-            "login": "Bejelentkezés",
-            "logout": "Kijelentkezés",
-            "createAccount": "Készíts fiókot",
-            "welcome": "Üdv újra!"
-        },
-        "map": {
-            "title": "Térkép",
-            "marker": {
-                "years": "év",
-                "months": "hónap",
-                "weeks": "hét",
-                "days": "nap",
-                "hours": "óra",
-                "minutes": "perc",
-                "lessThan": "kevesebb, mint egy óra",
-                "start": "Kezdés:",
-                "details": "Koppints ide az esemény részleteihez"
-            }
-        },
-        "create": {
-            "title": "Esemény létrehozása"
-        }
-    },
-    "screens": {
-        "event": {
-            "fallbackTitle": "Esemény részletei...",
-            "loadFail": "Nem sikerült betölteni az eseményt.",
-            "goBack": "Vissza",
-            "location": "Hely",
-            "from": "Ettől",
-            "to": "Eddig",
-            "maxRoom": "Maximum hely",
-            "applyButton": "Jelentkezés",
-            "organizer": "Szervező",
-            "createdDate": "Létrehozva"
-        },
-        "auth": {
-            "login": {
-                "title": "Bejelentkezés",
-                "secondaryTitle": "Jelentkezz be a fiókodba!",
-                "email": "E-mail cím",
-                "password": "Jelszó",
-                "placeholder": {
-                    "email": "pelda@mail.org",
-                    "password": "Jelszó"
-                },
-                "noAccountYet": "Még nincs fiókod?",
-                "register": "Regisztrálj itt!",
-                "toast": {
-                    "success": "Sikeres bejelentkezés!",
-                    "welcome": "Üdv újra!"
-                }
-            },
-            "register": {
-                "title": "Regisztráció",
-                "createAccount": "Készíts fiókot ingyen, hogy az app minden funkcióját használhasd!",
-                "username": "Felhasználónév",
-                "email": "E-mail cím",
-                "password": "Jelszó",
-                "passwordConfirm": "Jelszó megerősítése",
-                "dateOfBirth": "Születési dátum",
-                "placeholders": {
-                    "usernameExample": "Kovács János",
-                    "emailExample": "pelda@mail.org",
-                    "password": "Jelszó",
-                    "passwordConfirm": "Jelszó megerősítése"
-                }
-            }
-        },
-        "settings": {
-            "title": "Beállítások"
-        }
+      }
     }
+  },
+  "tabs": {
+    "home": {
+      "title": "Főoldal",
+      "welcome": "Szia!",
+      "upcoming": "Közelgő események:",
+      "nearby": "Közeledben lévő események:",
+      "showHideUpcoming": "Közelgő események megjelenítése/elrejtése",
+      "showHideNearby": "Közeledben lévő események megjelenítése/elrejtése",
+      "community": "Csatlakozz a közösségünkhöz!",
+      "register": "Regisztráció",
+      "login": "Bejelentkezés",
+      "inRadius": "Olyan események, amelyek a 30 km-es körzetben találhatóak.",
+      "eventCard": {
+        "start": "Kezdés: ",
+        "location": "Hely: "
+      }
+    },
+    "browse": {
+      "title": "Böngészés",
+      "viewDetails": "Koppints egy eseményre, hogy megtekintsd a részleteit."
+    },
+    "profile": {
+      "title": "Profil",
+      "login": "Bejelentkezés",
+      "logout": "Kijelentkezés",
+      "createAccount": "Készíts fiókot",
+      "welcome": "Üdv újra!"
+    },
+    "map": {
+      "title": "Térkép",
+      "marker": {
+        "years": "év",
+        "months": "hónap",
+        "weeks": "hét",
+        "days": "nap",
+        "hours": "óra",
+        "minutes": "perc",
+        "lessThan": "kevesebb, mint egy óra",
+        "start": "Kezdés:",
+        "details": "Koppints ide az esemény részleteihez"
+      }
+    },
+    "create": {
+      "title": "Esemény létrehozása"
+    }
+  },
+  "screens": {
+    "event": {
+      "fallbackTitle": "Esemény részletei...",
+      "loadFail": "Nem sikerült betölteni az eseményt.",
+      "goBack": "Vissza",
+      "location": "Hely",
+      "from": "Ettől",
+      "to": "Eddig",
+      "maxRoom": "Maximum hely",
+      "applyButton": "Jelentkezés",
+      "organizer": "Szervező",
+      "createdDate": "Létrehozva"
+    },
+    "auth": {
+      "login": {
+        "title": "Bejelentkezés",
+        "secondaryTitle": "Jelentkezz be a fiókodba!",
+        "email": "E-mail cím",
+        "password": "Jelszó",
+        "placeholder": {
+          "email": "pelda@mail.org",
+          "password": "Jelszó"
+        },
+        "noAccountYet": "Még nincs fiókod?",
+        "register": "Regisztrálj itt!",
+        "toast": {
+          "success": "Sikeres bejelentkezés!",
+          "welcome": "Üdv újra!"
+        }
+      },
+      "register": {
+        "title": "Regisztráció",
+        "createAccount": "Készíts fiókot ingyen, hogy az app minden funkcióját használhasd!",
+        "username": "Felhasználónév",
+        "email": "E-mail cím",
+        "password": "Jelszó",
+        "passwordConfirm": "Jelszó megerősítése",
+        "dateOfBirth": "Születési dátum",
+        "buttonTitle": "Regisztráció",
+        "placeholders": {
+          "usernameExample": "Kovács János",
+          "emailExample": "pelda@mail.org",
+          "password": "Jelszó",
+          "passwordConfirm": "Jelszó megerősítése"
+        }
+      }
+    },
+    "settings": {
+      "title": "Beállítások"
+    }
+  }
 }
