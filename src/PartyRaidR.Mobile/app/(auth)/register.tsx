@@ -2,10 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 
+import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import LabeledInput from '@/components/ui/labeled-input';
-import ThemedButton from '@/components/themed-button';
 
 const TRANSLATION_PREFIX = 'screens.auth.register.';
 
@@ -56,7 +56,9 @@ const Register = () => {
       </ThemedView>
 
       <ThemedButton
-        title={t(`${TRANSLATION_PREFIX}buttonTitle`)} />
+        title={t(`${TRANSLATION_PREFIX}buttonTitle`)}
+        onPress={() => {}}
+      />
     </ThemedView>
   );
 };

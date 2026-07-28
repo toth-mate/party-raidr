@@ -12,6 +12,7 @@ import { ThemedText } from '../themed-text';
 const LabeledInput = ({
   type = 'text',
   date = new Date(),
+  errorKey,
   ...props
 }: LabeledInputProps) => {
   const inputTextColor = useThemeColor({}, 'text');
@@ -24,10 +25,15 @@ const LabeledInput = ({
         {props.labelKey}
       </ThemedText>
       {type === 'text' ? (
-        <TextInput
-          style={[styles.input, { color: inputTextColor, backgroundColor }]}
-          {...props}
-        />
+        <>
+          <TextInput
+            style={[styles.input, { color: inputTextColor, backgroundColor }]}
+            {...props}
+          />
+          {errorKey && (
+            <ThemedText style={styles.errorText}>{errorKey}</ThemedText>
+          )}
+        </>
       ) : (
         <DateTimePicker
           value={date}
@@ -53,5 +59,9 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0.5, height: 1 },
     shadowRadius: 1,
   },
-  labelText: {},
+  errorText: {
+    color: 'red',
+    marginTop: 5,
+    fontSize: 14,
+  },
 });

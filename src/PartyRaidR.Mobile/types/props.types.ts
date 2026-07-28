@@ -46,6 +46,7 @@ export type ThemedTextProps = TextProps & {
 
 export type LabeledInputProps = TextInputProps & {
   labelKey?: string;
+  errorKey?: string;
   type?: 'text' | 'date' | 'time';
   date?: Date;
 };
