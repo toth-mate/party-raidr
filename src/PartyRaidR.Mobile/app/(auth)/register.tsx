@@ -6,6 +6,7 @@ import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import LabeledInput from '@/components/ui/labeled-input';
+import { validateEmail, validatePassword, validateUsername } from '@/helpers/registerValidationHelper';
 
 const TRANSLATION_PREFIX = 'screens.auth.register.';
 
@@ -33,6 +34,7 @@ const Register = () => {
           placeholder={t(`${TRANSLATION_PREFIX}placeholders.usernameExample`)}
           value={username}
           onChangeText={setUsername}
+          errorKey={t(validateUsername(username))}
         />
       </ThemedView>
       <ThemedView style={styles.inputSection}>
@@ -41,6 +43,7 @@ const Register = () => {
           placeholder={t(`${TRANSLATION_PREFIX}placeholders.emailExample`)}
           value={email}
           onChangeText={setEmail}
+          errorKey={t(validateEmail(email))}
         />
       </ThemedView>
       <ThemedView style={styles.inputSection}>
@@ -50,6 +53,7 @@ const Register = () => {
           secureTextEntry
           value={password}
           onChangeText={setPassword}
+          errorKey={t(validatePassword(password))}
         />
       </ThemedView>
       <ThemedView style={styles.inputSection}>
@@ -59,6 +63,7 @@ const Register = () => {
           secureTextEntry
           value={passwordConfirm}
           onChangeText={setPasswordConfirm}
+          errorKey={password !== passwordConfirm ? t(`${TRANSLATION_PREFIX}validation.passwordConfirm`) : ''}
         />
       </ThemedView>
       <ThemedView style={styles.inputSection}>

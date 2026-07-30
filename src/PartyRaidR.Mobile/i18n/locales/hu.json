@@ -114,7 +114,8 @@
           "passwordLength": "A jelszónak legalább 8 karakter hosszúnak kell lennie.",
           "passwordNoUppercase": "A jelszónak tartalmaznia kell legalább egy nagybetűt.",
           "passwordNoLowercase": "A jelszónak tartalmaznia kell legalább egy kisbetűt.",
-          "passwordNoNumber": "A jelszónak tartalmaznia kell legalább egy számot."
+          "passwordNoNumber": "A jelszónak tartalmaznia kell legalább egy számot.",
+          "passwordConfirm": "A jelszavak nem egyeznek!"
         }
       }
     },

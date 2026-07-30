@@ -114,7 +114,8 @@
                     "passwordLength": "Password must be at least 8 characters long.",
                     "passwordNoUppercase": "Password must contain at least one uppercase letter.",
                     "passwordNoLowercase": "Password must contain at least one lowercase letter.",
-                    "passwordNoNumber": "Password must contain at least one number."
+                    "passwordNoNumber": "Password must contain at least one number.",
+                    "passwordConfirm": "Passwords do not match!"
                 }
             }
         },

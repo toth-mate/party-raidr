@@ -1,4 +1,4 @@
-const VALIDATION_PREFIX = 'register.validation.';
+const VALIDATION_PREFIX = 'screens.auth.register.validation.';
 
 /**
  * Validates the username by length.
