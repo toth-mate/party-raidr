@@ -32,3 +32,34 @@ export const validateEmail = (value: string): string => {
 
     return error.length > 0 ? error : '';
 };
+
+export const validatePassword = (value: string): string => {
+    const password = value.trim();
+
+    if(password.length < value.length) {
+        return VALIDATION_PREFIX.concat('passwordContainsWhitespace');
+    }
+
+    if(password.length < 8) {
+        return VALIDATION_PREFIX.concat('passwordLength');
+    }
+
+    let noUppercase = true, noLowercase = true, noNumber = true;
+    for(let s of password) {
+        if(noUppercase && s === s.toUpperCase()) {
+            noUppercase = false;
+        }
+        if(noLowercase && s === s.toLowerCase()) {
+            noLowercase = false;
+        }
+        if(noNumber && !isNaN(parseInt(s))) {
+            noNumber = false;
+        }
+    }
+
+    if(noUppercase) return VALIDATION_PREFIX.concat('passwordNoUppercase');
+    if(noLowercase) return VALIDATION_PREFIX.concat('passwordNoLowercase');
+    if(noNumber) return VALIDATION_PREFIX.concat('passwordNoNumber');
+
+    return '';
+};
