@@ -33,6 +33,11 @@ export const validateEmail = (value: string): string => {
     return error.length > 0 ? error : '';
 };
 
+/**
+ * Validates password.
+ * @param value The password to validate.
+ * @returns The error key if any.
+ */
 export const validatePassword = (value: string): string => {
     const password = value.trim();
 
