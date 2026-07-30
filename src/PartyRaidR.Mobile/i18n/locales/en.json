@@ -106,6 +106,15 @@
                     "emailExample": "example@mail.org",
                     "password": "Password",
                     "passwordConfirm": "Confirm password"
+                },
+                "validation": {
+                    "usernameLength": "The length of the username must be between 3 and 15 characters.",
+                    "emailInvalid": "Please provide a valid email address.",
+                    "passwordContainsWhitespace": "Password cannot contain whitespaces.",
+                    "passwordLength": "Password must be at least 8 characters long.",
+                    "passwordNoUppercase": "Password must contain at least one uppercase letter.",
+                    "passwordNoLowercase": "Password must contain at least one lowercase letter.",
+                    "passwordNoNumber": "Password must contain at least one number."
                 }
             }
         },
