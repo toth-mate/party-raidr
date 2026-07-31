@@ -6,14 +6,14 @@ const VALIDATION_PREFIX = 'screens.auth.register.validation.';
  * @returns The error key if any.
  */
 export const validateUsername = (value: string): string => {
-    const username = value.trim();
-    let error: string = '';
-    
-    if(username.length < 3 || username.length > 15) {
-        error = VALIDATION_PREFIX.concat('usernameLength');
-    }
+  const username = value.trim();
+  let error: string = '';
 
-    return error.length > 0 ? error : '';
+  if (username.length < 3 || username.length > 15) {
+    error = VALIDATION_PREFIX.concat('usernameLength');
+  }
+
+  return error.length > 0 ? error : '';
 };
 
 /**
@@ -22,15 +22,15 @@ export const validateUsername = (value: string): string => {
  * @returns The error key if any.
  */
 export const validateEmail = (value: string): string => {
-    const emailRegex = /(^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$)/;
-    const email = value.trim();
-    let error: string = '';
+  const emailRegex = /(^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$)/;
+  const email = value.trim();
+  let error: string = '';
 
-    if(!emailRegex.test(email)) {
-        error = VALIDATION_PREFIX.concat('emailInvalid');
-    }
+  if (!emailRegex.test(email)) {
+    error = VALIDATION_PREFIX.concat('emailInvalid');
+  }
 
-    return error.length > 0 ? error : '';
+  return error.length > 0 ? error : '';
 };
 
 /**
@@ -39,32 +39,34 @@ export const validateEmail = (value: string): string => {
  * @returns The error key if any.
  */
 export const validatePassword = (value: string): string => {
-    const password = value.trim();
+  const password = value.trim();
 
-    if(password.length < value.length) {
-        return VALIDATION_PREFIX.concat('passwordContainsWhitespace');
+  if (password.length < value.length) {
+    return VALIDATION_PREFIX.concat('passwordContainsWhitespace');
+  }
+
+  if (password.length < 8) {
+    return VALIDATION_PREFIX.concat('passwordLength');
+  }
+
+  let noUppercase = true,
+    noLowercase = true,
+    noNumber = true;
+  for (let s of password) {
+    if (noUppercase && s === s.toUpperCase()) {
+      noUppercase = false;
     }
-
-    if(password.length < 8) {
-        return VALIDATION_PREFIX.concat('passwordLength');
+    if (noLowercase && s === s.toLowerCase()) {
+      noLowercase = false;
     }
-
-    let noUppercase = true, noLowercase = true, noNumber = true;
-    for(let s of password) {
-        if(noUppercase && s === s.toUpperCase()) {
-            noUppercase = false;
-        }
-        if(noLowercase && s === s.toLowerCase()) {
-            noLowercase = false;
-        }
-        if(noNumber && !isNaN(parseInt(s))) {
-            noNumber = false;
-        }
+    if (noNumber && !isNaN(parseInt(s))) {
+      noNumber = false;
     }
+  }
 
-    if(noUppercase) return VALIDATION_PREFIX.concat('passwordNoUppercase');
-    if(noLowercase) return VALIDATION_PREFIX.concat('passwordNoLowercase');
-    if(noNumber) return VALIDATION_PREFIX.concat('passwordNoNumber');
+  if (noUppercase) return VALIDATION_PREFIX.concat('passwordNoUppercase');
+  if (noLowercase) return VALIDATION_PREFIX.concat('passwordNoLowercase');
+  if (noNumber) return VALIDATION_PREFIX.concat('passwordNoNumber');
 
-    return '';
+  return '';
 };
