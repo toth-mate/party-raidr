@@ -10,8 +10,14 @@ export const authService = {
       console.error(`Failed to get user data: ${error}`);
     }
   },
-  register: async (creds: UserRegisterDto): Promise<void> => {
+  register: async (creds: UserRegisterDto): Promise<UserDto | string> => {
     const response = await apiClient.post('/auth/register', creds);
+
+    if (response.status === 201) {
+      return (response.data as UserDto) ?? {};
+    } else {
+      return (response.data as string) ?? '';
+    }
   },
   me: async (): Promise<UserDto | undefined> => {
     try {
