@@ -11,11 +11,13 @@ import {
   validatePassword,
   validateUsername,
 } from '@/helpers/registerValidationHelper';
+import { useRegister } from '@/hooks/use-auth-queries';
 
 const TRANSLATION_PREFIX = 'screens.auth.register.';
 
 const Register = () => {
   const { t } = useTranslation();
+  const register = useRegister();
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -33,6 +35,16 @@ const Register = () => {
     dateOfBirth: '',
   });
 
+  const handleRegister = () => {
+    register.mutate({
+      username,
+      email,
+      password,
+      role: 'User',
+      birthDate: dateOfBirth.toISOString(),
+    });
+  };
+
   const validate = () => {
     setHasValidated(true);
 
@@ -47,6 +59,11 @@ const Register = () => {
       dateOfBirth: '',
     };
     setErrors(newErrors);
+
+    const hasErrors = Object.values(newErrors).some(error => error !== '');
+    if (!hasErrors) {
+      handleRegister();
+    }
   };
 
   return (
@@ -109,7 +126,7 @@ const Register = () => {
       <ThemedView style={styles.inputSection}>
         <LabeledInput
           labelKey={t(`${TRANSLATION_PREFIX}dateOfBirth`)}
-          placeholder={t(`${TRANSLATION_PREFIX}placeholders.emailExample`)}
+          placeholder={t(`${TRANSLATION_PREFIX}placeholders.dateOfBirth`)}
           type='date'
         />
       </ThemedView>
