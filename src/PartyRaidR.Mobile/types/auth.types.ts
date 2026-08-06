@@ -16,7 +16,7 @@ export interface UserDto {
 export interface UserRegisterDto {
   username: string;
   email: string;
-  role: UserRole;
+  role: number;
   birthDate: string;
   password: string;
 }
