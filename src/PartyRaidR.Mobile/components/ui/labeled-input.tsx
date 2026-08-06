@@ -1,4 +1,3 @@
-import DateTimePicker from '@react-native-community/datetimepicker';
 import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 
@@ -6,42 +5,25 @@ import { Colors } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { LabeledInputProps } from '@/types/props.types';
 
-import i18next from 'i18next';
 import { ThemedText } from '../themed-text';
 
-const LabeledInput = ({
-  type = 'text',
-  date = new Date(),
-  errorKey,
-  ...props
-}: LabeledInputProps) => {
+const LabeledInput = ({ labelKey, errorKey, ...props }: LabeledInputProps) => {
   const inputTextColor = useThemeColor({}, 'text');
   const backgroundColor = useThemeColor({}, 'inputFieldBackground');
   const labelTextColor = useThemeColor({}, 'icon');
 
   return (
     <View>
-      <ThemedText style={{ color: labelTextColor }}>
-        {props.labelKey}
-      </ThemedText>
-      {type === 'text' ? (
-        <>
-          <TextInput
-            style={[styles.input, { color: inputTextColor, backgroundColor }]}
-            {...props}
-          />
-          {errorKey && (
-            <ThemedText style={styles.errorText}>{errorKey}</ThemedText>
-          )}
-        </>
-      ) : (
-        <DateTimePicker
-          value={date}
-          textColor={inputTextColor}
-          style={{ marginTop: 8 }}
-          locale={i18next.language}
+      <ThemedText style={{ color: labelTextColor }}>{labelKey}</ThemedText>
+      <>
+        <TextInput
+          style={[styles.input, { color: inputTextColor, backgroundColor }]}
+          {...props}
         />
-      )}
+        {errorKey && (
+          <ThemedText style={styles.errorText}>{errorKey}</ThemedText>
+        )}
+      </>
     </View>
   );
 };

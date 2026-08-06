@@ -6,14 +6,19 @@ import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import LabeledInput from '@/components/ui/labeled-input';
+
 import {
   validateEmail,
   validatePassword,
   validateUsername,
 } from '@/helpers/registerValidationHelper';
 import { useRegister } from '@/hooks/use-auth-queries';
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from '@react-native-community/datetimepicker';
 
 const TRANSLATION_PREFIX = 'screens.auth.register.';
+const TODAY = new Date();
 
 const Register = () => {
   const { t } = useTranslation();
@@ -35,13 +40,19 @@ const Register = () => {
     dateOfBirth: '',
   });
 
+  const onDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+    if (selectedDate) {
+      setDateOfBirth(selectedDate);
+    }
+  };
+
   const handleRegister = () => {
     register.mutate({
       username,
       email,
       password,
-      role: 'User',
-      birthDate: dateOfBirth.toISOString(),
+      role: 0,
+      birthDate: dateOfBirth.toISOString().split('T')[0],
     });
   };
 
@@ -124,10 +135,10 @@ const Register = () => {
         />
       </ThemedView>
       <ThemedView style={styles.inputSection}>
-        <LabeledInput
-          labelKey={t(`${TRANSLATION_PREFIX}dateOfBirth`)}
-          placeholder={t(`${TRANSLATION_PREFIX}placeholders.dateOfBirth`)}
-          type='date'
+        <DateTimePicker
+          value={dateOfBirth}
+          onChange={onDateChange}
+          maximumDate={TODAY}
         />
       </ThemedView>
 
