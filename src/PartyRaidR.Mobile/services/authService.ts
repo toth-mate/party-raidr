@@ -1,5 +1,5 @@
 import { apiClient } from '@/api/apiClient';
-import { UserDto, UserLoginDto } from '@/types/auth.types';
+import { UserDto, UserLoginDto, UserRegisterDto } from '@/types/auth.types';
 
 export const authService = {
   login: async (creds: UserLoginDto): Promise<string | undefined> => {
@@ -8,6 +8,15 @@ export const authService = {
       return response.data;
     } catch (error) {
       console.error(`Failed to get user data: ${error}`);
+    }
+  },
+  register: async (creds: UserRegisterDto): Promise<UserDto | string> => {
+    const response = await apiClient.post('/auth/register', creds);
+
+    if (response.status === 201) {
+      return (response.data as UserDto) ?? {};
+    } else {
+      return (response.data as string) ?? '';
     }
   },
   me: async (): Promise<UserDto | undefined> => {

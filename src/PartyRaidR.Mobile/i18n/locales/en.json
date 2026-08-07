@@ -1,100 +1,143 @@
 {
-    "common": {
-        "apply": "Apply",
-        "auth": {
-            "logout": {
-                "toast": {
-                    "logout": {
-                        "title": "Successfully logged out",
-                        "text": "You have been logged out."
-                    },
-                    "error": {
-                        "title": "Error!",
-                        "text": "An error occured when logging in. Please try again later."
-                    }
-                }
-            }
+  "common": {
+    "apply": "Apply",
+    "auth": {
+      "logout": {
+        "toast": {
+          "logout": {
+            "title": "Successfully logged out",
+            "text": "You have been logged out."
+          },
+          "error": {
+            "title": "Error!",
+            "text": "An error occured when logging in. Please try again later."
+          }
         }
-    },
-    "tabs": {
-        "home": {
-            "title": "Home",
-            "welcome": "Welcome!",
-            "upcoming": "Upcoming events:",
-            "nearby": "Nearby events:",
-            "showHideUpcoming": "Show/Hide upcoming events",
-            "showHideNearby": "Show/Hide nearby events",
-            "community": "Join our community!",
-            "register": "Register",
-            "login": "Login",
-            "inRadius": "These are events that are in 30 kms radius of your location.",
-            "eventCard": {
-                "start": "Starts at: ",
-                "location": "Location: "
-            }
-        },
-        "browse": {
-            "title": "Browse",
-            "viewDetails": "Tap on an event to view its details."
-        },
-        "profile": {
-            "title": "Profile",
-            "login": "Login",
-            "logout": "Logout",
-            "createAccount": "Create an account",
-            "welcome": "Welcome back!"
-        },
-        "map": {
-            "title": "Map",
-            "marker": {
-                "years": "year(s)",
-                "months": "month(s)",
-                "weeks": "week(s)",
-                "days": "day(s)",
-                "hours": "hour(s)",
-                "minutes": "minute(s)",
-                "lessThan": "less than an hour",
-                "start": "Starts in:",
-                "details": "Tap here to view details"
-            }
-        },
-        "create": {
-            "title": "Create"
-        }
-    },
-    "screens": {
-        "event": {
-            "fallbackTitle": "Event details...",
-            "loadFail": "Failed to load event.",
-            "goBack": "Go back",
-            "location": "Location",
-            "from": "From",
-            "to": "To",
-            "maxRoom": "Max Room",
-            "applyButton": "Apply",
-            "organizer": "Organizer",
-            "createdDate": "Created"
-        },
-        "auth": {
-            "login": {
-                "title": "Login",
-                "secondaryTitle": "Log in to your account!",
-                "email": "Email",
-                "password": "Password",
-                "placeholder": {
-                    "email": "example@mail.org",
-                    "password": "Password"
-                },
-                "noAccountYet": "Don't have an account yet?",
-                "register": "Register here!",
-                "toast": {
-                    "success": "Successfully logged in",
-                    "welcome": "Welcome back!"
-                }
-            }
-        },
-        "settings": {
-            "title": "Settings"
-        }
+      }
     }
+  },
+  "tabs": {
+    "home": {
+      "title": "Home",
+      "welcome": "Welcome!",
+      "upcoming": "Upcoming events:",
+      "nearby": "Nearby events:",
+      "showHideUpcoming": "Show/Hide upcoming events",
+      "showHideNearby": "Show/Hide nearby events",
+      "community": "Join our community!",
+      "register": "Register",
+      "login": "Login",
+      "inRadius": "These are events that are in 30 kms radius of your location.",
+      "eventCard": {
+        "start": "Starts at: ",
+        "location": "Location: "
+      }
+    },
+    "browse": {
+      "title": "Browse",
+      "viewDetails": "Tap on an event to view its details."
+    },
+    "profile": {
+      "title": "Profile",
+      "login": "Login",
+      "logout": "Logout",
+      "createAccount": "Create an account",
+      "welcome": "Welcome back!"
+    },
+    "map": {
+      "title": "Map",
+      "marker": {
+        "years": "year(s)",
+        "months": "month(s)",
+        "weeks": "week(s)",
+        "days": "day(s)",
+        "hours": "hour(s)",
+        "minutes": "minute(s)",
+        "lessThan": "less than an hour",
+        "start": "Starts in:",
+        "details": "Tap here to view details"
+      }
+    },
+    "create": {
+      "title": "Create"
+    }
+  },
+  "screens": {
+    "event": {
+      "fallbackTitle": "Event details...",
+      "loadFail": "Failed to load event.",
+      "goBack": "Go back",
+      "location": "Location",
+      "from": "From",
+      "to": "To",
+      "maxRoom": "Max Room",
+      "applyButton": "Apply",
+      "organizer": "Organizer",
+      "createdDate": "Created"
+    },
+    "auth": {
+      "login": {
+        "title": "Login",
+        "secondaryTitle": "Log in to your account!",
+        "email": "Email",
+        "password": "Password",
+        "placeholder": {
+          "email": "example@mail.org",
+          "password": "Password"
+        },
+        "noAccountYet": "Don't have an account yet?",
+        "register": "Register here!",
+        "toast": {
+          "success": "Successfully logged in",
+          "welcome": "Welcome back!"
+        }
+      },
+      "register": {
+        "title": "Register",
+        "createAccount": "Create an account to enjoy all features of the app for free!",
+        "alreadyRegistered": "Already have an account?",
+        "login": "Login here!",
+        "username": "Username",
+        "email": "Email",
+        "password": "Password",
+        "passwordConfirm": "Confirm password",
+        "dateOfBirth": "Date of Birth",
+        "buttonTitle": "Register",
+        "placeholders": {
+          "usernameExample": "John Doe",
+          "emailExample": "example@mail.org",
+          "password": "Password",
+          "passwordConfirm": "Confirm password"
+        },
+        "validation": {
+          "usernameLength": "The length of the username must be between 3 and 15 characters.",
+          "emailInvalid": "Please provide a valid email address.",
+          "passwordContainsWhitespace": "Password cannot contain whitespaces.",
+          "passwordLength": "Password must be at least 8 characters long.",
+          "passwordNoUppercase": "Password must contain at least one uppercase letter.",
+          "passwordNoLowercase": "Password must contain at least one lowercase letter.",
+          "passwordNoNumber": "Password must contain at least one number.",
+          "passwordConfirm": "Passwords do not match!"
+        },
+        "toast": {
+          "success": {
+            "title": "Successful registration!",
+            "text": "You can now log in with your credentials."
+          },
+          "error": {
+            "title": "Registration failed!",
+            "emailInUse": "This email address is already in use.",
+            "tooYoung": "You must be at least 16 years old to register.",
+            "usernameInUse": "This username is already in use by another user.",
+            "invalidPassword": "The provided password does not meet the required criteria.",
+            "invalidEmail": "The provided email address is in an invalid format.",
+            "unknown": "An unknown error occured during registration."
+          }
+        }
+      }
+    },
+    "settings": {
+      "title": "Settings"
+    }
+  }
 }

@@ -1,11 +1,5 @@
-import { Stack } from 'expo-router';
+import AuthNav from '@/navigation/auth-nav';
 
 export default function AuthLayout() {
-  return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-      }}
-    />
-  );
+  return <AuthNav />;
 }

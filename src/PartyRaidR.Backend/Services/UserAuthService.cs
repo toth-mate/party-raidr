@@ -1,4 +1,4 @@
-﻿using PartyRaidR.Backend.Repos.Promises;
+﻿﻿using PartyRaidR.Backend.Repos.Promises;
 using PartyRaidR.Backend.Services.Promises;
 using PartyRaidR.Shared.Dtos;
 using PartyRaidR.Shared.Dtos.AuthenticationRequests;
@@ -89,23 +89,38 @@ namespace PartyRaidR.Backend.Services
         {
             try
             {
-                bool isUserValid = await IsUserValid(userRequest);
+                await IsUserValid(userRequest);
 
-                if (isUserValid)
-                {
-                    User newUser = _userRegistrationAssembler.ConvertToModel(userRequest);
+                User newUser = _userRegistrationAssembler.ConvertToModel(userRequest);
 
-                    string passwordHash = BCrypt.Net.BCrypt.HashPassword(userRequest.Password);
-                    newUser.PasswordHash = passwordHash;
-                    newUser.Id = Guid.CreateVersion7().ToString();
+                string passwordHash = BCrypt.Net.BCrypt.HashPassword(userRequest.Password);
+                newUser.PasswordHash = passwordHash;
+                newUser.Id = Guid.CreateVersion7().ToString();
 
-                    await _userRepo.InsertAsync(newUser);
-                    await _userRepo.SaveChangesAsync();
+                await _userRepo.InsertAsync(newUser);
+                await _userRepo.SaveChangesAsync();
 
-                    return CreateResponse(true, 201, _userAssembler.ConvertToDto(newUser), message: "Registration successful.");
-                }
-
-                return CreateResponse<UserDto>(false, 400, message: "Registration failed: Invalid user data.");
+                return CreateResponse(true, 201, _userAssembler.ConvertToDto(newUser), message: "Registration successful.");
+            }
+            catch (RegistrationWithTakenEmailAddressException e)
+            {
+                return CreateResponse<UserDto>(false, 409, message: e.Message);
+            }
+            catch (RegistrationWithTakenUsernameException e)
+            {
+                return CreateResponse<UserDto>(false, 409, message: e.Message);
+            }
+            catch (InvalidEmailAddressException e)
+            {
+                return CreateResponse<UserDto>(false, 400, message: e.Message);
+            }
+            catch (InvalidPasswordException e)
+            {
+                return CreateResponse<UserDto>(false, 400, message: e.Message);
+            }
+            catch (UserDoesNotMeetRequiredAgeException e)
+            {
+                return CreateResponse<UserDto>(false, 400, message: e.Message);
             }
             catch(Exception e)
             {
@@ -113,7 +128,7 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
-        private async Task<bool> IsUserValid(UserRegistrationDto request)
+        private async Task IsUserValid(UserRegistrationDto request)
         {
             bool emailExists = await _userRepo.EmailExistsAsync(request.Email),
                  usernameExists = await _userRepo.GetByUsernameAsync(request.Username) is not null;
@@ -134,8 +149,6 @@ namespace PartyRaidR.Backend.Services
             // Temporary solution
             if (request.BirthDate > DateOnly.FromDateTime(DateTime.UtcNow.AddYears(-16)))
                 throw new UserDoesNotMeetRequiredAgeException("User must be at least 16 years old to register.");
-
-            return true;
         }
 
         private ServiceResponse<T> CreateResponse<T>(bool isSuccess, int statusCode, T? data = default, string? message = null)

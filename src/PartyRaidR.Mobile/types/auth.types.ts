@@ -13,4 +13,12 @@ export interface UserDto {
   role: UserRole;
 }
 
+export interface UserRegisterDto {
+  username: string;
+  email: string;
+  role: number;
+  birthDate: string;
+  password: string;
+}
+
 export type UserRole = 'User' | 'Admin';

@@ -93,7 +93,7 @@ export default function HomeScreen() {
           <View style={styles.buttonContainer}>
             <ThemedButton
               title={t(`${TRANSLATION_PREFIX}register`)}
-              onPress={() => router.push('/')}
+              onPress={() => router.push('/register')}
               style={styles.button}
             />
             <ThemedButton

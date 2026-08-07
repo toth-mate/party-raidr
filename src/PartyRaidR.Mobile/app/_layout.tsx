@@ -15,6 +15,17 @@ import { useEffect } from 'react';
 
 import { useAuthStore } from '@/store/useAuthStore';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      retry: 2,
+    }
+  },
+});
+
 export const unstable_settings = {
   anchor: '(tabs)',
 };
@@ -28,30 +39,32 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen
-          name='(tabs)'
-          options={{ headerShown: false }}
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen
+            name='(tabs)'
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='(auth)'
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='event/[id]'
+            options={{ headerBackButtonDisplayMode: 'generic' }}
+          />
+          <Stack.Screen
+            name='profile'
+            options={{ headerShown: false }}
+          />
+        </Stack>
+        <Toast
+          position='bottom'
+          swipeable
         />
-        <Stack.Screen
-          name='(auth)'
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name='event/[id]'
-          options={{ headerBackButtonDisplayMode: 'generic' }}
-        />
-        <Stack.Screen
-          name='profile'
-          options={{ headerShown: false }}
-        />
-      </Stack>
-      <Toast
-        position='bottom'
-        swipeable
-      />
-      <StatusBar style='auto' />
-    </ThemeProvider>
+        <StatusBar style='auto' />
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }

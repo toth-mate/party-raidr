@@ -1,6 +1,6 @@
 import { Href, Link } from 'expo-router';
 import { ComponentProps, PropsWithChildren, ReactElement } from 'react';
-import { StyleProp, TextProps, ViewProps, ViewStyle } from 'react-native';
+import { StyleProp, TextInputProps, TextProps, ViewProps, ViewStyle } from 'react-native';
 
 import { EventMarkerDto } from './event.types';
 
@@ -42,6 +42,11 @@ export type ThemedTextProps = TextProps & {
   darkColor?: string;
   type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
   centered?: boolean;
+};
+
+export type LabeledInputProps = TextInputProps & {
+  labelKey?: string;
+  errorKey?: string;
 };
 
 type ButtonVariant =
