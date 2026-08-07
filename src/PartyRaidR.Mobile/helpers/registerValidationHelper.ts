@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 const VALIDATION_PREFIX = 'screens.auth.register.validation.';
 
 /**
@@ -69,4 +71,29 @@ export const validatePassword = (value: string): string => {
   if (noNumber) return VALIDATION_PREFIX.concat('passwordNoNumber');
 
   return '';
+};
+
+/**
+ * Returns the appropriate error message key based on the Axios error for registration.
+ * @param error An Axios error exception
+ * @returns The complete translation key for the error message
+ */
+export const getErrorMessageKey = (error: AxiosError): string => {
+  const toastPrefix = 'screens.auth.register.toast.error.';
+
+  if (error.response?.data && typeof error.response.data === 'string') {
+    if (error.response.status === 409) {
+      if (error.response.data.includes('username')) {
+        return `${toastPrefix}usernameInUse`;
+      }
+      return `${toastPrefix}emailInUse`;
+    } else if (error.response.data.includes('16')) {
+      return `${toastPrefix}tooYoung`;
+    } else if (error.response.data.includes('password')) {
+      return `${toastPrefix}invalidPassword`;
+    } else if (error.response.data.includes('email')) {
+      return `${toastPrefix}invalidEmail`;
+    }
+  }
+  return `${toastPrefix}unknown`;
 };
