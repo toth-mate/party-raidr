@@ -151,6 +151,8 @@ const Register = () => {
       <ThemedButton
         title={t(`${TRANSLATION_PREFIX}buttonTitle`)}
         onPress={validate}
+        variant='secondary'
+        style={{ width: '100%' }}
       />
     </ThemedView>
   );
