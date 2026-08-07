@@ -33,8 +33,6 @@ export const useRegister = () => {
         text1: t(`${TRANSLATION_PREFIX}error.title`),
         text2: t(errorMessage),
       });
-
-      console.error(`Failed to register user: ${errorMessage}`, error);
     },
   });
 };
