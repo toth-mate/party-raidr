@@ -90,6 +90,12 @@ const Register = () => {
         centered>
         {t(`${TRANSLATION_PREFIX}title`)}
       </ThemedText>
+      <ThemedText
+        centered
+        style={{ marginTop: 10, color: labelTextColor }}>
+        {t(`${TRANSLATION_PREFIX}createAccount`)}
+      </ThemedText>
+
       <ThemedView style={styles.inputSection}>
         <LabeledInput
           labelKey={t(`${TRANSLATION_PREFIX}username`)}
