@@ -95,6 +95,8 @@
       "register": {
         "title": "Regisztráció",
         "createAccount": "Készíts fiókot ingyen, hogy az app minden funkcióját használhasd!",
+        "alreadyRegistered": "Már van fiókod?",
+        "login": "Jelentkezz be itt!",
         "username": "Felhasználónév",
         "email": "E-mail cím",
         "password": "Jelszó",

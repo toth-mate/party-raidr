@@ -95,6 +95,8 @@
       "register": {
         "title": "Register",
         "createAccount": "Create an account to enjoy all features of the app for free!",
+        "alreadyRegistered": "Already have an account?",
+        "login": "Login here!",
         "username": "Username",
         "email": "Email",
         "password": "Password",

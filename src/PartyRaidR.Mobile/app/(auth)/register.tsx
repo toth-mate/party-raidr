@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import LabeledInput from '@/components/ui/labeled-input';
 
+import ColoredLink from '@/components/colored-link';
 import {
   validateEmail,
   validatePassword,
@@ -154,6 +155,15 @@ const Register = () => {
         variant='secondary'
         style={{ width: '100%' }}
       />
+
+      <View>
+        <ThemedText>
+          {t(`${TRANSLATION_PREFIX}alreadyRegistered`)}{' '}
+          <ColoredLink href='/login'>
+            {t(`${TRANSLATION_PREFIX}login`)}
+          </ColoredLink>
+        </ThemedText>
+      </View>
     </ThemedView>
   );
 };
