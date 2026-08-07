@@ -13,6 +13,7 @@ import {
   validateUsername,
 } from '@/helpers/registerValidationHelper';
 import { useRegister } from '@/hooks/use-auth-queries';
+import { useThemeColor } from '@/hooks/use-theme-color';
 import DateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
@@ -39,6 +40,8 @@ const Register = () => {
     passwordConfirm: '',
     dateOfBirth: '',
   });
+
+  const labelTextColor = useThemeColor({}, 'icon');
 
   const onDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     if (selectedDate) {
@@ -135,6 +138,9 @@ const Register = () => {
         />
       </ThemedView>
       <ThemedView style={styles.inputSection}>
+        <ThemedText style={{ color: labelTextColor }}>
+          {t(`${TRANSLATION_PREFIX}dateOfBirth`)}
+        </ThemedText>
         <DateTimePicker
           value={dateOfBirth}
           onChange={onDateChange}
