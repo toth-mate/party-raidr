@@ -116,6 +116,21 @@
           "passwordNoLowercase": "A jelszónak tartalmaznia kell legalább egy kisbetűt.",
           "passwordNoNumber": "A jelszónak tartalmaznia kell legalább egy számot.",
           "passwordConfirm": "A jelszavak nem egyeznek!"
+        },
+        "toast": {
+          "success": {
+            "title": "Sikeres regisztráció!",
+            "text": "Most már be tudsz jelentkezni a hitelesítő adataiddal."
+          },
+          "error": {
+            "title": "Hiba történt a regisztráció során.",
+            "emailInUse": "Ez az e-mail cím már használatban van.",
+            "tooYoung": "Legalább 16 évesnek kell lenned a reigsztrációhoz.",
+            "usernameInUse": "Ez a felhasználónév már használatban van.",
+            "invalidPassword": "A megadott jelszó nem felel meg a követelményeknek.",
+            "invalidEmail": "A megadott e-mail cím érvénytelen formátumú.",
+            "unknown": "Ismeretlen hiba történt a regisztráció során."
+          }
         }
       }
     },
