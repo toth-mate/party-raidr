@@ -1,5 +1,6 @@
 import { apiClient } from '@/api/apiClient';
 import {
+  BoundingBox,
   EventDisplayDto,
   EventMarkerDto,
   UpcomingEventDto,
@@ -27,16 +28,16 @@ export const eventService = {
       return undefined;
     }
   },
-  getMarkerEvents: async (): Promise<EventMarkerDto[]> => {
-    try {
-      const response = await apiClient.get<EventMarkerDto[]>(
-        '/event/marker-details',
-      );
-      return response.data;
-    } catch (error) {
-      console.error(`Failed to fetch event marker details: ${error}`);
-      return [];
-    }
+  getMarkerEvents: async (
+    boundingBox: BoundingBox,
+  ): Promise<EventMarkerDto[]> => {
+    const response = await apiClient.get<EventMarkerDto[]>(
+      `/event/marker-details`,
+      {
+        params: boundingBox,
+      },
+    );
+    return response.data;
   },
   getUpcomingEvents: async (): Promise<UpcomingEventDto[]> => {
     try {
