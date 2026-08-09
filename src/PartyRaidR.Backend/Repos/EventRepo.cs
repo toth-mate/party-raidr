@@ -84,9 +84,16 @@ namespace PartyRaidR.Backend.Repos
                          .Where(e => e.User.Id == userId)
                          .ToListAsync();
 
-        public IQueryable<Event> GetEventsWithMarkerDetails() =>
-            _dbSet!.Include(e => e.Place)
-                   .Where(e => e.IsActive && e.StartingDate >= DateTime.UtcNow);
+        public IQueryable<Event> GetEventsWithMarkerDetails(double minLat, double maxLat, double minLng, double maxLng)
+        {
+            var geometryFactory = new GeometryFactory();
+            var envelope = new Envelope(minLat, minLng, maxLat, maxLng);
+            var polygon = geometryFactory.ToGeometry(envelope);
+            
+            return _dbSet!.Include(e => e.Place)
+                .Where(e => e.Place.Location.CoveredBy(polygon))
+                .Where(e => e.IsActive && e.StartingDate >= DateTime.UtcNow);
+        }
 
         public async Task<List<Event>> GetNearbyEventsAsync(double latitude, double longitude, double radius)
         {
