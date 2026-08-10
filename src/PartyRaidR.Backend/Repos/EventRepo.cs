@@ -88,7 +88,7 @@ namespace PartyRaidR.Backend.Repos
         public IQueryable<Event> GetEventsWithMarkerDetails(double minLat, double maxLat, double minLng, double maxLng)
         {
             var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
-            var envelope = new Envelope(minLat, minLng, maxLat, maxLng);
+            var envelope = new Envelope(minLat, maxLat, minLng, maxLng);
             var polygon = geometryFactory.ToGeometry(envelope);
             
             return _dbSet!.Include(e => e.Place)

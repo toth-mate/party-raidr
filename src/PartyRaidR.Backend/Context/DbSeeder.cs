@@ -51,10 +51,10 @@ namespace PartyRaidR.Backend.Context
             {
                 List<Place> places = new()
                 {
-                    new(place1, "Hősök tere", "Hősök tere 1.", city2.ToString(), PlaceCategory.PublicSpace, new Point(47.514678, 19.077384) { SRID = 4326 }, "Híres emlékmű Budapesten.", admin.ToString()),
-                    new(place2, "Laci Kocsmája", "Arany János utca 12.", city3.ToString(), PlaceCategory.Club, new Point(47.433874, 17.116901) { SRID = 4326 }, "A környék legjobb kocsmája.", user1.ToString()),
-                    new(place3, "Olasz Kávézó", "Masa út 56.", city4.ToString(), PlaceCategory.Club, new Point(47.517374, 21.632340) { SRID = 4326 }, "Nagyon finom kávé.", user2.ToString()),
-                    new(place4, "Pick Aréna", "Felső Tisza-Part 35.", city1.ToString(), PlaceCategory.Club, new Point(46.258520, 20.174206) { SRID = 4326 }, "A környék legjobb kocsmája.", user3.ToString())
+                    new(place1, "Hősök tere", "Hősök tere 1.", city2.ToString(), PlaceCategory.PublicSpace, new Point(19.077384, 47.514678) { SRID = 4326 }, "Híres emlékmű Budapesten.", admin.ToString()),
+                    new(place2, "Laci Kocsmája", "Arany János utca 12.", city3.ToString(), PlaceCategory.Club, new Point(17.116901, 47.433874) { SRID = 4326 }, "A környék legjobb kocsmája.", user1.ToString()),
+                    new(place3, "Olasz Kávézó", "Masa út 56.", city4.ToString(), PlaceCategory.Club, new Point(21.632340, 47.517374) { SRID = 4326 }, "Nagyon finom kávé.", user2.ToString()),
+                    new(place4, "Pick Aréna", "Felső Tisza-Part 35.", city1.ToString(), PlaceCategory.Club, new Point(20.174206, 46.258520) { SRID = 4326 }, "A környék legjobb kocsmája.", user3.ToString())
                 };
                 await context.AddRangeAsync(places);
                 await context.SaveChangesAsync();
