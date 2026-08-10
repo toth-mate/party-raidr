@@ -7,6 +7,6 @@ export const useMapEvents = (bounds: BoundingBox | null) => {
     queryKey: ['events', 'map', bounds],
     queryFn: () => eventService.getMarkerEvents(bounds!),
     enabled: !!bounds,
-    placeholderData: keepPreviousData
+    placeholderData: keepPreviousData,
   });
 };

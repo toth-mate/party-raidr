@@ -423,3 +423,4 @@ appsettings.json
 # JetBrains
 .idea/
 *.sln.iml
+*.swp

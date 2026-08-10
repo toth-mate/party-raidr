@@ -51,10 +51,10 @@ namespace PartyRaidR.Backend.Context
             {
                 List<Place> places = new()
                 {
-                    new(place1, "Hősök tere", "Hősök tere 1.", city2.ToString(), PlaceCategory.PublicSpace, new Point(47.514678, 19.077384), "Híres emlékmű Budapesten.", admin.ToString()),
-                    new(place2, "Laci Kocsmája", "Arany János utca 12.", city3.ToString(), PlaceCategory.Club, new Point(47.433874, 17.116901), "A környék legjobb kocsmája.", user1.ToString()),
-                    new(place3, "Olasz Kávézó", "Masa út 56.", city4.ToString(), PlaceCategory.Club, new Point(47.517374, 21.632340), "Nagyon finom kávé.", user2.ToString()),
-                    new(place4, "Pick Aréna", "Felső Tisza-Part 35.", city1.ToString(), PlaceCategory.Club, new Point(46.258520, 20.174206), "A környék legjobb kocsmája.", user3.ToString())
+                    new(place1, "Hősök tere", "Hősök tere 1.", city2.ToString(), PlaceCategory.PublicSpace, new Point(47.514678, 19.077384) { SRID = 4326 }, "Híres emlékmű Budapesten.", admin.ToString()),
+                    new(place2, "Laci Kocsmája", "Arany János utca 12.", city3.ToString(), PlaceCategory.Club, new Point(47.433874, 17.116901) { SRID = 4326 }, "A környék legjobb kocsmája.", user1.ToString()),
+                    new(place3, "Olasz Kávézó", "Masa út 56.", city4.ToString(), PlaceCategory.Club, new Point(47.517374, 21.632340) { SRID = 4326 }, "Nagyon finom kávé.", user2.ToString()),
+                    new(place4, "Pick Aréna", "Felső Tisza-Part 35.", city1.ToString(), PlaceCategory.Club, new Point(46.258520, 20.174206) { SRID = 4326 }, "A környék legjobb kocsmája.", user3.ToString())
                 };
                 await context.AddRangeAsync(places);
                 await context.SaveChangesAsync();
@@ -64,12 +64,12 @@ namespace PartyRaidR.Backend.Context
             {
                 List<Event> events = new()
                 {
-                    new Event(Guid.CreateVersion7(), "Ének Jézussal", "Keresztény összejövetel - Felekezetfüggetlen zenés est.", new DateTime(new DateOnly(2026, 4, 12), new TimeOnly(16, 0, 0)), new DateTime(new DateOnly(2026, 4, 12), new TimeOnly(18, 30, 0)), place1.ToString(), EventCategory.Concert, admin.ToString(), 0, 0, DateTime.Now, true),
-                    new Event(Guid.CreateVersion7(), "Humor est", "Békési János önálló estje.", new DateTime(new DateOnly(2026, 2, 28), new TimeOnly(18, 45, 0)), new DateTime(new DateOnly(2026, 2, 28), new TimeOnly(20, 45, 0)), place4.ToString(), EventCategory.IndoorsActivity, user1.ToString(), 0, 0, DateTime.Now, true),
+                    new Event(Guid.CreateVersion7(), "Ének Jézussal", "Keresztény összejövetel - Felekezetfüggetlen zenés est.", new DateTime(new DateOnly(2026, 9, 12), new TimeOnly(16, 0, 0)), new DateTime(new DateOnly(2026, 9, 12), new TimeOnly(18, 30, 0)), place1.ToString(), EventCategory.Concert, admin.ToString(), 0, 0, DateTime.Now, true),
+                    new Event(Guid.CreateVersion7(), "Humor est", "Békési János önálló estje.", new DateTime(new DateOnly(2026, 11, 28), new TimeOnly(18, 45, 0)), new DateTime(new DateOnly(2026, 11, 28), new TimeOnly(20, 45, 0)), place4.ToString(), EventCategory.IndoorsActivity, user1.ToString(), 0, 0, DateTime.Now, true),
                     new Event(Guid.CreateVersion7(), "21. századi költészet - Gyűlés", "Beszélgessünk a 21. század költészetének nehézségeiről egy kávé mellett!", new DateTime(new DateOnly(2026, 2, 22), new TimeOnly(10, 30, 0)), new DateTime(new DateOnly(2026, 2, 22), new TimeOnly(12, 0, 0)), place3.ToString(), EventCategory.IndoorsActivity, user2.ToString(), 0, 0, DateTime.Now, true),
-                    new Event(Guid.CreateVersion7(), "Karaoke est", "Mutasd meg énektudásod! Minden résztvevőt meghívunk egy italra.", new DateTime(new DateOnly(2026, 3, 8), new TimeOnly(18, 40, 0)), new DateTime(new DateOnly(2026, 3, 8), new TimeOnly(20, 45, 0)), place2.ToString(), EventCategory.IndoorsActivity, user2.ToString(), 0, 0, DateTime.Now, true),
-                    new Event(Guid.CreateVersion7(), "Vakrandi est", "Szeretettel várjuk az ismerkedni kívánó szingliket!", new DateTime(new DateOnly(2026, 6, 29), new TimeOnly(17, 0, 0)), new DateTime(new DateOnly(2026, 6, 29), new TimeOnly(18, 30, 0)), place3.ToString(), EventCategory.IndoorsActivity, user1.ToString(), 0, 0, DateTime.Now, true),
-                    new Event(Guid.CreateVersion7(), "Párok éjszakája", "Felejthetetlen est új feltörekvő DJ-kkel!", new DateTime(new DateOnly(2026, 8, 10), new TimeOnly(23, 0, 0)), new DateTime(new DateOnly(2026, 8, 10), new TimeOnly(5, 0, 0)), place4.ToString(), EventCategory.Party, user2.ToString(), 0, 0, DateTime.Now, true),
+                    new Event(Guid.CreateVersion7(), "Karaoke est", "Mutasd meg énektudásod! Minden résztvevőt meghívunk egy italra.", new DateTime(new DateOnly(2026, 9, 8), new TimeOnly(18, 40, 0)), new DateTime(new DateOnly(2026, 9, 8), new TimeOnly(20, 45, 0)), place2.ToString(), EventCategory.IndoorsActivity, user2.ToString(), 0, 0, DateTime.Now, true),
+                    new Event(Guid.CreateVersion7(), "Vakrandi est", "Szeretettel várjuk az ismerkedni kívánó szingliket!", new DateTime(new DateOnly(2026, 11, 29), new TimeOnly(17, 0, 0)), new DateTime(new DateOnly(2026, 11, 29), new TimeOnly(18, 30, 0)), place3.ToString(), EventCategory.IndoorsActivity, user1.ToString(), 0, 0, DateTime.Now, true),
+                    new Event(Guid.CreateVersion7(), "Párok éjszakája", "Felejthetetlen est új feltörekvő DJ-kkel!", new DateTime(new DateOnly(2027, 5, 10), new TimeOnly(23, 0, 0)), new DateTime(new DateOnly(2027, 5, 10), new TimeOnly(5, 0, 0)), place4.ToString(), EventCategory.Party, user2.ToString(), 0, 0, DateTime.Now, true),
                     new Event(Guid.CreateVersion7(), "Megemlékezés a szabadságról", "Szabadtéri műsor az 56-os forradalom eseményeiről.", new DateTime(new DateOnly(2026, 10, 23), new TimeOnly(16, 0, 0)), new DateTime(new DateOnly(2026, 10, 23), new TimeOnly(17, 30, 0)), place1.ToString(), EventCategory.OutdoorsActivity, user3.ToString(), 0, 0, DateTime.Now, true)
                 };
                 await context.AddRangeAsync(events);

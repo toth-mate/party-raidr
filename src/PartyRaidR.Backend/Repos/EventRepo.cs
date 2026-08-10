@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NetTopologySuite;
 using NetTopologySuite.Geometries;
 using PartyRaidR.Backend.Context;
 using PartyRaidR.Backend.Exceptions;
@@ -86,12 +87,12 @@ namespace PartyRaidR.Backend.Repos
 
         public IQueryable<Event> GetEventsWithMarkerDetails(double minLat, double maxLat, double minLng, double maxLng)
         {
-            var geometryFactory = new GeometryFactory();
+            var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
             var envelope = new Envelope(minLat, minLng, maxLat, maxLng);
             var polygon = geometryFactory.ToGeometry(envelope);
             
             return _dbSet!.Include(e => e.Place)
-                .Where(e => e.Place.Location.CoveredBy(polygon))
+                .Where(e => e.Place.Location.Within(polygon))
                 .Where(e => e.IsActive && e.StartingDate >= DateTime.UtcNow);
         }
 
