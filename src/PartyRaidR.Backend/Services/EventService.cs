@@ -352,11 +352,11 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
-        public async Task<ServiceResponse<List<EventMarkerDto>>> GetEventsWithMarkerDetailsAsync()
+        public async Task<ServiceResponse<List<EventMarkerDto>>> GetEventsWithMarkerDetailsAsync(double minLat, double maxLat, double minLng, double maxLng)
         {
             try
             {
-                var events = _eventRepo.GetEventsWithMarkerDetails();
+                var events = _eventRepo.GetEventsWithMarkerDetails(minLat, maxLat, minLng, maxLng);
                 List<EventMarkerDto> result = await events.Select(e => new EventMarkerDto
                 {
                     Id = e.Id,

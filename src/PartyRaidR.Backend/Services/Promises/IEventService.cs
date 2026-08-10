@@ -92,10 +92,14 @@ namespace PartyRaidR.Backend.Services.Promises
         Task<ServiceResponse<int>> GetNumberOfArchivedEventsAsync();
 
         /// <summary>
-        /// Get a list of events with information ready for UI map display. The information includes the event's title, dates, and location coordinates.
+        /// Get a list of events with information ready for UI map display within the given boundaries. The information includes the event's title, dates, and location coordinates.
         /// </summary>
+        /// <param name="minLat">Minimum latitude</param>
+        /// <param name="maxLat">Maximum latitude</param>
+        /// <param name="minLng">Minimum longitude</param>
+        /// <param name="maxLng">Maximum longitude</param>
         /// <returns>A list of events with marker details</returns>
-        Task<ServiceResponse<List<EventMarkerDto>>> GetEventsWithMarkerDetailsAsync();
+        Task<ServiceResponse<List<EventMarkerDto>>> GetEventsWithMarkerDetailsAsync(double minLat, double maxLat, double minLng, double maxLng);
 
         /// <summary>
         /// Get a list of events that are within a certain radius of given coordinates.

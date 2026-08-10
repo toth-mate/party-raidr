@@ -9,7 +9,7 @@ namespace PartyRaidR.Backend.Repos.Promises
         Task<Event> GetEventWithDisplayData(string id);
         Task<List<Event>> GetEventsWithDisplayData();
         Task<List<Event>> GetEventsByUserIdAsync(string userId);
-        IQueryable<Event> GetEventsWithMarkerDetails();
+        IQueryable<Event> GetEventsWithMarkerDetails(double minLat, double maxLat, double minLng, double maxLng);
         Task<List<Event>> FilterEventsAsync(string? title,
                                        string? description,
                                        DateTime? startingDate,

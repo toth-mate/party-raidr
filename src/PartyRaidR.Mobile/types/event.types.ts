@@ -32,3 +32,10 @@ export interface UpcomingEventDto {
   cityName: string;
   startTime: string;
 }
+
+export interface BoundingBox {
+  minLat: number;
+  maxLat: number;
+  minLng: number;
+  maxLng: number;
+}

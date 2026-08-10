@@ -68,8 +68,8 @@ namespace PartyRaidR.Backend.Controllers
             HandleResponse(await _eventService.GetEventsWithDetailsAsync());
         
         [HttpGet("marker-details")]
-        public async Task<IActionResult> GetEventsWithMarkerDetails() =>
-            HandleResponse(await _eventService.GetEventsWithMarkerDetailsAsync());
+        public async Task<IActionResult> GetEventsWithMarkerDetails([FromQuery] double minLat, [FromQuery] double maxLat, [FromQuery] double minLng, [FromQuery] double maxLng) =>
+            HandleResponse(await _eventService.GetEventsWithMarkerDetailsAsync(minLat, maxLat, minLng, maxLng));
         
         [HttpGet("nearby")]
         public async Task<IActionResult> GetNearbyEvents([FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] double radiusInKm) =>

@@ -419,3 +419,8 @@ FodyWeavers.xsd
 
 # Secrets and local configuration
 appsettings.json
+
+# JetBrains
+.idea/
+*.sln.iml
+*.swp
