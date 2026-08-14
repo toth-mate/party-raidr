@@ -9,26 +9,38 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import { applicationService } from '@/services/applicationService';
 import { eventService } from '@/services/eventService';
+import { useAuthStore } from '@/store/useAuthStore';
 import { EventDisplayDto } from '@/types/event.types';
+import { useQuery } from '@tanstack/react-query';
 
 const TRANSLATION_PREFIX = 'screens.event.';
 
 const EventDetails = () => {
   const { t } = useTranslation();
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id: eventId } = useLocalSearchParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState(true);
   const [event, setEvent] = useState<EventDisplayDto | undefined>(undefined);
   const contentBackgroundColor = useThemeColor({}, 'inputFieldBackground');
+  const userId = useAuthStore(state => state.user?.id);
+
+  const { data: applicationExists } = useQuery({
+    queryKey: ['application', 'exists', { eventId, userId }],
+    queryFn: () => applicationService.exists(eventId),
+    enabled: !!userId,
+  });
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchEvent = async () => {
-      const result = await eventService.getDisplayById(id);
+      const result = await eventService.getDisplayById(eventId);
       setEvent(result);
     };
+
     fetchEvent();
     setIsLoading(false);
-  }, [id]);
+  }, [eventId]);
 
   return (
     <ThemedView style={styles.container}>
@@ -87,6 +99,7 @@ const EventDetails = () => {
             onPress={() => console.log('Apply')}
             title={t(`${TRANSLATION_PREFIX}applyButton`)}
             variant='primary'
+            disabled={!userId || applicationExists || isLoading}
           />
         </ThemedView>
       )}
