@@ -23,13 +23,20 @@ const EventDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [event, setEvent] = useState<EventDisplayDto | undefined>(undefined);
   const contentBackgroundColor = useThemeColor({}, 'inputFieldBackground');
-  const userId = useAuthStore(state => state.user?.id);
+  const user = useAuthStore(state => state.user);
+  const loggedIn = useAuthStore(state => state.isAuthenticated);
 
   const { data: applicationExists } = useQuery({
-    queryKey: ['application', 'exists', { eventId, userId }],
+    queryKey: ['application', 'exists', { eventId, userId: user?.id }],
     queryFn: () => applicationService.exists(eventId),
-    enabled: !!userId,
+    enabled: !!user,
   });
+
+  const cannotApply =
+    !loggedIn ||
+    applicationExists ||
+    isLoading ||
+    user?.username === event?.authorName;
 
   useEffect(() => {
     setIsLoading(true);
@@ -99,7 +106,7 @@ const EventDetails = () => {
             onPress={() => console.log('Apply')}
             title={t(`${TRANSLATION_PREFIX}applyButton`)}
             variant='primary'
-            disabled={!userId || applicationExists || isLoading}
+            disabled={cannotApply}
           />
         </ThemedView>
       )}
