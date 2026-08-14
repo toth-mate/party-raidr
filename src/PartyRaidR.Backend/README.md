@@ -113,9 +113,9 @@ To make services unified and serve the API as easily as possible, each service m
 ```json
 {
     "data": {
-        "id": '123',
-        "username": 'user1',
-        "email": 'example@mail.org'
+        "id": "123",
+        "username": "user1",
+        "email": "example@mail.org"
     },
     "success": true,
     "message": "User fetched successfully.",
