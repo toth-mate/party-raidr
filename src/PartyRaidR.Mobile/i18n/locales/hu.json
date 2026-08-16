@@ -81,7 +81,8 @@
         },
         "error": {
           "title": "Hiba",
-          "text": "Váratlan hiba történt. Próbáld újra később."
+          "text": "Váratlan hiba történt. Próbáld újra később.",
+          "unauthorized": "A jelentkezéshez be kell jelentkezned."
         }
       }
     },

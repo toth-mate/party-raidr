@@ -81,7 +81,8 @@
         },
         "error": {
           "title": "Error!",
-          "text": "An unexpected error occured. Please try again later."
+          "text": "An unexpected error occured. Please try again later.",
+          "unauthorized": "You must be logged in to apply for events."
         }
       }
     },

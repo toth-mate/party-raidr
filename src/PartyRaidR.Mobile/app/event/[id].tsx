@@ -26,7 +26,6 @@ const EventDetails = () => {
   const contentBackgroundColor = useThemeColor({}, 'inputFieldBackground');
   const applyMutation = useApply();
   const user = useAuthStore(state => state.user);
-  const loggedIn = useAuthStore(state => state.isAuthenticated);
 
   const { data: applicationExists } = useQuery({
     queryKey: ['application', 'exists', eventId, user?.id],
@@ -35,7 +34,6 @@ const EventDetails = () => {
   });
 
   const cannotApply =
-    !loggedIn ||
     applicationExists ||
     isLoading ||
     user?.username === event?.authorName;
