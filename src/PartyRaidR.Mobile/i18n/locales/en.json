@@ -73,7 +73,17 @@
       "maxRoom": "Max Room",
       "applyButton": "Apply",
       "organizer": "Organizer",
-      "createdDate": "Created"
+      "createdDate": "Created",
+      "toast": {
+        "success": {
+          "title": "Success!",
+          "text": "You successfully applied for this event."
+        },
+        "error": {
+          "title": "Error!",
+          "text": "An unexpected error occured. Please try again later."
+        }
+      }
     },
     "auth": {
       "login": {

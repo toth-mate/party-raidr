@@ -73,7 +73,17 @@
       "maxRoom": "Maximum hely",
       "applyButton": "Jelentkezés",
       "organizer": "Szervező",
-      "createdDate": "Létrehozva"
+      "createdDate": "Létrehozva",
+      "toast": {
+        "success": {
+          "title": "Siker!",
+          "text": "Sikeresen jelentkeztél erre az eseményre."
+        },
+        "error": {
+          "title": "Hiba",
+          "text": "Váratlan hiba történt. Próbáld újra később."
+        }
+      }
     },
     "auth": {
       "login": {
