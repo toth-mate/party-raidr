@@ -8,6 +8,7 @@ import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
+import { useApply } from '@/hooks/use-apply';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { applicationService } from '@/services/applicationService';
 import { eventService } from '@/services/eventService';
@@ -23,13 +24,14 @@ const EventDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [event, setEvent] = useState<EventDisplayDto | undefined>(undefined);
   const contentBackgroundColor = useThemeColor({}, 'inputFieldBackground');
+  const applyMutation = useApply();
   const user = useAuthStore(state => state.user);
   const loggedIn = useAuthStore(state => state.isAuthenticated);
 
   const { data: applicationExists } = useQuery({
-    queryKey: ['application', 'exists', { eventId, userId: user?.id }],
+    queryKey: ['application', 'exists', eventId, user?.id],
     queryFn: () => applicationService.exists(eventId),
-    enabled: !!user,
+    enabled: !!user && !!eventId,
   });
 
   const cannotApply =
@@ -103,7 +105,15 @@ const EventDetails = () => {
             {t(`${TRANSLATION_PREFIX}createdDate`)}: {event.dateCreated}
           </ThemedText>
           <ThemedButton
-            onPress={() => console.log('Apply')}
+            onPress={() =>
+              applyMutation.mutate({
+                id: '',
+                userId: user?.id ?? '',
+                eventId: eventId,
+                timeOfApplication: new Date().toISOString(),
+                status: 0,
+              })
+            }
             title={t(`${TRANSLATION_PREFIX}applyButton`)}
             variant='primary'
             disabled={cannotApply}
