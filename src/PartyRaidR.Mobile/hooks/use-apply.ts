@@ -8,9 +8,9 @@ export const useApply = () => {
   return useMutation({
     mutationFn: (application: ApplicationDto) =>
       applicationService.apply(application),
-    onSuccess: (_, application: ApplicationDto) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['application', 'exists', { eventId: application.eventId }],
+        queryKey: ['application', 'exists'],
       });
     },
   });
