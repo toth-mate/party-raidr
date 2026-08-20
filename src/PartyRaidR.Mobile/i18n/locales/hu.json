@@ -74,6 +74,8 @@
       "applyButton": "Jelentkezés",
       "organizer": "Szervező",
       "createdDate": "Létrehozva",
+      "alreadyApplied": "Már jelentkeztél erre az eseményre.",
+      "ownEvent": "Ez a saját eseményed, így erre nem jelentkezhetsz.",
       "toast": {
         "success": {
           "title": "Siker!",

@@ -74,6 +74,8 @@
       "applyButton": "Apply",
       "organizer": "Organizer",
       "createdDate": "Created",
+      "alreadyApplied": "You have already applied to this event.",
+      "ownEvent": "This is your own event. You can not apply.",
       "toast": {
         "success": {
           "title": "Success!",

@@ -15,8 +15,17 @@ import { eventService } from '@/services/eventService';
 import { useAuthStore } from '@/store/useAuthStore';
 import { EventDisplayDto } from '@/types/event.types';
 import { useQuery } from '@tanstack/react-query';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const TRANSLATION_PREFIX = 'screens.event.';
+
+const WarningIcon = () => (
+  <Ionicons
+    name='warning'
+    color='#ff9800'
+    size={18}
+  />
+);
 
 const EventDetails = () => {
   const { t } = useTranslation();
@@ -33,10 +42,8 @@ const EventDetails = () => {
     enabled: !!user && !!eventId,
   });
 
-  const cannotApply =
-    applicationExists ||
-    isLoading ||
-    user?.username === event?.authorName;
+  const ownEvent = user?.username === event?.authorName;
+  const cannotApply = applicationExists || isLoading || ownEvent;
 
   useEffect(() => {
     setIsLoading(true);
@@ -116,6 +123,16 @@ const EventDetails = () => {
             variant='primary'
             disabled={cannotApply}
           />
+
+          {applicationExists ? (
+            <ThemedText centered>
+              <WarningIcon /> {t(`${TRANSLATION_PREFIX}alreadyApplied`)}
+            </ThemedText>
+          ) : ownEvent ? (
+            <ThemedText centered>
+              <WarningIcon /> {t(`${TRANSLATION_PREFIX}ownEvent`)}
+            </ThemedText>
+          ) : null}
         </ThemedView>
       )}
     </ThemedView>
