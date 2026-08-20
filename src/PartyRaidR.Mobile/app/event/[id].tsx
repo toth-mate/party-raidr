@@ -8,27 +8,53 @@ import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
+import { useApply } from '@/hooks/use-apply';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import { applicationService } from '@/services/applicationService';
 import { eventService } from '@/services/eventService';
+import { useAuthStore } from '@/store/useAuthStore';
 import { EventDisplayDto } from '@/types/event.types';
+import { useQuery } from '@tanstack/react-query';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const TRANSLATION_PREFIX = 'screens.event.';
 
+const WarningIcon = () => (
+  <Ionicons
+    name='warning'
+    color='#ff9800'
+    size={18}
+  />
+);
+
 const EventDetails = () => {
   const { t } = useTranslation();
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id: eventId } = useLocalSearchParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState(true);
   const [event, setEvent] = useState<EventDisplayDto | undefined>(undefined);
   const contentBackgroundColor = useThemeColor({}, 'inputFieldBackground');
+  const applyMutation = useApply();
+  const user = useAuthStore(state => state.user);
+
+  const { data: applicationExists } = useQuery({
+    queryKey: ['application', 'exists', eventId, user?.id],
+    queryFn: () => applicationService.exists(eventId),
+    enabled: !!user && !!eventId,
+  });
+
+  const ownEvent = user?.username === event?.authorName;
+  const cannotApply = applicationExists || isLoading || ownEvent;
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchEvent = async () => {
-      const result = await eventService.getDisplayById(id);
+      const result = await eventService.getDisplayById(eventId);
       setEvent(result);
     };
+
     fetchEvent();
     setIsLoading(false);
-  }, [id]);
+  }, [eventId]);
 
   return (
     <ThemedView style={styles.container}>
@@ -84,10 +110,29 @@ const EventDetails = () => {
             {t(`${TRANSLATION_PREFIX}createdDate`)}: {event.dateCreated}
           </ThemedText>
           <ThemedButton
-            onPress={() => console.log('Apply')}
+            onPress={() =>
+              applyMutation.mutate({
+                id: '',
+                userId: user?.id ?? '',
+                eventId: eventId,
+                timeOfApplication: new Date().toISOString(),
+                status: 0,
+              })
+            }
             title={t(`${TRANSLATION_PREFIX}applyButton`)}
             variant='primary'
+            disabled={cannotApply}
           />
+
+          {applicationExists ? (
+            <ThemedText centered>
+              <WarningIcon /> {t(`${TRANSLATION_PREFIX}alreadyApplied`)}
+            </ThemedText>
+          ) : ownEvent ? (
+            <ThemedText centered>
+              <WarningIcon /> {t(`${TRANSLATION_PREFIX}ownEvent`)}
+            </ThemedText>
+          ) : null}
         </ThemedView>
       )}
     </ThemedView>

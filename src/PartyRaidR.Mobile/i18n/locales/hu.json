@@ -73,7 +73,20 @@
       "maxRoom": "Maximum hely",
       "applyButton": "Jelentkezés",
       "organizer": "Szervező",
-      "createdDate": "Létrehozva"
+      "createdDate": "Létrehozva",
+      "alreadyApplied": "Már jelentkeztél erre az eseményre.",
+      "ownEvent": "Ez a saját eseményed, így erre nem jelentkezhetsz.",
+      "toast": {
+        "success": {
+          "title": "Siker!",
+          "text": "Sikeresen jelentkeztél erre az eseményre."
+        },
+        "error": {
+          "title": "Hiba",
+          "text": "Váratlan hiba történt. Próbáld újra később.",
+          "unauthorized": "A jelentkezéshez be kell jelentkezned."
+        }
+      }
     },
     "auth": {
       "login": {

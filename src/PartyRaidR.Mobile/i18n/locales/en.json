@@ -73,7 +73,20 @@
       "maxRoom": "Max Room",
       "applyButton": "Apply",
       "organizer": "Organizer",
-      "createdDate": "Created"
+      "createdDate": "Created",
+      "alreadyApplied": "You have already applied to this event.",
+      "ownEvent": "This is your own event. You can not apply.",
+      "toast": {
+        "success": {
+          "title": "Success!",
+          "text": "You successfully applied for this event."
+        },
+        "error": {
+          "title": "Error!",
+          "text": "An unexpected error occured. Please try again later.",
+          "unauthorized": "You must be logged in to apply for events."
+        }
+      }
     },
     "auth": {
       "login": {
