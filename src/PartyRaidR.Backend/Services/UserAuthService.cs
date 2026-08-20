@@ -139,6 +139,9 @@ namespace PartyRaidR.Backend.Services
             if (usernameExists)
                 throw new RegistrationWithTakenUsernameException("The given username is already in use.");
 
+            if (!IsUsernameValid(request.Username))
+                throw new InvalidUsernameException("Invalid username.");
+
             if (!IsEmailValid(request.Email))
                 throw new InvalidEmailAddressException("Invalid email address.");
 
@@ -165,7 +168,15 @@ namespace PartyRaidR.Backend.Services
         private static bool IsEmailValid(string email) =>
             email.Length > 0 && email != string.Empty && email.Contains('@') && email.Contains('.') && Regex.IsMatch(email, @"(^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$)");
 
+        private static bool IsUsernameValid(string name)
+        {
+            const string regex = @"/^[a-zA-Z][a-zA-Z0-9._]{3,15}$/";
+            return name.Length > 0 && name.Length <= 15 && Regex.IsMatch(name, regex);
+        }
+
         private static bool IsPasswordValid(string password) =>
             password.Length >= 8 && password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit);
     }
+
+    
 }
