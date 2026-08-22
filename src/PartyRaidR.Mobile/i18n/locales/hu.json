@@ -144,6 +144,7 @@
             "usernameInUse": "Ez a felhasználónév már használatban van.",
             "invalidPassword": "A megadott jelszó nem felel meg a követelményeknek.",
             "invalidEmail": "A megadott e-mail cím érvénytelen formátumú.",
+            "invalidUsername": "Érvénytelen felhasználónév.",
             "unknown": "Ismeretlen hiba történt a regisztráció során."
           }
         }

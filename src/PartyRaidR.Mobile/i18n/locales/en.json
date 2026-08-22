@@ -144,6 +144,7 @@
             "usernameInUse": "This username is already in use by another user.",
             "invalidPassword": "The provided password does not meet the required criteria.",
             "invalidEmail": "The provided email address is in an invalid format.",
+            "invalidUsername": "Invalid username.",
             "unknown": "An unknown error occured during registration."
           }
         }

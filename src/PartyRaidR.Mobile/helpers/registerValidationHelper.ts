@@ -93,6 +93,8 @@ export const getErrorMessageKey = (error: AxiosError): string => {
       return `${toastPrefix}invalidPassword`;
     } else if (error.response.data.includes('email')) {
       return `${toastPrefix}invalidEmail`;
+    } else if (error.response.data.includes('username')) {
+      return `${toastPrefix}invalidUsername`;
     }
   }
   return `${toastPrefix}unknown`;
