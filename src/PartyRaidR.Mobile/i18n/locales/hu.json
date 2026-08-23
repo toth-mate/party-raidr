@@ -117,13 +117,14 @@
         "dateOfBirth": "Születési dátum",
         "buttonTitle": "Regisztráció",
         "placeholders": {
-          "usernameExample": "Kovács János",
+          "usernameExample": "kovacs.janos",
           "emailExample": "pelda@mail.org",
           "password": "Jelszó",
           "passwordConfirm": "Jelszó megerősítése"
         },
         "validation": {
           "usernameLength": "A felhasználónév hossza 3 és 15 karakter között kell legyen.",
+          "invalidUsernameFormat": "A felhasználónév nem tartalmazhat speciális karaktereket. Csak betűk, számok, . és _ megengedettek.",
           "emailInvalid": "Érvénytelen e-mail cím.",
           "passwordContainsWhitespace": "A jelszó nem tartalmazhat szóközöket.",
           "passwordLength": "A jelszónak legalább 8 karakter hosszúnak kell lennie.",
@@ -144,6 +145,7 @@
             "usernameInUse": "Ez a felhasználónév már használatban van.",
             "invalidPassword": "A megadott jelszó nem felel meg a követelményeknek.",
             "invalidEmail": "A megadott e-mail cím érvénytelen formátumú.",
+            "invalidUsername": "Érvénytelen felhasználónév.",
             "unknown": "Ismeretlen hiba történt a regisztráció során."
           }
         }
