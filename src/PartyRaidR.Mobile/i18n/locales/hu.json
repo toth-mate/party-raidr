@@ -117,7 +117,7 @@
         "dateOfBirth": "Születési dátum",
         "buttonTitle": "Regisztráció",
         "placeholders": {
-          "usernameExample": "Kovács János",
+          "usernameExample": "kovacs.janos",
           "emailExample": "pelda@mail.org",
           "password": "Jelszó",
           "passwordConfirm": "Jelszó megerősítése"

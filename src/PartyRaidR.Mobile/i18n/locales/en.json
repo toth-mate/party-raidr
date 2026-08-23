@@ -117,7 +117,7 @@
         "dateOfBirth": "Date of Birth",
         "buttonTitle": "Register",
         "placeholders": {
-          "usernameExample": "John Doe",
+          "usernameExample": "john.doe",
           "emailExample": "example@mail.org",
           "password": "Password",
           "passwordConfirm": "Confirm password"
