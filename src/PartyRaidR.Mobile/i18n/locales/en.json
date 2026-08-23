@@ -124,6 +124,7 @@
         },
         "validation": {
           "usernameLength": "The length of the username must be between 3 and 15 characters.",
+          "invalidUsernameFormat": "The username can not contain special characters. Only letters, numbers, . and _ are allowed.",
           "emailInvalid": "Please provide a valid email address.",
           "passwordContainsWhitespace": "Password cannot contain whitespaces.",
           "passwordLength": "Password must be at least 8 characters long.",

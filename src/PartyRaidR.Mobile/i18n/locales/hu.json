@@ -124,6 +124,7 @@
         },
         "validation": {
           "usernameLength": "A felhasználónév hossza 3 és 15 karakter között kell legyen.",
+          "invalidUsernameFormat": "A felhasználónév nem tartalmazhat speciális karaktereket. Csak betűk, számok, . és _ megengedettek.",
           "emailInvalid": "Érvénytelen e-mail cím.",
           "passwordContainsWhitespace": "A jelszó nem tartalmazhat szóközöket.",
           "passwordLength": "A jelszónak legalább 8 karakter hosszúnak kell lennie.",

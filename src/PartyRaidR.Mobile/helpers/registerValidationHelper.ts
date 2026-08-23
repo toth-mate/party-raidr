@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 const VALIDATION_PREFIX = 'screens.auth.register.validation.';
 
 /**
- * Validates the username by length.
+ * Validates the username by length and format - it can not contain special characters.
  * @param value The username to validate
  * @returns The error key if any.
  */
@@ -13,6 +13,8 @@ export const validateUsername = (value: string): string => {
 
   if (username.length < 3 || username.length > 15) {
     error = VALIDATION_PREFIX.concat('usernameLength');
+  } else if (!username.match(/^[a-zA-Z][a-zA-Z0-9._]{2,15}$/)) {
+    error = VALIDATION_PREFIX.concat('invalidUsernameFormat');
   }
 
   return error.length > 0 ? error : '';
