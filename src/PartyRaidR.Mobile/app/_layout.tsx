@@ -1,20 +1,14 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import '../i18n';
-import Toast from 'react-native-toast-message';
 import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import Toast from 'react-native-toast-message';
+import '../i18n';
 
 import { useEffect } from 'react';
 
 import { useAuthStore } from '@/store/useAuthStore';
 
+import { useThemeColor } from '@/hooks/use-theme-color';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient({
@@ -22,7 +16,7 @@ const queryClient = new QueryClient({
     queries: {
       staleTime: 1000 * 60 * 5, // 5 minutes
       retry: 2,
-    }
+    },
   },
 });
 
@@ -32,7 +26,8 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const initializeAuth = useAuthStore(state => state.initializeAuth);
-  const colorScheme = useColorScheme();
+  const backgroundColor = useThemeColor({}, 'background');
+  const textColor = useThemeColor({}, 'text');
 
   useEffect(() => {
     initializeAuth();
@@ -40,31 +35,34 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen
-            name='(tabs)'
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='(auth)'
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='event/[id]'
-            options={{ headerBackButtonDisplayMode: 'generic' }}
-          />
-          <Stack.Screen
-            name='profile'
-            options={{ headerShown: false }}
-          />
-        </Stack>
-        <Toast
-          position='bottom'
-          swipeable
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor },
+          headerTintColor: textColor,
+          contentStyle: { backgroundColor },
+        }}>
+        <Stack.Screen
+          name='(tabs)'
+          options={{ headerShown: false }}
         />
-        <StatusBar style='auto' />
-      </ThemeProvider>
+        <Stack.Screen
+          name='(auth)'
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='event/[id]'
+          options={{ headerBackButtonDisplayMode: 'generic' }}
+        />
+        <Stack.Screen
+          name='profile'
+          options={{ headerShown: false }}
+        />
+      </Stack>
+      <Toast
+        position='bottom'
+        swipeable
+      />
+      <StatusBar style='auto' />
     </QueryClientProvider>
   );
 }
