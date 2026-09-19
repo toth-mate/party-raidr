@@ -12,8 +12,9 @@ const TRANSLATION_PREFIX = 'tabs.';
 export default function MainTabs() {
   const { t } = useTranslation();
   const router = useRouter();
-  const headerBgColor = useThemeColor({}, 'background');
+  const backgroundColor = useThemeColor({}, 'background');
   const buttonBgColor = useThemeColor({}, 'inputFieldBackground');
+  const tabBarTextColor = useThemeColor({}, 'tabIconDefault');
   const buttonTextColor = useThemeColor({}, 'text');
 
   return (
@@ -21,6 +22,14 @@ export default function MainTabs() {
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
         headerShown: false,
+        headerStyle: {
+          backgroundColor: backgroundColor,
+        },
+        headerTitleStyle: { color: buttonTextColor },
+        tabBarStyle: {
+          backgroundColor: backgroundColor,
+        },
+        tabBarInactiveTintColor: tabBarTextColor,
       }}>
       <Tabs.Screen
         name='index'
@@ -95,7 +104,7 @@ export default function MainTabs() {
             />
           ),
           headerShown: true,
-          headerStyle: { backgroundColor: headerBgColor },
+          headerStyle: { backgroundColor: backgroundColor },
           headerTitle: t(`${TRANSLATION_PREFIX}profile.welcome`),
           headerTitleAlign: 'left',
           headerTitleStyle: styles.customHeaderTitle,

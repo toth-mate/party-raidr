@@ -4,12 +4,11 @@ import 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 import '../i18n';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
 import { useEffect } from 'react';
 
 import { useAuthStore } from '@/store/useAuthStore';
 
+import { useThemeColor } from '@/hooks/use-theme-color';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient({
@@ -27,7 +26,8 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const initializeAuth = useAuthStore(state => state.initializeAuth);
-  const colorScheme = useColorScheme();
+  const backgroundColor = useThemeColor({}, 'background');
+  const textColor = useThemeColor({}, 'text');
 
   useEffect(() => {
     initializeAuth();
@@ -35,7 +35,12 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Stack>
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor },
+          headerTintColor: textColor,
+          contentStyle: { backgroundColor },
+        }}>
         <Stack.Screen
           name='(tabs)'
           options={{ headerShown: false }}
