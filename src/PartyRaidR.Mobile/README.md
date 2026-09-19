@@ -1,6 +1,6 @@
 # Mobile app
 
-This is the mobile app built with React Native. The project had to be migrated from .NET MAUI because of its limitations and poor developer experience. The legacy MAUI app can still be found in the repository under ```src`/PartyRaidR.Mobile (Old)```, but relating issues won't be worked on and will be closed soon.
+This is the mobile app built with React Native. The project had to be migrated from .NET MAUI because of its limitations and poor developer experience.
 
 ## Try the project
 
