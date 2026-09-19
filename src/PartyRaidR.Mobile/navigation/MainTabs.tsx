@@ -1,9 +1,7 @@
 import { Tabs, useRouter } from 'expo-router';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet } from 'react-native';
 
-import { HapticTab } from '@/components/haptic-tab';
 import ThemedButton from '@/components/themed-button';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
@@ -23,7 +21,6 @@ export default function MainTabs() {
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
         headerShown: false,
-        tabBarButton: HapticTab,
       }}>
       <Tabs.Screen
         name='index'

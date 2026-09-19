@@ -1,13 +1,8 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import '../i18n';
-import Toast from 'react-native-toast-message';
 import 'react-native-reanimated';
+import Toast from 'react-native-toast-message';
+import '../i18n';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
@@ -22,7 +17,7 @@ const queryClient = new QueryClient({
     queries: {
       staleTime: 1000 * 60 * 5, // 5 minutes
       retry: 2,
-    }
+    },
   },
 });
 
@@ -40,31 +35,29 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen
-            name='(tabs)'
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='(auth)'
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='event/[id]'
-            options={{ headerBackButtonDisplayMode: 'generic' }}
-          />
-          <Stack.Screen
-            name='profile'
-            options={{ headerShown: false }}
-          />
-        </Stack>
-        <Toast
-          position='bottom'
-          swipeable
+      <Stack>
+        <Stack.Screen
+          name='(tabs)'
+          options={{ headerShown: false }}
         />
-        <StatusBar style='auto' />
-      </ThemeProvider>
+        <Stack.Screen
+          name='(auth)'
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='event/[id]'
+          options={{ headerBackButtonDisplayMode: 'generic' }}
+        />
+        <Stack.Screen
+          name='profile'
+          options={{ headerShown: false }}
+        />
+      </Stack>
+      <Toast
+        position='bottom'
+        swipeable
+      />
+      <StatusBar style='auto' />
     </QueryClientProvider>
   );
 }
