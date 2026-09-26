@@ -42,7 +42,10 @@
       "login": "Login",
       "logout": "Logout",
       "createAccount": "Create an account",
-      "welcome": "Welcome back!"
+      "welcome": "Welcome back!",
+      "calendar": {
+        "description": "See your upcoming events here."
+      }
     },
     "map": {
       "title": "Map",
