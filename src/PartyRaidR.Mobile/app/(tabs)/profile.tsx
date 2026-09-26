@@ -2,6 +2,7 @@ import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 
+import ActivityCalendar from '@/components/profile/calendar';
 import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -35,6 +36,8 @@ export default function ProfileScreen() {
               variant='danger'
               onPress={logout}
             />
+
+            <ActivityCalendar style={{ marginTop: 10 }} />
           </ThemedView>
         ) : (
           <ThemedView style={styles.buttonWrapper}>

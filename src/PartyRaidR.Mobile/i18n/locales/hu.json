@@ -42,7 +42,10 @@
       "login": "Bejelentkezés",
       "logout": "Kijelentkezés",
       "createAccount": "Készíts fiókot",
-      "welcome": "Üdv újra!"
+      "welcome": "Üdv újra!",
+      "calendar": {
+        "description": "Itt láthatod a közelgő eseményeidet."
+      }
     },
     "map": {
       "title": "Térkép",
