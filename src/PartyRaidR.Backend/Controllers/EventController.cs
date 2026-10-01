@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Reflection.Metadata;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PartyRaidR.Backend.Models;
 using PartyRaidR.Backend.Services.Promises;
@@ -74,5 +75,10 @@ namespace PartyRaidR.Backend.Controllers
         [HttpGet("nearby")]
         public async Task<IActionResult> GetNearbyEvents([FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] double radiusInKm) =>
             HandleResponse(await _eventService.GetNearbyEventsAsync(latitude, longitude, radiusInKm));
+
+        [HttpGet("calendar-entries")]
+        public async Task<IActionResult>
+            GetCalendarEntries([FromQuery] DateOnly minDate, [FromQuery] DateOnly maxDate) =>
+            HandleResponse(await _eventService.GetUserCalendarEntriesAsync(minDate, maxDate));
     }
 }
