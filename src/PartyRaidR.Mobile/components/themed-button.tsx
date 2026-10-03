@@ -1,4 +1,3 @@
-import React from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -97,16 +96,16 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.tertiary,
   },
   danger: {
-    backgroundColor: '#f44336',
+    backgroundColor: Colors.danger,
   },
   success: {
-    backgroundColor: '#4caf50',
+    backgroundColor: Colors.success,
   },
   warning: {
-    backgroundColor: '#ff9800',
+    backgroundColor: Colors.warning,
   },
   info: {
-    backgroundColor: '#2196f3',
+    backgroundColor: Colors.info,
   },
   pressed: {
     opacity: 0.9,

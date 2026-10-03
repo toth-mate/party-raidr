@@ -13,6 +13,11 @@ export const Colors = {
   secondaryDarkText: '#9880e5',
   tertiary: '#391759',
 
+  danger: '#f44336',
+  success: '#4caf50',
+  warning: '#ff9800',
+  info: '#2196f3',
+
   light: {
     text: '#11181C',
     secondaryText: '#232323',
