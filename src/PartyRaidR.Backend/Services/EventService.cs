@@ -420,7 +420,10 @@ namespace PartyRaidR.Backend.Services
                     IsAuthor = e.AuthorId == _userContext.UserId,
                     StartDate = DateOnly.FromDateTime(e.StartingDate),
                     EndDate = DateOnly.FromDateTime(e.EndingDate),
-                    Status = e.Applications.Find(a => a.UserId == _userContext.UserId).Status,
+                    Status = e.Applications
+                        .Where(a => a.UserId == _userContext.UserId)
+                        .Select(a => a.Status)
+                        .FirstOrDefault(),
                     LocationName = $"{e.Place.Name}, {e.Place.City.Name}"
                 }).ToListAsync();
 
