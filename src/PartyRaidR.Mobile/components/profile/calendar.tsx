@@ -17,7 +17,6 @@ import {
   ViewStyle,
 } from 'react-native';
 import { Calendar, DateData } from 'react-native-calendars';
-import ThemedButton from '../themed-button';
 import { ThemedText } from '../themed-text';
 import { ThemedView } from '../themed-view';
 import CalendarListCard from './calendar-list-card';
@@ -38,6 +37,12 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
     visibleDates[0],
     visibleDates[visibleDates.length - 1],
   );
+
+  const closeModal = () => {
+    setModalVisible(false);
+    // This check is needed because otherwise the modal date formatting would report an error while still holding a value.
+    if (!modalVisible) setSelectedDay('');
+  };
 
   useEffect(() => {
     if (!selectedDay) {
@@ -82,7 +87,9 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
             style={{ fontSize: 28 }}>
             {t(`${TRANSLATION_PREFIX}modal.title`)}
           </ThemedText>
-          <Pressable style={styles.modalXButton}>
+          <Pressable
+            onPress={closeModal}
+            style={styles.modalXButton}>
             <Feather
               name='x'
               color='#888'
@@ -117,7 +124,7 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
       <Modal
         transparent
         visible={modalVisible}
-        onDismiss={() => setModalVisible(false)}
+        onDismiss={closeModal}
         animationType='slide'>
         <ThemedView
           style={[styles.modalContent, { backgroundColor: modalBgColor }]}>
@@ -135,11 +142,6 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
                 />
               );
             })}
-          <ThemedButton
-            title={t(`${TRANSLATION_PREFIX}modal.close`)}
-            onPress={() => setModalVisible(false)}
-            outline
-          />
         </ThemedView>
       </Modal>
     </ThemedView>
