@@ -76,6 +76,7 @@ namespace PartyRaidR.Backend.Controllers
         public async Task<IActionResult> GetNearbyEvents([FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] double radiusInKm) =>
             HandleResponse(await _eventService.GetNearbyEventsAsync(latitude, longitude, radiusInKm));
 
+        [Authorize]
         [HttpGet("calendar-entries")]
         public async Task<IActionResult>
             GetCalendarEntries([FromQuery] DateOnly minDate, [FromQuery] DateOnly maxDate) =>
