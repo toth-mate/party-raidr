@@ -17,6 +17,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import { Calendar, DateData } from 'react-native-calendars';
+import Divider from '../divider';
 import { ThemedText } from '../themed-text';
 import { ThemedView } from '../themed-view';
 import CalendarListCard from './calendar-list-card';
@@ -133,16 +134,16 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
         <ThemedView
           style={[styles.modalContent, { backgroundColor: modalBgColor }]}>
           <ModalHeader />
+
+          <Divider />
+
           {entries
             ?.filter(e => e.startDate?.startsWith(selectedDay))
             .map(e => {
               return (
                 <CalendarListCard
                   key={e.id}
-                  eventId={e.id!}
-                  title={
-                    e.title || t(`${TRANSLATION_PREFIX}modal.titleNotFound`)
-                  }
+                  entry={e}
                 />
               );
             })}

@@ -14,17 +14,6 @@
           }
         }
       }
-    },
-    "date": {
-      "daysOfTheWeek": {
-        "monday": "Monday",
-        "tuesday": "Tuesday",
-        "Wednesday": "Wednesday",
-        "Thursday": "Thursday",
-        "Friday": "Friday",
-        "Saturday": "Saturday",
-        "Sunday": "Sunday"
-      }
     }
   },
   "tabs": {
@@ -59,7 +48,14 @@
         "modal": {
           "title": "Események a mai napon",
           "titleNotFound": "Event title could not be found",
-          "close": "Close"
+          "close": "Close",
+          "card": {
+            "organizer": "Organizer",
+            "participant": "Participant",
+            "pending": "Pending",
+            "rejected": "Rejected",
+            "waitList": "Waitlist"
+          }
         }
       }
     },

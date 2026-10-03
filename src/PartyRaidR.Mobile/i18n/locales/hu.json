@@ -14,17 +14,6 @@
           }
         }
       }
-    },
-    "date": {
-      "daysOfTheWeek": {
-        "monday": "Monday",
-        "tuesday": "Tuesday",
-        "Wednesday": "Wednesday",
-        "Thursday": "Thursday",
-        "Friday": "Friday",
-        "Saturday": "Saturday",
-        "Sunday": "Sunday"
-      }
     }
   },
   "tabs": {
@@ -59,7 +48,14 @@
         "modal": {
           "title": "Események a mai napon",
           "titleNotFound": "Az esemény címe nem található",
-          "close": "Bezárás"
+          "close": "Bezárás",
+          "card": {
+            "organizer": "Szervező",
+            "participant": "Résztvevő",
+            "pending": "Elbírálás alatt",
+            "rejected": "Elutasítva",
+            "waitList": "Várólistán"
+          }
         }
       }
     },
