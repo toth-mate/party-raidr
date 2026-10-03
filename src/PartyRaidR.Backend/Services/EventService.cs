@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using PartyRaidR.Backend.Assemblers;
 using PartyRaidR.Backend.Exceptions;
 using PartyRaidR.Backend.Models;
@@ -7,6 +8,7 @@ using PartyRaidR.Backend.Repos.Promises;
 using PartyRaidR.Backend.Services.Base;
 using PartyRaidR.Backend.Services.Promises;
 using PartyRaidR.Shared.Dtos;
+using PartyRaidR.Shared.Dtos.Event;
 using PartyRaidR.Shared.Enums;
 
 namespace PartyRaidR.Backend.Services
@@ -395,6 +397,33 @@ namespace PartyRaidR.Backend.Services
             catch(Exception ex)
             {
                 return CreateResponse<List<UpcomingEventDto>>(false, 500, message: $"An error occured while retrieving nearby events: {ex.Message}");
+            }
+        }
+
+        public async Task<ServiceResponse<IReadOnlyList<CalendarEntryDto>>> GetUserCalendarEntriesAsync(DateOnly minDate, DateOnly maxDate)
+        {
+            DateTime minDT = minDate.ToDateTime(TimeOnly.MinValue),
+                maxDT = maxDate.ToDateTime(TimeOnly.MaxValue);
+            try
+            {
+                List<CalendarEntryDto> result = await _eventRepo.GetAllAsQueryable().Where(e =>
+                    e.IsActive
+                    && e.StartingDate >= minDT
+                    && e.StartingDate <= maxDT
+                    || e.EndingDate >= minDT
+                    && e.EndingDate <= maxDT).Select(e => new CalendarEntryDto
+                {
+                    Id = e.Id,
+                    Title = e.Title,
+                    IsAuthor = e.AuthorId == _userContext.UserId,
+                    StartDate = DateOnly.FromDateTime(e.StartingDate),
+                }).ToListAsync();
+
+                return CreateResponse<IReadOnlyList<CalendarEntryDto>>(true, 200, data: result);
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<IReadOnlyList<CalendarEntryDto>>(false, 500, message: ex.Message);
             }
         }
     }
