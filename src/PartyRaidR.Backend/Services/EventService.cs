@@ -408,10 +408,12 @@ namespace PartyRaidR.Backend.Services
             {
                 List<CalendarEntryDto> result = await _eventRepo.GetAllAsQueryable().Where(e =>
                     e.IsActive
-                    && e.StartingDate >= minDT
+                    && (e.StartingDate >= minDT
                     && e.StartingDate <= maxDT
                     || e.EndingDate >= minDT
-                    && e.EndingDate <= maxDT).Select(e => new CalendarEntryDto
+                    && e.EndingDate <= maxDT
+                    || e.StartingDate <= minDT
+                    && e.EndingDate >= maxDT)).Select(e => new CalendarEntryDto
                 {
                     Id = e.Id,
                     Title = e.Title,
