@@ -51,7 +51,11 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
     }
 
     if (
-      entries?.find(e => e.startDate?.startsWith(selectedDay)) !== undefined
+      entries?.find(
+        e =>
+          e.startDate?.startsWith(selectedDay) ||
+          e.endDate?.startsWith(selectedDay),
+      ) !== undefined
     ) {
       setModalVisible(true);
     }

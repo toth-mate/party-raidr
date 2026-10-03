@@ -1680,7 +1680,11 @@ export interface components {
             title?: string | null;
             /** Format: date */
             startDate?: string;
+            /** Format: date */
+            endDate?: string;
             isAuthor?: boolean;
+            locationName?: string | null;
+            status?: components["schemas"]["StatusType"];
         };
         CalendarEntryDtoIReadOnlyListServiceResponse: {
             data?: components["schemas"]["CalendarEntryDto"][] | null;

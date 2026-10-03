@@ -419,6 +419,9 @@ namespace PartyRaidR.Backend.Services
                     Title = e.Title,
                     IsAuthor = e.AuthorId == _userContext.UserId,
                     StartDate = DateOnly.FromDateTime(e.StartingDate),
+                    EndDate = DateOnly.FromDateTime(e.EndingDate),
+                    Status = e.Applications.Find(a => a.UserId == _userContext.UserId).Status,
+                    LocationName = $"{e.Place.Name}, {e.Place.City.Name}"
                 }).ToListAsync();
 
                 return CreateResponse<IReadOnlyList<CalendarEntryDto>>(true, 200, data: result);
