@@ -124,7 +124,7 @@ namespace PartyRaidR.Backend.Services
             string userId = _userContext.UserId;
             var userResult = await _userService.GetByIdAsync(userId);
 
-            return (userResult.Success && userResult.Data is not null) && (userResult.Data.Role != UserRole.Admin && eventToEdit.AuthorId == userId);
+            return userResult.Success && userResult.Data is not null && userResult.Data.Role != UserRole.Admin && eventToEdit.AuthorId == userId;
         }
 
         private string GetEventCategoryDisplayName(EventCategory category)
