@@ -17,6 +17,17 @@ import {
   ViewStyle,
 } from 'react-native';
 import { Calendar, DateData } from 'react-native-calendars';
+import {
+  Gesture,
+  GestureDetector,
+  GestureHandlerRootView,
+} from 'react-native-gesture-handler';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated';
+import { runOnJS } from 'react-native-worklets';
 import Divider from '../divider';
 import { ThemedText } from '../themed-text';
 import { ThemedView } from '../themed-view';
@@ -30,6 +41,7 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
   const [visibleDates, setVisibleDates] = useState<string[]>([]);
   const [selectedDay, setSelectedDay] = useState<string>('');
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const modalPosition = useSharedValue<number>(0);
 
   const modalBgColor = useThemeColor({}, 'secondaryBackground'),
     secondaryTextColor = useThemeColor({}, 'secondaryText');
@@ -43,6 +55,11 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
     setModalVisible(false);
     // This check is needed because otherwise the modal date formatting would report an error while still holding a value.
     if (!modalVisible) setSelectedDay('');
+  };
+
+  const handleClose = () => {
+    setModalVisible(false);
+    if (!modalVisible) modalPosition.value = 0;
   };
 
   useEffect(() => {
@@ -59,6 +76,7 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
       ) !== undefined
     ) {
       setModalVisible(true);
+      modalPosition.value = 0;
     }
   }, [selectedDay]);
 
@@ -76,6 +94,24 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
 
     return marked;
   }, [entries]);
+
+  const closeModalFlingGesture = Gesture.Pan()
+    .onUpdate(e => {
+      if (e.translationY > 0) {
+        modalPosition.value = e.translationY;
+      }
+    })
+    .onEnd(e => {
+      if (e.translationY > 100 || e.velocityY > 500) {
+        runOnJS(handleClose)();
+      } else {
+        modalPosition.value = withSpring(0);
+      }
+    });
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: modalPosition.value }],
+  }));
 
   const ModalHeader = () => {
     const { languageCode } = locales[0];
@@ -131,23 +167,36 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
         visible={modalVisible}
         onDismiss={closeModal}
         animationType='slide'>
-        <ThemedView
-          style={[styles.modalContent, { backgroundColor: modalBgColor }]}>
-          <ModalHeader />
-
-          <Divider />
-
-          {entries
-            ?.filter(e => e.startDate?.startsWith(selectedDay))
-            .map(e => {
-              return (
-                <CalendarListCard
-                  key={e.id}
-                  entry={e}
-                />
-              );
-            })}
-        </ThemedView>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'flex-end',
+            }}>
+            <GestureDetector gesture={closeModalFlingGesture}>
+              <Animated.View style={animatedStyle}>
+                <ThemedView
+                  style={[
+                    styles.modalContent,
+                    { backgroundColor: modalBgColor },
+                  ]}>
+                  <ModalHeader />
+                  <Divider />
+                  {entries
+                    ?.filter(e => e.startDate?.startsWith(selectedDay))
+                    .map(e => {
+                      return (
+                        <CalendarListCard
+                          key={e.id}
+                          entry={e}
+                        />
+                      );
+                    })}
+                </ThemedView>
+              </Animated.View>
+            </GestureDetector>
+          </View>
+        </GestureHandlerRootView>
       </Modal>
     </ThemedView>
   );
@@ -158,9 +207,10 @@ export default ActivityCalendar;
 const styles = StyleSheet.create({
   modalContent: {
     width: '100%',
-    height: '80%',
+    height: '90%',
     marginTop: 'auto',
-    borderRadius: 15,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
     paddingHorizontal: 10,
     paddingTop: 20,
   },
