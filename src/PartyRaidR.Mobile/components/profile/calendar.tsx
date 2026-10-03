@@ -25,6 +25,15 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
     visibleDates[visibleDates.length - 1],
   );
 
+  const selectedDayContainsEntry = useMemo(() => {
+    if (!selectedDay) {
+      return false;
+    }
+    return (
+      entries?.find(e => e.startDate?.startsWith(selectedDay)) !== undefined
+    );
+  }, [selectedDay]);
+
   const markedDates = useMemo(() => {
     const marked: Record<string, any> = {};
 
@@ -55,7 +64,7 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
       />
       <Modal
         transparent
-        visible={!!selectedDay}
+        visible={selectedDayContainsEntry}
         animationType='slide'>
         <ThemedView
           style={[
