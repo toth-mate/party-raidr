@@ -44,7 +44,10 @@
       "createAccount": "Készíts fiókot",
       "welcome": "Üdv újra!",
       "calendar": {
-        "description": "Itt láthatod a közelgő eseményeidet."
+        "description": "Itt láthatod a közelgő eseményeidet.",
+        "modal": {
+          "close": "Bezárás"
+        }
       }
     },
     "map": {
