@@ -406,14 +406,14 @@ namespace PartyRaidR.Backend.Services
                 maxDT = maxDate.ToDateTime(TimeOnly.MaxValue);
             try
             {
-                List<CalendarEntryDto> result = await _eventRepo.GetAllAsQueryable().Where(e =>
+                List<CalendarEntryDto> result = await _eventRepo.GetAllAsQueryable()
+                    .Where(e =>
                     e.IsActive
-                    && (e.StartingDate >= minDT
                     && e.StartingDate <= maxDT
-                    || e.EndingDate >= minDT
-                    && e.EndingDate <= maxDT
-                    || e.StartingDate <= minDT
-                    && e.EndingDate >= maxDT)).Select(e => new CalendarEntryDto
+                    && e.EndingDate >= minDT
+                    && (e.AuthorId == _userContext.UserId
+                        || e.Applications.Any(a => a.UserId == _userContext.UserId)))
+                    .Select(e => new CalendarEntryDto
                 {
                     Id = e.Id,
                     Title = e.Title,
