@@ -46,7 +46,11 @@ const CalendarListCard = ({ entry }: { entry: CalendarEntryDto }) => {
   };
 
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <View
+      style={{
+        flexDirection: 'row',
+        boxShadow: '5px 5px 10px rgba(0,0,0,0.15)',
+      }}>
       <View style={[styles.body, { backgroundColor: getStatusColor() }]}></View>
       <View style={[styles.cardContainer, { backgroundColor }]}>
         <View style={styles.cardHeader}>
