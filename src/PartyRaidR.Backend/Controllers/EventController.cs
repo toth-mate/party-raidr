@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PartyRaidR.Backend.Models;
+using PartyRaidR.Backend.Models.Responses;
 using PartyRaidR.Backend.Services.Promises;
 using PartyRaidR.Shared.Dtos;
+using PartyRaidR.Shared.Dtos.Event;
 
 namespace PartyRaidR.Backend.Controllers
 {
@@ -78,6 +80,7 @@ namespace PartyRaidR.Backend.Controllers
 
         [Authorize]
         [HttpGet("calendar-entries")]
+        [ProducesResponseType(typeof(ServiceResponse<IReadOnlyList<CalendarEntryDto>>), StatusCodes.Status200OK)]
         public async Task<IActionResult>
             GetCalendarEntries([FromQuery] DateOnly minDate, [FromQuery] DateOnly maxDate) =>
             HandleResponse(await _eventService.GetUserCalendarEntriesAsync(minDate, maxDate));
