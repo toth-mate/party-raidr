@@ -45,11 +45,14 @@ const TRANSLATION_PREFIX = 'tabs.profile.calendar.';
 LocaleConfig.locales['hu'] = dateLocales.hu;
 LocaleConfig.defaultLocale = 'hu';
 
+const TODAY = new Date().toISOString().split('T')[0];
+
 const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
   const locales = useLocales();
   const { t } = useTranslation();
   const [visibleDates, setVisibleDates] = useState<string[]>([]);
   const [selectedDay, setSelectedDay] = useState<string>('');
+  const [currentDate, setCurrentDate] = useState<string>(TODAY);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const modalPosition = useSharedValue<number>(0);
 
@@ -96,6 +99,10 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
       modalPosition.value = 0;
     }
   }, [selectedDay]);
+
+  useEffect(() => {
+    setVisibleDates(getVisibleDates(currentDate));
+  }, [currentDate]);
 
   const markedDates = useMemo(() => {
     const marked: Record<string, any> = {};
@@ -196,8 +203,9 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
       <ThemedText>{t(`${TRANSLATION_PREFIX}description`)}</ThemedText>
       <Calendar
         i18nIsDynamicList
+        current={currentDate}
         onMonthChange={(dateData: DateData) =>
-          setVisibleDates(getVisibleDates(dateData.dateString))
+          setCurrentDate(dateData.dateString)
         }
         markedDates={markedDates}
         onDayPress={day => setSelectedDay(day.dateString)}
