@@ -3,6 +3,7 @@ import {
   endOfMonth,
   endOfWeek,
   format,
+  isSameDay,
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
@@ -21,4 +22,20 @@ export const getVisibleDates = (dateString: string) => {
     start: gridStart,
     end: gridEnd,
   }).map(date => format(date, 'yyyy-MM-dd'));
+};
+
+export const getDateTimeDisplayInfo = (
+  start: Date | string,
+  end: Date | string,
+) => {
+  if (isSameDay(start, end)) {
+    return {
+      isTime: true,
+      resultString: `${format(start, 'HH:mm')} - ${format(end, 'HH:mm')}`,
+    };
+  }
+  return {
+    isTime: false,
+    resultString: `${format(start, 'yyyy-MM-dd')} - ${format(end, 'yyyy-MM-dd')}`,
+  };
 };

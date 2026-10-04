@@ -1,4 +1,5 @@
 import { Colors } from '@/constants/theme';
+import { getDateTimeDisplayInfo } from '@/helpers/dateHelper';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import Feather from '@react-native-vector-icons/feather';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +14,11 @@ const CalendarListCard = ({ entry }: { entry: CalendarEntryDto }) => {
   const backgroundColor = useThemeColor({}, 'inputFieldBackground'),
     secondaryTextColor = useThemeColor({}, 'secondaryText'),
     textColor = useThemeColor({}, 'tabIconDefault');
+
+  const { isTime, resultString: displayDT } = getDateTimeDisplayInfo(
+    entry.startDate!,
+    entry.endDate!,
+  );
 
   const getStatusColor = () => {
     if (entry.isAuthor) return Colors.info;
@@ -46,12 +52,7 @@ const CalendarListCard = ({ entry }: { entry: CalendarEntryDto }) => {
   };
 
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        boxShadow: '2px 2px 10px rgba(0,0,0,0.15)',
-        marginBottom: 10,
-      }}>
+    <View style={styles.cardWrapper}>
       <View style={[styles.body, { backgroundColor: getStatusColor() }]}></View>
       <View style={[styles.cardContainer, { backgroundColor }]}>
         <View style={styles.cardHeader}>
@@ -61,6 +62,14 @@ const CalendarListCard = ({ entry }: { entry: CalendarEntryDto }) => {
               {t(`${TRANSLATION_PREFIX}organizer`)}
             </ThemedText>
           )}
+        </View>
+        <View style={{ flexDirection: 'row', gap: 5, alignItems: 'baseline' }}>
+          <Feather
+            name={isTime ? 'clock' : 'calendar'}
+            color={textColor}
+            size={14}
+          />
+          <ThemedText>{displayDT}</ThemedText>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View
@@ -73,7 +82,7 @@ const CalendarListCard = ({ entry }: { entry: CalendarEntryDto }) => {
             <ThemedText>{entry.locationName}</ThemedText>
           </View>
           {!entry.isAuthor && (
-            <ThemedText style={{ color: getStatusColor() }}>
+            <ThemedText style={{ color: getStatusColor(), letterSpacing: 1 }}>
               [ {t(getStatusText())} ]
             </ThemedText>
           )}
@@ -86,6 +95,11 @@ const CalendarListCard = ({ entry }: { entry: CalendarEntryDto }) => {
 export default CalendarListCard;
 
 const styles = StyleSheet.create({
+  cardWrapper: {
+    flexDirection: 'row',
+    boxShadow: '2px 2px 10px rgba(0,0,0,0.15)',
+    marginBottom: 10,
+  },
   body: {
     width: 5,
     borderStartStartRadius: 10,
@@ -93,8 +107,8 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     padding: 15,
-    borderTopEndRadius: 10,
-    borderBottomEndRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
     width: '100%',
   },
   cardHeader: {
