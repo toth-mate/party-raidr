@@ -1678,9 +1678,9 @@ export interface components {
         CalendarEntryDto: {
             id?: string | null;
             title?: string | null;
-            /** Format: date */
+            /** Format: date-time */
             startDate?: string;
-            /** Format: date */
+            /** Format: date-time */
             endDate?: string;
             isAuthor?: boolean;
             locationName?: string | null;

@@ -42,6 +42,7 @@ import { ThemedView } from '../themed-view';
 import CalendarListCard from './calendar-list-card';
 
 const TRANSLATION_PREFIX = 'tabs.profile.calendar.';
+const DATE_FORMAT = 'yyyy-MM-dd';
 
 LocaleConfig.locales['hu'] = dateLocales.hu;
 LocaleConfig.defaultLocale = 'hu';
@@ -92,8 +93,8 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
           e.startDate &&
           e.endDate &&
           isWithinInterval(selectedDay, {
-            start: e.startDate,
-            end: e.endDate,
+            start: format(e.startDate, DATE_FORMAT),
+            end: format(e.endDate, DATE_FORMAT),
           }),
       ) !== undefined
     ) {
@@ -112,29 +113,33 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
     entries?.forEach(e => {
       if (
         (e.startDate && !e.endDate) ||
-        (e.startDate && e.endDate && e.startDate === e.endDate)
+        (e.startDate &&
+          e.endDate &&
+          format(e.startDate, DATE_FORMAT) === format(e.endDate, DATE_FORMAT))
       ) {
-        marked[e.startDate] = {
+        const mark = format(e.startDate, DATE_FORMAT);
+        marked[mark] = {
           marked: true,
           dotColor: Colors.primary,
         };
       } else if (!e.startDate && e.endDate) {
-        marked[e.endDate] = {
+        const mark = format(e.endDate, DATE_FORMAT);
+        marked[mark] = {
           marked: true,
           dotColor: Colors.primary,
         };
       } else if (e.startDate && e.endDate) {
-        let d = format(e.startDate, 'yyyy-MM-dd');
+        let d = format(e.startDate, DATE_FORMAT);
 
         do {
           marked[d] = {
             marked: true,
             dotColor: Colors.primary,
           };
-          d = format(addDays(d, 1), 'yyyy-MM-dd');
-        } while (d !== format(e.endDate, 'yyyy-MM-dd'));
+          d = format(addDays(d, 1), DATE_FORMAT);
+        } while (d !== format(e.endDate, DATE_FORMAT));
 
-        marked[e.endDate] = {
+        marked[format(e.endDate, DATE_FORMAT)] = {
           marked: true,
           dotColor: Colors.primary,
         };
@@ -165,7 +170,7 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
   const ModalHeader = () => {
     const { languageCode } = locales[0];
     const locale = languageCode === 'en' ? enUS : hu;
-    const date = format(selectedDay, 'yyyy-MM-dd');
+    const date = format(selectedDay, DATE_FORMAT);
     const dayOfWeek = formatDate(date, 'EEEE', { locale });
     const month = formatDate(date, 'LLLL', { locale });
 
@@ -245,8 +250,8 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
                   <FlatList
                     data={entries?.filter(e =>
                       isWithinInterval(selectedDay, {
-                        start: e.startDate!,
-                        end: e.endDate!,
+                        start: format(e.startDate!, DATE_FORMAT),
+                        end: format(e.endDate!, DATE_FORMAT),
                       }),
                     )}
                     renderItem={e => (

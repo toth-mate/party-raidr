@@ -418,8 +418,8 @@ namespace PartyRaidR.Backend.Services
                     Id = e.Id,
                     Title = e.Title,
                     IsAuthor = e.AuthorId == _userContext.UserId,
-                    StartDate = DateOnly.FromDateTime(e.StartingDate),
-                    EndDate = DateOnly.FromDateTime(e.EndingDate),
+                    StartDate = e.StartingDate,
+                    EndDate = e.EndingDate,
                     Status = e.Applications
                         .Where(a => a.UserId == _userContext.UserId)
                         .Select(a => a.Status)
