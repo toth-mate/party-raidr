@@ -31,13 +31,12 @@ export default function ProfileScreen() {
               </ThemedText>
               <ThemedText style={styles.emailText}>{user?.email}</ThemedText>
             </ThemedView>
+            <ActivityCalendar style={{ marginTop: 10 }} />
             <ThemedButton
               title={t(`${TRANSLATION_PREFIX}logout`)}
               variant='danger'
               onPress={logout}
             />
-
-            <ActivityCalendar style={{ marginTop: 10 }} />
           </ThemedView>
         ) : (
           <ThemedView style={styles.buttonWrapper}>
