@@ -1,4 +1,5 @@
 import { apiClient } from '@/api/apiClient';
+import { CalendarEntryDto } from '@/types/dto';
 import {
   BoundingBox,
   EventDisplayDto,
@@ -64,4 +65,13 @@ export const eventService = {
       return [];
     }
   },
+  getCalendarEntries: async (
+    minDate: string,
+    maxDate: string,
+  ): Promise<CalendarEntryDto[]> =>
+    (
+      await apiClient.get<CalendarEntryDto[]>('/event/calendar-entries', {
+        params: { minDate, maxDate },
+      })
+    ).data,
 };

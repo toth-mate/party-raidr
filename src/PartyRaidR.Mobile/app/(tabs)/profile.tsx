@@ -2,6 +2,7 @@ import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 
+import ActivityCalendar from '@/components/profile/calendar';
 import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -30,6 +31,7 @@ export default function ProfileScreen() {
               </ThemedText>
               <ThemedText style={styles.emailText}>{user?.email}</ThemedText>
             </ThemedView>
+            <ActivityCalendar style={{ marginTop: 10 }} />
             <ThemedButton
               title={t(`${TRANSLATION_PREFIX}logout`)}
               variant='danger'

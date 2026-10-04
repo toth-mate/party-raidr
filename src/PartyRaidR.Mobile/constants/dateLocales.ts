@@ -1,0 +1,45 @@
+const HU_LOCALES = {
+  monthNames: [
+    'Január',
+    'Február',
+    'Március',
+    'Április',
+    'Május',
+    'Június',
+    'Július',
+    'Augusztus',
+    'Szeptember',
+    'Október',
+    'November',
+    'December',
+  ],
+  monthNamesShort: [
+    'Jan.',
+    'Feb.',
+    'Márc.',
+    'Ápr.',
+    'Máj.',
+    'Jún.',
+    'Júl.',
+    'Aug.',
+    'Szep.',
+    'Nov.',
+    'Okt.',
+    'Dec.',
+  ],
+  dayNames: [
+    'Hétfő',
+    'Kedd',
+    'Szerda',
+    'Csütörtök',
+    'Péntek',
+    'Szombat',
+    'Vasárnap',
+  ],
+  dayNamesShort: ['Hét.', 'Kedd', 'Szer.', 'Csüt.', 'Pén.', 'Szo.', 'Vas.'],
+  today: 'Ma',
+};
+
+export default {
+  hu: HU_LOCALES,
+};

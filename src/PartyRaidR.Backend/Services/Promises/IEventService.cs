@@ -2,6 +2,7 @@
 using PartyRaidR.Backend.Models.Responses;
 using PartyRaidR.Backend.Services.Base;
 using PartyRaidR.Shared.Dtos;
+using PartyRaidR.Shared.Dtos.Event;
 
 namespace PartyRaidR.Backend.Services.Promises
 {
@@ -109,5 +110,13 @@ namespace PartyRaidR.Backend.Services.Promises
         /// <param name="radiusInKm">The radius in kilometers</param>
         /// <returns>A list of nearby events</returns>
         Task<ServiceResponse<List<UpcomingEventDto>>> GetNearbyEventsAsync(double latitude, double longitude, double radiusInKm);
+        
+        /// <summary>
+        /// Get a list of events that the user is author of or has applied to between a pair of dates.
+        /// </summary>
+        /// <param name="minDate">The minimum date included in the search</param>
+        /// <param name="maxDate">The maximum date included in the search</param>
+        /// <returns>A list of calendar entries including events that the user has created or applied to</returns>
+        Task<ServiceResponse<IReadOnlyList<CalendarEntryDto>>> GetUserCalendarEntriesAsync(DateOnly minDate, DateOnly maxDate);
     }
 }

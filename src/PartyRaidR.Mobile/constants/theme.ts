@@ -13,10 +13,16 @@ export const Colors = {
   secondaryDarkText: '#9880e5',
   tertiary: '#391759',
 
+  danger: '#f44336',
+  success: '#4caf50',
+  warning: '#ff9800',
+  info: '#2196f3',
+
   light: {
     text: '#11181C',
     secondaryText: '#232323',
     background: '#fff',
+    secondaryBackground: '#e3e3e3',
     tint: tintColorLight,
     icon: '#687076',
     tabIconDefault: '#687076',
@@ -26,6 +32,7 @@ export const Colors = {
     text: '#ECEDEE',
     secondaryText: '#757575',
     background: '#151718',
+    secondaryBackground: '#333',
     tint: tintColorDark,
     icon: '#9BA1A6',
     tabIconDefault: '#9BA1A6',

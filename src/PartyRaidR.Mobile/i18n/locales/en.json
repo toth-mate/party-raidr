@@ -42,7 +42,22 @@
       "login": "Login",
       "logout": "Logout",
       "createAccount": "Create an account",
-      "welcome": "Welcome back!"
+      "welcome": "Welcome back!",
+      "calendar": {
+        "description": "See your upcoming events here.",
+        "modal": {
+          "title": "Események a mai napon",
+          "titleNotFound": "Event title could not be found",
+          "close": "Close",
+          "card": {
+            "organizer": "Organizer",
+            "participant": "Participant",
+            "pending": "Pending",
+            "rejected": "Rejected",
+            "waitList": "Waitlist"
+          }
+        }
+      }
     },
     "map": {
       "title": "Map",

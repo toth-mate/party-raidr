@@ -1,5 +1,6 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 import '../i18n';
@@ -34,35 +35,37 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Stack
-        screenOptions={{
-          headerStyle: { backgroundColor },
-          headerTintColor: textColor,
-          contentStyle: { backgroundColor },
-        }}>
-        <Stack.Screen
-          name='(tabs)'
-          options={{ headerShown: false }}
+    <GestureHandlerRootView>
+      <QueryClientProvider client={queryClient}>
+        <Stack
+          screenOptions={{
+            headerStyle: { backgroundColor },
+            headerTintColor: textColor,
+            contentStyle: { backgroundColor },
+          }}>
+          <Stack.Screen
+            name='(tabs)'
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='(auth)'
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='event/[id]'
+            options={{ headerBackButtonDisplayMode: 'generic' }}
+          />
+          <Stack.Screen
+            name='profile'
+            options={{ headerShown: false }}
+          />
+        </Stack>
+        <Toast
+          position='bottom'
+          swipeable
         />
-        <Stack.Screen
-          name='(auth)'
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name='event/[id]'
-          options={{ headerBackButtonDisplayMode: 'generic' }}
-        />
-        <Stack.Screen
-          name='profile'
-          options={{ headerShown: false }}
-        />
-      </Stack>
-      <Toast
-        position='bottom'
-        swipeable
-      />
-      <StatusBar style='auto' />
-    </QueryClientProvider>
+        <StatusBar style='auto' />
+      </QueryClientProvider>
+    </GestureHandlerRootView>
   );
 }
