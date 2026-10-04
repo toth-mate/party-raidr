@@ -44,7 +44,10 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
   const modalPosition = useSharedValue<number>(0);
 
   const modalBgColor = useThemeColor({}, 'secondaryBackground'),
-    secondaryTextColor = useThemeColor({}, 'secondaryText');
+    dayTextColor = useThemeColor({}, 'text'),
+    secondaryTextColor = useThemeColor({}, 'secondaryText'),
+    calendarBgColor = useThemeColor({}, 'inputFieldBackground'),
+    textDisabledColor = useThemeColor({ light: '#aaa' }, 'secondaryText');
 
   const { data: entries } = useCalendar(
     visibleDates[0],
@@ -161,6 +164,16 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
         }
         markedDates={markedDates}
         onDayPress={day => setSelectedDay(day.dateString)}
+        theme={{
+          calendarBackground: calendarBgColor,
+          arrowColor: Colors.primary,
+          todayBackgroundColor: Colors.primary,
+          todayTextColor: 'white',
+          dayTextColor,
+          textDisabledColor,
+          monthTextColor: dayTextColor,
+        }}
+        style={{ borderRadius: 10, marginTop: 8 }}
       />
       <Modal
         transparent
