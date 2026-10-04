@@ -98,7 +98,7 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
       setModalVisible(true);
       modalPosition.value = 0;
     }
-  }, [selectedDay]);
+  }, [entries, selectedDay]);
 
   useEffect(() => {
     setVisibleDates(getVisibleDates(currentDate));
