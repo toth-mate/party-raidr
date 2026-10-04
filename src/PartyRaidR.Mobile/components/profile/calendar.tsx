@@ -1,3 +1,4 @@
+import dateLocales from '@/constants/dateLocales';
 import { Colors } from '@/constants/theme';
 import { getVisibleDates } from '@/helpers/dateHelper';
 import { useCalendar } from '@/hooks/use-event-queries';
@@ -16,7 +17,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { Calendar, DateData } from 'react-native-calendars';
+import { Calendar, DateData, LocaleConfig } from 'react-native-calendars';
 import {
   Gesture,
   GestureDetector,
@@ -34,6 +35,9 @@ import { ThemedView } from '../themed-view';
 import CalendarListCard from './calendar-list-card';
 
 const TRANSLATION_PREFIX = 'tabs.profile.calendar.';
+
+LocaleConfig.locales['hu'] = dateLocales.hu;
+LocaleConfig.defaultLocale = 'hu';
 
 const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
   const locales = useLocales();
