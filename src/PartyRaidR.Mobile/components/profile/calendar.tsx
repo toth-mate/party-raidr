@@ -25,6 +25,7 @@ import {
 } from 'react-native';
 import { Calendar, DateData, LocaleConfig } from 'react-native-calendars';
 import {
+  FlatList,
   Gesture,
   GestureDetector,
   GestureHandlerRootView,
@@ -62,10 +63,11 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
     calendarBgColor = useThemeColor({}, 'inputFieldBackground'),
     textDisabledColor = useThemeColor({ light: '#aaa' }, 'secondaryText');
 
-  const { data: entries } = useCalendar(
-    visibleDates[0],
-    visibleDates[visibleDates.length - 1],
-  );
+  const {
+    data: entries,
+    refetch,
+    isFetching,
+  } = useCalendar(visibleDates[0], visibleDates[visibleDates.length - 1]);
 
   const closeModal = () => {
     setModalVisible(false);
@@ -240,21 +242,22 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
                   ]}>
                   <ModalHeader />
                   <Divider />
-                  {entries
-                    ?.filter(e =>
+                  <FlatList
+                    data={entries?.filter(e =>
                       isWithinInterval(selectedDay, {
                         start: e.startDate!,
                         end: e.endDate!,
                       }),
-                    )
-                    .map(e => {
-                      return (
-                        <CalendarListCard
-                          key={e.id}
-                          entry={e}
-                        />
-                      );
-                    })}
+                    )}
+                    renderItem={e => (
+                      <CalendarListCard
+                        entry={e.item}
+                        key={e.index}
+                      />
+                    )}
+                    onRefresh={refetch}
+                    refreshing={isFetching}
+                  />
                 </ThemedView>
               </Animated.View>
             </GestureDetector>
