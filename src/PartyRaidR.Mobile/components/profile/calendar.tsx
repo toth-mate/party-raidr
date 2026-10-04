@@ -4,7 +4,13 @@ import { getVisibleDates } from '@/helpers/dateHelper';
 import { useCalendar } from '@/hooks/use-event-queries';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Feather } from '@react-native-vector-icons/feather';
-import { format, formatDate, getDate } from 'date-fns';
+import {
+  addDays,
+  format,
+  formatDate,
+  getDate,
+  isWithinInterval,
+} from 'date-fns';
 import { enUS, hu } from 'date-fns/locale';
 import { useLocales } from 'expo-localization';
 import { useEffect, useMemo, useState } from 'react';
@@ -78,8 +84,12 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
     if (
       entries?.find(
         e =>
-          e.startDate?.startsWith(selectedDay) ||
-          e.endDate?.startsWith(selectedDay),
+          e.startDate &&
+          e.endDate &&
+          isWithinInterval(selectedDay, {
+            start: e.startDate,
+            end: e.endDate,
+          }),
       ) !== undefined
     ) {
       setModalVisible(true);
@@ -91,8 +101,31 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
     const marked: Record<string, any> = {};
 
     entries?.forEach(e => {
-      if (e.startDate) {
+      if (
+        (e.startDate && !e.endDate) ||
+        (e.startDate && e.endDate && e.startDate === e.endDate)
+      ) {
         marked[e.startDate] = {
+          marked: true,
+          dotColor: Colors.primary,
+        };
+      } else if (!e.startDate && e.endDate) {
+        marked[e.endDate] = {
+          marked: true,
+          dotColor: Colors.primary,
+        };
+      } else if (e.startDate && e.endDate) {
+        let d = format(e.startDate, 'yyyy-MM-dd');
+
+        do {
+          marked[d] = {
+            marked: true,
+            dotColor: Colors.primary,
+          };
+          d = format(addDays(d, 1), 'yyyy-MM-dd');
+        } while (d !== format(e.endDate, 'yyyy-MM-dd'));
+
+        marked[e.endDate] = {
           marked: true,
           dotColor: Colors.primary,
         };
