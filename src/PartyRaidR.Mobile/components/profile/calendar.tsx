@@ -241,10 +241,11 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
                   <ModalHeader />
                   <Divider />
                   {entries
-                    ?.filter(
-                      e =>
-                        e.startDate?.startsWith(selectedDay) ||
-                        e.endDate?.startsWith(selectedDay),
+                    ?.filter(e =>
+                      isWithinInterval(selectedDay, {
+                        start: e.startDate!,
+                        end: e.endDate!,
+                      }),
                     )
                     .map(e => {
                       return (
