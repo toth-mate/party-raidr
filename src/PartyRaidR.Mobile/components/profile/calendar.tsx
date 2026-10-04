@@ -183,7 +183,11 @@ const ActivityCalendar = ({ style }: { style?: StyleProp<ViewStyle> }) => {
                   <ModalHeader />
                   <Divider />
                   {entries
-                    ?.filter(e => e.startDate?.startsWith(selectedDay))
+                    ?.filter(
+                      e =>
+                        e.startDate?.startsWith(selectedDay) ||
+                        e.endDate?.startsWith(selectedDay),
+                    )
                     .map(e => {
                       return (
                         <CalendarListCard
