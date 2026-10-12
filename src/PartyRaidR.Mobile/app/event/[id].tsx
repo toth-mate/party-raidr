@@ -1,5 +1,5 @@
 import { Stack, useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 
@@ -9,10 +9,10 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useApply } from '@/hooks/use-apply';
+import { useCurrentUser } from '@/hooks/use-auth-queries';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { applicationService } from '@/services/applicationService';
 import { eventService } from '@/services/eventService';
-import { useAuthStore } from '@/store/useAuthStore';
 import { EventDisplayDto } from '@/types/event.types';
 import { useQuery } from '@tanstack/react-query';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -34,7 +34,8 @@ const EventDetails = () => {
   const [event, setEvent] = useState<EventDisplayDto | undefined>(undefined);
   const contentBackgroundColor = useThemeColor({}, 'inputFieldBackground');
   const applyMutation = useApply();
-  const user = useAuthStore(state => state.user);
+
+  const { data: user } = useCurrentUser();
 
   const { data: applicationExists } = useQuery({
     queryKey: ['application', 'exists', eventId, user?.id],
