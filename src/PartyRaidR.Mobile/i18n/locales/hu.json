@@ -2,16 +2,14 @@
   "common": {
     "apply": "Alkalmaz",
     "auth": {
-      "logout": {
-        "toast": {
-          "logout": {
-            "title": "Sikeres kijelentkezés",
-            "text": "Kijelentkeztél."
-          },
-          "error": {
-            "title": "Hiba!",
-            "text": "Hiba keletkezett bejelentkezés közben. Kérlek, próbáld újra később."
-          }
+      "toast": {
+        "logout": {
+          "title": "Sikeres kijelentkezés",
+          "text": "Kijelentkeztél."
+        },
+        "error": {
+          "title": "Hiba!",
+          "text": "Hiba keletkezett bejelentkezés közben. Kérlek, próbáld újra később."
         }
       }
     }

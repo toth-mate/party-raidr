@@ -2,16 +2,14 @@
   "common": {
     "apply": "Apply",
     "auth": {
-      "logout": {
-        "toast": {
-          "logout": {
-            "title": "Successfully logged out",
-            "text": "You have been logged out."
-          },
-          "error": {
-            "title": "Error!",
-            "text": "An error occured when logging in. Please try again later."
-          }
+      "toast": {
+        "logout": {
+          "title": "Successfully logged out",
+          "text": "You have been logged out."
+        },
+        "error": {
+          "title": "Error!",
+          "text": "An error occured when logging in. Please try again later."
         }
       }
     }
