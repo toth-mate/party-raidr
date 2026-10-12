@@ -1,6 +1,6 @@
 import { getErrorMessageKey } from '@/helpers/registerValidationHelper';
 import { authService } from '@/services/authService';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
@@ -34,5 +34,23 @@ export const useRegister = () => {
         text2: t(errorMessage),
       });
     },
+  });
+};
+
+export const useLogin = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authService.login,
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ['auth', 'user'] }),
+  });
+};
+
+export const useCurrentUser = () => {
+  return useQuery({
+    queryKey: ['auth', 'user'],
+    queryFn: () => authService.me(),
+    retry: false,
   });
 };
