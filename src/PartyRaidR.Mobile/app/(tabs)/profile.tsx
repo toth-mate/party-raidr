@@ -29,8 +29,8 @@ export default function ProfileScreen() {
       queryKey: ['events', 'calendar'],
     });
     manifestToast({
-      title: t('common.auth.logout.toast.logout.title'),
-      text: t('common.auth.logout.toast.logout.text'),
+      title: t('common.auth.toast.logout.title'),
+      text: t('common.auth.toast.logout.text'),
       type: 'info',
     });
   };
