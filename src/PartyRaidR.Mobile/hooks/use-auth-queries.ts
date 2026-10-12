@@ -3,6 +3,7 @@ import { authService } from '@/services/authService';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useRouter } from 'expo-router';
+import * as SecureStorage from 'expo-secure-store';
 import { useTranslation } from 'react-i18next';
 import Toast from 'react-native-toast-message';
 
@@ -42,8 +43,12 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: authService.login,
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ['auth', 'user'] }),
+    onSuccess: async token => {
+      if (token) {
+        await SecureStorage.setItemAsync('auth_token', token);
+        queryClient.invalidateQueries({ queryKey: ['auth', 'user'] });
+      }
+    },
   });
 };
 
@@ -52,5 +57,6 @@ export const useCurrentUser = () => {
     queryKey: ['auth', 'user'],
     queryFn: () => authService.me(),
     retry: false,
+    networkMode: 'online',
   });
 };
