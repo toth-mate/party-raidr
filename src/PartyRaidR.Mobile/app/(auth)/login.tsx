@@ -1,5 +1,4 @@
 import { Link, useRouter } from 'expo-router';
-import * as SecureStorage from 'expo-secure-store';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, StyleSheet, TextInput, View } from 'react-native';
@@ -31,16 +30,11 @@ const Login = () => {
     Keyboard.dismiss();
 
     if (email && password) {
-      let token: string | undefined = undefined;
-
       loginMutation.mutate(
         { email, password },
         {
           async onSuccess(data, variables, onMutateResult, context) {
-            token = data;
-
-            if (token) {
-              await SecureStorage.setItemAsync('auth_token', token);
+            if (data) {
               Toast.show({
                 type: 'success',
                 text1: t(`${TRANSLATION_PREFIX}toast.success`),
