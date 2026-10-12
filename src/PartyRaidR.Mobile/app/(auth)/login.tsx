@@ -2,12 +2,12 @@ import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, StyleSheet, TextInput, View } from 'react-native';
-import Toast from 'react-native-toast-message';
 
 import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
+import { manifestToast } from '@/helpers/toastHelper';
 import { useLogin } from '@/hooks/use-auth-queries';
 import { useThemeColor } from '@/hooks/use-theme-color';
 
@@ -35,10 +35,10 @@ const Login = () => {
         {
           async onSuccess(data, variables, onMutateResult, context) {
             if (data) {
-              Toast.show({
+              manifestToast({
+                title: t(`${TRANSLATION_PREFIX}toast.success`),
+                text: t(`${TRANSLATION_PREFIX}toast.welcome`),
                 type: 'success',
-                text1: t(`${TRANSLATION_PREFIX}toast.success`),
-                text2: t(`${TRANSLATION_PREFIX}toast.welcome`),
                 autoHide: true,
               });
               router.replace('/profile');

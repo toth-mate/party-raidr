@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import Toast from 'react-native-toast-message';
 
 type ToastConfig = {
@@ -11,11 +10,9 @@ type ToastConfig = {
 };
 
 export const manifestToast = (config: ToastConfig) => {
-  const { t } = useTranslation();
-
   Toast.show({
-    text1: t(config.title),
-    text2: t(config.text),
+    text1: config.title,
+    text2: config.text,
     ...config,
   });
 };

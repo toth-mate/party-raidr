@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router';
+import * as SecureStorage from 'expo-secure-store';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 
@@ -6,17 +7,33 @@ import ActivityCalendar from '@/components/profile/calendar';
 import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { manifestToast } from '@/helpers/toastHelper';
+import { useCurrentUser } from '@/hooks/use-auth-queries';
 import { useThemeColor } from '@/hooks/use-theme-color';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useQueryClient } from '@tanstack/react-query';
 
 const TRANSLATION_PREFIX = 'tabs.profile.';
 
 export default function ProfileScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const user = useAuthStore(state => state.user);
-  const isLoggedIn = useAuthStore(state => state.isAuthenticated);
-  const logout = useAuthStore(state => state.logout);
+  const queryClient = useQueryClient();
+
+  const { data: user } = useCurrentUser();
+  const isLoggedIn = !!user;
+
+  const logout = async () => {
+    await SecureStorage.deleteItemAsync('auth_token');
+    queryClient.setQueryData(['auth', 'user'], null);
+    queryClient.removeQueries({
+      queryKey: ['events', 'calendar'],
+    });
+    manifestToast({
+      title: t('common.auth.logout.toast.logout.title'),
+      text: t('common.auth.logout.toast.logout.text'),
+      type: 'info',
+    });
+  };
 
   const backgroundColor = useThemeColor({}, 'inputFieldBackground');
 
