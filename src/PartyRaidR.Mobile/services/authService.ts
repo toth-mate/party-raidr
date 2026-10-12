@@ -3,12 +3,8 @@ import { UserDto, UserLoginDto, UserRegisterDto } from '@/types/auth.types';
 
 export const authService = {
   login: async (creds: UserLoginDto): Promise<string | undefined> => {
-    try {
-      const response = await apiClient.post('/auth/login', creds);
-      return response.data;
-    } catch (error) {
-      console.error(`Failed to get user data: ${error}`);
-    }
+    const response = await apiClient.post('/auth/login', creds);
+    return response.data;
   },
   register: async (creds: UserRegisterDto): Promise<UserDto | string> => {
     const response = await apiClient.post('/auth/register', creds);
@@ -20,11 +16,7 @@ export const authService = {
     }
   },
   me: async (): Promise<UserDto | undefined> => {
-    try {
-      const response = await apiClient.get('/auth/me');
-      return response.data;
-    } catch (error) {
-      console.error(`Failed to get user data: ${error}`);
-    }
+    const response = await apiClient.get('/auth/me');
+    return response.data;
   },
 };

@@ -1,8 +1,9 @@
 import { getErrorMessageKey } from '@/helpers/registerValidationHelper';
 import { authService } from '@/services/authService';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useRouter } from 'expo-router';
+import * as SecureStorage from 'expo-secure-store';
 import { useTranslation } from 'react-i18next';
 import Toast from 'react-native-toast-message';
 
@@ -34,5 +35,28 @@ export const useRegister = () => {
         text2: t(errorMessage),
       });
     },
+  });
+};
+
+export const useLogin = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authService.login,
+    onSuccess: async token => {
+      if (token) {
+        await SecureStorage.setItemAsync('auth_token', token);
+        queryClient.invalidateQueries({ queryKey: ['auth', 'user'] });
+      }
+    },
+  });
+};
+
+export const useCurrentUser = () => {
+  return useQuery({
+    queryKey: ['auth', 'user'],
+    queryFn: () => authService.me(),
+    retry: false,
+    networkMode: 'online',
   });
 };

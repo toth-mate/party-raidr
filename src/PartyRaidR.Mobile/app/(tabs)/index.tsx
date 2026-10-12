@@ -8,9 +8,9 @@ import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Collapsible } from '@/components/ui/collapsible';
+import { useCurrentUser } from '@/hooks/use-auth-queries';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { eventService } from '@/services/eventService';
-import { useAuthStore } from '@/store/useAuthStore';
 import { useLocationStore } from '@/store/useLocationStore';
 import { UpcomingEventDto } from '@/types/event.types';
 
@@ -27,7 +27,10 @@ export default function HomeScreen() {
   const loadLocation = useLocationStore(state => state.loadLocation);
   const latitude = useLocationStore(state => state.lat),
     longitude = useLocationStore(state => state.lng);
-  const isLoggedIn = useAuthStore(state => state.isAuthenticated);
+
+  const { data: user } = useCurrentUser();
+
+  const isLoggedIn = !!user;
 
   const backgroundColor = useThemeColor({}, 'background');
   const panelBgColor = useThemeColor({}, 'inputFieldBackground');

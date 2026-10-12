@@ -1,24 +1,23 @@
-import { useRouter, Link } from 'expo-router';
-import * as SecureStorage from 'expo-secure-store';
-import React, { useState } from 'react';
+import { Link, useRouter } from 'expo-router';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, StyleSheet, TextInput, View } from 'react-native';
-import Toast from 'react-native-toast-message';
 
 import ThemedButton from '@/components/themed-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
+import { manifestToast } from '@/helpers/toastHelper';
+import { useLogin } from '@/hooks/use-auth-queries';
 import { useThemeColor } from '@/hooks/use-theme-color';
-import { authService } from '@/services/authService';
-import { useAuthStore } from '@/store/useAuthStore';
-
 
 const TRANSLATION_PREFIX = 'screens.auth.login.';
 
 const Login = () => {
   const { t } = useTranslation();
   const router = useRouter();
+
+  const loginMutation = useLogin();
 
   const inputTextColor = useThemeColor({}, 'text');
   const backgroundColor = useThemeColor({}, 'inputFieldBackground');
@@ -27,28 +26,26 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const initialize = useAuthStore(state => state.initializeAuth);
-
   const login = async () => {
     Keyboard.dismiss();
 
     if (email && password) {
-      const token = await authService.login({
-        email: email,
-        password: password,
-      });
-
-      if (token) {
-        await SecureStorage.setItemAsync('auth_token', token);
-        await initialize();
-        Toast.show({
-          type: 'success',
-          text1: t(`${TRANSLATION_PREFIX}toast.success`),
-          text2: t(`${TRANSLATION_PREFIX}toast.welcome`),
-          autoHide: true,
-        });
-        router.replace('/profile');
-      }
+      loginMutation.mutate(
+        { email, password },
+        {
+          async onSuccess(data, variables, onMutateResult, context) {
+            if (data) {
+              manifestToast({
+                title: t(`${TRANSLATION_PREFIX}toast.success`),
+                text: t(`${TRANSLATION_PREFIX}toast.welcome`),
+                type: 'success',
+                autoHide: true,
+              });
+              router.replace('/profile');
+            }
+          },
+        },
+      );
     }
   };
 
