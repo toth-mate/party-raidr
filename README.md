@@ -2,11 +2,16 @@
 
 ![Status](https://img.shields.io/badge/Status-In--Development-yellow?style=for-the-badge&logo=codepen)
 
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
+![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Expo](https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white)
+
+![.NET](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
 ![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
+
 ![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## 📄 Description
 
@@ -22,14 +27,12 @@ If you want to try the current state of the app, follow these steps:
 
 ### 📋 Prerequisites
 
- + **General:**
-    - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-    - [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
-    - [Node 24.9.0](https://nodejs.org/en/download)
-    - [Visual Studio](https://visualstudio.microsoft.com/vs/)
- + **Mobile:**
-    - Android SDK & Emulator - Testing on Android. On Windows 11, enabling Hyper-V is recommended.
-    - iOS SDK (macOS only) - For testing on iOS Xcode is needed.
+For running the project on a local setup, the following are needed:
+
+- [Docker Engine](https://docs.docker.com/get-started/get-docker/)
+- Docker Compose
+- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [Node 24.21.0](https://nodejs.org/en/download) & **npm**
 
 ### ⚙️ Setup & Installation Guide
 
@@ -64,7 +67,7 @@ There is also an NGINX container that acts as a reverse-proxy and API-gateway. I
 127.0.0.1 party.test
 ```
 
-**Run Docker container:**
+**Run Docker containers:**
 ```bash
 > docker compose up --build
 ```
@@ -81,4 +84,7 @@ The backend runs a DB seeder, so some sample data is ready for you to play aroun
 + Infrastructure: Docker - The whole development environment and the database are containerized for portability and consistent running.
 
 ## 📝 Version Control
+
+**Pull Requests that merge into a protected branch need to be squashed.**
+
 Since **3 April 2026** *Conventional Commits* are used in the project (including Issues, Pull Requests and branches).
