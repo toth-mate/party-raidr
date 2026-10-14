@@ -88,4 +88,7 @@ The backend runs a DB seeder, so some sample data is ready for you to play aroun
 + Infrastructure: Docker - The whole development environment and the database are containerized for portability and consistent running.
 
 ## 📝 Version Control
+
+**Pull Requests that merge into a protected branch need to be squashed.**
+
 Since **3 April 2026** *Conventional Commits* are used in the project (including Issues, Pull Requests and branches).
