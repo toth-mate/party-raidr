@@ -71,7 +71,7 @@ There is also an NGINX container that acts as a reverse-proxy and API-gateway. I
 127.0.0.1 party.test
 ```
 
-**Run Docker container:**
+**Run Docker containers:**
 ```bash
 > docker compose up --build
 ```
