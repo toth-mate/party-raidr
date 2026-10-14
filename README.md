@@ -27,11 +27,13 @@ If you want to try the current state of the app, follow these steps:
 
 ### 📋 Prerequisites
 
+For running the project on a local setup, the following are needed:
+
  + **General:**
-    - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+    - [Docker Engine](https://docs.docker.com/get-started/get-docker/)
+    - Docker Compose
     - [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
-    - [Node 24.9.0](https://nodejs.org/en/download)
-    - [Visual Studio](https://visualstudio.microsoft.com/vs/)
+    - [Node 24.21.0](https://nodejs.org/en/download) & **npm**
  + **Mobile:**
     - Android SDK & Emulator - Testing on Android. On Windows 11, enabling Hyper-V is recommended.
     - iOS SDK (macOS only) - For testing on iOS Xcode is needed.
