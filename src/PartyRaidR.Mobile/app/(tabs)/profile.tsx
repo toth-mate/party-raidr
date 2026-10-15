@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import * as SecureStorage from 'expo-secure-store';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import ActivityCalendar from '@/components/profile/calendar';
 import ThemedButton from '@/components/themed-button';
@@ -10,6 +10,7 @@ import { ThemedView } from '@/components/themed-view';
 import { manifestToast } from '@/helpers/toastHelper';
 import { useCurrentUser } from '@/hooks/use-auth-queries';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import Feather from '@react-native-vector-icons/feather';
 import { useQueryClient } from '@tanstack/react-query';
 
 const TRANSLATION_PREFIX = 'tabs.profile.';
@@ -19,15 +20,19 @@ export default function ProfileScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
+  const textColor = useThemeColor({}, 'text');
+
   const { data: user } = useCurrentUser();
   const isLoggedIn = !!user;
 
   const logout = async () => {
     await SecureStorage.deleteItemAsync('auth_token');
+
     queryClient.setQueryData(['auth', 'user'], null);
     queryClient.removeQueries({
       queryKey: ['events', 'calendar'],
     });
+
     manifestToast({
       title: t('common.auth.toast.logout.title'),
       text: t('common.auth.toast.logout.text'),
@@ -43,9 +48,16 @@ export default function ProfileScreen() {
         {isLoggedIn ? (
           <ThemedView>
             <ThemedView style={[styles.content, { backgroundColor }]}>
-              <ThemedText style={styles.usernameText}>
-                {user?.username}
-              </ThemedText>
+              <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
+                <Feather
+                  name='user'
+                  color={textColor}
+                  size={24}
+                />
+                <ThemedText style={styles.usernameText}>
+                  {user?.username}
+                </ThemedText>
+              </View>
               <ThemedText style={styles.emailText}>{user?.email}</ThemedText>
             </ThemedView>
             <ActivityCalendar style={{ marginTop: 10 }} />
@@ -90,6 +102,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   usernameText: {
+    marginStart: 5,
     fontSize: 26,
     fontWeight: 'bold',
   },
