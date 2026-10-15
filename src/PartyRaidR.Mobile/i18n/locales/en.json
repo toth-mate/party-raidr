@@ -41,6 +41,7 @@
       "logout": "Logout",
       "createAccount": "Create an account",
       "welcome": "Welcome back!",
+      "memberSince": "Member since: {{date}}",
       "calendar": {
         "description": "See your upcoming events here.",
         "modal": {

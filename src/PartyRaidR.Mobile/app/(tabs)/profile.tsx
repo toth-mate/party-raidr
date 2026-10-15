@@ -21,6 +21,8 @@ export default function ProfileScreen() {
   const queryClient = useQueryClient();
 
   const textColor = useThemeColor({}, 'text');
+  const backgroundColor = useThemeColor({}, 'inputFieldBackground');
+  const secondaryColor = useThemeColor({}, 'icon');
 
   const { data: user } = useCurrentUser();
   const isLoggedIn = !!user;
@@ -40,15 +42,13 @@ export default function ProfileScreen() {
     });
   };
 
-  const backgroundColor = useThemeColor({}, 'inputFieldBackground');
-
   return (
     <>
       <ThemedView safe={true}>
         {isLoggedIn ? (
           <ThemedView>
             <ThemedView style={[styles.content, { backgroundColor }]}>
-              <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
+              <View style={styles.accountEntryRow}>
                 <Feather
                   name='user'
                   color={textColor}
@@ -58,9 +58,35 @@ export default function ProfileScreen() {
                   {user?.username}
                 </ThemedText>
               </View>
-              <ThemedText style={styles.emailText}>{user?.email}</ThemedText>
+              <View style={styles.accountEntryRow}>
+                <Feather
+                  name='mail'
+                  color={textColor}
+                />
+                <ThemedText style={styles.accountEntryText}>
+                  {user?.email}
+                </ThemedText>
+              </View>
+              <View style={styles.accountEntryRow}>
+                <Feather
+                  name='calendar'
+                  color={textColor}
+                />
+                <ThemedText style={styles.accountEntryText}>
+                  {user?.birthDate}
+                </ThemedText>
+              </View>
+
+              <ThemedText
+                style={[styles.memberDateText, { color: secondaryColor }]}>
+                {t(`${TRANSLATION_PREFIX}memberSince`, {
+                  date: user.registerDate.split('T')[0],
+                })}
+              </ThemedText>
             </ThemedView>
+
             <ActivityCalendar style={{ marginTop: 10 }} />
+
             <ThemedButton
               title={t(`${TRANSLATION_PREFIX}logout`)}
               variant='danger'
@@ -101,13 +127,23 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
   },
+  accountEntryRow: {
+    marginBottom: 2,
+    flexDirection: 'row',
+    alignItems: 'baseline',
+  },
   usernameText: {
     marginStart: 5,
     fontSize: 26,
     fontWeight: 'bold',
   },
-  emailText: {
+  accountEntryText: {
+    marginStart: 5,
     fontSize: 14,
     fontWeight: '300',
+  },
+  memberDateText: {
+    fontSize: 12,
+    textAlign: 'center',
   },
 });

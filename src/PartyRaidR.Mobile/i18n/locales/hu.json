@@ -41,6 +41,7 @@
       "logout": "Kijelentkezés",
       "createAccount": "Készíts fiókot",
       "welcome": "Üdv újra!",
+      "memberSince": "Tag {{date}} óta",
       "calendar": {
         "description": "Itt láthatod a közelgő eseményeidet.",
         "modal": {
