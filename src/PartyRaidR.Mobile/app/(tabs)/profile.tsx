@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import * as SecureStorage from 'expo-secure-store';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import ActivityCalendar from '@/components/profile/calendar';
 import ThemedButton from '@/components/themed-button';
@@ -10,6 +10,7 @@ import { ThemedView } from '@/components/themed-view';
 import { manifestToast } from '@/helpers/toastHelper';
 import { useCurrentUser } from '@/hooks/use-auth-queries';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import Feather from '@react-native-vector-icons/feather';
 import { useQueryClient } from '@tanstack/react-query';
 
 const TRANSLATION_PREFIX = 'tabs.profile.';
@@ -19,15 +20,21 @@ export default function ProfileScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
+  const textColor = useThemeColor({}, 'text');
+  const backgroundColor = useThemeColor({}, 'inputFieldBackground');
+  const secondaryColor = useThemeColor({}, 'icon');
+
   const { data: user } = useCurrentUser();
   const isLoggedIn = !!user;
 
   const logout = async () => {
     await SecureStorage.deleteItemAsync('auth_token');
+
     queryClient.setQueryData(['auth', 'user'], null);
     queryClient.removeQueries({
       queryKey: ['events', 'calendar'],
     });
+
     manifestToast({
       title: t('common.auth.toast.logout.title'),
       text: t('common.auth.toast.logout.text'),
@@ -35,20 +42,51 @@ export default function ProfileScreen() {
     });
   };
 
-  const backgroundColor = useThemeColor({}, 'inputFieldBackground');
-
   return (
     <>
       <ThemedView safe={true}>
         {isLoggedIn ? (
           <ThemedView>
             <ThemedView style={[styles.content, { backgroundColor }]}>
-              <ThemedText style={styles.usernameText}>
-                {user?.username}
+              <View style={styles.accountEntryRow}>
+                <Feather
+                  name='user'
+                  color={textColor}
+                  size={24}
+                />
+                <ThemedText style={styles.usernameText}>
+                  {user?.username}
+                </ThemedText>
+              </View>
+              <View style={styles.accountEntryRow}>
+                <Feather
+                  name='mail'
+                  color={textColor}
+                />
+                <ThemedText style={styles.accountEntryText}>
+                  {user?.email}
+                </ThemedText>
+              </View>
+              <View style={styles.accountEntryRow}>
+                <Feather
+                  name='calendar'
+                  color={textColor}
+                />
+                <ThemedText style={styles.accountEntryText}>
+                  {user?.birthDate}
+                </ThemedText>
+              </View>
+
+              <ThemedText
+                style={[styles.memberDateText, { color: secondaryColor }]}>
+                {t(`${TRANSLATION_PREFIX}memberSince`, {
+                  date: user.registerDate.split('T')[0],
+                })}
               </ThemedText>
-              <ThemedText style={styles.emailText}>{user?.email}</ThemedText>
             </ThemedView>
+
             <ActivityCalendar style={{ marginTop: 10 }} />
+
             <ThemedButton
               title={t(`${TRANSLATION_PREFIX}logout`)}
               variant='danger'
@@ -89,12 +127,23 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
   },
+  accountEntryRow: {
+    marginBottom: 2,
+    flexDirection: 'row',
+    alignItems: 'baseline',
+  },
   usernameText: {
+    marginStart: 5,
     fontSize: 26,
     fontWeight: 'bold',
   },
-  emailText: {
+  accountEntryText: {
+    marginStart: 5,
     fontSize: 14,
     fontWeight: '300',
+  },
+  memberDateText: {
+    fontSize: 12,
+    textAlign: 'center',
   },
 });
