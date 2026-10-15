@@ -9,7 +9,7 @@ export interface UserDto {
   email: string;
   profilePictureUrl: string;
   registerDate: string;
-  birtDate: string;
+  birthDate: string;
   role: UserRole;
 }
 
