@@ -8,7 +8,7 @@ namespace PartyRaidR.Backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ApplicationController : BaseController<Application, ApplicationDto>
+    public class ApplicationController : BaseController<Application, ApplicationDto>, IControllerWithCreation<ApplicationDto>
     {
         public readonly IApplicationService _applicationService;
 
@@ -52,5 +52,10 @@ namespace PartyRaidR.Backend.Controllers
         [HttpGet("my-applications-display")]
         public async Task<IActionResult> GetMyApplicationsDisplay() =>
             HandleResponse(await _applicationService.GetMyApplicationsDisplayAsync());
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] ApplicationDto dto) =>
+            HandleResponse(await _applicationService.AddAsync(dto));
     }
 }

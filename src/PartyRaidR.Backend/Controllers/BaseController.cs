@@ -35,11 +35,6 @@ namespace PartyRaidR.Backend.Controllers
             HandleResponse(await _service.GetByIdAsync(id));
 
         [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TDto dto) =>
-            HandleResponse(await _service.AddAsync(dto));
-
-        [Authorize]
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] TDto dto) =>
             HandleResponse(await _service.UpdateAsync(dto));
