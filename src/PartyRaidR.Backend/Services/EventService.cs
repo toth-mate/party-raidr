@@ -246,6 +246,7 @@ namespace PartyRaidR.Backend.Services
 
         public async Task<ServiceResponse<EventDto>> AddAsync(CreateEventDto dto)
         {
+            // TODO: Rework add logic - Generic service should not require a read-heavy DTO as the creation object.
             try
             {
                 // Check if the new event is valid

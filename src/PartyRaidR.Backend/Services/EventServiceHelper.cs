@@ -88,7 +88,6 @@ namespace PartyRaidR.Backend.Services
             if (dto.Room < 0 || dto.Room == 1)
                 throw new ArgumentException("Room must be greater than 1.");
 
-
             var eventsAtPlace = await _repo.FindByConditionAsync(e => e.PlaceId == dto.PlaceId);
             _repo.ClearTracker();
 
