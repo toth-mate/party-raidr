@@ -8,7 +8,7 @@ namespace PartyRaidR.Backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PlaceController : BaseController<Place, PlaceDto>
+    public class PlaceController : BaseController<Place, PlaceDto>, IControllerWithCreation<PlaceDto>
     {
         private readonly IPlaceService _placeService;
 
@@ -25,5 +25,10 @@ namespace PartyRaidR.Backend.Controllers
         [HttpGet("my-places")]
         public async Task<IActionResult> GetMyPlaces() =>
             HandleResponse(await _placeService.GetMyPlacesAsync());
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] PlaceDto dto) =>
+            HandleResponse(await _placeService.AddAsync(dto));
     }
 }

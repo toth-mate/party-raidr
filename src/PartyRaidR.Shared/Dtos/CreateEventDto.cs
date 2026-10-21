@@ -1,8 +1,7 @@
 ﻿namespace PartyRaidR.Shared.Dtos
 {
-    public class CreateEventDto : IHasId
+    public class CreateEventDto
     {
-        public string Id { get; set; } = Guid.Empty.ToString();
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public DateTime StartingDate { get; set; } = DateTime.Now;

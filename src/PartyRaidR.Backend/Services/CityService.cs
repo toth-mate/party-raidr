@@ -67,6 +67,7 @@ namespace PartyRaidR.Backend.Services
             }
         }
 
+        [Obsolete("Cities are not to be added manually.")]
         public async override Task<ServiceResponse<CityDto>> AddAsync(CityDto dto)
         {
             bool isUserAdmin = await IsUserAdmin();

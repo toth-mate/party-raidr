@@ -11,7 +11,7 @@ namespace PartyRaidR.Backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class EventController : BaseController<Event, EventDto>
+    public class EventController : BaseController<Event, EventDto>, IControllerWithCreation<CreateEventDto>
     {
         private readonly IEventService _eventService;
 
@@ -21,8 +21,8 @@ namespace PartyRaidR.Backend.Controllers
         }
 
         [Authorize]
-        [HttpPost("create")]
-        public async Task<IActionResult> CreateEvent([FromBody] CreateEventDto dto) =>
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateEventDto dto) =>
             HandleResponse(await _eventService.AddAsync(dto));
 
         [HttpGet("count")]

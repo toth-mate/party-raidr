@@ -88,14 +88,12 @@ namespace PartyRaidR.Backend.Services
             if (dto.Room < 0 || dto.Room == 1)
                 throw new ArgumentException("Room must be greater than 1.");
 
-
             var eventsAtPlace = await _repo.FindByConditionAsync(e => e.PlaceId == dto.PlaceId);
             _repo.ClearTracker();
 
             // Check for overlapping events at the same place
             bool isOverlapping = eventsAtPlace.Any(e =>
-                e.Id != dto.Id
-                && (dto.StartingDate <= e.StartingDate && dto.EndingDate > e.StartingDate)
+                (dto.StartingDate <= e.StartingDate && dto.EndingDate > e.StartingDate)
                 || (dto.StartingDate > e.StartingDate && dto.StartingDate < e.EndingDate)
             );
 
