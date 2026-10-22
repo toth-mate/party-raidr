@@ -64,6 +64,8 @@ export default function MainTabs() {
         name='create'
         options={{
           title: '',
+          headerShown: true,
+          headerTitle: t(`${TRANSLATION_PREFIX}create.title`),
           tabBarIcon: ({ color }) => (
             <IconSymbol
               size={44}
