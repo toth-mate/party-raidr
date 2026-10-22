@@ -73,7 +73,20 @@
       }
     },
     "create": {
-      "title": "Esemény létrehozása"
+      "title": "Esemény létrehozása",
+      "eventTitle": "Esemény címe",
+      "titleExample": "Pl. Szülinapi parti...",
+      "category": "Kategória",
+      "time": "Időpont",
+      "start": "Kezdés: ",
+      "end": "Befejezés: ",
+      "location": "Helyszín",
+      "search": "Keresés (min. 3 karakter)...",
+      "optional": "Opcionális",
+      "max": "Létszám korlátozása",
+      "price": "Belépő ára",
+      "description": "Leírás",
+      "details": "Írd ide a részleteket..."
     }
   },
   "screens": {

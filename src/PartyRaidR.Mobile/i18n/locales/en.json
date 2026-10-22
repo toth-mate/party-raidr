@@ -73,7 +73,20 @@
       }
     },
     "create": {
-      "title": "Create event"
+      "title": "Create event",
+      "eventTitle": "Event title",
+      "titleExample": "e. g. Birthday party",
+      "category": "Category",
+      "time": "Time",
+      "start": "Start: ",
+      "end": "End: ",
+      "location": "Location",
+      "search": "Search (min. 3 characters)...",
+      "optional": "Optional info",
+      "max": "Max capacity",
+      "price": "Price",
+      "description": "Description",
+      "details": "Type details here..."
     }
   },
   "screens": {
