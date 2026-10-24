@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 
 import { Colors } from '@/constants/theme';
@@ -7,17 +6,28 @@ import { LabeledInputProps } from '@/types/props.types';
 
 import { ThemedText } from '../themed-text';
 
-const LabeledInput = ({ labelKey, errorKey, ...props }: LabeledInputProps) => {
+const LabeledInput = ({
+  labelKey,
+  errorKey,
+  labelType = 'small',
+  ...props
+}: LabeledInputProps) => {
   const inputTextColor = useThemeColor({}, 'text');
   const backgroundColor = useThemeColor({}, 'inputFieldBackground');
   const labelTextColor = useThemeColor({}, 'icon');
 
   return (
     <View>
-      <ThemedText style={{ color: labelTextColor }}>{labelKey}</ThemedText>
+      <ThemedText style={[{ color: labelTextColor }, styles[labelType]]}>
+        {labelKey}
+      </ThemedText>
       <>
         <TextInput
-          style={[styles.input, { color: inputTextColor, backgroundColor }]}
+          style={[
+            styles.input,
+            { color: inputTextColor, backgroundColor },
+            props.inputStyle,
+          ]}
           {...props}
         />
         {errorKey && (
@@ -40,6 +50,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowOffset: { width: 0.5, height: 1 },
     shadowRadius: 1,
+  },
+  small: {
+    fontSize: 16,
+  },
+  big: {
+    fontSize: 20,
   },
   errorText: {
     color: 'red',
