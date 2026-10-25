@@ -12,6 +12,14 @@
           "text": "An error occured when logging in. Please try again later."
         }
       }
+    },
+    "eventCategory": {
+      "none": "None",
+      "outdoors": "Outdoors activity",
+      "indoors": "Indoors activity",
+      "concert": "Concert",
+      "festival": "Festival",
+      "party": "Party"
     }
   },
   "tabs": {

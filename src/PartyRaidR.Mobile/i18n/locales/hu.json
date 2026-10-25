@@ -12,6 +12,14 @@
           "text": "Hiba keletkezett bejelentkezés közben. Kérlek, próbáld újra később."
         }
       }
+    },
+    "eventCategory": {
+      "none": "Nincs",
+      "outdoors": "Kinti esemény",
+      "indoors": "Benti esemény",
+      "concert": "Koncert",
+      "festival": "Fesztivál",
+      "party": "Buli"
     }
   },
   "tabs": {
