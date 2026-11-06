@@ -1,7 +1,8 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, Pressable, StyleSheet, View } from 'react-native';
 
+import { Colors } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 
 import { ThemedText } from '../themed-text';
@@ -16,6 +17,9 @@ type DropdownProps = {
 const Dropdown = ({ placeholderKey, label, data, onSelect }: DropdownProps) => {
   const { t } = useTranslation();
   const backgroundColor = useThemeColor({}, 'inputFieldBackground');
+  const inputBackgroundColor = useThemeColor({}, 'background');
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const dataTypeIsMap = useMemo(() => {
     return (typeof data).toLowerCase().includes('map');
@@ -26,22 +30,34 @@ const Dropdown = ({ placeholderKey, label, data, onSelect }: DropdownProps) => {
     [data, dataTypeIsMap],
   );
 
+  const [selected, setSelected] = useState<string>(dataResult[0] as string);
+
   const option = (dataLabel: string) => (
-    <Pressable onPress={() => onSelect(dataLabel)}>
+    <Pressable
+      onPress={() => {
+        onSelect(dataLabel);
+        setSelected(dataLabel);
+        setIsOpen(false);
+      }}>
       <ThemedText>{dataLabel}</ThemedText>
     </Pressable>
   );
-
-  console.log(data);
 
   return (
     <>
       {label && <ThemedText type='subtitle'>{label}</ThemedText>}
       <View style={[{ backgroundColor }]}>
-        <FlatList
-          data={dataResult as string[]}
-          renderItem={({ item }) => option(item)}
-        />
+        <Pressable
+          onPress={() => setIsOpen(!isOpen)}
+          style={[styles.box, { backgroundColor: inputBackgroundColor }]}>
+          <ThemedText>{selected}</ThemedText>
+        </Pressable>
+        {isOpen && (
+          <FlatList
+            data={dataResult as string[]}
+            renderItem={({ item }) => option(item)}
+          />
+        )}
       </View>
     </>
   );
@@ -49,4 +65,15 @@ const Dropdown = ({ placeholderKey, label, data, onSelect }: DropdownProps) => {
 
 export default Dropdown;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  box: {
+    marginTop: 5,
+    padding: 10,
+    borderRadius: 15,
+    fontSize: 16,
+    shadowColor: Colors.primaryDarkText,
+    shadowOpacity: 0.5,
+    shadowOffset: { width: 0.5, height: 1 },
+    shadowRadius: 1,
+  },
+});
