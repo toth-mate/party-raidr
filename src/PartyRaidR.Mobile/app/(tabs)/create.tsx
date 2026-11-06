@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 
@@ -5,6 +6,7 @@ import Card from '@/components/card';
 import { ThemedView } from '@/components/themed-view';
 import Dropdown from '@/components/ui/dropdown';
 import LabeledInput from '@/components/ui/labeled-input';
+import { toMap } from '@/helpers/collectionHelper';
 import { useThemeColor } from '@/hooks/use-theme-color';
 
 const TRANSLATION_PREFIX = 'tabs.create.';
@@ -13,11 +15,16 @@ export default function CreateScreen() {
   const { t } = useTranslation();
   const inputBgColor = useThemeColor({}, 'background');
 
-  /*const data = new Map<number, string>([
-    [0, 'zero'],
-    [1, 'one'],
-  ]);*/
-  const data = ['one', 'two', 'three'];
+  const [category, setCategory] = useState<number | undefined>(undefined);
+
+  const data = toMap([
+    'None',
+    'Outdoors activity',
+    'Indoors activity',
+    'Concert',
+    'Festival',
+    'Party',
+  ]);
 
   return (
     <ThemedView style={styles.container}>
@@ -31,7 +38,7 @@ export default function CreateScreen() {
         <Dropdown
           data={data}
           placeholderKey='asd'
-          value='asd'
+          onSelect={d => setCategory(data.get(d as string))}
         />
       </Card>
     </ThemedView>
