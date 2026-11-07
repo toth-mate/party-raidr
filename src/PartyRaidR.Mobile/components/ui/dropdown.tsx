@@ -16,20 +16,13 @@ import { useThemeColor } from '@/hooks/use-theme-color';
 import { ThemedText } from '../themed-text';
 
 type DropdownProps = {
-  placeholderKey: string;
   label?: string;
   data: string[] | Map<string, number>;
   onSelect<T>(s: T): void;
   style?: StyleProp<ViewStyle>;
 };
 
-const Dropdown = ({
-  placeholderKey,
-  label,
-  data,
-  onSelect,
-  style,
-}: DropdownProps) => {
+const Dropdown = ({ label, data, onSelect, style }: DropdownProps) => {
   const { t } = useTranslation();
   const backgroundColor = useThemeColor({}, 'inputFieldBackground');
   const inputBackgroundColor = useThemeColor({}, 'background');
