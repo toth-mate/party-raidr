@@ -1,3 +1,4 @@
+import { Feather } from '@expo/vector-icons';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, Pressable, StyleSheet, View } from 'react-native';
@@ -51,6 +52,10 @@ const Dropdown = ({ placeholderKey, label, data, onSelect }: DropdownProps) => {
           onPress={() => setIsOpen(!isOpen)}
           style={[styles.box, { backgroundColor: inputBackgroundColor }]}>
           <ThemedText>{selected}</ThemedText>
+          <Feather
+            name={isOpen ? 'chevron-up' : 'chevron-down'}
+            size={14}
+          />
         </Pressable>
         {isOpen && (
           <FlatList
@@ -75,5 +80,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowOffset: { width: 0.5, height: 1 },
     shadowRadius: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
   },
 });
