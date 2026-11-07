@@ -12,6 +12,7 @@
     "generate:api": "openapi-typescript http://party.test/swagger/v1/swagger.json -o ./types/api.ts"
   },
   "dependencies": {
+    "@expo/ui": "~58.0.27",
     "@expo/vector-icons": "^15.0.3",
     "@react-native-community/datetimepicker": "9.2.1",
     "@react-native-vector-icons/feather": "^13.1.4",
