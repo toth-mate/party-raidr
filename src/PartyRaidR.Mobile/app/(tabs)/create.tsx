@@ -38,7 +38,6 @@ export default function CreateScreen() {
         <Dropdown
           label={t(`${TRANSLATION_PREFIX}category`)}
           data={data}
-          placeholderKey='asd'
           onSelect={d => setCategory(data.get(d as string))}
           style={styles.categoryDropdown}
         />

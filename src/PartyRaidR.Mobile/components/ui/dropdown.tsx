@@ -48,7 +48,8 @@ const Dropdown = ({ label, data, onSelect, style }: DropdownProps) => {
         onSelect(dataLabel);
         setSelected(t(dataLabel));
         setIsOpen(false);
-      }}>
+      }}
+      style={[styles.option, { borderColor: backgroundColor }]}>
       <ThemedText>{t(`${dataLabel}`)}</ThemedText>
     </Pressable>
   );
@@ -65,7 +66,11 @@ const Dropdown = ({ label, data, onSelect, style }: DropdownProps) => {
       <View style={[{ backgroundColor }]}>
         <Pressable
           onPress={() => setIsOpen(!isOpen)}
-          style={[styles.box, { backgroundColor: inputBackgroundColor }]}>
+          style={[
+            styles.box,
+            { backgroundColor: inputBackgroundColor },
+            isOpen && { ...styles.boxOpen, borderColor: backgroundColor },
+          ]}>
           <ThemedText>{selected}</ThemedText>
           <Feather
             name={isOpen ? 'chevron-up' : 'chevron-down'}
@@ -77,6 +82,11 @@ const Dropdown = ({ label, data, onSelect, style }: DropdownProps) => {
           <FlatList
             data={dataResult as string[]}
             renderItem={({ item }) => option(item)}
+            style={{
+              backgroundColor: inputBackgroundColor,
+              borderBottomLeftRadius: 15,
+              borderBottomRightRadius: 15,
+            }}
           />
         )}
       </View>
@@ -99,5 +109,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'baseline',
+  },
+  boxOpen: {
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    borderBottomWidth: 1,
+  },
+  option: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderBottomWidth: 1,
   },
 });
