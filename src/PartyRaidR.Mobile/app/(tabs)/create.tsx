@@ -18,12 +18,12 @@ export default function CreateScreen() {
   const [category, setCategory] = useState<number | undefined>(undefined);
 
   const data = toMap([
-    'None',
-    'Outdoors activity',
-    'Indoors activity',
-    'Concert',
-    'Festival',
-    'Party',
+    'common.eventCategory.none',
+    'common.eventCategory.outdoors',
+    'common.eventCategory.indoors',
+    'common.eventCategory.concert',
+    'common.eventCategory.festival',
+    'common.eventCategory.party',
   ]);
 
   return (
@@ -36,9 +36,11 @@ export default function CreateScreen() {
           inputStyle={{ backgroundColor: inputBgColor }}
         />
         <Dropdown
+          label={t(`${TRANSLATION_PREFIX}category`)}
           data={data}
           placeholderKey='asd'
           onSelect={d => setCategory(data.get(d as string))}
+          style={styles.categoryDropdown}
         />
       </Card>
     </ThemedView>
@@ -50,5 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 10,
   },
-  inputField: {},
+  categoryDropdown: {
+    marginTop: 8,
+  },
 });

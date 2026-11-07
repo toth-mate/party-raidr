@@ -1,7 +1,14 @@
 import { Feather } from '@expo/vector-icons';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, Pressable, StyleSheet, View } from 'react-native';
+import {
+  FlatList,
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 import { Colors } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
@@ -13,12 +20,20 @@ type DropdownProps = {
   label?: string;
   data: string[] | Map<string, number>;
   onSelect<T>(s: T): void;
+  style?: StyleProp<ViewStyle>;
 };
 
-const Dropdown = ({ placeholderKey, label, data, onSelect }: DropdownProps) => {
+const Dropdown = ({
+  placeholderKey,
+  label,
+  data,
+  onSelect,
+  style,
+}: DropdownProps) => {
   const { t } = useTranslation();
   const backgroundColor = useThemeColor({}, 'inputFieldBackground');
   const inputBackgroundColor = useThemeColor({}, 'background');
+  const labelColor = useThemeColor({}, 'icon');
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -37,16 +52,22 @@ const Dropdown = ({ placeholderKey, label, data, onSelect }: DropdownProps) => {
     <Pressable
       onPress={() => {
         onSelect(dataLabel);
-        setSelected(dataLabel);
+        setSelected(t(dataLabel));
         setIsOpen(false);
       }}>
-      <ThemedText>{dataLabel}</ThemedText>
+      <ThemedText>{t(`${dataLabel}`)}</ThemedText>
     </Pressable>
   );
 
   return (
-    <>
-      {label && <ThemedText type='subtitle'>{label}</ThemedText>}
+    <View style={style}>
+      {label && (
+        <ThemedText
+          type='subtitle'
+          style={{ color: labelColor, fontWeight: 'normal' }}>
+          {label}
+        </ThemedText>
+      )}
       <View style={[{ backgroundColor }]}>
         <Pressable
           onPress={() => setIsOpen(!isOpen)}
@@ -64,7 +85,7 @@ const Dropdown = ({ placeholderKey, label, data, onSelect }: DropdownProps) => {
           />
         )}
       </View>
-    </>
+    </View>
   );
 };
 
