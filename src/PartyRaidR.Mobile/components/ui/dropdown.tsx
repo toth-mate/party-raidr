@@ -34,6 +34,7 @@ const Dropdown = ({
   const backgroundColor = useThemeColor({}, 'inputFieldBackground');
   const inputBackgroundColor = useThemeColor({}, 'background');
   const labelColor = useThemeColor({}, 'icon');
+  const textColor = useThemeColor({}, 'text');
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -46,7 +47,7 @@ const Dropdown = ({
     [data, dataTypeIsMap],
   );
 
-  const [selected, setSelected] = useState<string>(dataResult[0] as string);
+  const [selected, setSelected] = useState<string>(t(dataResult[0] as string));
 
   const option = (dataLabel: string) => (
     <Pressable
@@ -76,6 +77,7 @@ const Dropdown = ({
           <Feather
             name={isOpen ? 'chevron-up' : 'chevron-down'}
             size={14}
+            color={textColor}
           />
         </Pressable>
         {isOpen && (
